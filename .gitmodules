@@ -1,3 +1,6 @@
 [submodule "externals/EnjoLib"]
 	path = externals/EnjoLib
 	url = https://github.com/EnjoMitch/EnjoLib.git
+[submodule "externals/URT"]
+	path = externals/URT
+	url = https://github.com/mj-xmr/URT.git
