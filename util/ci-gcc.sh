@@ -13,3 +13,4 @@ cmake -G "${GEN}" ../.. \
 -DUSE_UNITY="ON" \
 -DBUILD_BOOST="ON" \
 && ${MAKE} -j `nproc` || ${MAKE} && ${MAKE} -j `nproc` install
+ctest --output-on-failure -j `nproc`
