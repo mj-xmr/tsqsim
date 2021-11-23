@@ -1,0 +1,92 @@
+#ifndef BUFFERTYPE_H_INCLUDED
+#define BUFFERTYPE_H_INCLUDED
+
+#include <Util/EnumClassWrapper.hpp>
+
+enum BufferTypeEnum
+{
+    BUF_TREND_MA,
+    BUF_TREND_MA_UP1,
+    BUF_TREND_MA_UP2,
+    BUF_TREND_MA_UP3,
+
+    BUF_MA_SUPER_FAST,
+    BUF_MA_FAST,
+    BUF_MA_SLOW,
+    BUF_MA_AVG,
+    BUF_STD_DEV,
+    BUF_STD_RELATIVE,
+    BUF_SPREAD_PROFIT,
+    BUF_TRENDNESS,
+    //BUF_TRENDNESS_SMOOTH,
+    BUF_ADX,
+    BUF_ATR,
+    BUF_ATR_RELATIVE,
+    BUF_RSI,
+    BUF_ROC,
+    BUF_STOCH_K,
+    BUF_STOCH_D,
+    //BUF_STOCH_FIT,
+    //BUF_LOWS,
+    //BUF_HIGHS
+    //BUF_TREND_REGRESS,
+    //BUF_TREND_REGRESS_SMOOTH,
+
+    /*
+    BUF_HMM_STATES,
+    BUF_HMM_PROB1,
+    BUF_HMM_PROB2,
+    BUF_HMM_PROB3,
+    */
+    BUF_UNIV_OSCI,
+    BUF_SIN,
+    BUF_SIN_LEAD,
+    BUF_SIN_DIFF,
+    //BUF_EDECOMP_UP,
+    //BUF_EDECOMP_LO,
+    //BUF_EDECOMP_MID,
+    BUF_MACD,
+    BUF_MACD_SIGNAL,
+    BUF_MACD_HIST,
+    BUF_MA_HIST,
+    BUF_MA_HIST_STD_UP,
+    BUF_MA_HIST_STD_DOWN,
+    BUF_TREND_ZZ_MA_CROSS,
+    BUF_MARKET_REGIME,
+    BUF_LONG_WICK_BULL,
+    BUF_LONG_WICK_BEAR,
+    BUF_LONG_WICK_BULL_REL,
+    BUF_LONG_WICK_BEAR_REL,
+    BUF_LONG_WICK_SEPARATE,
+    BUF_MA_RUN_BULL,
+    BUF_MA_RUN_BEAR,
+    BUF_ZZ_STAT,
+    BUF_SR_BULL,
+    BUF_SR_BEAR,
+    BUF_ZZ_PROB,
+    BUF_WKND_PROB,
+    BUF_NIGHT_PROB,
+    BUF_INTEREST_1,
+    BUF_INTEREST_2,
+    BUF_INTEREST_DIFF,
+    BUF_BBAND_UP,
+    BUF_BBAND_DOWN,
+    BUF_STRAT,
+    BUF_TEST,
+    BUF_REG_VOTE,
+    BUF_STATION,
+    BUF_SSA_OSCI,
+    BUF_TIME_DIFF,
+    BUF_SPREADS,
+    BUF_NONE,
+};
+
+/// Saves compilation time on new enum members
+class BufferType : public EnjoLib::EnumClassWrapper<BufferTypeEnum>
+{
+public:
+    using EnumClassWrapper::EnumClassWrapper; // Constructor inheritance
+};
+
+
+#endif // BUFFERTYPE_H_INCLUDED

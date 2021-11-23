@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<FileVersion major="1" minor="0" />
+	<ActiveTarget name="Release-x64" />
+	<File name="../../src/include/FuzzyEngine++/Hedge.hpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="959" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../../src/include/FuzzyEngine++/FuzzyEngine.hpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5637" topLine="113" />
+		</Cursor>
+	</File>
+	<File name="../../src/cpp/MembershipFunction.cpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1637" topLine="21" />
+		</Cursor>
+	</File>
+	<File name="../../src/include/FuzzyEngine++/MembershipFunction.hpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="984" topLine="17" />
+		</Cursor>
+	</File>
+	<File name="../../src/include/FuzzyEngine++/EvaluationException.hpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1152" topLine="5" />
+		</Cursor>
+	</File>
+	<File name="../../src/cpp/FuzzyRule.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="924" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="../../src/include/FuzzyEngine++/FuzzyBlockOfRules.hpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1005" topLine="21" />
+		</Cursor>
+	</File>
+	<File name="../../src/cpp/FuzzyBlockOfRules.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="908" topLine="5" />
+		</Cursor>
+	</File>
+	<File name="../../src/include/FuzzyEngine++/NoRulesFiredException.hpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1189" topLine="4" />
+		</Cursor>
+	</File>
+	<File name="../../src/include/FuzzyEngine++/LinguisticVariable.hpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3790" topLine="83" />
+		</Cursor>
+	</File>
+	<File name="../../src/cpp/LinguisticVariable.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="746" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../../src/cpp/RulesParsingException.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1053" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../../src/cpp/HedgeNot.cpp" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="955" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../../src/cpp/NoRulesFiredException.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1053" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../../src/cpp/HedgeVery.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="581" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../../src/cpp/EvaluationException.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1047" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../../src/include/FuzzyEngine++/FuzzyRule.hpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="970" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../../src/cpp/HedgeSomewhat.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="889" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../../src/include/FuzzyEngine++/RulesParsingException.hpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1246" topLine="6" />
+		</Cursor>
+	</File>
+	<File name="../../src/include/FuzzyEngine++/ForDefuzzification.hpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="985" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="../../src/cpp/FuzzyEngine.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="10838" topLine="347" />
+		</Cursor>
+	</File>
+</CodeBlocks_layout_file>

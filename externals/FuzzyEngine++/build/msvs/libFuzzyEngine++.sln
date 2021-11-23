@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FuzzyEngine++Example", "FuzzyEngine++Example.vcproj", "{5E26A2CE-5C36-4B81-A69F-A9BA103F5DF2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FFE8BA98-8EF1-4390-8611-F8734A5ECD4E} = {FFE8BA98-8EF1-4390-8611-F8734A5ECD4E}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libFuzzyEngine++", "libFuzzyEngine++.vcproj", "{FFE8BA98-8EF1-4390-8611-F8734A5ECD4E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5E26A2CE-5C36-4B81-A69F-A9BA103F5DF2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5E26A2CE-5C36-4B81-A69F-A9BA103F5DF2}.Debug|Win32.Build.0 = Debug|Win32
+		{5E26A2CE-5C36-4B81-A69F-A9BA103F5DF2}.Release|Win32.ActiveCfg = Release|Win32
+		{5E26A2CE-5C36-4B81-A69F-A9BA103F5DF2}.Release|Win32.Build.0 = Release|Win32
+		{FFE8BA98-8EF1-4390-8611-F8734A5ECD4E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FFE8BA98-8EF1-4390-8611-F8734A5ECD4E}.Debug|Win32.Build.0 = Debug|Win32
+		{FFE8BA98-8EF1-4390-8611-F8734A5ECD4E}.Release|Win32.ActiveCfg = Release|Win32
+		{FFE8BA98-8EF1-4390-8611-F8734A5ECD4E}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

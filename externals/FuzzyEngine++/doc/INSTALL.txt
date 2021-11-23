@@ -1,0 +1,20 @@
+To build the library, you can use either Make / MinGW, Code::Blocks or MSVS
+
+A) MinGW / make
+1) Download and install MinGW with msys
+2) Copy the library folder into msys/../home/user
+3) Enter msys' console and cd into libFuzzyEngine++/build
+4) Type make to build everything - static and dynamic libraries, as well as console and wxWidgets example
+5) The wxWidgets example will fail if you haven't built wxWidgets. To build it go to http://www.wxwidgets.org/ and proceed with their installation instructions
+6) After the installation is complete, be sure to copy wx-config script into msys/bin, so "make" can access it
+
+B) Code::Blocks
+1) Enter libFuzzyEngine++/build/codeblocks directory ad open all .cbp projects projects
+2) Select FuzzyEngine++ project and choose either Release or Debug build target. Compile it with Ctrl+F9
+3) Compile the console example the same way
+4) wxWidgets example is more tricky. Right click on FuzzyCarriage proect and select Build options. On Windows, you need to select Windows Release or Windows Debug project. Next you have to adjust Compiler and Linker Cearch directories, to comform with your wxWidgets installation
+
+C) MSVS
+1) Enter libFuzzyEngine++/build/msvs directory ad open libFuzzyEngine++.sln solution
+2) Just press F7
+3) Sorry, but no MSVS wxWidgets project is available. You're on your own here.
