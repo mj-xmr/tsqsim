@@ -8,9 +8,12 @@ file( GLOB SRCS src/*.cpp */*.h */*.hpp)
 
 add_executable(${PROJECT_NAME} ${SRCS})
 enjoSetupTarget(${PROJECT_NAME})
+enjoSymlink(${PROJECT_NAME} ../../data ${CMAKE_BINARY_DIR}/bin/data)
+enjoSymlink(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/helloworld.txt ${CMAKE_BINARY_DIR}/bin/helloworld.txt)
 target_link_libraries(${PROJECT_NAME} tsqsim-lib)
+
 
 # Make sure the compiler can find include files for our Hello library
 # when other libraries or executables link to Hello
 target_include_directories (${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-
+install (TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_BINARY_DIR}/bin)

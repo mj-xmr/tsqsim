@@ -11,7 +11,7 @@ on:
 # The below variables reduce repetitions across similar targets
 env:
   REMOVE_BUNDLED_BOOST : rm -rf /usr/local/share/boost
-  APT_INSTALL_LINUX: 'sudo apt -y install build-essential cmake ccache libssl-dev libeigen3-dev libunittest++-dev libgsl-dev libarmadillo-dev libboost-system-dev libboost-filesystem-dev libboost-iostreams-dev libboost-serialization-dev libboost-program-options-dev'
+  APT_INSTALL_LINUX: 'sudo apt -y install build-essential cmake ccache gnuplot libssl-dev libeigen3-dev libunittest++-dev libgsl-dev libarmadillo-dev libboost-system-dev libboost-filesystem-dev libboost-iostreams-dev libboost-serialization-dev libboost-program-options-dev libboost-date-time-dev'
   APT_SET_CONF: |
         echo "Acquire::Retries       \"3\";"   | sudo tee -a /etc/apt/apt.conf.d/80-custom
         echo "Acquire::http::Timeout \"120\";" | sudo tee -a /etc/apt/apt.conf.d/80-custom
@@ -34,10 +34,18 @@ jobs:
         restore-keys: ccache-${{ runner.os }}-build-
     - name: set apt conf
       run: ${{env.APT_SET_CONF}}
+    - name: apt update
+      run: sudo apt update
     - name: install dependencies
       run: ${{env.APT_INSTALL_LINUX}}
+    - name: build & install dependency - URT
+      run: externals/URT/build/build-urt.sh
+    - name: prepare environment
+      run: util/prep-env.sh
     - name: build
-      run: |
-        externals/URT/build/build-urt.sh
-        util/ci-gcc.sh
+      run: util/ci-gcc.sh
+    - name: run demo
+      run: util/run-demo.sh
+
+# TODO: All the testing should be done in a separate job, AFTER building and downloading resources, in order to use caches better
 

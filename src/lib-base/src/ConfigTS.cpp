@@ -27,7 +27,7 @@ void ConfigTS::FromOptsNumeric(const OptionsNumeric & optsNum)
 void ConfigTS::RegisterAndReadBools(EnjoLib::Istream & f)
 {
     RegisterAndReadBool(f, crashOnRecoverableErrors, 0,  "Crash on err", "Crash on recoverable errors");
-    RegisterAndReadBool(f, PLOT_SERIES, 0,               "Plot series",  "Plot output series after evaluation");
+    RegisterAndReadBool(f, PLOT_SERIES, 1,               "Plot series",  "Plot output series after evaluation");
 
 }
 void ConfigTS::RegisterAndReadInts(EnjoLib::Istream & f)

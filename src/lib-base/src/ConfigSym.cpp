@@ -43,15 +43,15 @@ void ConfigSym::RegisterAndReadInts(EnjoLib::Istream & f)
     RegisterAndReadInt (f, dates.monthStart, 1);
     RegisterAndReadInt (f, dates.monthEnd, 2);
     RegisterAndReadInt (f, strat, 0);
-    RegisterAndReadInt (f, DATA_SOURCE, 0);
+    RegisterAndReadInt (f, DATA_SOURCE, 1); /// TODO: express with a converted enum
 }
 void ConfigSym::RegisterAndReadFloats(EnjoLib::Istream & f)
 {
 }
 void ConfigSym::RegisterAndReadStrs(EnjoLib::Istream & f)
 {
-    RegisterAndReadStr(f, symbol, "EURUSD");
-    RegisterAndReadStr(f, period, "h1");
+    RegisterAndReadStr(f, symbol, "TX-TS");
+    RegisterAndReadStr(f, period, "h8");
 }
 
 /*
