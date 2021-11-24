@@ -1,0 +1,9 @@
+diff
+#fabs
+#sqrt
+logs
+#sqrts
+#logs
+add 0
+
+
