@@ -10,6 +10,8 @@
 using namespace std;
 using namespace EnjoLib;
 
+const char * ConfigTS::DEFAULT_SCRIPT_FILE_NAME = "helloworld.txt";
+
 ConfigTS::~ConfigTS(){}
 ConfigTS::ConfigTS()
 {
@@ -39,5 +41,5 @@ void ConfigTS::RegisterAndReadFloats(EnjoLib::Istream & f)
 }
 void ConfigTS::RegisterAndReadStrs(EnjoLib::Istream & f)
 {
-    RegisterAndReadStr(f, m_scriptPathTxt, "helloworld.txt");
+    RegisterAndReadStr(f, m_scriptPathTxt, DEFAULT_SCRIPT_FILE_NAME);
 }

@@ -28,7 +28,7 @@ using namespace EnjoLib;
 
 App::App(){}
 
-void App::Run(const EnjoLib::Str & plugin)
+void App::Run(const ConfigSym & confSymCmdLine) const
 {
     const ConfigTF  & confTF    = *gcfgMan.cfgTF.get();
     do
@@ -38,6 +38,8 @@ void App::Run(const EnjoLib::Str & plugin)
         const ConfigTS & confTS     = *gcfgMan.cfgTS.get();
         const ConfigTF2 & confTF2   = *gcfgMan.cfgTF2.get();
         ConfigSym & confSym         = *gcfgMan.cfgSym.get();
+
+        UpdateCfgSym(confSymCmdLine, confSym);
 
         VecStr symbols = {confSym.symbol};
         VecStr periods = {confSym.period};
@@ -56,13 +58,14 @@ void App::Run(const EnjoLib::Str & plugin)
         //const TSFunType tsFunType = TSFunType::XFORM;
         //const TSFunType tsFunType = TSFunType::LUA;
         const TSFunType tsFunType = TSFunType::TXT;
-
         const TSInput tsin(per, confTS);
 
         auto fun = tsFunFact.Create(tsin, tsFunType);
         auto sim = simFact.CreateTS(tsin, *fun);
 
         sim->RunRaw();
+
+        {LOGL << confSym.GetDateFromToStr(false);}
 
         if (confTF.REPEAT)
         {
@@ -76,4 +79,11 @@ void App::Run(const EnjoLib::Str & plugin)
 
     } while (confTF.REPEAT);
     //LOGL << "Plugin name = " << plugin << Nl;
+}
+
+void App::UpdateCfgSym(const ConfigSym & cfgSymCmdLine, ConfigSym & cfgFile) const
+{
+    cfgFile.dates.UpdateIfNot0(cfgSymCmdLine.dates);
+    if (cfgSymCmdLine.symbol.size()) cfgFile.symbol = cfgSymCmdLine.symbol;
+    if (cfgSymCmdLine.period.size()) cfgFile.period = cfgSymCmdLine.period;
 }

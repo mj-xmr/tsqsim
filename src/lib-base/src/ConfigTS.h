@@ -17,6 +17,7 @@ class ConfigTS : public ConfigBase
 
         void FromOptsNumeric(const OptionsNumeric & optsNum) override;
 
+        static const char * DEFAULT_SCRIPT_FILE_NAME;
 
         EnjoLib::Str m_scriptPathTxt;
         bool crashOnRecoverableErrors = false;

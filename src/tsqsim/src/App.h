@@ -3,15 +3,18 @@
 
 #include <Util/Str.hpp>
 
+class ConfigSym;
+
 class App
 {
     public:
         App();
         virtual ~App(){}
 
-        void Run(const EnjoLib::Str & plugin);
+        void Run(const ConfigSym & cfgSymCmdLine) const;
 
     protected:
+        void UpdateCfgSym(const ConfigSym & cfgSymCmdLine, ConfigSym & cfgFile) const;
 
     private:
 };

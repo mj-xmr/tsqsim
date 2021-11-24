@@ -11,6 +11,8 @@ class DataDates
         void Set0();
         void SetStart(int year, int month);
         void SetEnd(int year, int month);
+        void UpdateIfNot0(const DataDates & other);
+        static void UpdateVarIfNot0(const long int src, long int * var);
 
         long int yearStart;
         long int yearEnd;
@@ -18,6 +20,7 @@ class DataDates
         long int monthEnd;
 
     protected:
+
 
     private:
 };
