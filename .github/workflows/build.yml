@@ -11,7 +11,7 @@ on:
 # The below variables reduce repetitions across similar targets
 env:
   REMOVE_BUNDLED_BOOST : rm -rf /usr/local/share/boost
-  APT_INSTALL_LINUX: 'sudo apt -y install build-essential cmake ccache libssl-dev libeigen3-dev libunittest++-dev libgsl-dev libarmadillo-dev libboost-all-dev'
+  APT_INSTALL_LINUX: 'sudo apt -y install build-essential cmake ccache libssl-dev libeigen3-dev libunittest++-dev libgsl-dev libarmadillo-dev libboost-system-dev libboost-filesystem-dev libboost-iostreams-dev libboost-serialization-dev libboost-program-options-dev'
   APT_SET_CONF: |
         echo "Acquire::Retries       \"3\";"   | sudo tee -a /etc/apt/apt.conf.d/80-custom
         echo "Acquire::http::Timeout \"120\";" | sudo tee -a /etc/apt/apt.conf.d/80-custom
@@ -38,7 +38,6 @@ jobs:
       run: ${{env.APT_INSTALL_LINUX}}
     - name: build
       run: |
-        ccache --max-size=150M
         externals/URT/build/build-urt.sh
         util/ci-gcc.sh
 
