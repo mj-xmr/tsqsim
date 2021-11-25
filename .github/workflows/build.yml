@@ -38,8 +38,8 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.ccache
-        key: ccache01-${{ runner.os }}-${{ matrix.os }}-build-${{ github.sha }}
-        restore-keys: ccache01-${{ runner.os }}-${{ matrix.os }}-build-
+        key:          ccache01-${{ runner.os }}-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.cmake-opts }}-build-${{ github.sha }}
+        restore-keys: ccache01-${{ runner.os }}-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.cmake-opts }}-build-
     # Less volatile cache
     - name: data cache
       uses: actions/cache@v2
