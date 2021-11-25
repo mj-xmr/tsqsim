@@ -41,7 +41,7 @@ VecD GetMinDistBase(const DTWIDistComp & comp, const EnjoLib::VecD & obsNew, con
     static int NUM_CLOSEST = 20;
     static float MAX_DIST_MUL = 10;
     static double LOG_DECAY = 3;  // Greater numbers - slower decay
-    
+
     const GeneralMath gmat;
     MaxMinFindF mmf;
     //EnjoLib::Osstream ossIndiv;
@@ -79,7 +79,7 @@ VecD GetMinDistBase(const DTWIDistComp & comp, const EnjoLib::VecD & obsNew, con
                 continue;
             }
             const int minDist = mod.MIN_LEN() + 1;
-            const int diffSts = abs(stiLab - stiObs);
+            const int diffSts = gmat.Fabs(stiLab - stiObs);
             diffStsGlob = diffSts;
             if (diffSts < minDist)
             {
@@ -108,7 +108,7 @@ VecD GetMinDistBase(const DTWIDistComp & comp, const EnjoLib::VecD & obsNew, con
         {
             //cout << "Good! labistate " << labistate << ", istate = " << istate << endl;
         }
-        
+
         const VecD & obsVec = labEx.GetFlatObserv4Mask(mask);
         Assertions::NonEmpty  (mask, "DTWWrap::GetMinDist(): empty mask");
         Assertions::NonEmpty  (obsVec, "DTWWrap::GetMinDist(): empty matrix");
@@ -145,7 +145,7 @@ VecD GetMinDistBase(const DTWIDistComp & comp, const EnjoLib::VecD & obsNew, con
     }
     */
     //return std::vector<EnjoLib::MaxMinFindF>{mmf};
-    
+
     const double bestDist = mmf.GetMin();
     // Doesn't work well:
     VecD ret;
@@ -153,21 +153,21 @@ VecD GetMinDistBase(const DTWIDistComp & comp, const EnjoLib::VecD & obsNew, con
     int i = 0;
     double weightSum = 0;
     for (auto it = distances.begin(); it != distances.end() && i < NUM_CLOSEST; ++it, ++i)
-    { 
+    {
         const double dist   = it->first;// / bestDist; // makes no difference
         const int minIdxLoc = it->second.idx;
         const int ageDiff = it->second.diffSts;
         //const int ageDiff = 1;
-       
+
         Assertions::IsTrue(dist > 0, "DTWWrap::GetMinDist(): div by zero");
         //cout << "Dist = " << dist << endl;
-        
+
         const double distRelative = dist / bestDist;
         if (distRelative > MAX_DIST_MUL)
         {
             break;
         }
-        
+
         const LabelML & found = knnLabs.at(minIdxLoc);
         const double weightAge = gmat.Exp(-gmat.Log(ageDiff) / LOG_DECAY);
         const double weightDist = 1 / dist;
@@ -175,12 +175,12 @@ VecD GetMinDistBase(const DTWIDistComp & comp, const EnjoLib::VecD & obsNew, con
         //const double weight = 1 / dist / dist;
         weightSum += weight;
         VecD tgtWeighted = found.targets * weight;
-        
+
         if (ret.empty())
             ret = tgtWeighted;
         else
             ret += tgtWeighted; // sum
-        
+
         //cout << i << " dist = " << dist << " weight = " << weight << endl;
     }
     //cout << endl;
@@ -190,7 +190,7 @@ VecD GetMinDistBase(const DTWIDistComp & comp, const EnjoLib::VecD & obsNew, con
     return ret;
 }
 
-EnjoLib::VecD DTWWrap::GetMinDist(int i, const DateInt & date, const DTWDistType & type, const EnjoLib::VecD & obsNew, const IModel & mod, 
+EnjoLib::VecD DTWWrap::GetMinDist(int i, const DateInt & date, const DTWDistType & type, const EnjoLib::VecD & obsNew, const IModel & mod,
                                 const IBufferCandles & bufCan, const EnjoLib::Array<LabelML> & knnLabs, const Mask & mask) const
 {
     const CorPtr<DTWIDistComp> distComp = DTWIDistComp::Create(type, obsNew);
