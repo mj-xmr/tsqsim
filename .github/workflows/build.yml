@@ -28,6 +28,7 @@ jobs:
       matrix:
         os: [ubuntu-latest] #, ubuntu-18.04]
         compiler: [gcc, clang]
+        cmake-opts: [USE_STATIC, ""]
     steps:
     - uses: actions/checkout@v1
       with:
@@ -57,7 +58,7 @@ jobs:
     - name: prepare environment
       run: util/prep-env.sh
     - name: build
-      run: util/ci-${{ matrix.compiler }}.sh
+      run: util/ci-${{ matrix.compiler }}.sh ${{ matrix.cmake-opts }}
     - name: run demo
       run: util/run-demo.sh ${{ matrix.compiler }}
 
