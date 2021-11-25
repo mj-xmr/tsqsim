@@ -9,6 +9,8 @@
 #include "ConfigTS.h"
 #include "StatsMedianSplit.h"
 #include "TSRes.h"
+#include "URTWrap.h"
+#include "DataOCHL.h"
 
 //#include <Template/ValArray.hpp>
 #include <Math/GeneralMath.hpp>
@@ -26,6 +28,7 @@ SimulatorTS:: SimulatorTS(const TSInput & tsin, const ITSFun & fun)
 : m_tsin(tsin)
 , m_per(tsin.m_per)
 , m_fun(fun)
+, m_cfgTS(tsin.m_cfgTS)
 {
 }
 
@@ -89,6 +92,35 @@ void SimulatorTS::PrintResults()
 
 void SimulatorTS::PrintExperimental() const
 {
-    /// TODO: Make a non MT version as well
-    SimulatorTSMT::PrintExperimental(m_tsin, m_rets);
+    if (m_cfgTS.MT_REPORT)
+    {
+        /// TODO: Make a non MT version as well
+        SimulatorTSMT::PrintExperimental(m_tsin, m_rets);
+    }
+    else
+    {
+        PrintReportSingleThreaded(m_rets);
+    }
+}
+
+void SimulatorTS::PrintReportSingleThreaded(const EnjoLib::VecD & data) const
+{
+    DataOCHL ohlc(m_per.GetCandles().GetDataIter());
+    const float scaleX = 1.00;
+    const float scaleY = 0.6;
+    const int numSplits = 3;
+    const URTWrap urtWrap1, urtWrap2;
+    const bool multithreaded = false;
+    const StatsMedianSplit stats(multithreaded);
+
+    ELO
+    urtWrap2.Show(data);
+    if (m_cfgTS.PLOT_SERIES)
+    {
+        GnuplotPlotTerminal1d(ohlc.closes, "Closes & Diffs", scaleX, scaleY);
+        GnuplotPlotTerminal1d(data,      "",               scaleX, scaleY);
+    }
+    stats.Stats(m_per.GetSymbolPeriodId(), data, numSplits);
+    const double urtStat = urtWrap1.GetStatistic(data);
+    LOG << "Stationarity score = " << urtStat << Nl;
 }
