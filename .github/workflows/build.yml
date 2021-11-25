@@ -19,13 +19,14 @@ env:
 
 jobs:
   build-ubuntu:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     env:
       CCACHE_COMPRESS: 1
       CCACHE_TEMPDIR: /tmp/.ccache-temp
     strategy:
       fail-fast: false
       matrix:
+        os: [ubuntu-latest] #, ubuntu-18.04]
         compiler: [gcc, clang]
     steps:
     - uses: actions/checkout@v1
@@ -36,8 +37,8 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.ccache
-        key: ccache-${{ runner.os }}-build-${{ github.sha }}
-        restore-keys: ccache-${{ runner.os }}-build-
+        key: ccache-${{ runner.os }}-${{ matrix.os }}-build-${{ github.sha }}
+        restore-keys: ccache-${{ runner.os }}-${{ matrix.os }}-build-
     # Less volatile cache
     - name: data cache
       uses: actions/cache@v2
@@ -60,5 +61,9 @@ jobs:
     - name: run demo
       run: util/run-demo.sh ${{ matrix.compiler }}
 
-# TODO: All the testing should be done in a separate job, AFTER building and downloading resources, in order to use caches better
+# TODO: todos sorted by priority:
+# TODO: All the testing should be done in a separate job, AFTER building and downloading resources, in order to use caches better (short and easy. Needs to have the build scripts restructured - separate building and testing)
+# TODO: Add OSX build.	   Problem: stdfwd.hh has to be conditionally disabled for _APPLE_ (huge but simple)
+# TODO: Add Windows build. Problem: EnjoLibBoost fails to compile without wstring (short but harder)
+
 
