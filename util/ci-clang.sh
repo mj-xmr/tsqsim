@@ -10,6 +10,7 @@ BUILD_DIR="build/clang"
 if [ ! -z $1 ]; then
 	echo "Building statically"
 	USE_STATIC="ON"
+	BUILD_DIR="$BUILD_DIR-static"
 fi
 
 GCC_PREFIX=clang

@@ -38,8 +38,8 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.ccache
-        key: ccache01-${{ runner.os }}-${{ matrix.os }}-build-${{ github.sha }}
-        restore-keys: ccache01-${{ runner.os }}-${{ matrix.os }}-build-
+        key:          ccache01-${{ runner.os }}-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.cmake-opts }}-build-${{ github.sha }}
+        restore-keys: ccache01-${{ runner.os }}-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.cmake-opts }}-build-
     # Less volatile cache
     - name: data cache
       uses: actions/cache@v2
@@ -60,7 +60,7 @@ jobs:
     - name: build
       run: util/ci-${{ matrix.compiler }}.sh ${{ matrix.cmake-opts }}
     - name: run demo
-      run: util/run-demo.sh ${{ matrix.compiler }}
+      run: util/run-demo.sh ${{ matrix.compiler }} ${{ matrix.cmake-opts }}
 
 # TODO: todos sorted by priority:
 # TODO: All the testing should be done in a separate job, AFTER building and downloading resources, in order to use caches better (short and easy. Needs to have the build scripts restructured - separate building and testing)
