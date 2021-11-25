@@ -28,8 +28,9 @@ void ConfigTS::FromOptsNumeric(const OptionsNumeric & optsNum)
 
 void ConfigTS::RegisterAndReadBools(EnjoLib::Istream & f)
 {
-    RegisterAndReadBool(f, crashOnRecoverableErrors, 0,  "Crash on err", "Crash on recoverable errors");
-    RegisterAndReadBool(f, PLOT_SERIES, 1,               "Plot series",  "Plot output series after evaluation");
+    RegisterAndReadBool(f, crashOnRecoverableErrors, 0, "Crash on err", "Crash on recoverable errors");
+    RegisterAndReadBool(f, PLOT_SERIES,              1, "Plot series",  "Plot output series after evaluation");
+    RegisterAndReadBool(f, MT_REPORT,                0, "MT report",    "Generate report in multithreaded way (still unstable)");
 
 }
 void ConfigTS::RegisterAndReadInts(EnjoLib::Istream & f)

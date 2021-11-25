@@ -10,6 +10,7 @@ class IPeriod;
 class ITSFun;
 class TSInput;
 class TSRes;
+class ConfigTS;
 
 class SimulatorTS : public ISimulatorTS
 {
@@ -28,10 +29,12 @@ class SimulatorTS : public ISimulatorTS
     private:
         void PrintResults();
         void PrintExperimental() const;
+        void PrintReportSingleThreaded(const EnjoLib::VecD & data) const;
 
         const TSInput & m_tsin;
         const IPeriod & m_per;
         const ITSFun & m_fun;
+        const ConfigTS & m_cfgTS;
 
         ISimulatorAccum * m_accum = nullptr;
 
