@@ -23,6 +23,10 @@ jobs:
     env:
       CCACHE_COMPRESS: 1
       CCACHE_TEMPDIR: /tmp/.ccache-temp
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [gcc, clang]
     steps:
     - uses: actions/checkout@v1
       with:
@@ -52,9 +56,9 @@ jobs:
     - name: prepare environment
       run: util/prep-env.sh
     - name: build
-      run: util/ci-gcc.sh
+      run: util/ci-${{ matrix.compiler }}.sh
     - name: run demo
-      run: util/run-demo.sh
+      run: util/run-demo.sh ${{ matrix.compiler }}
 
 # TODO: All the testing should be done in a separate job, AFTER building and downloading resources, in order to use caches better
 
