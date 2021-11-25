@@ -5,9 +5,11 @@
 
 #include <Util/PimplDeleter.hpp>
 #include <Util/CharManipulations.hpp>
-#include <STD/Map.hpp>
 #include <Util/CoutBuf.hpp>
 #include <Util/Str.hpp>
+
+#include <STD/Map.hpp>
+#include <STD/String.hpp>
 #include <unordered_map>
 
 using namespace std;
@@ -19,7 +21,7 @@ struct Spreads::Impl
     std::unordered_map<std::string, float> m_mapSpreads;
 };
 PIMPL_DELETER(Spreads)
-        
+
 Spreads::~Spreads(){}
 Spreads::Spreads()
 : m_impl(new Impl())
