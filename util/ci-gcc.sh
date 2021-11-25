@@ -9,6 +9,7 @@ USE_STATIC="OFF"
 if [ ! -z $1 ]; then
 	echo "Building statically"
 	USE_STATIC="ON"
+	BUILD_DIR="$BUILD_DIR-static"
 fi
 
 mkdir -p $BUILD_DIR && cd $BUILD_DIR
