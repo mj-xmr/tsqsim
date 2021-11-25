@@ -1,8 +1,9 @@
-#!/bin/bash
+#!/bin/bash -e
 
 MAKE=make
 GEN="CodeBlocks - Unix Makefiles"
 BUILD_DIR="build/clang"
+USE_STATIC="OFF"
 
 # TODO: Unify with ci-gcc
 
@@ -13,12 +14,12 @@ if [ ! -z $1 ]; then
 	BUILD_DIR="$BUILD_DIR-static"
 fi
 
+mkdir -p $BUILD_DIR && cd $BUILD_DIR
+mkdir -p bin
+
 GCC_PREFIX=clang
 CMAKE_C_COMPILER="${GCC_PREFIX}"
 CMAKE_CXX_COMPILER="${GCC_PREFIX}++"
-
-mkdir -p $BUILD_DIR && cd $BUILD_DIR
-mkdir -p bin
 
 cmake -G "${GEN}" ../.. \
 -DCMAKE_C_COMPILER="${CMAKE_C_COMPILER}" \

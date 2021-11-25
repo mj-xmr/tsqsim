@@ -5,6 +5,8 @@ GEN="CodeBlocks - Unix Makefiles"
 BUILD_DIR="build/gcc"
 USE_STATIC="OFF"
 
+
+
 # TODO: accept a whole string of CMake options
 if [ ! -z $1 ]; then
 	echo "Building statically"
@@ -14,6 +16,10 @@ fi
 
 mkdir -p $BUILD_DIR && cd $BUILD_DIR
 mkdir -p bin
+
+
+
+
 
 cmake -G "${GEN}" ../.. \
  \
