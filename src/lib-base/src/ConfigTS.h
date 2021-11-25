@@ -22,6 +22,7 @@ class ConfigTS : public ConfigBase
         EnjoLib::Str m_scriptPathTxt;
         bool crashOnRecoverableErrors = false;
         bool PLOT_SERIES = true;
+        bool MT_REPORT = false;
 
     protected:
         EnjoLib::Str GetFileNameProt() const override;
