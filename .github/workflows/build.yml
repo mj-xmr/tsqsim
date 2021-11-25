@@ -47,8 +47,8 @@ jobs:
       run: sudo apt update
     - name: install dependencies
       run: ${{env.APT_INSTALL_LINUX}}
-    - name: build & install dependency - URT
-      run: externals/URT/build/build-urt.sh
+    - name: build & install the unmanaged dependencies
+      run: util/build-deps.sh
     - name: prepare environment
       run: util/prep-env.sh
     - name: build
