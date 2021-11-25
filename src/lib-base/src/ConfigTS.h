@@ -23,6 +23,7 @@ class ConfigTS : public ConfigBase
         bool crashOnRecoverableErrors = false;
         bool PLOT_SERIES = true;
         bool MT_REPORT = false;
+        bool MT_XFORM = false;
 
     protected:
         EnjoLib::Str GetFileNameProt() const override;

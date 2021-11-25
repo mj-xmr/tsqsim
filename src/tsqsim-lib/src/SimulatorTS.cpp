@@ -53,7 +53,7 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
         Get<2>(ele) = i;
         input.push_back(ele);
     }
-    const std::vector<TSRes> & rets = SimulatorTSMT::GetRets(input);
+    const std::vector<TSRes> & rets = GetRets(input);
     for (const TSRes & res : rets)
     {
         if (res.valid)
@@ -62,6 +62,23 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
         }
     }
     PrintResults();
+}
+
+std::vector<TSRes> SimulatorTS::GetRets(const std::vector<Inp> & input) const
+{
+    if (m_cfgTS.MT_XFORM)
+    {
+        return SimulatorTSMT::GetRets(input);
+    }
+    else
+    {
+        std::vector<TSRes> ret;
+        for (const Inp & inp : input)
+        {
+            ret.push_back(IterBet(inp));
+        }
+        return ret;
+    }
 }
 
 /// TODO: Reconstruct signal!!!

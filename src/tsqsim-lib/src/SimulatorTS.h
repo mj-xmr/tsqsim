@@ -24,6 +24,8 @@ class SimulatorTS : public ISimulatorTS
         using Inp = EnjoLib::Tuple<const IDataProvider *, const ITSFun *, int>;
         static TSRes IterBet(const Inp & ele);
 
+        stdfwd::vector<TSRes> GetRets(const stdfwd::vector<Inp> & inp) const;
+
     protected:
 
     private:
