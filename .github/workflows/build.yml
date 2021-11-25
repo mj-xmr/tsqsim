@@ -60,7 +60,7 @@ jobs:
     - name: build
       run: util/ci-${{ matrix.compiler }}.sh ${{ matrix.cmake-opts }}
     - name: run demo
-      run: util/run-demo.sh ${{ matrix.compiler }}
+      run: util/run-demo.sh ${{ matrix.compiler }} ${{ matrix.cmake-opts }}
 
 # TODO: todos sorted by priority:
 # TODO: All the testing should be done in a separate job, AFTER building and downloading resources, in order to use caches better (short and easy. Needs to have the build scripts restructured - separate building and testing)
