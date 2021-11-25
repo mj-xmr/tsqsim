@@ -27,7 +27,7 @@ jobs:
       matrix:
         os: [ubuntu-latest] #, ubuntu-18.04]
         compiler: [gcc, clang]
-        cmake-opts: [USE_STATIC, ""]
+        cmake-opts: [USE_STATIC]
     steps:
     - uses: actions/checkout@v1
       with:
