@@ -38,8 +38,8 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.ccache
-        key:          ccache03-${{ runner.os }}-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.cmake-opts }}-build-${{ github.sha }}
-        restore-keys: ccache03-${{ runner.os }}-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.cmake-opts }}-build-
+        key:          ccache03-${{ runner.os }}-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.linkage }}-build-${{ github.sha }}
+        restore-keys: ccache03-${{ runner.os }}-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.linkage }}-build-
     # Less volatile cache
     - name: data cache
       uses: actions/cache@v2
@@ -67,7 +67,7 @@ jobs:
 # TODO: Add Windows build. Problem: EnjoLibBoost fails to compile without wstring (short but harder)
 
 
-  build-macos:
+  build-macos-TODO:
     runs-on: macOS-latest
     env:
       CCACHE_TEMPDIR: /tmp/.ccache-temp
