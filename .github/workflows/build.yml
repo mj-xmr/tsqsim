@@ -49,8 +49,6 @@ jobs:
         restore-keys: data-${{ hashFiles('build/data/data/txt/**/*') }}
     - name: set apt conf
       run: ${{env.APT_SET_CONF}}
-    - name: apt update
-      run: sudo apt update
     - name: install dependencies
       run: util/deps-pull.sh
     - name: build & install the unmanaged dependencies
@@ -62,7 +60,8 @@ jobs:
     - name: run demo
       run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} --unity --run-demo
 
-# TODO: todos sorted by priority:
+# TODO: todos sorted by priority*realism:
+# TODO: All the unmaintained denendencies should have their own CMakeLists.txt file (URT. Others?) and the util/deps-build.sh should not be used, if possible.
 # TODO: All the testing should be done in a separate job, AFTER building and downloading resources, in order to use caches better (short and easy. Needs to have the build scripts restructured - separate building and testing)
 # TODO: Add OSX build.	   Problem: stdfwd.hh has to be conditionally disabled for _APPLE_ (huge but simple)
 # TODO: Add Windows build. Problem: EnjoLibBoost fails to compile without wstring (short but harder)

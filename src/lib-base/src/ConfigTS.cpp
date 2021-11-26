@@ -10,7 +10,7 @@
 using namespace std;
 using namespace EnjoLib;
 
-const char * ConfigTS::DEFAULT_SCRIPT_FILE_NAME = "helloworld.txt";
+const char * ConfigTS::DEFAULT_SCRIPT_FILE_NAME = "ts-xform-script.txt";
 
 ConfigTS::~ConfigTS(){}
 ConfigTS::ConfigTS()

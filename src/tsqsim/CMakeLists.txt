@@ -9,7 +9,7 @@ file( GLOB SRCS src/*.cpp */*.h */*.hpp)
 add_executable(${PROJECT_NAME} ${SRCS})
 enjoSetupTarget(${PROJECT_NAME})
 enjoSymlink(${PROJECT_NAME} ../../data ${CMAKE_BINARY_DIR}/bin/data)
-enjoSymlink(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/helloworld.txt ${CMAKE_BINARY_DIR}/bin/helloworld.txt)
+enjoSymlink(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/ts-xform-script.txt ${CMAKE_BINARY_DIR}/bin/ts-xform-script.txt)
 target_link_libraries(${PROJECT_NAME} tsqsim-lib)
 
 
