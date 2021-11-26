@@ -28,7 +28,7 @@ jobs:
       matrix:
         os: [ubuntu-latest] #, ubuntu-18.04]
         compiler: [gcc, clang]
-        cmake-opts: [USE_STATIC] #, ""]
+        linkage: [--shared, ""] # TODO: Shared versions crash on GH occasionally. (hard)
     steps:
     - uses: actions/checkout@v1
       with:
@@ -52,15 +52,15 @@ jobs:
     - name: apt update
       run: sudo apt update
     - name: install dependencies
-      run: util/pull-deps.sh
+      run: util/deps-pull.sh
     - name: build & install the unmanaged dependencies
-      run: util/build-deps.sh
+      run: util/deps-build.sh
     - name: prepare environment
       run: util/prep-env.sh
     - name: build
-      run: util/ci-${{ matrix.compiler }}.sh ${{ matrix.cmake-opts }}
+      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} --unity
     - name: run demo
-      run: util/run-demo.sh ${{ matrix.compiler }} ${{ matrix.cmake-opts }}
+      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} --unity --run-demo
 
 # TODO: todos sorted by priority:
 # TODO: All the testing should be done in a separate job, AFTER building and downloading resources, in order to use caches better (short and easy. Needs to have the build scripts restructured - separate building and testing)
