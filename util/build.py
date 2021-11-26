@@ -11,7 +11,9 @@ import sys
 import time
 import subprocess
 import argparse
+import multiprocessing as mp
 
+NPROC=mp.cpu_count()
 COMPILERS=['gcc', 'clang', 'mingw']
 DIR_BUILD_BASE='build'
 DIR_BIN='bin'
@@ -21,7 +23,6 @@ ON='ON'
 NL=' \ \n'
 NL=' '
 
-
 def get_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('-s', '--shared',    default=False, action='store_true', help="build shared libraries (default: OFF)")
@@ -29,7 +30,7 @@ def get_parser():
     parser.add_argument('-u', '--unity',     default=False, action='store_true', help="build unity (CI case; default: OFF)")
     parser.add_argument('-r', '--run-demo',  default=False, action='store_true', help="run demo (default: OFF)")
     parser.add_argument('-c', '--compiler',  default="", help='compiler ({}; default: autodetect)'.format('/'.join(COMPILERS)))
-    parser.add_argument('-j', '--proc',      default="`nproc`", help="number of cores to use (default: all)")
+    parser.add_argument('-j', '--proc',      default=NPROC, type=int, help="number of cores to use (default: all)")
     parser.add_argument('-m', '--make',      default="make", help="'make' program (for ex.: ninja; default: make)")
     parser.add_argument('-g', '--generator', default=GENERATOR, help='Generator of project files (default: "{}")'.format(GENERATOR))
     parser.add_argument('-p', '--path',      default=".",   help="Run path")
@@ -74,7 +75,7 @@ def build(args):
     print('Build command:\n')
     print(cmd)
     print('')
-    proc = subprocess.run(cmd, shell=True)
+    proc = subprocess.run(cmd, shell=True, check=True)
 
     #print(cmd)
 def run_demo(args):
@@ -84,7 +85,7 @@ def run_demo(args):
     cmd += '&& ./tsqsim --help'
     cmd += '&& ./tsqsim'
 
-    proc = subprocess.run(cmd, shell=True)
+    proc = subprocess.run(cmd, shell=True, check=True)
 
 def main(args):
     build(args)
