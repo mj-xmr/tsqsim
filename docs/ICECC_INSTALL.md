@@ -1,4 +1,4 @@
-use icecream/icecc to spread compilation across as many hosts as are avaliable in your LAN (only), with icecream daemon running. On all your slave hosts install:
+You may use icecream/icecc to spread compilation across as many hosts as are avaliable in your LAN (only), with icecream daemon running. On all your slave hosts install:
 
 ```bash
 sudo apt install icecc
