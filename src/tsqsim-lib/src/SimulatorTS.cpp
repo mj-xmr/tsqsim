@@ -44,6 +44,9 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
 
     std::vector<Inp> input;
     input.reserve(idxFinish - idxStart);
+    {
+         LOGL << "Collecting input...\n";
+    }
     for (int i = idxStart; i < idxFinish; ++i)
     {
         Inp ele; /// TODO: MakeTuple
@@ -52,6 +55,9 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
         Get<1>(ele) = &m_fun;
         Get<2>(ele) = i;
         input.push_back(ele);
+    }
+    {
+         LOGL << "Calculating...\n";
     }
     const std::vector<TSRes> & rets = GetRets(input);
     for (const TSRes & res : rets)
@@ -68,6 +74,9 @@ std::vector<TSRes> SimulatorTS::GetRets(const std::vector<Inp> & input) const
 {
     if (m_cfgTS.MT_XFORM)
     {
+        {
+            LOGL << "Multithreaded selected...\n";
+        }
         return SimulatorTSMT::GetRets(input);
     }
     else
