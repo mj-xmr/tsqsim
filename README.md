@@ -104,7 +104,7 @@ Script line: 'add 0'
   ---------------
   We can reject H0 at the 10% significance level
 
-Closes & Diffs
+Closes & transformation
 
                                                                                                               
    1.14 +-------------------------------------------------------------------------------------------------+   
