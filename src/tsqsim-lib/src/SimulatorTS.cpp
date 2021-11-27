@@ -17,6 +17,7 @@
 #include <Util/CoutBuf.hpp>
 #include <Util/Except.hpp>
 #include <Util/Tuple.hpp>
+#include <Util/ThreadWrap.hpp>
 
 #include <STD/VectorCpp.hpp>
 
@@ -75,7 +76,7 @@ std::vector<TSRes> SimulatorTS::GetRets(const std::vector<Inp> & input) const
     if (m_cfgTS.MT_XFORM)
     {
         {
-            LOGL << "Multithreaded selected...\n";
+            LOGL << "Multithreaded transformations selected. Using " << ThreadWrap::GetConcurrency() << " cores.\n";
         }
         return SimulatorTSMT::GetRets(input);
     }
