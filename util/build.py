@@ -57,7 +57,9 @@ def build(args):
     print("CWD = " +  os.getcwd())
     os.makedirs(DIR_BIN, exist_ok=True)
     make = ' {} '.format(args.make)
-    proc = ' -j {} '.format(args.proc)
+    proc_str = ' -j {} '
+    proc = proc_str.format(args.proc)
+    proc_install = proc_str.format(args.proc if args.proc <= NPROC else NPROC)
     ctest = ' ctest --output-on-failure '
 
     cccompiler = args.compiler
@@ -79,7 +81,7 @@ def build(args):
     if args.compiler:
         cmd += NL + '-DCMAKE_C_COMPILER="{}"'.format(cccompiler) 
         cmd += NL + '-DCMAKE_CXX_COMPILER="{}"'.format(cpcompiler)    
-    cmd += NL + '&&' +  make + proc + '||' + make + '&&' + make + proc + 'install'
+    cmd += NL + '&&' +  make + proc + '||' + make + '&&' + make + proc_install + 'install'
     cmd += NL + '&&' + ctest + proc + '||' + ctest
 
     print('Build command:\n')
