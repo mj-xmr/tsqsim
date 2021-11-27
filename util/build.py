@@ -58,8 +58,8 @@ def build(args):
     os.makedirs(DIR_BIN, exist_ok=True)
     make = ' {} '.format(args.make)
     proc_str = ' -j {} '
-    proc = proc_str.format(args.proc)
-    proc_install = proc_str.format(args.proc if args.proc <= NPROC else NPROC)
+    proc       = proc_str.format(args.proc)
+    proc_local = proc_str.format(args.proc if args.proc <= NPROC else NPROC)
     ctest = ' ctest --output-on-failure '
 
     cccompiler = args.compiler
@@ -72,17 +72,17 @@ def build(args):
         cpcompiler = args.compiler + '++'
     
     cmd = "cmake -G '{}'".format(args.generator) + ' -S ../.. -B .'
-    cmd += NL + '-DUSE_STATIC={}'.format(OFF if args.shared else ON)
-    cmd += NL + '-DUSE_DEBUG={}'.format (ON  if args.debug  else OFF)
-    cmd += NL + '-DUSE_UNITY={}'.format (ON  if args.unity  else OFF)
+    cmd += NL + '-DUSE_STATIC={}' .format(OFF if args.shared else ON)
+    cmd += NL + '-DUSE_DEBUG={}'  .format(ON  if args.debug  else OFF)
+    cmd += NL + '-DUSE_UNITY={}'  .format(ON  if args.unity  else OFF)
     cmd += NL + '-DBUILD_BOOST={}'.format(ON) # Required
     cmd += NL + '-DBUILD_BOOST={}'.format(ON) # Required
     cmd += NL + '-DBUILD_BOOST={}'.format(ON) # Required
     if args.compiler:
         cmd += NL + '-DCMAKE_C_COMPILER="{}"'.format(cccompiler) 
         cmd += NL + '-DCMAKE_CXX_COMPILER="{}"'.format(cpcompiler)    
-    cmd += NL + '&&' +  make + proc + '||' + make + '&&' + make + proc_install + 'install'
-    cmd += NL + '&&' + ctest + proc + '||' + ctest
+    cmd += NL + '&&' +  make + proc + '||' + make + '&&' + make + proc_local + 'install'
+    cmd += NL + '&&' + ctest + proc_local + '||' + ctest
 
     print('Build command:\n')
     print(cmd)
