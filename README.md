@@ -1,5 +1,13 @@
 # tsqsim
-Time Series Quick Simulator - able to perform time series analysis and to setup validation experiments.
+Time Series Quick Simulator - able to perform time series analysis 
+and to setup validation experiments.
+With its somewhat limited plotting capabilities, 
+but highly optimized run time speed, the simulator serves more as a stress-tester 
+of your models, challenging their robustness. 
+The assumption is that some preliminary research has already been done, 
+using scripting languages like `Python` `R` or `Weka`, where patterns are easy to eyball. 
+Teaching a machine to detect these patterns automatically in rigorous conditions 
+is where the `tsqsim` shows its true potential.
 
 ## Background
 [Time Series Analysis](https://en.wikipedia.org/wiki/Time_series) deals with finding patterns in Time Series data, 
