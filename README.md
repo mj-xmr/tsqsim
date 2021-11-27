@@ -76,8 +76,8 @@ A command, that would leverage these optimizations could look like the following
 , where `icecc` is available only after [setting it up](docs/ICECC_INSTALL.md) in your LAN, and `30` would be the number of cores, that you want to use through icecc. If you declare more, than there are available, the icecc scheduler will throttle down your choice automatically.
 To spare yourself typing, I recommend adding the following aliases to your shell:
 ```bash
-echo "alias     tsqdev='./ci-default         --shared --unity --compiler icecc -j 30'" >> ~/.bash_aliases
-echo "alias tsqdev-dbg='./ci-default --debug --shared --unity --compiler icecc -j 30'" >> ~/.bash_aliases
+echo "alias tsqdev='./ci-default --shared --unity --compiler icecc -j 30'" >> ~/.bash_aliases
+echo "alias tsqdev-dbg='tsqdev --debug'" >> ~/.bash_aliases
 bash    # To reload the aliases and make them available in the current shell
 ```
 
