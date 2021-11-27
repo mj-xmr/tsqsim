@@ -14,13 +14,16 @@ import argparse
 import multiprocessing as mp
 
 NPROC=mp.cpu_count()
-COMPILERS=['gcc', 'clang', 'mingw']
+ICECC_DIR = '/usr/lib/icecc/bin/'
+ICECC='icecc'
+GCC='gcc'
+COMPILERS=[GCC, ICECC, 'clang', 'mingw']
 DIR_BUILD_BASE='build'
 DIR_BIN='bin'
 GENERATOR="CodeBlocks - Unix Makefiles"
 OFF='OFF'
 ON='ON'
-NL=' \ \n'
+#NL=' \ \n'
 NL=' '
 
 def get_parser():
@@ -56,8 +59,15 @@ def build(args):
     make = ' {} '.format(args.make)
     proc = ' -j {} '.format(args.proc)
     ctest = ' ctest --output-on-failure '
+
     cccompiler = args.compiler
-    cpcompiler = 'g++' if args.compiler == 'gcc' else args.compiler + '++'
+    if args.compiler == GCC:
+        cpcompiler = 'g++'
+    elif args.compiler == ICECC:
+        cccompiler = ICECC_DIR + 'cc'
+        cpcompiler = ICECC_DIR + 'c++'
+    else:
+        cpcompiler = args.compiler + '++'
     
     cmd = "cmake -G '{}'".format(args.generator) + ' -S ../.. -B .'
     cmd += NL + '-DUSE_STATIC={}'.format(OFF if args.shared else ON)
