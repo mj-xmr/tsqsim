@@ -15,6 +15,8 @@ VecStr TicksProviderXMR::ConvertStat(const VecStr & raw)
 {
     /// TODO: It is acceptable but suboptimal to convert to a special format first, although all the data are already available.
     /// TODO: Eventually use: #include <Template/LoopThreadedTpl.hpp>
+    /// TODO: Use a textual format descriptor with system-known columns (like the header of a CSV file) and a pre-defined separator. No custom C++ Providers have to be written then.
+    /// ^ The system ultimately only needs closing values, not even the timestamps.
     VecStr lines;
     const Tokenizer tok;
     const TradeUtil tut;

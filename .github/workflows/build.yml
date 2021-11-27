@@ -28,7 +28,7 @@ jobs:
       matrix:
         os: [ubuntu-latest] #, ubuntu-18.04]
         compiler: [gcc, clang]
-        linkage: ["", --shared] # TODO: Shared versions crash on GH occasionally. (hard)
+        linkage: ["", --shared] # TODO: Add LTO. Also needed for URT library via its (not-yet-existant CMakeLists.txt)
     steps:
     - uses: actions/checkout@v1
       with:
