@@ -25,7 +25,7 @@ jobs:
       fail-fast: false
 #      max-parallel: 1 # Single threaded for now, because the jobs overwrite each other's data/bin/* files?
       matrix:
-        os: [ubuntu-latest] #, ubuntu-18.04] # TODO: Consider(!) supporting the previous version.
+        os: [ubuntu-latest, ubuntu-18.04] # TODO: Consider(!) supporting the previous version.
         compiler: [gcc, clang]
         linkage: ["", --shared] # TODO: Add LTO. Also needed for URT library via its CMakeLists.txt
     steps:
