@@ -26,9 +26,9 @@ jobs:
       fail-fast: false
 #      max-parallel: 1 # Single threaded for now, because the jobs overwrite each other's data/bin/* files?
       matrix:
-        os: [ubuntu-latest] #, ubuntu-18.04]
+        os: [ubuntu-latest] #, ubuntu-18.04] # TODO: Consider(!) supporting the previous version.
         compiler: [gcc, clang]
-        linkage: ["", --shared] # TODO: Add LTO. Also needed for URT library via its (not-yet-existant CMakeLists.txt)
+        linkage: ["", --shared] # TODO: Add LTO. Also needed for URT library via its (not-yet-existant) CMakeLists.txt
     steps:
     - uses: actions/checkout@v1
       with:
@@ -45,7 +45,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: build/data/data/txt
-        key: data-${{ hashFiles('build/data/data/txt/**/*') }}
+        key:          data-${{ hashFiles('build/data/data/txt/**/*') }}
         restore-keys: data-${{ hashFiles('build/data/data/txt/**/*') }}
     - name: set apt conf
       run: ${{env.APT_SET_CONF}}
@@ -80,14 +80,14 @@ jobs:
       uses: actions/cache@v2
       with:
         path: /Users/runner/Library/Caches/ccache
-        key: ccache03-${{ runner.os }}-build-${{ github.sha }}
+        key:          ccache03-${{ runner.os }}-build-${{ github.sha }}
         restore-keys: ccache03-${{ runner.os }}-build-
     # Less volatile cache
     - name: data cache
       uses: actions/cache@v2
       with:
         path: build/data/data/txt
-        key: data-${{ hashFiles('build/data/data/txt/**/*') }}
+        key:          data-${{ hashFiles('build/data/data/txt/**/*') }}
         restore-keys: data-${{ hashFiles('build/data/data/txt/**/*') }}
     - name: install dependencies
       run: ls || util/deps-pull.sh
