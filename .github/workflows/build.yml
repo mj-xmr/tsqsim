@@ -72,7 +72,7 @@ jobs:
 # TODO: Add Windows build. Problem: EnjoLibBoost fails to compile without wstring (short but harder)
 
 
-  build-macos-TODO:
+  build-macos:
     runs-on: macOS-latest
     env:
       CCACHE_TEMPDIR: /tmp/.ccache-temp
@@ -94,14 +94,14 @@ jobs:
         path: build/data/data/txt
         key:          data-${{ hashFiles('build/data/data/txt/**/*') }}
         restore-keys: data-${{ hashFiles('build/data/data/txt/**/*') }}
-    - name: install dependencies
-      run: ls || util/deps-pull.sh
-    - name: build & install the unmanaged dependencies
-      run: ls || util/deps-build.sh
     - name: prepare environment
       run: util/prep-env.sh
+    - name: install dependencies
+      run: util/deps-pull.sh
+    - name: build & install the unmanaged dependencies
+      run: util/deps-build.sh
     - name: build
-      run: ls || ./ci-default --unity
+      run: ./ci-default --unity
     - name: run demo
-      run: ls || ./ci-default --unity --run-demo
+      run: ./ci-default --unity --run-demo
 

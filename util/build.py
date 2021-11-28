@@ -9,6 +9,7 @@ Created on 26.11.2021
 import os
 import sys
 import time
+import platform
 import subprocess
 import argparse
 import multiprocessing as mp
@@ -72,8 +73,13 @@ def build(args):
         cpcompiler = ICECC_DIR + 'c++'
     else:
         cpcompiler = args.compiler + '++'
+        
+    prefix = ""
+    print("System = " + platform.system())
+    if platform.system() == 'Darwin':
+        prefix = 'PATH="$(brew --prefix qt5)/bin:$PATH"' # https://github.com/leela-zero/leela-zero/issues/2177 
 
-    cmd = "cmake -G '{}'".format(args.generator) + ' -S {} -B .'.format(path)
+    cmd = prefix + " cmake -G '{}'".format(args.generator) + ' -S {} -B .'.format(path)
     cmd += NL + '-DUSE_STATIC={}' .format(OFF if args.shared else ON)
     cmd += NL + '-DUSE_DEBUG={}'  .format(ON  if args.debug  else OFF)
     cmd += NL + '-DUSE_UNITY={}'  .format(ON  if args.unity  else OFF)
