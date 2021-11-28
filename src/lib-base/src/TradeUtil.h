@@ -41,7 +41,7 @@ class TradeUtil
         EnjoLib::Str CutSymbolTestingPrefix(const EnjoLib::Str & symbolName) const;
         EnjoLib::Str LabelLineToUnderscoresWXid(const EnjoLib::Str & labelLine) const;
 
-        bool IsBlacklisted(const stdfwd::set<EnjoLib::Str> & blacklist, const EnjoLib::Str & sym, const EnjoLib::Str & per) const;
+        bool IsBlacklisted(const STDFWD::set<EnjoLib::Str> & blacklist, const EnjoLib::Str & sym, const EnjoLib::Str & per) const;
 
         EnjoLib::VecF GetAverage(const EnjoLib::Array<EnjoLib::VecF> & vdata) const;
 
@@ -52,14 +52,14 @@ class TradeUtil
         VecStr GetAllSymbolsFromStatsFile(float minSharpe) const;
         VecStr GetAllSymbolsFromStatsFile(float minSharpe, EnjoLib::Istream & is) const;
 
-        stdfwd::vector<EnjoLib::Pair<EnjoLib::Str, EnjoLib::Str>> GetPairsSymbolsFromCorrelsFile(float minCorrel) const;
-        stdfwd::vector<EnjoLib::Pair<EnjoLib::Str, EnjoLib::Str>> GetPairsSymbolsFromCorrelsFile(float minCorrel, EnjoLib::Istream & is) const;
+        STDFWD::vector<EnjoLib::Pair<EnjoLib::Str, EnjoLib::Str>> GetPairsSymbolsFromCorrelsFile(float minCorrel) const;
+        STDFWD::vector<EnjoLib::Pair<EnjoLib::Str, EnjoLib::Str>> GetPairsSymbolsFromCorrelsFile(float minCorrel, EnjoLib::Istream & is) const;
         EnjoLib::Tuple<EnjoLib::Str, EnjoLib::Str, float> ParseSymbolsCorrelLine(const EnjoLib::Str & line) const;
 
-        stdfwd::vector<EnjoLib::Pair<EnjoLib::Str, EnjoLib::Str>> GetPairsSymbolsFromStatsFile(float minSharpe) const;
-        stdfwd::vector<EnjoLib::Pair<EnjoLib::Str, EnjoLib::Str>> GetPairsSymbolsFromStatsFile(float minSharpe, EnjoLib::Istream & is) const;
-        stdfwd::vector<EnjoLib::Tuple<EnjoLib::Str, EnjoLib::Str, float>> GetPairsSymbolsLeverageFromStatsFile(float minSharpe, float maxDD) const;
-        stdfwd::vector<EnjoLib::Tuple<EnjoLib::Str, EnjoLib::Str, float>> GetPairsSymbolsLeverageFromStatsFile(float minSharpe, float maxDD, EnjoLib::Istream & is) const;
+        STDFWD::vector<EnjoLib::Pair<EnjoLib::Str, EnjoLib::Str>> GetPairsSymbolsFromStatsFile(float minSharpe) const;
+        STDFWD::vector<EnjoLib::Pair<EnjoLib::Str, EnjoLib::Str>> GetPairsSymbolsFromStatsFile(float minSharpe, EnjoLib::Istream & is) const;
+        STDFWD::vector<EnjoLib::Tuple<EnjoLib::Str, EnjoLib::Str, float>> GetPairsSymbolsLeverageFromStatsFile(float minSharpe, float maxDD) const;
+        STDFWD::vector<EnjoLib::Tuple<EnjoLib::Str, EnjoLib::Str, float>> GetPairsSymbolsLeverageFromStatsFile(float minSharpe, float maxDD, EnjoLib::Istream & is) const;
         EnjoLib::Tuple<EnjoLib::Str, EnjoLib::Str, float, float, float> ParseSymbolsStatsLine(const EnjoLib::Str & line) const;
 
         EnjoLib::Str GetSymSymCorrPerNameId(const IDataProvider & per, const IDataProvider * perCorrel = nullptr) const;

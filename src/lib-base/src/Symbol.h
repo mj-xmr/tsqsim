@@ -62,7 +62,7 @@ public:
 
 private:
     void InitAllowedPeriods();
-    stdfwd::vector<IPeriod*> GetPeriodsRWAll();
+    STDFWD::vector<IPeriod*> GetPeriodsRWAll();
     bool IsPeriodAllowedStr(const IPeriod * p) const;
     bool IsPeriodAllowed(const IPeriod * p) const;
 

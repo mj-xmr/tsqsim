@@ -20,8 +20,8 @@ class MainTesterUtil
         void RestoreTicks(const ITicksProvider * tickProvider, const ConfigSym * confSym) const;
         void FilterBySpread() const;
         CorPtr<ITicks> Filter(EnjoLib::Str symbolName, const ITicks & ticks, const ConfigSym * confSym) const;
-        static stdfwd::vector<ISymbol*> SortISymbolsGrowing(const stdfwd::vector<ISymbol*> & vecSyms);
-        
+        static STDFWD::vector<ISymbol*> SortISymbolsGrowing(const STDFWD::vector<ISymbol*> & vecSyms);
+
 
     protected:
 

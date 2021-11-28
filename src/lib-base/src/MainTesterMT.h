@@ -15,7 +15,7 @@ class MainTesterMT
         virtual ~MainTesterMT();
 
         using TupleIn = EnjoLib::Tuple<const MainTester *, EnjoLib::Str, VecStr>;
-        static VecUPtr<ISymbol> GetSymbols(const stdfwd::vector<TupleIn> & inp, bool multiThreaded);
+        static VecUPtr<ISymbol> GetSymbols(const STDFWD::vector<TupleIn> & inp, bool multiThreaded);
 
     protected:
 

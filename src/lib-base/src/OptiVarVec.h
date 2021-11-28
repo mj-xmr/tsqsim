@@ -13,27 +13,27 @@ class OptiVarVec
         OptiVarVec();
         OptiVarVec(const std::initializer_list<OptiVarF *> & invec);
         virtual ~OptiVarVec();
-        
+
         void Add(OptiVarF * var);
-        
+
         //OptiVarVecInternal vec;
-        
-        stdfwd::vector<OptiVarF *> & VecRW();
+
+        STDFWD::vector<OptiVarF *> & VecRW();
         EnjoLib::Array<OptiVarF *> Vec() const;
-        
+
         /*
         typedef EnjoLib::Iter<OptiVarF *>              iterator;
         typedef EnjoLib::Iter<const OptiVarF *>        const_iterator;
 
         const_iterator       begin() const;
         const_iterator       end() const;
-        
+
         iterator             begin();
         iterator             end();
         const_iterator       cbegin() const;
         const_iterator       cend() const;
         */
-        
+
     protected:
 
     private:

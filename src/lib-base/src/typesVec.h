@@ -19,10 +19,10 @@ namespace EnjoLib
 typedef EnjoLib::VecT<int> VecI;
 typedef EnjoLib::VecF Vec;
 //typedef EnjoLib::VecD VecD;
-typedef stdfwd::vector<bool> VecB;
+typedef STDFWD::vector<bool> VecB;
 //typedef VecB Mask;
 typedef EnjoLib::VecD Mask;
-typedef stdfwd::vector<Candle> VecCan;
+typedef STDFWD::vector<Candle> VecCan;
 typedef EnjoLib::VectorViewable<Candle> VecCanView;
 typedef EnjoLib::IIterableConst<Candle> IterCan;
 

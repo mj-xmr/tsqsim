@@ -34,7 +34,7 @@ class IPeriod : public IDataProvider
 
         virtual void Feed(const Tick & tick, bool updateTech = false) = 0;
         virtual void Feed(const EnjoLib::IIterableConst<Tick> & tick, bool updateTech = false) = 0;
-        
+
         virtual void FeedFromLower(const Tick & period, int periodRatio) = 0;
         virtual void CalcTech() = 0;
         virtual void UpdateTech() = 0;
@@ -70,8 +70,8 @@ class IPeriod : public IDataProvider
         //const Abstracts & GetAbstracts() const { return m_abstr; };
 
         virtual void SetCandles(const VecCan & candles) = 0;
-        virtual void SetCandles(const stdfwd::deque<Candle> & candles) = 0;
-        virtual void SetCandles(const stdfwd::deque<Tick> & candles) = 0;
+        virtual void SetCandles(const STDFWD::deque<Candle> & candles) = 0;
+        virtual void SetCandles(const STDFWD::deque<Tick> & candles) = 0;
         //virtual void SetStates(const HmmStates & states) = 0;
 
         virtual const DataOCHL & GetDataFull() const = 0;

@@ -14,12 +14,12 @@ class ITicks : public EnjoLib::IIterableConst<Tick>
 {
 public:
     virtual ~ITicks();
-    
+
     static CorPtr<ITicks> Create();
-    
-    virtual const stdfwd::vector<Tick> & GetTicks3() const = 0;
+
+    virtual const STDFWD::vector<Tick> & GetTicks3() const = 0;
     virtual EnjoLib::View<Tick> GetTicksView() const = 0;
-    
+
     virtual CorPtr<ITicks> FromYear(int year) const = 0;
     virtual CorPtr<ITicks> TillYear(int year) const = 0;
     virtual CorPtr<ITicks> BetweenYears(int yearStart, int yearEnd) const = 0;

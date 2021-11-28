@@ -25,9 +25,9 @@ class DTWWrap
         DTWWrap();
         virtual ~DTWWrap();
 
-        EnjoLib::VecD GetMinDist(int i, const DateInt & date, const DTWDistType & type, const EnjoLib::VecD & obsNew, const IModel & mod, 
+        EnjoLib::VecD GetMinDist(int i, const DateInt & date, const DTWDistType & type, const EnjoLib::VecD & obsNew, const IModel & mod,
                                     const IBufferCandles & bufCan, const EnjoLib::Array<LabelML> & knnLabs, const Mask & mask) const;
-        //EnjoLib::MaxMinFindF GetMinDistKNN(const EnjoLib::VecD & obsNew, const stdfwd::vector<LabelML> & knnLabs, const VecB & mask) const;
+        //EnjoLib::MaxMinFindF GetMinDistKNN(const EnjoLib::VecD & obsNew, const STDFWD::vector<LabelML> & knnLabs, const VecB & mask) const;
         Err GetError(const LabelML & laba, const EnjoLib::VecD & targets) const;
 
     protected:

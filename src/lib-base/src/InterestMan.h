@@ -21,7 +21,7 @@ class InterestMan
 
     private:
         const Interest & GetInterest(const EnjoLib::Str & symbol, DateInt date) const;
-        EnjoLib::CacheRAMBasePtr<EnjoLib::Str, stdfwd::vector<Interest>> m_interest;
+        EnjoLib::CacheRAMBasePtr<EnjoLib::Str, STDFWD::vector<Interest>> m_interest;
 };
 
 #endif // INTERESTMAN_H

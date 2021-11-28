@@ -44,7 +44,7 @@ struct RegOptiZZResVec
 {
     ~RegOptiZZResVec(){}
     RegOptiZZResVec(){}
-    RegOptiZZResVec(const stdfwd::vector<RegOptiZZRes> & res);
+    RegOptiZZResVec(const STDFWD::vector<RegOptiZZRes> & res);
 
     //std::vector<RegOptiZZRes> vres;
     EnjoLib::Array<RegOptiZZRes> vres;

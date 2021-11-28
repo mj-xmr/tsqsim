@@ -80,8 +80,8 @@ class PeriodClean : public IPeriod
         //const Abstracts & GetAbstracts() const { return m_abstr; };
 
         void SetCandles(const VecCan & candles) override;
-        void SetCandles(const stdfwd::deque<Candle> & candles) override;
-        void SetCandles(const stdfwd::deque<Tick> & candles) override;
+        void SetCandles(const STDFWD::deque<Candle> & candles) override;
+        void SetCandles(const STDFWD::deque<Tick> & candles) override;
         //void SetStates(const HmmStates & states) override { m_hmmStatesData = states; };
         int Len() const override;
 
@@ -114,9 +114,9 @@ class PeriodClean : public IPeriod
         //BufferCandles m_bufCan;
 
 
-        
+
         mutable EnjoLib::CacheRAMBasePtr<int, EnjoLib::VecF> m_mas;
-        
+
         PIMPL
 };
 

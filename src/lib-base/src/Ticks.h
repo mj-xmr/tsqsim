@@ -21,7 +21,7 @@ public:
     Ticks(const EnjoLib::Str & symbolName, EnjoLib::Istream & is, size_t numLines = 0, bool skipHeader = true);
     Ticks(const EnjoLib::Str & symbolName, const EnjoLib::Str & fileName, size_t numLines = 0, bool skipHeader = true);
     Ticks(const EnjoLib::Str & symbolName, const VecStr & lines, bool skipHeader = true);
-    Ticks(const stdfwd::vector<Tick> & ticks);
+    Ticks(const STDFWD::vector<Tick> & ticks);
     Ticks(const ITicks & ticks);
     Ticks(const IIterableConst<Tick> & ticks);
     virtual ~Ticks();
@@ -40,10 +40,10 @@ public:
     void Add(const Tick & tick) override;
 
     VecCan ToCandles() const override;
-    
+
     const Tick & at(size_t idx) const override;
     size_t size() const override;
-    
+
     IITER_IMPL_CONST
 
 private:

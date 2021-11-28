@@ -25,8 +25,8 @@ class SRDummy : public ISR
 
     protected:
 
-    private:    
-        EnjoLib::SafePtr<stdfwd::multimap<float, SRFinal>> m_sup, m_res;
+    private:
+        EnjoLib::SafePtr<STDFWD::multimap<float, SRFinal>> m_sup, m_res;
 };
 
 #endif // ISRDUMMY_H

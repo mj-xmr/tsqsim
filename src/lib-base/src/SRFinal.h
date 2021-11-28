@@ -20,7 +20,7 @@ class SRFinal
         void SetEnd(int iEnd) { m_iEnd = iEnd; }
         void AdvanceIndex();
 
-        typedef stdfwd::multimap<float, SRFinal> SrFinType; // Sorted by SRFinal->GetStart()
+        typedef STDFWD::multimap<float, SRFinal> SrFinType; // Sorted by SRFinal->GetStart()
         //typedef SrFinType::const_iterator SFCIt;
         //typedef SrFinType::iterator SFIt;
     protected:
