@@ -88,8 +88,18 @@ jobs:
         path: build/data/data/txt
         key:          data-${{ hashFiles('build/data/data/txt/**/*') }}
         restore-keys: data-${{ hashFiles('build/data/data/txt/**/*') }}
+    # Package cache
+    - name: brew cache
+      uses: actions/cache@v2
+      with:
+        path: /usr/local/Cellar
+        key:          brew01-${{ runner.os }}-${{ hashFiles('/usr/local/Cellar/**/*') }}
+        restore-keys: brew01-${{ runner.os }}
+    # TODO:
+    #- name: check manifest hashFiles
+    #    wget https://formulae.brew.sh/api/formula.json
     - name: install dependencies
-      run: ls || util/deps-pull.sh
+      run: util/deps-pull.sh
     - name: build & install the unmanaged dependencies
       run: ls || util/deps-build.sh
     - name: prepare environment
