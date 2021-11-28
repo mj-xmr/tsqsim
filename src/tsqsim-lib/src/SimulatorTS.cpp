@@ -78,7 +78,7 @@ std::vector<TSRes> SimulatorTS::GetRets(const std::vector<Inp> & input) const
         {
             LOGL << "Multithreaded transformations selected. Using " << ThreadWrap::GetConcurrency() << " cores.\n";
         }
-        return SimulatorTSMT::GetRets(input);
+        return SimulatorTSMT::GetRetsMT(input);
     }
     else
     {

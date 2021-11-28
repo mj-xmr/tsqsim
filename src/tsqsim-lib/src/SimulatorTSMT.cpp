@@ -49,7 +49,7 @@ void SimulatorTSMT::PrintExperimental(const TSInput & tsin, const EnjoLib::VecD 
     LOG << "Stationarity score = " << futURT2.get() << Nl;
 }
 
-stdfwd::vector<TSRes> SimulatorTSMT::GetRets(const stdfwd::vector<SimulatorTS::Inp> input)
+stdfwd::vector<TSRes> SimulatorTSMT::GetRetsMT(const stdfwd::vector<SimulatorTS::Inp> input)
 {
     std::function<decltype(SimulatorTS::IterBet)> f_conv = &SimulatorTS::IterBet;
     const std::vector<TSRes> & rets = ConvertVectorThreaded(input, f_conv); /// TODO: 1 Single threaded doesn't work

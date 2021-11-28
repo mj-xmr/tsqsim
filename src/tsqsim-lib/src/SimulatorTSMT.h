@@ -15,7 +15,7 @@ class SimulatorTSMT
 
         static void PrintExperimental(const TSInput & tsin, const EnjoLib::VecD & data);
 
-        static stdfwd::vector<TSRes> GetRets(const stdfwd::vector<SimulatorTS::Inp> input);
+        static stdfwd::vector<TSRes> GetRetsMT(const stdfwd::vector<SimulatorTS::Inp> input);
 
     protected:
 
