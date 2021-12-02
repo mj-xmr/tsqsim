@@ -47,9 +47,9 @@ When in doubt, please view their contents with `cat` for an objective assessment
 ```bash
 git clone --recursive https://github.com/mj-xmr/tsqsim.git # Clone this repo (assuming it's not a fork)
 cd tsqsim		# Enter the cloned repo's dir
+./util/prep-env.sh	# Prepare the environment - downloads example data and creates useful symlinks
 ./util/deps-pull.sh	# Download the maintaned dependencies
 ./util/deps-build.sh	# Build and install the unmanaged dependencies (uses sudo for installation)
-./util/prep-env.sh	# Prepare the environment - downloads example data and creates useful symlinks
 ```
 
 ## Building & running
