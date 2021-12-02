@@ -16,8 +16,8 @@ tar -xvf QCustomPlot-sharedlib.tar.gz
 tar -xvf QCustomPlot-source.tar.gz
 mv qcustomplot-source/* .
 #Patch!
-#patch < "$DIR"/contrib/qcustomplot/slow-drag-1.3.2/qcustomplot.cpp.patch
-#patch < "$DIR"/contrib/qcustomplot/slow-drag-1.3.2/qcustomplot.h.patch
+patch < "$DIR"/qcustomplot/slow-drag-1.3.2/qcustomplot.cpp.patch
+patch < "$DIR"/qcustomplot/slow-drag-1.3.2/qcustomplot.h.patch
 
 pushd qcustomplot-sharedlib/sharedlib-compilation
 

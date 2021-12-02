@@ -1,0 +1,11 @@
+--- qcustomplot.h	2017-03-31 19:02:45.730688186 +0200
++++ myqcustomplot.h	2017-03-31 19:03:06.286687647 +0200
+@@ -1715,6 +1715,8 @@
+   explicit QCustomPlot(QWidget *parent = 0);
+   virtual ~QCustomPlot();
+   
++  bool m_delayed;
++
+   // getters:
+   QRect viewport() const { return mViewport; }
+   QPixmap background() const { return mBackgroundPixmap; }

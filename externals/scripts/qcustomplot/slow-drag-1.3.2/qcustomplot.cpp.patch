@@ -1,0 +1,81 @@
+--- qcustomplot.cpp	2015-12-22 01:02:50.000000000 +0100
++++ myqcustomplot.cpp	2017-03-31 19:07:54.290680098 +0200
+@@ -9016,6 +9016,7 @@
+ */
+ QCustomPlot::QCustomPlot(QWidget *parent) :
+   QWidget(parent),
++  m_delayed(false),
+   xAxis(0),
+   yAxis(0),
+   xAxis2(0),
+@@ -10363,32 +10364,50 @@
+   signals on two QCustomPlots to make them replot synchronously, it won't cause an infinite
+   recursion.
+ */
++static unsigned tdiff = 0;
++static unsigned tprev = 0;
+ void QCustomPlot::replot(QCustomPlot::RefreshPriority refreshPriority)
+ {
+   if (mReplotting) // incase signals loop back to replot slot
+     return;
+   mReplotting = true;
+   emit beforeReplot();
+-  
+-  mPaintBuffer.fill(mBackgroundBrush.style() == Qt::SolidPattern ? mBackgroundBrush.color() : Qt::transparent);
+-  QCPPainter painter;
+-  painter.begin(&mPaintBuffer);
+-  if (painter.isActive())
+-  {
+-    painter.setRenderHint(QPainter::HighQualityAntialiasing); // to make Antialiasing look good if using the OpenGL graphicssystem
+-    if (mBackgroundBrush.style() != Qt::SolidPattern && mBackgroundBrush.style() != Qt::NoBrush)
+-      painter.fillRect(mViewport, mBackgroundBrush);
+-    draw(&painter);
+-    painter.end();
+-    if ((refreshPriority == rpHint && mPlottingHints.testFlag(QCP::phForceRepaint)) || refreshPriority==rpImmediate)
+-      repaint();
+-    else
+-      update();
+-  } else // might happen if QCustomPlot has width or height zero
+-    qDebug() << Q_FUNC_INFO << "Couldn't activate painter on buffer. This usually happens because QCustomPlot has width or height zero.";
+-  
+-  emit afterReplot();
+-  mReplotting = false;
++
++	unsigned diffNow = QDateTime::currentMSecsSinceEpoch() - tprev;
++        if (diffNow > tdiff * 1.02 || ! m_delayed)
++   //if (true)
++        {
++            tprev = QDateTime::currentMSecsSinceEpoch();
++
++     mPaintBuffer.fill(mBackgroundBrush.style() == Qt::SolidPattern ? mBackgroundBrush.color() : Qt::transparent);
++     QCPPainter painter;
++     painter.begin(&mPaintBuffer);
++     if (painter.isActive())
++     {
++       painter.setRenderHint(QPainter::HighQualityAntialiasing); // to make Antialiasing look good if using the OpenGL graphicssystem
++       if (mBackgroundBrush.style() != Qt::SolidPattern && mBackgroundBrush.style() != Qt::NoBrush)
++         painter.fillRect(mViewport, mBackgroundBrush);
++       draw(&painter);
++       painter.end();
++       if ((refreshPriority == rpHint && mPlottingHints.testFlag(QCP::phForceRepaint)) || refreshPriority==rpImmediate)
++         repaint();
++       else
++         update();
++     } else // might happen if QCustomPlot has width or height zero
++       qDebug() << Q_FUNC_INFO << "Couldn't activate painter on buffer. This usually happens because QCustomPlot has width or height zero.";
++     
++     emit afterReplot();
++     mReplotting = false;
++
++            tdiff = QDateTime::currentMSecsSinceEpoch() - tprev;
++
++        }
++   	else
++	{
++	     emit afterReplot();
++	   mReplotting = false;
++	   return;
++	}
+ }
+ 
+ /*!
