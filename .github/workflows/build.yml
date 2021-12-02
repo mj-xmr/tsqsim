@@ -50,8 +50,8 @@ jobs:
       uses: actions/cache@v2
       with:
         path: build/deps/dload
-        key:          data-${{ hashFiles('build/deps/dload/*') }}
-        restore-keys: data-${{ hashFiles('build/deps/dload/*') }}
+        key:          deps-${{ hashFiles('build/deps/dload/*') }}
+        restore-keys: deps-${{ hashFiles('build/deps/dload/*') }}
     - name: prepare environment
       run: util/prep-env.sh
     - name: set apt conf
