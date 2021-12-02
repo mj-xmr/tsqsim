@@ -27,7 +27,7 @@ jobs:
       matrix:
         os: [ubuntu-latest] #, ubuntu-18.04] # TODO: Consider(!) supporting the previous version.
         compiler: [gcc, clang]
-        linkage: ["", --shared] # TODO: Add LTO. Also needed for URT library via its (not-yet-existant) CMakeLists.txt
+        linkage: ["", --shared] # TODO: Add LTO. Also needed for URT library via its CMakeLists.txt
     steps:
     - uses: actions/checkout@v1
       with:
@@ -46,14 +46,14 @@ jobs:
         path: build/data/data/txt
         key:          data-${{ hashFiles('build/data/data/txt/**/*') }}
         restore-keys: data-${{ hashFiles('build/data/data/txt/**/*') }}
+    - name: prepare environment
+      run: util/prep-env.sh
     - name: set apt conf
       run: ${{env.APT_SET_CONF}}
     - name: install dependencies
       run: util/deps-pull.sh
     - name: build & install the unmanaged dependencies
       run: util/deps-build.sh
-    - name: prepare environment
-      run: util/prep-env.sh
     - name: build
       run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} --unity
     - name: run demo
