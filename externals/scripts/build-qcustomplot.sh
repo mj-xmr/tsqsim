@@ -15,10 +15,14 @@ ARCHIVE_LIB=QCustomPlot-sharedlib.tar.gz
 ARCHIVE_SRC=QCustomPlot-source.tar.gz
 
 pushd $DIR_DLOAD
-	if [ ! -f ${ARCHIVE_LIB} ]; then
+	if [ -f ${ARCHIVE_LIB} ]; then
+		echo "Already downloaded: ${ARCHIVE_LIB}"
+	else
 		wget https://www.qcustomplot.com/release/${VER}/${ARCHIVE_LIB}
 	fi
-	if [ ! -f ${ARCHIVE_SRC} ]; then
+	if [ -f ${ARCHIVE_SRC} ]; then
+		echo "Already downloaded: ${ARCHIVE_SRC}"
+	else
 		wget https://www.qcustomplot.com/release/${VER}/${ARCHIVE_SRC}
 	fi
 popd
