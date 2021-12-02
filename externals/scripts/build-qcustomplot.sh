@@ -7,13 +7,24 @@ if [ -z $1 ]; then PROC=1; else PROC=$1; fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-mkdir -p build && cd build
+DIR_DLOAD=dload
+mkdir -p build/deps/$DIR_DLOAD && cd build/deps
 
 # TODO: Check sha256 hash
-wget https://www.qcustomplot.com/release/${VER}/QCustomPlot-sharedlib.tar.gz
-wget https://www.qcustomplot.com/release/${VER}/QCustomPlot-source.tar.gz
-tar -xvf QCustomPlot-sharedlib.tar.gz
-tar -xvf QCustomPlot-source.tar.gz
+ARCHIVE_LIB=QCustomPlot-sharedlib.tar.gz
+ARCHIVE_SRC=QCustomPlot-source.tar.gz
+
+pushd $DIR_DLOAD
+	if [ ! -f ${ARCHIVE_LIB} ]; then
+		wget https://www.qcustomplot.com/release/${VER}/${ARCHIVE_LIB}
+	fi
+	if [ ! -f ${ARCHIVE_SRC} ]; then
+		wget https://www.qcustomplot.com/release/${VER}/${ARCHIVE_SRC}
+	fi
+popd
+
+tar -xvf $DIR_DLOAD/QCustomPlot-sharedlib.tar.gz
+tar -xvf $DIR_DLOAD/QCustomPlot-source.tar.gz
 mv qcustomplot-source/* .
 #Patch!
 patch < "$DIR"/qcustomplot/slow-drag-1.3.2/qcustomplot.cpp.patch
