@@ -50,7 +50,8 @@ def build(args):
     build_dir += '-' + ('shared' if args.shared else 'static')
     build_dir += '-' + ('debug'  if args.debug  else 'release')
 
-    os.chdir(args.path)
+    path = os.path.abspath(args.path)
+    os.chdir(path)
     print("Build dir = " + build_dir)
     os.makedirs(build_dir, exist_ok=True)
     os.chdir(build_dir)
@@ -70,8 +71,8 @@ def build(args):
         cpcompiler = ICECC_DIR + 'c++'
     else:
         cpcompiler = args.compiler + '++'
-    
-    cmd = "cmake -G '{}'".format(args.generator) + ' -S ../.. -B .'
+
+    cmd = "cmake -G '{}'".format(args.generator) + ' -S {} -B .'.format(path)
     cmd += NL + '-DUSE_STATIC={}' .format(OFF if args.shared else ON)
     cmd += NL + '-DUSE_DEBUG={}'  .format(ON  if args.debug  else OFF)
     cmd += NL + '-DUSE_UNITY={}'  .format(ON  if args.unity  else OFF)
