@@ -10,7 +10,11 @@ URTWrap::URTWrap(){}
 
 //#define USE_URT
 #ifdef USE_URT
-#include <URT/URT.hpp>
+#ifdef PUB
+	#include <URT.hpp> /// TODO: This is a workaround. Install URT under URT/URT.hpp, without sudo
+#else
+	#include <URT/URT.hpp>
+#endif
 double URTWrap::GetStatistic(const EnjoLib::VecD & data, int lags) const
 {
     try
