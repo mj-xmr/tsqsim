@@ -19,9 +19,8 @@
 #include <Util/CoutBuf.hpp>
 
 #include <Util/Trim.hpp>
-#include <STD/Iostream.hpp>
+#include <STD/Iostream.hpp> /// TODO: Remove
 
-#include <STD/VectorCpp.hpp>
 
 using namespace std;
 using namespace EnjoLib;
@@ -39,7 +38,7 @@ void App::Run(const ConfigSym & confSymCmdLine) const
         const ConfigTF2 & confTF2   = *gcfgMan.cfgTF2.get();
         ConfigSym & confSym         = *gcfgMan.cfgSym.get();
 
-        UpdateCfgSym(confSymCmdLine, confSym);
+        confSym.UpdateFromOther(confSymCmdLine);
 
         VecStr symbols = {confSym.symbol};
         VecStr periods = {confSym.period};
@@ -69,8 +68,10 @@ void App::Run(const ConfigSym & confSymCmdLine) const
 
         if (confTF.REPEAT)
         {
+            /// TODO: Log::WriteLine("q to quit"); in CoutBuf
             cout << "q to quit" << endl;
             EnjoLib::Str line;
+            /// TODO: GetLine in Ios wrapper
             getline(cin, line.strRW());
             line = EnjoLib::Trim().trim(line);
             if (line == "q")
@@ -79,11 +80,4 @@ void App::Run(const ConfigSym & confSymCmdLine) const
 
     } while (confTF.REPEAT);
     //LOGL << "Plugin name = " << plugin << Nl;
-}
-
-void App::UpdateCfgSym(const ConfigSym & cfgSymCmdLine, ConfigSym & cfgFile) const
-{
-    cfgFile.dates.UpdateIfNot0(cfgSymCmdLine.dates);
-    if (cfgSymCmdLine.symbol.size()) cfgFile.symbol = cfgSymCmdLine.symbol;
-    if (cfgSymCmdLine.period.size()) cfgFile.period = cfgSymCmdLine.period;
 }
