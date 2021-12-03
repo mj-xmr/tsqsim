@@ -73,6 +73,9 @@ int main(int argc, char *argv[])
     StrategyType stratType = StrategyFactory::Type::STRA_SR_BRK;
     gcfgMan.Read();
     ConfigSym * pconf = gcfgMan.cfgSym.get();
+    pconf->UpdateFromOther(result.value.m_confSym);
+    pconf->Write(); // Propagates the CLI choices
+     
     //const ConfigTF2 & confTF2 = *gcfgMan.cfgTF2;
     //const ConfigOpti & confOpti = *gcfgMan.cfgOpti;
     try
