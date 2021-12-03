@@ -54,6 +54,13 @@ void ConfigSym::RegisterAndReadStrs(EnjoLib::Istream & f)
     RegisterAndReadStr(f, period, "h8");
 }
 
+void ConfigSym::UpdateFromOther(const ConfigSym & cfgSymCmdLine)
+{
+    dates.UpdateIfNot0(cfgSymCmdLine.dates);
+    if (cfgSymCmdLine.symbol.size()) symbol = cfgSymCmdLine.symbol;
+    if (cfgSymCmdLine.period.size()) period = cfgSymCmdLine.period;
+}
+
 /*
 void ConfigSym::SetStandardVals()
 {

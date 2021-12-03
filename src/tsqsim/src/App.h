@@ -14,7 +14,6 @@ class App
         void Run(const ConfigSym & cfgSymCmdLine) const;
 
     protected:
-        void UpdateCfgSym(const ConfigSym & cfgSymCmdLine, ConfigSym & cfgFile) const;
 
     private:
 };

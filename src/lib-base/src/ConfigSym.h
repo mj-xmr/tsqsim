@@ -20,6 +20,8 @@ class ConfigSym : public ConfigBase
         void RegisterAndReadInts(EnjoLib::Istream & ifs) override;
         void RegisterAndReadFloats(EnjoLib::Istream & ifs) override;
         void RegisterAndReadStrs(EnjoLib::Istream & ifs) override;
+        
+        void UpdateFromOther(const ConfigSym & cfgSymCmdLine);
 
         //void SetStandardVals();
         bool ShiftRange(int shift);

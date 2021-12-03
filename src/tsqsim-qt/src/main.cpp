@@ -26,6 +26,8 @@
 
 #include "MyMainWindow.h"
 #include "Monster.h"
+#include "CLITsq.h"
+#include "CLIResult.h"
 #include <StrategyFactoryDummy.h>
 #include <SymbolFactoryClean.h>
 #include <ConfigMan.h>
@@ -50,7 +52,15 @@ int main(int argc, char *argv[])
     int mode = 0;
     if (argc > 1)
     {
-        mode = CharManipulations().ToInt(argv[1]);
+        /// TODO: Restore?
+        //mode = CharManipulations().ToInt(argv[1]);
+    }
+    // Experiment:
+    const CLITsq cli;
+    const EnjoLib::Result<CLIResult> & result = cli.GetConfigs(argc, argv);
+    if (not result.isSuccess)
+    {
+        return 0;
     }
     //screenShot = true;
     const EnjoLib::Str screenShotOutDir  = argc > 2 ? argv[2] : "";
@@ -88,6 +98,7 @@ int main(int argc, char *argv[])
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     QApplication::setGraphicsSystem("raster");
 #endif
+    /// TODO: Check it it's useful:
     QApplication a(argc, argv);
 
     //cout << "mode = " << mode << "\nscreenShotOutDir = " << screenShotOutDir << "\nscreenShotSymbol = " << screenShotSymbol << "\nscreenShotPeriod = " << screenShotPeriod << "\ndataInputFileName = " << dataInputFileName << endl;
