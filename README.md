@@ -72,7 +72,7 @@ For example, to override the default discrete period and the ending year, the fo
 ./tsqsim-qt --min-year 2015 --max-year 2016 --per h12   # QT data viewer
 ```
 
-## Controlling the QT app
+## Controlling the QT data viewer
 - Mouse right click reloads the data. Useful when a configuration has changed
 - Mouse scroll zooms in and out
 - Mouse drag with left click moves the viewpoint within the same dataset
