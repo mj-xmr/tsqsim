@@ -10,26 +10,38 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 DIR_DLOAD=dload
 mkdir -p build/deps/$DIR_DLOAD && cd build/deps
 
-# TODO: Check sha256 hash
-ARCHIVE_LIB=QCustomPlot-sharedlib.tar.gz
-ARCHIVE_SRC=QCustomPlot-source.tar.gz
 
-pushd $DIR_DLOAD
-	if [ -f ${ARCHIVE_LIB} ]; then
-		echo "Already downloaded: ${ARCHIVE_LIB}"
+dload_file() {
+	FILE=$1
+	if [ -f ${FILE} ]; then
+		echo "Already downloaded: ${FILE}"
 	else
-		wget https://www.qcustomplot.com/release/${VER}/${ARCHIVE_LIB}
-	fi
-	if [ -f ${ARCHIVE_SRC} ]; then
-		echo "Already downloaded: ${ARCHIVE_SRC}"
-	else
-		wget https://www.qcustomplot.com/release/${VER}/${ARCHIVE_SRC}
-	fi
-popd
+		wget https://www.qcustomplot.com/release/${VER}/${FILE}
+	fi	
+}
 
-tar -xvf $DIR_DLOAD/QCustomPlot-sharedlib.tar.gz
-tar -xvf $DIR_DLOAD/QCustomPlot-source.tar.gz
+dload() {
+	ARCHIVE_LIB=QCustomPlot-sharedlib.tar.gz
+	ARCHIVE_SRC=QCustomPlot-source.tar.gz
+	pushd $DIR_DLOAD
+		dload_file $ARCHIVE_LIB
+		dload_file $ARCHIVE_SRC
+	popd
+	tar -xvf $DIR_DLOAD/$ARCHIVE_LIB
+	tar -xvf $DIR_DLOAD/$ARCHIVE_SRC
+	
+}
+
+copy() {
+	cp -vr "$DIR/../QCustomPlot/$VER" .
+	cd $VER
+}
+
+#dload # Older and unsafe method
+copy
+
 mv qcustomplot-source/* .
+
 #Patch!
 patch < "$DIR"/qcustomplot/slow-drag-1.3.2/qcustomplot.cpp.patch
 patch < "$DIR"/qcustomplot/slow-drag-1.3.2/qcustomplot.h.patch
