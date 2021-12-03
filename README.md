@@ -68,8 +68,16 @@ To learn all the app's options and additional information, from within the targe
 ## Command line example
 For example, to override the default discrete period and the ending year, the following can be executed:
 ```bash
-./tsqsim --per h12 --max-year 2016
+./tsqsim --per h12 --max-year 2016  # Simulator
+./tsqsim-qt --min-year 2015 --max-year 2016 --per h12   # QT data viewer
 ```
+
+## Controlling the QT app
+- Mouse right click reloads the data. Useful when a configuration has changed
+- Mouse scroll zooms in and out
+- Mouse drag with left click moves the viewpoint within the same dataset
+- Cursors left/right move the viewpoint left/right, loading new dataset
+- Cursors up/down scale up/down
 
 ## Modifying the transformation script
 The TS transformation script's path can be obtained via `./tsqsim --help`, as well as it's currently available transformations. The script can modify the chain of transformations used by the executable, without the need for its recompilation.
@@ -105,6 +113,12 @@ The development of this project is currently being financed by the generous Mone
 Thus the priorities of the development are skewed towards delivering results to the MC.
 
 # Example outputs
+## QT data viewer
+
+![image](https://user-images.githubusercontent.com/63722585/144647510-51028542-a4a7-497c-9bc1-053daf7af947.png)
+
+## Console simulator
+
 ```
 Reading script file: 'tsqsim-script.txt'
 Script line: 'diff'
