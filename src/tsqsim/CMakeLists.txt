@@ -1,15 +1,18 @@
 # Create a library called "Hello" which includes the source file "hello.cxx".
 # The extension is already found. Any number of sources could be listed here.
 cmake_minimum_required(VERSION 3.5.1)
-include(../../cmake/util.cmake)
+include(util-tsqsim)
 project( tsqsim )
 
 file( GLOB SRCS src/*.cpp */*.h */*.hpp)
 
 add_executable(${PROJECT_NAME} ${SRCS})
 enjoSetupTarget(${PROJECT_NAME})
-enjoSymlink(${PROJECT_NAME} ../../data ${CMAKE_BINARY_DIR}/bin/data)
-enjoSymlink(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/ts-xform-script.txt ${CMAKE_BINARY_DIR}/bin/ts-xform-script.txt)
+tsqSetupSymlinks(${PROJECT_NAME})
+
+# TODO: Rather copy than symlink?
+enjoSymlink(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/scripts ${CMAKE_BINARY_DIR}/../scripts)
+
 target_link_libraries(${PROJECT_NAME} tsqsim-lib)
 
 
