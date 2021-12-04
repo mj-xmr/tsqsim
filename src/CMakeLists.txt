@@ -4,6 +4,7 @@ add_subdirectory(lib-base)
 add_subdirectory(tsqsim)
 add_subdirectory(tsqsim-lib)
 
-# TODO: Don't build with NO_QT
-add_subdirectory(qt-lib)
-add_subdirectory(tsqsim-qt)
+if (BUILD_QT)
+	add_subdirectory(qt-lib)
+	add_subdirectory(tsqsim-qt)
+endif()
