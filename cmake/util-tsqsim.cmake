@@ -1,5 +1,7 @@
 include(util)
 
+option(BUILD_QT    "Build QT apps"  ON)
+
 function (tsqSetupSymlinks target)
 	# TODO: use a loop for [data, cfg, scripts]
 	enjoSymlink(${target} ../../data 	${CMAKE_BINARY_DIR}/bin/data)	# Common data dir
