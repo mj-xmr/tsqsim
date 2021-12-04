@@ -8,10 +8,14 @@
 //#include <vector>
 //#include <mutex>
 
-namespace std
-{
-    class mutex;
-}
+#ifdef __APPLE__
+    #include <mutex>
+#else
+    namespace std
+    {
+        class mutex;
+    }
+#endif
 
 struct SignalBaseImpl;
 class SignalBase : public ISignal
@@ -29,7 +33,7 @@ class SignalBase : public ISignal
         EnjoLib::Pair<EnjoLib::VecT<int>, EnjoLib::VecT<int>> GetSignalIndexes() const override;
         EnjoLib::Array<State> GetSignalStates() const override;
         int GetSignalStart(const State & st) const override;
-        
+
         SignalBase & operator = (const SignalBase & other);
 
     protected:
@@ -42,7 +46,7 @@ class SignalBase : public ISignal
 
         void Init(Direction dir) const;
         EnjoLib::Str GetClassName() const;
-        
+
         mutable EnjoLib::SafePtrFast<SignalBaseImpl> m_pimp;
 
         mutable int m_len = 0;
