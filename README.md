@@ -46,7 +46,7 @@ Supported Operating Systems and features:
 | Ubuntu 20.04  | Y  | Y   | Y     |  Y | Y  |
 | Mac OSX 11    | Y  | -   | Y     |  - | -  |
 | Mac OSX 10.15 | Y  | -   | Y     |  - | -  |
-| ~~Windows~~   | -  | -   | -     |  - | -  |
+| ~~Windows~~ (soon)  | -  | -   | -     |  - | -  |
 
 Glossary:
 - CI = [Continuous Integration](https://github.com/mj-xmr/tsqsim/actions)
