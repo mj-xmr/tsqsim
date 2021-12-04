@@ -106,6 +106,7 @@ def run_demo(args):
     cmd += '&& ./tsqsim'
 
     proc = subprocess.run(cmd, shell=True, check=True)
+    proc = subprocess.run(cmd, shell=True, check=True) # Run again to test the deserialization
 
 def main(args):
     build(args)

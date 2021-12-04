@@ -5,6 +5,9 @@ project(URT)
 
 find_package(Eigen3 REQUIRED)
 #find_package(Armadillo REQUIRED) # Previous
+find_package(Boost QUIET COMPONENTS math)
+
+
 
 set(BASE_DIR ../../URT)
 
@@ -14,8 +17,9 @@ add_library (${PROJECT_NAME} ${LINK_TYPE} ${SRCS})
 enjoSetupTarget(${PROJECT_NAME})
 enjo_target_unity(${PROJECT_NAME})
 #target_include_directories(${PROJECT_NAME} PUBLIC ${ARMADILLO_INCLUDE_DIRS})
-target_include_directories(${PROJECT_NAME} PUBLIC ${EIGEN3_INCLUDE_DIRS})
+target_include_directories(${PROJECT_NAME} PUBLIC ${EIGEN3_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
 #target_link_libraries(${PROJECT_NAME} ${ARMADILLO_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${Boost_MATH_LIBRARY})
 target_compile_definitions(${PROJECT_NAME} PUBLIC USE_EIGEN)
 # TODO: Use MKL
 # Make sure the compiler can find include files for our Hello library
