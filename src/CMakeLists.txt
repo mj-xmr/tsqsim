@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.5.1)
 
 add_subdirectory(lib-base)
-add_subdirectory(tsqsim)
+if (NOT APPLE) # TODO: Temporary
+	add_subdirectory(tsqsim)
+endif()
 add_subdirectory(tsqsim-lib)
 
 if (BUILD_QT)

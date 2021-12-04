@@ -103,5 +103,5 @@ jobs:
     - name: build
       run: ./ci-default --no-qt --unity
     - name: run demo
-      run: ./ci-default --no-qt --unity --run-demo
+      run: ls || ./ci-default --no-qt --unity --run-demo
 
