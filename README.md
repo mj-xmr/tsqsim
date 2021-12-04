@@ -36,7 +36,7 @@ Please refer to [_"Fooled by Randomness"_](https://en.wikipedia.org/wiki/Fooled_
 In case these instructions become outdated, please refer to the steps of the [CI](.github/workflows/build.yml).
 
 ## Requirements
-Supported systems and features:
+Supported Operating Systems and features:
 
 | OS \ Feature  | CI | gcc | clang | UT | QT |
 | ------------- | -- | --- | ----- | -- | -- |
