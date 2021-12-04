@@ -5,7 +5,7 @@ project(URT)
 
 #find_package(Eigen3 REQUIRED)
 #include_directories(${EIGEN3_INCLUDE_DIRS})
-find_package(Armadillo)
+find_package(Armadillo REQUIRED)
 
 set(BASE_DIR ../../URT)
 
@@ -15,7 +15,7 @@ add_library (${PROJECT_NAME} ${LINK_TYPE} ${SRCS})
 enjoSetupTarget(${PROJECT_NAME})
 enjo_target_unity(${PROJECT_NAME})
 target_include_directories(${PROJECT_NAME} PUBLIC ${ARMADILLO_INCLUDE_DIRS})
-target_link_libraries(${PROJECT_NAME} armadillo ${ARMADILLO_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${ARMADILLO_LIBRARIES})
 target_compile_definitions(${PROJECT_NAME} PRIVATE USE_ARMA) # TODO: USE_EIGEN here
 # TODO: Use Eigen
 # TODO: Use MKL
