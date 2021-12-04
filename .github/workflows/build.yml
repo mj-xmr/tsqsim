@@ -71,11 +71,14 @@ jobs:
 # TODO: Add OSX build.	   Problem: stdfwd.hh has to be conditionally disabled for _APPLE_ (huge but simple)
 # TODO: Add Windows build. Problem: EnjoLibBoost fails to compile without wstring (short but harder)
 
-
   build-macos:
-    runs-on: macOS-latest
+    runs-on: ${{ matrix.os }}
     env:
       CCACHE_TEMPDIR: /tmp/.ccache-temp
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macOS-latest, macOS-11]
     steps:
     - uses: actions/checkout@v1
       with:
