@@ -50,7 +50,7 @@ Supported Operating Systems and features:
 
 Glossary:
 - CI = [Continuous Integration](https://github.com/mj-xmr/tsqsim/actions)
-- gcc / clang = C/C++ compilers
+- gcc & clang = C/C++ compilers
 - UT = Unit Tests
 - QT = QT Application (data viewer)
 
