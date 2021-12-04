@@ -18,7 +18,9 @@ target_link_libraries(${PROJECT_NAME} EnjoLibBoost FuzzyEngine++ URT ${EXTRA_LIB
 enjo_target_pch(${PROJECT_NAME} src/pch_base.h)
 target_compile_definitions(${PROJECT_NAME} PUBLIC PUB)
 if (APPLE)
-	target_link_options(${PROJECT_NAME} PUBLIC "LINKER:-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk")
+	# https://apple.stackexchange.com/questions/337940/why-is-usr-include-missing-i-have-xcode-and-command-line-tools-installed-moja
+	# https://lists.macports.org/pipermail/macports-dev/2019-September/041201.html
+	target_compile_options(${PROJECT_NAME} PUBLIC "-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk")
 endif()
 #enjoCopyFile(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/../run-tests.sh ../run-tests.sh)
 #enjoCopyFile(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/../libs-base.sh ../libs-base.sh)
