@@ -61,9 +61,9 @@ jobs:
     - name: build & install the unmanaged dependencies
       run: util/deps-build.sh
     - name: build
-      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} --unity
+      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} --unity --build-qt
     - name: run demo
-      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} --unity --run-demo
+      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} --unity --build-qt --run-demo
 
 # TODO: todos sorted by priority*realism:
 # TODO: All the unmaintained denendencies should have their own CMakeLists.txt file (URT. Others?) and the util/deps-build.sh should not be used, if possible.
@@ -101,7 +101,7 @@ jobs:
     - name: build & install the unmanaged dependencies
       run: util/deps-build.sh
     - name: build
-      run: ./ci-default --no-qt --unity
+      run: ./ci-default --unity
     - name: run demo
-      run: ./ci-default --no-qt --unity --run-demo
+      run: ./ci-default --unity --run-demo
 
