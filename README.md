@@ -37,10 +37,11 @@ In case these instructions become outdated, please refer to the steps of the [CI
 
 ## Requirements
 Supported systems:
-- Debian-stable
-- Ubuntu 20.04 & 21.04
-- Mac OSX
+- Debian stable & buster
+- Ubuntu 21.04 & 20.04(!)
+- Mac OSX 11(!) & 10.15(!)
 - ~~Windows~~ (somewhat later)
+- (!) = under CI
 
 ## Preparation
 Please run the below scripts. They are meant to be non-interactive and will require root permissions (via `sudo`). 
