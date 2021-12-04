@@ -17,11 +17,17 @@ enjoSetupTarget(${PROJECT_NAME})
 target_link_libraries(${PROJECT_NAME} EnjoLibBoost FuzzyEngine++ URT ${EXTRA_LIBS})
 enjo_target_pch(${PROJECT_NAME} src/pch_base.h)
 target_compile_definitions(${PROJECT_NAME} PUBLIC PUB)
+if (APPLE)
+	target_link_options(${PROJECT_NAME} PUBLIC "LINKER:-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk")
+endif()
 #enjoCopyFile(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/../run-tests.sh ../run-tests.sh)
 #enjoCopyFile(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/../libs-base.sh ../libs-base.sh)
 #enjoCopyFile(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/../libs-stock.sh ../libs-stock.sh)
 
 enjoRunUTs(${PROJECT_NAME})
+
+
+
 
 # Make sure the compiler can find include files for our Hello library
 # when other libraries or executables link to Hello
