@@ -77,7 +77,8 @@ def build(args):
     prefix = ""
     print("System = " + platform.system())
     if platform.system() == 'Darwin':
-        prefix = 'PATH="$(brew --prefix qt5)/bin:$PATH"' # https://github.com/leela-zero/leela-zero/issues/2177 
+        #prefix = 'PATH="$(brew --prefix qt5)/bin:$PATH"' # https://github.com/leela-zero/leela-zero/issues/2177 
+        pass
 
     cmd = prefix + " cmake -G '{}'".format(args.generator) + ' -S {} -B .'.format(path)
     cmd += NL + '-DUSE_STATIC={}' .format(OFF if args.shared else ON)

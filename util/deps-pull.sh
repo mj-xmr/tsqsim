@@ -1,8 +1,8 @@
 #!/bin/bash -e
 
 if [ "$(uname)" == "Darwin" ]; then
-	HOMEBREW_NO_AUTO_UPDATE=1 brew install qt5
-	brew link -v qt5 --force
+	#HOMEBREW_NO_AUTO_UPDATE=1 brew install qt5
+	#brew link -v qt5 --force
 	HOMEBREW_NO_AUTO_UPDATE=1 brew install boost openssl ccache gnuplot eigen unittest gsl armadillo unittest-cpp
 	# TODO: armadillo should be replaced with Eigen (at URT)
 	# TODO: install qt instead of qt5, after moving to latest QCustomPlot. Then the "--prefix" and "link" aren't needed.

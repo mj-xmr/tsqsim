@@ -2,7 +2,10 @@
 
 echo "Building dependencies"
 # externals/URT/build/build-urt.sh # Not needed anymore. Using CMakeLists.txt
-externals/scripts/build-qcustomplot.sh
+if [ "$(uname)" != "Darwin" ]; then
+	externals/scripts/build-qcustomplot.sh
+fi
+
 
 # Other dependencies here...
 
