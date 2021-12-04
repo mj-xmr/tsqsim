@@ -36,12 +36,23 @@ Please refer to [_"Fooled by Randomness"_](https://en.wikipedia.org/wiki/Fooled_
 In case these instructions become outdated, please refer to the steps of the [CI](.github/workflows/build.yml).
 
 ## Requirements
-Supported systems:
-- Debian stable & buster
-- Ubuntu 21.04 & 20.04(!)
-- Mac OSX 11(!) & 10.15(!)
-- ~~Windows~~ (somewhat later)
-- (!) = under CI
+Supported systems and features:
+
+| OS \ Feature  | CI | gcc | clang | UT | QT |
+| ------------- | -- | --- | ----- | -- | -- |
+| Debian stable | -  | Y   | Y     |  Y | -  |
+| Debian buster | -  | Y   | Y     |  Y | Y  |
+| Ubuntu 21.04  | -  | Y   | Y     |  Y | -  |
+| Ubuntu 20.04  | Y  | Y   | Y     |  Y | Y  |
+| Mac OSX 11    | Y  | -   | Y     |  - | -  |
+| Mac OSX 10.15 | Y  | -   | Y     |  - | -  |
+| ~~Windows~~   | -  | -   | -     |  - | -  |
+
+Glossary:
+- CI = [Continuous Integration](https://github.com/mj-xmr/tsqsim/actions)
+- gcc / clang = C/C++ compilers
+- UT = Unit Tests
+- QT = QT Application (data viewer)
 
 ## Preparation
 Please run the below scripts. They are meant to be non-interactive and will require root permissions (via `sudo`). 
