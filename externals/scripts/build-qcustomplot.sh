@@ -56,7 +56,11 @@ echo "QMAKE_CXXFLAGS += $CXXFLAGS" >> sharedlib-compilation.pro
 
 qmake
 make -j $PROC release || make release
-sudo mv libqcustomplot* /usr/lib
+DIR_TGT=/usr
+if [ "$(uname)" == "Darwin" ]; then
+	DIR_TGT=/usr/local
+fi
+sudo mv libqcustomplot* $DIR_TGT/lib
 popd
-sudo mv qcustomplot.h /usr/include
+sudo mv qcustomplot.h $DIR_TGT/include
 

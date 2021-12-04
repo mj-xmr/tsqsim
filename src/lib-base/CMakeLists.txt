@@ -17,11 +17,20 @@ enjoSetupTarget(${PROJECT_NAME})
 target_link_libraries(${PROJECT_NAME} EnjoLibBoost FuzzyEngine++ URT ${EXTRA_LIBS})
 enjo_target_pch(${PROJECT_NAME} src/pch_base.h)
 target_compile_definitions(${PROJECT_NAME} PUBLIC PUB)
+if (APPLE)
+	# TODO: Upstream this to libBoost
+	# https://apple.stackexchange.com/questions/337940/why-is-usr-include-missing-i-have-xcode-and-command-line-tools-installed-moja
+	# https://lists.macports.org/pipermail/macports-dev/2019-September/041201.html
+	#target_compile_options(${PROJECT_NAME} PUBLIC "-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk")
+endif()
 #enjoCopyFile(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/../run-tests.sh ../run-tests.sh)
 #enjoCopyFile(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/../libs-base.sh ../libs-base.sh)
 #enjoCopyFile(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/../libs-stock.sh ../libs-stock.sh)
 
 enjoRunUTs(${PROJECT_NAME})
+
+
+
 
 # Make sure the compiler can find include files for our Hello library
 # when other libraries or executables link to Hello

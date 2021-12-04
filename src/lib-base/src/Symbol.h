@@ -1,7 +1,10 @@
 #ifndef SYMBOL_H
 #define SYMBOL_H
 
-#include <3rdParty/stdfwd.hh>
+#ifdef __APPLE__
+    #include "Tick.h"
+    #include "Candle.h"
+#endif // __APPLE__
 
 #include "Periods.h"
 
@@ -12,6 +15,8 @@
 
 #include <Util/Str.hpp>
 #include <Template/Array.hpp>
+
+#include <3rdParty/stdfwd.hh>
 
 class Tick;
 class IPeriod;

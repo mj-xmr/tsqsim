@@ -26,14 +26,14 @@ struct RegResultXY::Impl
             return;
         data->erase(data->begin(), data->end() - 1);
     }
-    
+
     void EraseAllButLast()
     {
         for (auto & data : m_data)
         {
             EraseAllButLastTpl(data);
         }
-            
+
         EraseAllButLastTpl(&zzz);
     }
     void Reserve(int memSize)
@@ -51,7 +51,7 @@ struct RegResultXY::Impl
             data->shrink_to_fit();
         }
     }
-    
+
     std::vector<XY> regLine;
     std::vector<XY> regOver;
     std::vector<XY> regUndr;
@@ -59,13 +59,13 @@ struct RegResultXY::Impl
     std::vector<XY> regUndrBody;
     std::vector<XY> regOverUnderAvg;
     std::vector<XYDir> zzz;
-    
+
     std::vector<std::vector<XY> * > m_data;
 };
 
 PIMPL_COPIER(RegResultXY)
 PIMPL_DELETER(RegResultXY)
-    
+
 RegResultXY::~RegResultXY(){}
 RegResultXY::RegResultXY(const RegressionPars & pars)
 : m_impl(new Impl())
@@ -113,7 +113,7 @@ double RegResultXY::GetLen2RMS() const
 {
     if (not IsValid())
         return 0;
-        
+
     const GeneralMath gmat;
 
     const double len2RMS = gmat.Log(GetImpl().regLine.size()) / regRes.rms / 1000.0;
@@ -183,7 +183,7 @@ Array<XY> RegResultXY::regUndr() const { return GetImpl().regUndr; }
 Array<XY> RegResultXY::regOverBody() const { return GetImpl().regOverBody; }
 Array<XY> RegResultXY::regUndrBody() const { return GetImpl().regUndrBody; }
 Array<XY> RegResultXY::regOverUnderAvg() const { return GetImpl().regOverUnderAvg; }
-const stdfwd::vector<XYDir> & RegResultXY::zzz() const { return GetImpl().zzz; }
+const STDFWD::vector<XYDir> & RegResultXY::zzz() const { return GetImpl().zzz; }
 
 const float & RegResultXY::regLineBackY() const { return GetImpl().regLine.back().y; }
 const float & RegResultXY::regOverBackY() const { return GetImpl().regOver.back().y; }
@@ -200,13 +200,13 @@ const XY & RegResultXY::regOverBodyBack() const { return GetImpl().regOverBody.b
 const XY & RegResultXY::regUndrBodyBack() const { return GetImpl().regUndrBody.back(); }
 const XY & RegResultXY::regOverUnderAvgBack() const { return GetImpl().regOverUnderAvg.back(); }
 
-stdfwd::vector<XY> & RegResultXY::regLine() { return GetImplRW().regLine; }
-stdfwd::vector<XY> & RegResultXY::regOver() { return GetImplRW().regOver; }
-stdfwd::vector<XY> & RegResultXY::regUndr() { return GetImplRW().regUndr; }
-stdfwd::vector<XY> & RegResultXY::regOverBody() { return GetImplRW().regOverBody; }
-stdfwd::vector<XY> & RegResultXY::regUndrBody() { return GetImplRW().regUndrBody; }
-stdfwd::vector<XY> & RegResultXY::regOverUnderAvg() { return GetImplRW().regOverUnderAvg; }
-stdfwd::vector<XYDir> & RegResultXY::zzz() { return GetImplRW().zzz; }
+STDFWD::vector<XY> & RegResultXY::regLine() { return GetImplRW().regLine; }
+STDFWD::vector<XY> & RegResultXY::regOver() { return GetImplRW().regOver; }
+STDFWD::vector<XY> & RegResultXY::regUndr() { return GetImplRW().regUndr; }
+STDFWD::vector<XY> & RegResultXY::regOverBody() { return GetImplRW().regOverBody; }
+STDFWD::vector<XY> & RegResultXY::regUndrBody() { return GetImplRW().regUndrBody; }
+STDFWD::vector<XY> & RegResultXY::regOverUnderAvg() { return GetImplRW().regOverUnderAvg; }
+STDFWD::vector<XYDir> & RegResultXY::zzz() { return GetImplRW().zzz; }
 
 size_t RegResultXY::size() const
 {

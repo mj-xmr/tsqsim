@@ -41,8 +41,8 @@ class RegResultXY
         EnjoLib::Array<XY> regOverBody() const;
         EnjoLib::Array<XY> regUndrBody() const;
         EnjoLib::Array<XY> regOverUnderAvg() const;
-        const stdfwd::vector<XYDir> & zzz() const;
-        
+        const STDFWD::vector<XYDir> & zzz() const;
+
         const float & regLineBackY() const;
         const float & regOverBackY() const;
         const float & regUndrBackY() const;
@@ -50,24 +50,24 @@ class RegResultXY
         const float & regUndrBodyBackY() const;
         const float & regOverUnderAvgBackY() const;
         const XYDir & zzzBack() const;
-        
+
         const XY & regLineBack() const;
         const XY & regOverBack() const;
         const XY & regUndrBack() const;
         const XY & regOverBodyBack() const;
         const XY & regUndrBodyBack() const;
         const XY & regOverUnderAvgBack() const;
-        
-        stdfwd::vector<XY> & regLine();
-        stdfwd::vector<XY> & regOver();
-        stdfwd::vector<XY> & regUndr();
-        stdfwd::vector<XY> & regOverBody();
-        stdfwd::vector<XY> & regUndrBody();
-        stdfwd::vector<XY> & regOverUnderAvg();
-        stdfwd::vector<XYDir> & zzz();
-        
+
+        STDFWD::vector<XY> & regLine();
+        STDFWD::vector<XY> & regOver();
+        STDFWD::vector<XY> & regUndr();
+        STDFWD::vector<XY> & regOverBody();
+        STDFWD::vector<XY> & regUndrBody();
+        STDFWD::vector<XY> & regOverUnderAvg();
+        STDFWD::vector<XYDir> & zzz();
+
         PIMPL_CPY
-        
+
     public:
         double rmsMinMax = 0;
         double pointsOver = 0;
@@ -82,7 +82,7 @@ class RegResultXY
     protected:
 
     private:
-        
+
 };
 
 #endif // REGRESULTXY_H
