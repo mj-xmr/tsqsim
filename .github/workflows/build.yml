@@ -88,8 +88,8 @@ jobs:
       uses: actions/cache@v2
       with:
         path: /Users/runner/Library/Caches/ccache
-        key:          ccache03-${{ runner.os }}-build-${{ github.sha }}
-        restore-keys: ccache03-${{ runner.os }}-build-
+        key:          ccache03-${{ runner.os }}-${{ matrix.os }}-build-${{ github.sha }}
+        restore-keys: ccache03-${{ runner.os }}-${{ matrix.os }}-build-
     # Less volatile cache
     - name: data cache
       uses: actions/cache@v2
