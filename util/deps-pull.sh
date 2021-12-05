@@ -1,6 +1,11 @@
 #!/bin/bash -e
 
 if [ "$(uname)" == "Darwin" ]; then
+	if xcode-select -p; then 
+		echo "xcode already installed." 
+	else 
+		xcode-select --install
+	fi
 	#HOMEBREW_NO_AUTO_UPDATE=1 brew install qt5
 	#brew link -v qt5 --force
 	HOMEBREW_NO_AUTO_UPDATE=1 brew install boost openssl ccache gnuplot eigen unittest gsl unittest-cpp
