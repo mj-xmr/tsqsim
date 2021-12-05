@@ -32,10 +32,7 @@ If something dramatic could have happened, but was avoided only because of sheer
 You'd best be ready by fortifying your model (through simulation) against these dramatic events and their alterations. 
 Please refer to [_"Fooled by Randomness"_](https://en.wikipedia.org/wiki/Fooled_by_Randomness) by Nassim Nicholas Taleb for more details.
 
-# Quickstart
-In case these instructions become outdated, please refer to the steps of the [CI](.github/workflows/build.yml).
-
-## Requirements
+# Requirements
 Supported Operating Systems and features:
 
 | OS \ Feature  | CI | gcc | clang | UT | QT |
@@ -53,6 +50,9 @@ Glossary:
 - gcc & clang = C/C++ compilers
 - UT = Unit Tests
 - QT = QT Application (data viewer)
+
+# Quickstart
+In case these instructions become outdated, please refer to the steps of the [CI](.github/workflows/build.yml).
 
 ## Preparation
 Please run the below scripts. They are meant to be non-interactive and will require root permissions (via `sudo`). 
