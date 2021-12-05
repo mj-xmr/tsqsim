@@ -40,13 +40,13 @@ Supported Operating Systems and features:
 
 | OS \ Feature  | CI | gcc | clang | UT | QT |
 | ------------- | -- | --- | ----- | -- | -- |
-| Debian stable | x  | ✓   | ✓     |  ✓ | x  |
-| Debian buster | x  | ✓   | ✓     |  ✓ | ✓  |
-| Ubuntu 21.04  | x  | ✓   | ✓     |  ✓ | x  |
+| Debian stable |    | ✓   | ✓     |  ✓ |    |
+| Debian buster |    | ✓   | ✓     |  ✓ | ✓  |
+| Ubuntu 21.04  |    | ✓   | ✓     |  ✓ |    |
 | Ubuntu 20.04  | ✓  | ✓   | ✓     |  ✓ | ✓  |
-| Mac OSX 11    | ✓  | x   | ✓     |  x | x  |
-| Mac OSX 10.15 | ✓  | x   | ✓     |  x | x  |
-| ~~Windows~~ (soon)  | x  | x   | x     |  x | x  |
+| Mac OSX 11    | ✓  |     | ✓     |    |    |
+| Mac OSX 10.15 | ✓  |     | ✓     |    |    |
+| ~~Windows~~ (soon)  |    |     |       |    |    |
 
 Glossary:
 - CI = [Continuous Integration](https://github.com/mj-xmr/tsqsim/actions)
