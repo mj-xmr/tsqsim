@@ -74,10 +74,10 @@ def build(args):
     else:
         cpcompiler = args.compiler + '++'
         
-    prefix = ""
+    prefix = "set -e\n"
     print("System = " + platform.system())
     if platform.system() == 'Darwin':
-        #prefix = 'PATH="$(brew --prefix qt5)/bin:$PATH"' # https://github.com/leela-zero/leela-zero/issues/2177 
+        #prefix += 'PATH="$(brew --prefix qt5)/bin:$PATH"' # https://github.com/leela-zero/leela-zero/issues/2177 
         pass
 
     cmd = prefix + " cmake -G '{}'".format(args.generator) + ' -S {} -B .'.format(path)
@@ -90,7 +90,7 @@ def build(args):
         cmd += NL + '-DCMAKE_C_COMPILER="{}"'.format(cccompiler) 
         cmd += NL + '-DCMAKE_CXX_COMPILER="{}"'.format(cpcompiler)    
     cmd += NL + '&&' +  make + proc + '||' + make + '&&' + make + proc_local + 'install'
-    cmd += NL + '&&' + ctest + proc_local + '||' + ctest
+    cmd += NL + '&& (' + ctest + proc_local + '||' + ctest + ')'
 
     print('Build command:\n')
     print(cmd)
