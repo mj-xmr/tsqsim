@@ -6,7 +6,7 @@ project( test-common )
 find_package(UnitTest++)
 
 if (NOT UNITTEST++_FOUND)
-	set (UNITTEST++_LIBRARY UnitTest++)
+	set (UTPP_LIBRARY UnitTest++)
 endif()
 
 file( GLOB SRCS src/*.cpp */*.h */*.hpp)
@@ -14,8 +14,8 @@ file( GLOB SRCS src/*.cpp */*.h */*.hpp)
 add_library (${PROJECT_NAME} ${LINK_TYPE} ${SRCS})
 
 enjoSetupTarget(${PROJECT_NAME})
-target_include_directories(${PROJECT_NAME} PUBLIC ${UNITTEST++_INCLUDE_DIRS})
-target_link_libraries(${PROJECT_NAME} ${UNITTEST++_LIBRARY})
+target_include_directories(${PROJECT_NAME} PUBLIC ${UTPP_INCLUDE_DIRS})
+target_link_libraries(${PROJECT_NAME} UnitTest++)
 
 enjo_target_pch(${PROJECT_NAME} src/pch_test.h)
 
