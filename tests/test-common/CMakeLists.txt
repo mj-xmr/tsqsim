@@ -13,7 +13,10 @@ add_library (${PROJECT_NAME} ${LINK_TYPE} ${SRCS})
 
 enjoSetupTarget(${PROJECT_NAME})
 target_include_directories(${PROJECT_NAME} PUBLIC ${UTPP_INCLUDE_DIRS})
-target_link_directories(${PROJECT_NAME} PRIVATE /usr/local/lib)
+#if (APPLE)
+
+	target_link_directories(${PROJECT_NAME} PRIVATE /usr/local/opt/unittest-cpp/lib)
+#endif()
 target_link_libraries(${PROJECT_NAME} UnitTest++)
 
 enjo_target_pch(${PROJECT_NAME} src/pch_test.h)
