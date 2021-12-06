@@ -41,8 +41,8 @@ Supported Operating Systems and features:
 | Debian buster |    | ✓   | ✓     |  ✓ | ✓  |
 | Ubuntu 21.04  |    | ✓   | ✓     |  ✓ |    |
 | Ubuntu 20.04  | ✓  | ✓   | ✓     |  ✓ | ✓  |
-| Mac OSX 11    | ✓  |     | ✓     |    |    |
-| Mac OSX 10.15 | ✓  |     | ✓     |    |    |
+| Mac OSX 11    | ✓  |     | ✓     |  ✓ |    |
+| Mac OSX 10.15 | ✓  |     | ✓     |  ✓ |    |
 | ~~Windows~~ (soon)  |    |     |       |    |    |
 
 Glossary:
