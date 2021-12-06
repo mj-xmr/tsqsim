@@ -13,11 +13,10 @@ add_library (${PROJECT_NAME} ${LINK_TYPE} ${SRCS})
 
 enjoSetupTarget(${PROJECT_NAME})
 target_include_directories(${PROJECT_NAME} PUBLIC ${UTPP_INCLUDE_DIRS})
-#if (APPLE)
+if (APPLE)
 	# Workaround for brew not providing CMake module
-	target_link_directories(${PROJECT_NAME} PUBLIC /usr/local/opt/unittest-cpp/lib)
-	#target_link_directories(${PROJECT_NAME} PUBLIC /usr/local/Cellar/unittest-cpp/2.0.0/lib)
-#endif()
+	target_link_directories(${PROJECT_NAME} PUBLIC /usr/local/opt/unittest-cpp/lib) # TODO: Upstream
+endif()
 target_link_libraries(${PROJECT_NAME} UnitTest++)
 
 enjo_target_pch(${PROJECT_NAME} src/pch_test.h)
