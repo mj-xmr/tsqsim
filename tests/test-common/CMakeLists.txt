@@ -3,13 +3,20 @@
 cmake_minimum_required(VERSION 3.5.1)
 include(../../cmake/util.cmake)
 project( test-common )
+find_package(UnitTest++)
+
+if (NOT UNITTEST++_FOUND)
+	set (UNITTEST++_LIBRARY UnitTest++)
+endif()
 
 file( GLOB SRCS src/*.cpp */*.h */*.hpp)
 
 add_library (${PROJECT_NAME} ${LINK_TYPE} ${SRCS})
 
 enjoSetupTarget(${PROJECT_NAME})
-target_link_libraries(${PROJECT_NAME} UnitTest++)
+target_include_directories(${PROJECT_NAME} PUBLIC ${UNITTEST++_INCLUDE_DIRS})
+target_link_libraries(${PROJECT_NAME} ${UNITTEST++_LIBRARY})
+
 enjo_target_pch(${PROJECT_NAME} src/pch_test.h)
 
 target_include_directories (${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
