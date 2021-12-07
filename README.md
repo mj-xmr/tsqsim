@@ -97,11 +97,11 @@ For example, to override the default discrete period and the ending year, the fo
 The TS transformation script's path can be obtained via `./tsqsim --help`, as well as it's currently available transformations. The script can modify the chain of transformations used by the executable, without the need for its recompilation.
 
 # Development
-For the development use case, it's recommended to turn on certain optimizations, that reduce the recompilation and linking time while changing the source code often. The optimizations are: dynamic linking, unity build and (optionally) a networked parallel compiler's wrapper, [icecc](https://github.com/icecc/icecream).
+For the development use case, it's recommended to turn on certain optimizations, that reduce the recompilation and linking time while changing the source code often. The optimizations are: dynamic linking and (optionally) a networked parallel compiler's wrapper, [icecc](https://github.com/icecc/icecream).
 
 A command, that would leverage these optimizations could look like the following:
 ```bash
-./ci-default --shared --unity --compiler icecc -j 30
+./ci-default --shared --compiler icecc -j 30
 ```
 , where `icecc` is available only after [setting it up](docs/ICECC_INSTALL.md) in your LAN, and `30` would be the number of cores, that you want to use through icecc. If you declare more, than there are available, the icecc scheduler will throttle down your choice automatically.
 To spare yourself typing, I recommend adding the following aliases to your shell:
