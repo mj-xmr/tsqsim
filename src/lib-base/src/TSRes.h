@@ -5,13 +5,13 @@
 class TSRes
 {
     public:
-        TSRes(bool valid = false);
+        explicit TSRes(bool valid = false);
         virtual ~TSRes();
-        
+
         bool valid = false;
         double val = 0;
-        
-        
+
+
 
     protected:
 

@@ -10,10 +10,10 @@ class TSFunLua : public TSFunBase
     public:
         TSFunLua(const TSInput & tsin);
         virtual ~TSFunLua();
-        
+
     protected:
-        
         TSRes OnDataPointProt(int idx) const override;
+        TSRes Reconstruct(int idx, const EnjoLib::VecD & input, double prev) const override;
 
     private:
         // create new Lua state

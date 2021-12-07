@@ -17,6 +17,11 @@ double TSXformDiff::Run(const TSFunBase & input, int idx, double valPrev) const
     const double diff = canCurr.GetClose() - canPrev.GetClose();
     return diff;
 }
+/// TODO: Unit test all the inversions with CHECK_CLOSE()
+double TSXformDiff::Invert(const EnjoLib::VecD & vals) const
+{
+    return vals.at(0) + vals.at(1);
+}
 unsigned TSXformDiff::MaxShift() const
 {
     return 1;
@@ -54,7 +59,7 @@ double TSXformLogSafe::Run(const TSFunBase & input, int idx, double valPrev) con
     const GMat gmat;
     if (valPrev > 0)
     {
-        return gmat.Log10(valPrev);
+        return gmat.Log(valPrev);
     }
     else if (valPrev == 0)
     {
@@ -62,7 +67,25 @@ double TSXformLogSafe::Run(const TSFunBase & input, int idx, double valPrev) con
     }
     else
     {
-        return -gmat.Log10(-valPrev);
+        return -gmat.Log(-valPrev); /// TODO: Call Log only once (after UTs)
+    }
+}
+
+double TSXformLogSafe::Invert(const EnjoLib::VecD & vals) const
+{
+    const double val = vals.at(0);
+    const GMat gmat;
+    if (val > 0)
+    {
+        return gmat.Exp(val);
+    }
+    else if (val == 0)
+    {
+        return 0;
+    }
+    else
+    {
+        return -gmat.Exp(-val); /// TODO: Call Exp only once (after UTs)
     }
 }
 

@@ -8,6 +8,7 @@ struct TSXformDiff : public ITSXform
 {
         double Run(const TSFunBase & input, int idx, double valPrev) const override;
         unsigned MaxShift() const override;
+        double Invert(const EnjoLib::VecD & vals) const override;
 };
 
 struct TSXformFabs : public ITSXform
@@ -28,6 +29,7 @@ struct TSXformSqrtSafe : public ITSXform
 struct TSXformLogSafe : public ITSXform
 {
         double Run(const TSFunBase & input, int idx, double valPrev) const override;
+        double Invert(const EnjoLib::VecD & vals) const override;
 };
 
 struct TSXformAdd : public ITSXform

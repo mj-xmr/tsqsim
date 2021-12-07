@@ -13,7 +13,7 @@ class SimulatorTSMT
         SimulatorTSMT();
         virtual ~SimulatorTSMT();
 
-        static void PrintExperimental(const TSInput & tsin, const EnjoLib::VecD & data);
+        static void PrintExperimental(const TSInput & tsin, const EnjoLib::VecD & data, const EnjoLib::Str & descr, const STDFWD::vector<const EnjoLib::VecD *> & plots);
 
         static STDFWD::vector<TSRes> GetRetsMT(const STDFWD::vector<SimulatorTS::Inp> input);
 

@@ -35,7 +35,7 @@ TSRes TSFunBase::OnDataPoint(int idx) const
         oss << "TSFunBase::OnDataPoint: idx " << idx << Nl << exc.what();
         oss << "Is Len() overriden and adjusted?\n";
         LOGL << EnjoLib::StrColour::GenWarn(oss.str()) << EnjoLib::Nl;
-        return 0;
+        return TSRes(true);
     }
 }
 
