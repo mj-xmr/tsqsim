@@ -22,11 +22,8 @@ static Eigen::VectorXd ConvertVector1( const EnjoLib::VecD & vec )
 
 //#define USE_URT
 #ifdef USE_URT
-#ifdef PUB
-	#include <URT.hpp> /// TODO: This is a workaround. Install URT under URT/URT.hpp, without sudo
-#else
-	#include <URT/URT.hpp>
-#endif
+#include <URT.hpp>
+//#include <URT/URT.hpp> // old
 double URTWrap::GetStatistic(const EnjoLib::VecD & data, int lags) const
 {
     try
