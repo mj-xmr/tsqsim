@@ -19,7 +19,7 @@
 
 using namespace EnjoLib;
 
-void SimulatorTSMT::PrintExperimental(const TSInput & tsin, const EnjoLib::VecD & data)
+void SimulatorTSMT::PrintExperimental(const TSInput & tsin, const EnjoLib::VecD & data, const EnjoLib::Str & descr, const STDFWD::vector<const EnjoLib::VecD *> & plots)
 {
     DataOCHL ohlc(tsin.m_per.GetCandles().GetDataIter());
     const float scaleX = 1.00;
@@ -33,13 +33,12 @@ void SimulatorTSMT::PrintExperimental(const TSInput & tsin, const EnjoLib::VecD 
     std::future<StatsMedianSplit::Results> futSta = std::async(std::launch::async, [&]{ return stats.CalcResults(data, numSplits); });
     std::future<double> futURT2 = std::async(std::launch::async, [&]{ return urtWrap1.GetStatistic(data); });
     std::future<void> futPLT = std::async(std::launch::async, [&]
-                                          {
-                                              if (tsin.m_cfgTS.PLOT_SERIES)
-                                                {
-                                                    GnuplotPlotTerminal1d(ohlc.closes, "Closes & Diffs", scaleX, scaleY);
-                                                    GnuplotPlotTerminal1d(data,      "",               scaleX, scaleY);
-                                                }
-                                          });
+                              {
+                                  if (tsin.m_cfgTS.PLOT_SERIES)
+                                  {
+                                    GnuplotPlotTerminal1dSubplots(plots, descr, scaleX, scaleY);
+                                  }
+                              });
     urtWrap2.Show(data);
     futPLT.get();
     //const Results & res =

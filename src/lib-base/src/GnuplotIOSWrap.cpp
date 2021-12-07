@@ -112,3 +112,16 @@ void GnuplotPlotTerminal2d(const std::vector<EnjoLib::Pair<double, double>> & da
     plot.SetupXY();
     plot.Add2d(data);
 }
+
+void GnuplotPlotTerminal1dSubplots(const std::vector<const EnjoLib::VecD *> & data, const EnjoLib::Str & descr, float scaleX, float scaleY)
+{
+    for (size_t i = 0; i < data.size(); ++i)
+    {
+        EnjoLib::Str descrUsed = "";
+        if (i == 0)
+        {
+            descrUsed = descr;
+        }
+        GnuplotPlotTerminal1d(*data.at(i), descrUsed, scaleX, scaleY);
+    }
+}

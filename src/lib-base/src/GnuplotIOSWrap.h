@@ -40,5 +40,6 @@ class GnuplotIOSWrap
 };
 void GnuplotPlotTerminal1d(const EnjoLib::VecD & data, const EnjoLib::Str & descr = "", float scaleX = 1, float scaleY = 1);
 void GnuplotPlotTerminal2d(const STDFWD::vector<EnjoLib::Pair<double, double>> & data, const EnjoLib::Str & descr = "", float scaleX = 1, float scaleY = 1);
+void GnuplotPlotTerminal1dSubplots(const STDFWD::vector<const EnjoLib::VecD *> & data, const EnjoLib::Str & descr = "", float scaleX = 1, float scaleY = 1);
 
 #endif // GNUPLOTIOSWRAP_H

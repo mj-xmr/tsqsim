@@ -46,12 +46,38 @@ TSRes TSFunTxt::OnDataPointProt(int idx) const
     }
 
     TSRes res(true);
-    res.val = val;// - 0.035;
+    res.val = val;
 
     return res;
 }
 
-/// TODO: Inverse the transformation by applying m_xforms in a reverse order and calling Inverse();
+TSRes TSFunTxt::Reconstruct(int idx, const EnjoLib::VecD & input, double prev) const
+{
+    bool verbose = true;
+    verbose = false;
+
+    double val = input.at(idx);
+    for (int i = int(m_xforms.size() - 1); i >= 0; --i)
+    {   // Iterate the transformations in the reverse order w.r.t. as they were applied
+        const auto & pxform = m_xforms.at(i);
+        VecD inVec;
+        inVec.push_back(val);
+        inVec.push_back(prev);
+        val = pxform->Invert(inVec);
+        if (verbose)
+        {
+            LOGL << idx << ":\txf = " << i << ", in = " << inVec.Print() << ", out = " << val << Nl;
+        }
+    }
+    if (verbose)
+    {
+        LOGL << Nl;
+    }
+
+    TSRes res(true);
+    res.val = val;
+    return res;
+}
 
 unsigned TSFunTxt::LenProt() const
 {

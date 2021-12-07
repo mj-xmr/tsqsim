@@ -25,13 +25,16 @@ class SimulatorTS : public ISimulatorTS
         static TSRes IterBet(const Inp & ele);
 
         STDFWD::vector<TSRes> GetRets(const STDFWD::vector<Inp> & inp) const;
+        STDFWD::vector<TSRes> GetReconstruction(const ITSFun * fun, const EnjoLib::VecD & inp, double initial) const;
+
+        TSRes Reconstr(const ITSFun * fun, const double val) const;
 
     protected:
 
     private:
         void PrintResults();
         void PrintExperimental() const;
-        void PrintReportSingleThreaded(const EnjoLib::VecD & data) const;
+        void PrintReportSingleThreaded(const EnjoLib::VecD & data, const EnjoLib::Str & descr, const STDFWD::vector<const EnjoLib::VecD *> & plots) const;
 
         const TSInput & m_tsin;
         const IPeriod & m_per;
@@ -44,6 +47,7 @@ class SimulatorTS : public ISimulatorTS
         double m_meanChange = 0;
         EnjoLib::VecD m_balance;
         EnjoLib::VecD m_rets;
+        EnjoLib::VecD m_reconstr;
 };
 
 #endif // SIMULATORTS_H

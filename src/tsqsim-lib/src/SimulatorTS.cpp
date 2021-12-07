@@ -44,6 +44,7 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
     const int idxFinish = m_per.Len();
 
     std::vector<Inp> input;
+    const double initial = m_per.GetCandles().GetDataIter().at(idxStart).GetClose();
     input.reserve(idxFinish - idxStart);
     {
          LOGL << "Collecting input...\n";
@@ -60,14 +61,32 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
     {
          LOGL << "Calculating...\n";
     }
-    const std::vector<TSRes> & rets = GetRets(input);
-    for (const TSRes & res : rets)
     {
-        if (res.valid)
+        const std::vector<TSRes> & rets = GetRets(input);
+        m_rets.clear();
+        for (const TSRes & res : rets)
         {
-            m_rets.Add(res.val);
+            if (res.valid)
+            {
+                m_rets.Add(res.val);
+            }
         }
     }
+    {
+        const std::vector<TSRes> & rec = GetReconstruction(&m_fun, m_rets, initial);
+        m_reconstr.clear();
+        for (const TSRes & res : rec)
+        {
+            //if (res.valid)
+            {
+                m_reconstr.Add(res.val);
+            }
+        }
+
+        /// TODO: Print also individual transformations and individual reconstructions sequentially for debugging.
+        /// Iterate not by data point -> transformations, like now for speed, but by transformation -> data points
+    }
+
     PrintResults();
 }
 
@@ -91,19 +110,33 @@ std::vector<TSRes> SimulatorTS::GetRets(const std::vector<Inp> & input) const
     }
 }
 
-/// TODO: Reconstruct signal!!!
+std::vector<TSRes> SimulatorTS::GetReconstruction(const ITSFun * fun, const EnjoLib::VecD & input, double initial) const
+{   /// TODO: the double "initial" should probably be a vector of initial conditions, built from the 1st diffs (len = 1), 2nd diffs (len = 2), and so on.
+    std::vector<TSRes> ret;
+    double prev = initial;
+    TSRes r1st(true);
+    r1st.val = prev;
+    ret.push_back(r1st);
+    const size_t startIdx = 1; // Subject to transformation limits
+    for (size_t i = startIdx; i < input.size() - 1; ++i)
+    {
+        //if (inp.valid)
+        {
+            const TSRes & res = fun->Reconstruct(i, input, prev);
+            //LOGL << "OUT = " << res.val << " " << res.valid << Nl;
+            prev = res.val;
+            ret.push_back(res);
+        }
+    }
+    return ret;
+}
+
 TSRes SimulatorTS::IterBet(const Inp & ele)
 {
     const IDataProvider * data = Get<0>(ele);
     const ITSFun * fun = Get<1>(ele);
     const int i = Get<2>(ele);
-    /*
-    const Candle & canCurr = m_per.GetCandles().GetDataIter().at(i);
-    const double changeAvg = GetChangeAverage(canCurr.GetHour());
-    const BetIter betIter(changeAvg, m_meanChange);
-    const double houseProfit = betIter.GetHouseProfitDrawBet(m_gen);
-    m_balance.push_back(houseProfit);
-    */
+
     const unsigned sti = data->GetCandles().ConvertIndex(i);
     const TSRes & res = fun->OnDataPoint(sti);
     return res;
@@ -119,20 +152,26 @@ void SimulatorTS::PrintResults()
 
 void SimulatorTS::PrintExperimental() const
 {
+    const DataOCHL ohlc(m_per.GetCandles().GetDataIter());
+    const EnjoLib::VecD closes(ohlc.closes);
+    const EnjoLib::Str descr = "\n1) Closes  2) Stationary  3) Reconstruction";
+    STDFWD::vector<const EnjoLib::VecD *> plots;
+    plots.push_back(&closes);
+    plots.push_back(&m_rets);
+    plots.push_back(&m_reconstr);
     if (m_cfgTS.MT_REPORT)
     {
-        /// TODO: Make a non MT version as well
-        SimulatorTSMT::PrintExperimental(m_tsin, m_rets);
+        // Multithreaded
+        SimulatorTSMT::PrintExperimental(m_tsin, m_rets, descr, plots);
     }
     else
     {
-        PrintReportSingleThreaded(m_rets);
+        PrintReportSingleThreaded(m_rets, descr, plots);
     }
 }
 
-void SimulatorTS::PrintReportSingleThreaded(const EnjoLib::VecD & data) const
+void SimulatorTS::PrintReportSingleThreaded(const EnjoLib::VecD & data, const EnjoLib::Str & descr, const STDFWD::vector<const EnjoLib::VecD *> & plots) const
 {
-    DataOCHL ohlc(m_per.GetCandles().GetDataIter());
     const float scaleX = 1.00;
     const float scaleY = 0.6;
     const int numSplits = 3;
@@ -144,8 +183,7 @@ void SimulatorTS::PrintReportSingleThreaded(const EnjoLib::VecD & data) const
     urtWrap2.Show(data);
     if (m_cfgTS.PLOT_SERIES)
     {
-        GnuplotPlotTerminal1d(ohlc.closes, "Closes & Diffs", scaleX, scaleY);
-        GnuplotPlotTerminal1d(data,      "",               scaleX, scaleY);
+        GnuplotPlotTerminal1dSubplots(plots, descr, scaleX, scaleY);
     }
     stats.Stats(m_per.GetSymbolPeriodId(), data, numSplits);
     const double urtStat = urtWrap1.GetStatistic(data);

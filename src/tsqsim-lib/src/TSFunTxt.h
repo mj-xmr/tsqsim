@@ -16,10 +16,12 @@ class TSFunTxt : public TSFunBase
 
     protected:
         TSRes OnDataPointProt(int idx) const override;
+        TSRes Reconstruct(int idx, const EnjoLib::VecD & input, double prev) const override;
+
         unsigned LenProt() const override;
 
     private:
-        
+
         std::vector<CorPtr<ITSXform>> m_xforms;
 };
 

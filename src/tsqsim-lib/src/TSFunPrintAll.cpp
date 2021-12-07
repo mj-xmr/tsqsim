@@ -18,6 +18,12 @@ TSFunPrintAll::~TSFunPrintAll()
 TSRes TSFunPrintAll::OnDataPointProt(int idx) const
 {
     LOGL << idx << Nl;
-    TSRes res(true);   
+    TSRes res(true);
+    return res;
+}
+
+TSRes TSFunPrintAll::Reconstruct(int idx, const EnjoLib::VecD & input, double prev) const
+{
+    TSRes res(true);
     return res;
 }
