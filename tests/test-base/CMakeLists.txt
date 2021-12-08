@@ -12,7 +12,6 @@ add_test(${PROJECT_NAME} ${PROJECT_NAME})
 enjoSetupTarget(${PROJECT_NAME})
 target_link_libraries(${PROJECT_NAME} lib-base test-common)
 
-enjo_target_pch(${PROJECT_NAME} src/pch.h)
 enjo_target_unity(${PROJECT_NAME})
 
 # Make sure the compiler can find include files for our Hello library

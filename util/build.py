@@ -31,14 +31,15 @@ def get_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('-s', '--shared',    default=False, action='store_true', help="build shared libraries (default: OFF)")
     parser.add_argument('-d', '--debug',     default=False, action='store_true', help="build debug (default: OFF)")
-    parser.add_argument('-u', '--unity',     default=False, action='store_true', help="build unity (CI case; default: OFF)")
+    parser.add_argument('-p', '--pch',       default=False, action='store_true', help="build pch   (Dev case; default: OFF)")
+    parser.add_argument('-u', '--unity',     default=False, action='store_true', help="build unity (CI case;  default: OFF)")
     parser.add_argument('-q', '--build-qt',  default=False, action='store_true', help="build QT apps (default: OFF)")
     parser.add_argument('-r', '--run-demo',  default=False, action='store_true', help="run demo (default: OFF)")
     parser.add_argument('-c', '--compiler',  default="", help='compiler ({}; default: autodetect)'.format('/'.join(COMPILERS)))
     parser.add_argument('-j', '--proc',      default=NPROC, type=int, help="number of cores to use (default: all)")
     parser.add_argument('-m', '--make',      default="make", help="'make' program (for ex.: ninja; default: make)")
     parser.add_argument('-g', '--generator', default=GENERATOR, help='Generator of project files (default: "{}")'.format(GENERATOR))
-    parser.add_argument('-p', '--path',      default=".",   help="Run path")
+    parser.add_argument('-a', '--path',      default=".",   help="Run path")
     # TODO: select clang or mingw, if gcc is not available
     return parser
 
@@ -84,6 +85,7 @@ def build(args):
     cmd += NL + '-DUSE_STATIC={}' .format(OFF if args.shared else ON)
     cmd += NL + '-DUSE_DEBUG={}'  .format(ON  if args.debug  else OFF)
     cmd += NL + '-DUSE_UNITY={}'  .format(ON  if args.unity  else OFF)
+    cmd += NL + '-DUSE_PCH={}'    .format(ON  if args.pch    else OFF)
     cmd += NL + '-DBUILD_QT={}'   .format(ON  if args.build_qt else OFF) # Optional
     cmd += NL + '-DBUILD_BOOST={}'.format(ON) # Required
     if args.compiler:
