@@ -139,7 +139,7 @@ endfunction()
 
 function (enjoCopyDir projName source dest)
 	add_custom_command(TARGET ${projName} POST_BUILD
-	       COMMAND ${CMAKE_COMMAND} -E copy_directory --log-level=VERBOSE
+	       COMMAND ${CMAKE_COMMAND} -E copy_directory
 	       ${source}
 	       $<TARGET_FILE_DIR:${projName}>/${dest}
 	)
@@ -147,7 +147,7 @@ endfunction()
 
 function (enjoSymlink projName linkSrc linkDst)
   if (WIN32)
-	enjoCopyDir( ${projName} ${linkSrc} ${linkDst} )
+	#enjoCopyDir( ${projName} ${linkSrc} ${linkDst} )
 	# TODO: Won't work for files
    else()
     add_custom_command(TARGET ${projName} POST_BUILD
