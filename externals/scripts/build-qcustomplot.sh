@@ -60,7 +60,11 @@ DIR_TGT=/usr
 if [ "$(uname)" == "Darwin" ]; then
 	DIR_TGT=/usr/local
 fi
-sudo mv libqcustomplot* $DIR_TGT/lib
+SUDO=""
+if [[ "$(uname)" == "Linux"  || "$(uname)" == "Darwin" ]]; then
+	SUDO=sudo
+fi
+$SUDO mv libqcustomplot* $DIR_TGT/lib
 popd
-sudo mv qcustomplot.h $DIR_TGT/include
+$SUDO mv qcustomplot.h $DIR_TGT/include
 
