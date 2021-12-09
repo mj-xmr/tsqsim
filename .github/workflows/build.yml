@@ -108,7 +108,7 @@ jobs:
 #      run: util/deps-pull.sh
 #    - name: build & install the unmanaged dependencies
 #      run: util/deps-build.sh
-#    - name: build
+    - name: build
       run: ./ci-default --unity
     - name: run demo
       run: ./ci-default --unity --run-demo        
