@@ -121,6 +121,9 @@ def run_demo(args):
     cmd += '&& ./tsqsim --help'
     cmd += '&& ./tsqsim'
 
+    if platform.system() == 'Windows':
+        cmd = "./tsqsim --help && ./tsqsim"
+
     proc = subprocess.run(cmd, shell=True, check=True)
     proc = subprocess.run(cmd, shell=True, check=True) # Run again to test the deserialization
 
