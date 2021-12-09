@@ -104,14 +104,20 @@ def build(args):
         cmd += NL + '-DCMAKE_CXX_COMPILER="{}"'.format(cpcompiler)
         if platform.system() == 'Windows':
             cmd += NL + '-DCMAKE_MAKE_PROGRAM="{}"'.format(make.strip())
-        
-    cmd += NL + '&&' +  make + proc + '||' + make + '&&' + make + proc_local + 'install'
-    cmd += NL + '&& (' + ctest + proc_local + '||' + ctest + ')'
+            
+    if platform.system() == 'Windows':
+        cmd += NL + '&&' +  make + proc
+        subprocess.run(cmd, shell=True, check=True)
+        subprocess.run(make + " install", shell=True, check=True)
+        subprocess.run("ctest", shell=True, check=True)   
+    else:
+        cmd += NL + '&&' +  make + proc + '||' + make + '&&' + make + proc_local + 'install'
+        cmd += NL + '&& (' + ctest + proc_local + '||' + ctest + ')'
 
-    print('Build command:\n')
-    print(cmd)
-    print('')
-    proc = subprocess.run(cmd, shell=True, check=True)
+        print('Build command:\n')
+        print(cmd)
+        print('')
+        proc = subprocess.run(cmd, shell=True, check=True)
 
     #print(cmd)
 def run_demo(args):
