@@ -82,7 +82,8 @@ def build(args):
     #    pass
     if platform.system() == 'Windows':
         prefix = ""
-        args.generator = "MinGW Makefiles"
+        #args.generator = "MinGW Makefiles"
+        args.generator = "MSYS Makefiles"
         MINGW_PREFIX="x86_64-w64-mingw32"
         cccompiler=MINGW_PREFIX + "-gcc"
         cpcompiler=MINGW_PREFIX + "-g++"
@@ -91,7 +92,7 @@ def build(args):
 
     cmd = prefix + ' cmake  -S {} -B .'.format(path)
     if args.generator:
-        cmd += NL + "-G '{}'".format(args.generator)
+        cmd += NL + '-G "{}"'.format(args.generator)
     cmd += NL + '-DUSE_STATIC={}' .format(OFF if args.shared else ON)
     cmd += NL + '-DUSE_DEBUG={}'  .format(ON  if args.debug  else OFF)
     cmd += NL + '-DUSE_UNITY={}'  .format(ON  if args.unity  else OFF)
