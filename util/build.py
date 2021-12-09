@@ -9,6 +9,7 @@ Created on 26.11.2021
 import os
 import sys
 import time
+import shutil
 import platform
 import subprocess
 import argparse
@@ -77,11 +78,22 @@ def build(args):
         
     prefix = "set -e\n"
     print("System = " + platform.system())
-    if platform.system() == 'Darwin':
+    #if platform.system() == 'Darwin':
         #prefix += 'PATH="$(brew --prefix qt5)/bin:$PATH"' # https://github.com/leela-zero/leela-zero/issues/2177 
-        pass
+    #    pass
+    if platform.system() == 'Windows':
+        prefix = ""
+        #args.generator = "MinGW Makefiles"
+        args.generator = "MSYS Makefiles"
+        MINGW_PREFIX="x86_64-w64-mingw32"
+        cccompiler=MINGW_PREFIX + "-gcc"
+        cpcompiler=MINGW_PREFIX + "-g++"
+        make = " mingw32-make "
+        args.compiler = cccompiler
 
-    cmd = prefix + " cmake -G '{}'".format(args.generator) + ' -S {} -B .'.format(path)
+    cmd = prefix + ' cmake  -S {} -B .'.format(path)
+    if args.generator:
+        cmd += NL + '-G "{}"'.format(args.generator)
     cmd += NL + '-DUSE_STATIC={}' .format(OFF if args.shared else ON)
     cmd += NL + '-DUSE_DEBUG={}'  .format(ON  if args.debug  else OFF)
     cmd += NL + '-DUSE_UNITY={}'  .format(ON  if args.unity  else OFF)
@@ -90,14 +102,23 @@ def build(args):
     cmd += NL + '-DBUILD_BOOST={}'.format(ON) # Required
     if args.compiler:
         cmd += NL + '-DCMAKE_C_COMPILER="{}"'.format(cccompiler) 
-        cmd += NL + '-DCMAKE_CXX_COMPILER="{}"'.format(cpcompiler)    
-    cmd += NL + '&&' +  make + proc + '||' + make + '&&' + make + proc_local + 'install'
-    cmd += NL + '&& (' + ctest + proc_local + '||' + ctest + ')'
+        cmd += NL + '-DCMAKE_CXX_COMPILER="{}"'.format(cpcompiler)
+        if platform.system() == 'Windows':
+            cmd += NL + '-DCMAKE_MAKE_PROGRAM="{}"'.format(make.strip())
+            
+    if platform.system() == 'Windows':
+        cmd += NL + '&&' +  make + proc
+        subprocess.run(cmd, shell=True, check=True)
+        subprocess.run(make + " install", shell=True, check=True)
+        subprocess.run(ctest, shell=True, check=True)   
+    else:
+        cmd += NL + '&&' +  make + proc + '||' + make + '&&' + make + proc_local + 'install'
+        cmd += NL + '&& (' + ctest + proc_local + '||' + ctest + ')'
 
-    print('Build command:\n')
-    print(cmd)
-    print('')
-    proc = subprocess.run(cmd, shell=True, check=True)
+        print('Build command:\n')
+        print(cmd)
+        print('')
+        proc = subprocess.run(cmd, shell=True, check=True)
 
     #print(cmd)
 def run_demo(args):
@@ -106,6 +127,12 @@ def run_demo(args):
     cmd += ' export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:lib' # TODO: Solve in CMake?
     cmd += '&& ./tsqsim --help'
     cmd += '&& ./tsqsim'
+
+    if platform.system() == 'Windows':
+        #subprocess.run("ls ../..", shell=True, check=True)
+        shutil.move('../../data', '.') # TODO: Ugly
+        shutil.move('../../../src/tsqsim/scripts', '.') # Even uglier
+        cmd = "tsqsim.exe --help && tsqsim.exe"
 
     proc = subprocess.run(cmd, shell=True, check=True)
     proc = subprocess.run(cmd, shell=True, check=True) # Run again to test the deserialization

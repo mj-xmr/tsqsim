@@ -146,10 +146,22 @@ function (enjoCopyDir projName source dest)
 endfunction()
 
 function (enjoSymlink projName linkSrc linkDst)
+  if (WIN32)
+  	#add_custom_command(TARGET ${projName} POST_BUILD
+	       #COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/bin
+#	)
+#	add_custom_command(TARGET ${projName} POST_BUILD
+#	       COMMAND ${CMAKE_COMMAND} -E copy_directory
+#	       ${linkSrc}
+#	       ${linkDst}
+#	)
+	# TODO: Won't work for files
+   else()
     add_custom_command(TARGET ${projName} POST_BUILD
        COMMAND ${CMAKE_COMMAND} -E create_symlink ${linkSrc} ${linkDst}
        )
     #install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ${target} bin/${link})")
+  endif()
 endfunction()
 function (enjoSymlinkData projName)
 	enjoSymlink(${projName} ${CMAKE_CURRENT_SOURCE_DIR}/data data)

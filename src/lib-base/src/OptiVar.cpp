@@ -5,6 +5,8 @@
 #include "ConfigOpti.h"
 #include "ConfigGlob.h"
 
+#include <EnjoLibBoost/Filesystem.hpp>
+
 #include <Ios/Ofstream.hpp>
 #include <Ios/Ifstream.hpp>
 #include <Math/RandomMath.hpp>
@@ -76,7 +78,7 @@ void OptiVarF::Init()
                 {
                     LOGL << "OptiVar: FOUND! = " << pathVar << ", val = " << val << Nl;
                 }
-                    
+
 
                 f.close(); // For debugging val
             }
@@ -142,7 +144,7 @@ EnjoLib::VecF OptiVarF::GetSpaceRandom(float valMin, float valMax, int number)
 {
     EnjoLib::VecF ret;
     const RandomMath rmath;
-    
+
     for (int i = 0; i < number; ++i)
     {
         const double rnd = rmath.Rand(valMin, valMax);
@@ -153,13 +155,13 @@ EnjoLib::VecF OptiVarF::GetSpaceRandom(float valMin, float valMax, int number)
 
 void OptiVarF::StoreVariable(const IDataProvider & period) const
 {
-    FileUtils fu;
+    Filesystem fu;
     OptimizerUtils ou;
     bool release = gcfgMan.cfgOpti->OPTI_USE_RELEASE;;
     const EnjoLib::Str & baseDir = ou.GetVarBaseDir(release);
     const EnjoLib::Str & dir = ou.GetVarDir(period, release);
-    fu.CreateDirIfNotExistsLinux(baseDir);
-    fu.CreateDirIfNotExistsLinux(dir);
+    fu.CreateDirIfNotExists(baseDir);
+    fu.CreateDirIfNotExists(dir);
     const EnjoLib::Str & pathVar = ou.GetVarPath(period, varId, release);
     Ofstream f(pathVar);
     f << val << '\n';

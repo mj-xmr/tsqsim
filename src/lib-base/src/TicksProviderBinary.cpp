@@ -14,6 +14,7 @@
 #include <Util/CoutBuf.hpp>
 #include <Ios/Osstream.hpp>
 #include <Ios/Sstream.hpp>
+#include <Ios/Ifstream.hpp>
 
 #include <STD/Iostream.hpp>
 
@@ -157,13 +158,24 @@ CorPtr<ITicks> TicksProviderBinary::StoreOrRestore(const EnjoLib::Str & symbol, 
     {
         return RestoreZipped(tfx.binZipFile);
     }
+    else if (fu.FileExists(tfx.textFile))
+    {
+        Ifstream ifs(tfx.textFile);
+        const auto & ticks = ReadFile(fileName, ifs); /// TODO: Join with UnzipTxt(). Used for Windows for now.
+        Archive(fileName, ticks);
+        return CorPtr<ITicks>(new Ticks(ticks));
+    }
     else if (fu.FileExists(tfx.txtZipFile))
     {
         return UnzipTxt(symbol, fileName, tfx.txtZipFile);
     }
+    else if (fu.FileExists(tfx.txtGZipFile))
+    {
+        return UnzipTxt(symbol, fileName, tfx.txtGZipFile);
+    }
     else
     {
-        throw ExceptInvalidArg("File " + tfx.txtZipFile + " doesn't exist");
+        throw ExceptInvalidArg("File " + tfx.txtGZipFile + " doesn't exist");
     }
 }
 

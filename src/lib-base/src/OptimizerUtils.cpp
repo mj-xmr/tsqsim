@@ -1,10 +1,12 @@
 #include "OptimizerUtils.h"
 #include "ConfigDirs.h"
 #include "IDataProvider.h"
-#include <Util/FileUtils.hpp>
 #include "TradeUtil.h"
 #include "SymbolAlternatives.h"
 
+#include <EnjoLibBoost/Filesystem.hpp>
+
+#include <Util/FileUtils.hpp>
 
 using namespace std;
 using namespace EnjoLib;
@@ -19,7 +21,7 @@ EnjoLib::Str OptimizerUtils::GetVarBaseDir(bool release) const
         return cfg.DIR_OPTI_RELEASE;
     else
     {
-        FileUtils().CreateDirIfNotExistsLinux(cfg.DIR_OPTI_DEVEL);
+        Filesystem().CreateDirIfNotExists(cfg.DIR_OPTI_DEVEL);
         return cfg.DIR_OPTI_DEVEL;
     }
 
