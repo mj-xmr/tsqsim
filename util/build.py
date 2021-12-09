@@ -87,6 +87,7 @@ def build(args):
         cccompiler=MINGW_PREFIX + "-gcc"
         cpcompiler=MINGW_PREFIX + "-g++"
         make = MINGW_PREFIX + "-make"
+        args.compiler = cccompiler
 
     cmd = prefix + ' cmake  -S {} -B .'.format(path)
     if args.generator:
@@ -99,7 +100,9 @@ def build(args):
     cmd += NL + '-DBUILD_BOOST={}'.format(ON) # Required
     if args.compiler:
         cmd += NL + '-DCMAKE_C_COMPILER="{}"'.format(cccompiler) 
-        cmd += NL + '-DCMAKE_CXX_COMPILER="{}"'.format(cpcompiler)    
+        cmd += NL + '-DCMAKE_CXX_COMPILER="{}"'.format(cpcompiler)
+        cmd += NL + '-DCMAKE_MAKE_PROGRAM="{}"'.format(make)
+        
     cmd += NL + '&&' +  make + proc + '||' + make + '&&' + make + proc_local + 'install'
     cmd += NL + '&& (' + ctest + proc_local + '||' + ctest + ')'
 
