@@ -1,7 +1,14 @@
 #!/bin/bash -e
 
-DATA_FILE=TX-TS.csv.gz
-DATA_URL=http://cryptog.hopto.org/monero/data/$DATA_FILE
+DATA_FILE_BASE=TX-TS.csv
+URL="http://cryptog.hopto.org/monero/data/"
+if [[ "$(uname)" == "Linux"  || "$(uname)" == "Darwin" ]]; then
+	DATA_FILE=$DATA_FILE_BASE.gz
+else
+	DATA_FILE=$DATA_FILE_BASE.zip
+fi
+
+DATA_URL=$URL/$DATA_FILE
 DATA_DIR=build/data/data/txt
 CFG_DIR=build/cfg
 SCRIPTS_DIR=build/scripts
