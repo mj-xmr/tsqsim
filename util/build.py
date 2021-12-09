@@ -109,7 +109,7 @@ def build(args):
         cmd += NL + '&&' +  make + proc
         subprocess.run(cmd, shell=True, check=True)
         subprocess.run(make + " install", shell=True, check=True)
-        subprocess.run("ctest", shell=True, check=True)   
+        subprocess.run(ctest, shell=True, check=True)   
     else:
         cmd += NL + '&&' +  make + proc + '||' + make + '&&' + make + proc_local + 'install'
         cmd += NL + '&& (' + ctest + proc_local + '||' + ctest + ')'
