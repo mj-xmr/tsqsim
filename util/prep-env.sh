@@ -5,7 +5,8 @@ URL="http://cryptog.hopto.org/monero/data/"
 if [[ "$(uname)" == "Linux"  || "$(uname)" == "Darwin" ]]; then
 	DATA_FILE=$DATA_FILE_BASE.gz
 else
-	DATA_FILE=$DATA_FILE_BASE.zip
+	#DATA_FILE=$DATA_FILE_BASE.zip
+	DATA_FILE=$DATA_FILE_BASE
 fi
 
 DATA_URL=$URL/$DATA_FILE
