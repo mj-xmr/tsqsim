@@ -71,42 +71,4 @@ jobs:
 # TODO: Add OSX build.	   Problem: stdfwd.hh has to be conditionally disabled for _APPLE_ (huge but simple)
 # TODO: Add Windows build. Problem: EnjoLibBoost fails to compile without wstring (short but harder)
 
-  build-macos:
-    runs-on: ${{ matrix.os }}
-    env:
-      CCACHE_TEMPDIR: /tmp/.ccache-temp
-    strategy:
-      fail-fast: false
-      matrix:
-        #os: [macOS-latest, macOS-11]    # prev
-        #os: [macOS-latest, macOS-10.15] # future 
-        os: [macOS-10.15, macOS-11]      # transitionary
-    steps:
-    - uses: actions/checkout@v1
-      with:
-        submodules: recursive
-    # Volatile cache
-    - name: ccache
-      uses: actions/cache@v2
-      with:
-        path: /Users/runner/Library/Caches/ccache
-        key:          ccache03-${{ runner.os }}-${{ matrix.os }}-build-${{ github.sha }}
-        restore-keys: ccache03-${{ runner.os }}-${{ matrix.os }}-build-
-    # Less volatile cache
-    - name: data cache
-      uses: actions/cache@v2
-      with:
-        path: build/data/data/txt
-        key:          data-${{ hashFiles('build/data/data/txt/**/*') }}
-        restore-keys: data-${{ hashFiles('build/data/data/txt/**/*') }}
-    - name: prepare environment
-      run: util/prep-env.sh
-    - name: install dependencies
-      run: util/deps-pull.sh
-    - name: build & install the unmanaged dependencies
-      run: util/deps-build.sh
-    - name: build
-      run: ./ci-default --unity
-    - name: run demo
-      run: ./ci-default --unity --run-demo
 
