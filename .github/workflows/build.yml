@@ -110,6 +110,6 @@ jobs:
 #      run: util/deps-build.sh
     - name: build
       run: ./ci-default --unity
-    - name: run demo
-      run: ./ci-default --unity --run-demo        
+#    - name: run demo
+#      run: ./ci-default --unity --run-demo        
 
