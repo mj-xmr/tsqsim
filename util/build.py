@@ -9,6 +9,7 @@ Created on 26.11.2021
 import os
 import sys
 import time
+import shutil
 import platform
 import subprocess
 import argparse
@@ -128,7 +129,9 @@ def run_demo(args):
     cmd += '&& ./tsqsim'
 
     if platform.system() == 'Windows':
-        subprocess.run("ls ../..", shell=True, check=True)
+        #subprocess.run("ls ../..", shell=True, check=True)
+        shutil.move('../../data', '.')
+        shutil.move('../../scripts', '.')
         cmd = "tsqsim.exe"
 
     proc = subprocess.run(cmd, shell=True, check=True)
