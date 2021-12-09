@@ -103,8 +103,6 @@ jobs:
         install: mingw-w64-x86_64-toolchain make mingw-w64-x86_64-cmake mingw-w64-x86_64-ccache mingw-w64-x86_64-openssl mingw-w64-x86_64-zeromq mingw-w64-x86_64-eigen3 mingw-w64-x86_64-unittest-cpp mingw-w64-x86_64-boost mingw-w64-x86_64-gsl git
     - name: prepare environment
       run: util/prep-env.sh
-    - name: set apt conf
-      run: ${{env.APT_SET_CONF}}
     - name: install dependencies
       run: util/deps-pull.sh
     - name: build & install the unmanaged dependencies
