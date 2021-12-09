@@ -128,6 +128,7 @@ def run_demo(args):
     cmd += '&& ./tsqsim'
 
     if platform.system() == 'Windows':
+        subprocess.run("ls ../..", shell=True, check=True)
         cmd = "tsqsim.exe"
 
     proc = subprocess.run(cmd, shell=True, check=True)
