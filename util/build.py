@@ -82,7 +82,7 @@ def build(args):
     #    pass
     if platform.system() == 'Windows':
         prefix = ""
-        args.generator = ""
+        args.generator = "MinGW Makefiles"
         MINGW_PREFIX="x86_64-w64-mingw32"
         cccompiler=MINGW_PREFIX + "-gcc"
         cpcompiler=MINGW_PREFIX + "-g++"
