@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+uname
+
 if [ "$(uname)" == "Darwin" ]; then
 	if xcode-select -p; then 
 		echo "xcode already installed." 
