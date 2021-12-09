@@ -67,7 +67,7 @@ if [[ "$(uname)" == "Linux"  || "$(uname)" == "Darwin" ]]; then
 	popd
 	$SUDO mv -v qcustomplot.h $DIR_TGT/include
 else
-	DIR_TGT=/usr/local
+	DIR_TGT=/mingw64
 	$SUDO mv -v release/*qcustomplot* $DIR_TGT/lib
 	popd
 	#ls $DIR_TGT/include
