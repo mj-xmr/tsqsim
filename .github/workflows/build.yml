@@ -148,7 +148,7 @@ jobs:
     - name: build & install the unmanaged dependencies
       run: util/deps-build.sh
     - name: build
-      run: ./ci-default --unity
+      run: ./ci-default --unity --build-qt
     - name: run demo
-      run: ./ci-default --unity --run-demo        
+      run: ./ci-default --unity --build-qt --run-demo        
 
