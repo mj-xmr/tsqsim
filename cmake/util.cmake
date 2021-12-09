@@ -150,7 +150,7 @@ function (enjoSymlink projName linkSrc linkDst)
 	add_custom_command(TARGET ${projName} POST_BUILD
 	       COMMAND ${CMAKE_COMMAND} -E copy_directory
 	       ${linkSrc}
-	       ${linkDst}
+	       ${CMAKE_BINARY_DIR}/bin
 	)
 	# TODO: Won't work for files
    else()
