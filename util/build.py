@@ -86,7 +86,7 @@ def build(args):
         MINGW_PREFIX="x86_64-w64-mingw32"
         cccompiler=MINGW_PREFIX + "-gcc"
         cpcompiler=MINGW_PREFIX + "-g++"
-        make = MINGW_PREFIX + "-make"
+        make = "mingw32-make"
         args.compiler = cccompiler
 
     cmd = prefix + ' cmake  -S {} -B .'.format(path)
@@ -101,7 +101,8 @@ def build(args):
     if args.compiler:
         cmd += NL + '-DCMAKE_C_COMPILER="{}"'.format(cccompiler) 
         cmd += NL + '-DCMAKE_CXX_COMPILER="{}"'.format(cpcompiler)
-        cmd += NL + '-DCMAKE_MAKE_PROGRAM="{}"'.format(make)
+        if platform.system() == 'Windows':
+            cmd += NL + '-DCMAKE_MAKE_PROGRAM="{}"'.format(make)
         
     cmd += NL + '&&' +  make + proc + '||' + make + '&&' + make + proc_local + 'install'
     cmd += NL + '&& (' + ctest + proc_local + '||' + ctest + ')'
