@@ -71,4 +71,46 @@ jobs:
 # TODO: Add OSX build.	   Problem: stdfwd.hh has to be conditionally disabled for _APPLE_ (huge but simple)
 # TODO: Add Windows build. Problem: EnjoLibBoost fails to compile without wstring (short but harder)
 
+  build-windows:
+    runs-on: windows-latest
+    env:
+      CCACHE_TEMPDIR: C:\Users\runneradmin\.ccache-temp
+      CCACHE_DIR: C:\Users\runneradmin\.ccache
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        submodules: recursive
+    # Volatile cache
+    - name: ccache
+      uses: actions/cache@v2
+      with:
+        path: ~/.ccache
+        key:          ccache03-${{ runner.os }}-build-${{ github.sha }}
+        restore-keys: ccache03-${{ runner.os }}-build-
+    # Less volatile cache
+    - name: data cache
+      uses: actions/cache@v2
+      with:
+        path: build/data/data/txt
+        key:          data-${{ hashFiles('build/data/data/txt/**/*') }}
+        restore-keys: data-${{ hashFiles('build/data/data/txt/**/*') }}
+    - uses: eine/setup-msys2@v2
+      with:
+        update: true
+        install: mingw-w64-x86_64-toolchain make mingw-w64-x86_64-cmake mingw-w64-x86_64-ccache mingw-w64-x86_64-openssl mingw-w64-x86_64-zeromq mingw-w64-x86_64-eigen3 mingw-w64-x86_64-unittest-cpp mingw-w64-x86_64-boost mingw-w64-x86_64-gsl git
+    - name: prepare environment
+      run: util/prep-env.sh
+    - name: set apt conf
+      run: ${{env.APT_SET_CONF}}
+    - name: install dependencies
+      run: util/deps-pull.sh
+    - name: build & install the unmanaged dependencies
+      run: util/deps-build.sh
+    - name: build
+      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} --unity
+    - name: run demo
+      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} --unity --run-demo        
 
