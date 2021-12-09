@@ -63,8 +63,13 @@ fi
 SUDO=""
 if [[ "$(uname)" == "Linux"  || "$(uname)" == "Darwin" ]]; then
 	SUDO=sudo
+	$SUDO mv libqcustomplot* $DIR_TGT/lib
+	popd
+	$SUDO mv qcustomplot.h $DIR_TGT/include
+else
+	popd
 fi
-$SUDO mv libqcustomplot* $DIR_TGT/lib
-popd
-$SUDO mv qcustomplot.h $DIR_TGT/include
+#$SUDO mv libqcustomplot* $DIR_TGT/lib
+#popd
+#$SUDO mv qcustomplot.h $DIR_TGT/include
 
