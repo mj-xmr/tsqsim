@@ -1,8 +1,11 @@
 #include "TicksFilesExt.h"
-#include <Util/FileUtils.hpp>
 #include "ConfigDirs.h"
 #include "ConfigSym.h"
 #include "ConfigMan.h"
+
+#include <EnjoLibBoost/Filesystem.hpp>
+
+#include <Util/FileUtils.hpp>
 
 using namespace std;
 
@@ -30,7 +33,7 @@ TicksFilesExt::TicksFilesExt(EnjoLib::Str symbolName, EnjoLib::Str fileName, Enj
     txtZipFile = textFile + ".gz";
     binZipFile = binaryFile + archiveFmt;
 
-    EnjoLib::FileUtils().CreateDirIfNotExistsLinux(dirBin);
+    EnjoLib::Filesystem().CreateDirIfNotExists(dirBin);
 }
 
 TicksFilesExt::~TicksFilesExt(){}

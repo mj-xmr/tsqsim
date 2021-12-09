@@ -3,6 +3,8 @@
 #include "ConfigTxt.h"
 #include "ConfigDirs.h"
 
+#include <EnjoLibBoost/Filesystem.hpp>
+
 #include <Util/Tokenizer.hpp>
 #include <Util/CharManipulationsTplVec.hpp>
 #include <Ios/Ofstream.hpp>
@@ -33,7 +35,7 @@ ConfigTxt::~ConfigTxt()
 {
     const EnjoLib::Str delim = EnjoLib::Str(" ") + m_delim + ' ';
     const EnjoLib::Str outFile = GetFileName() + ".out";
-    EnjoLib::FileUtils().CreateDirIfNotExistsLinux(ConfigDirs().DIR_CFG);
+    EnjoLib::Filesystem().CreateDirIfNotExists(ConfigDirs().DIR_CFG);
     EnjoLib::Ofstream f(outFile);
 
     bool hadMissing = false;

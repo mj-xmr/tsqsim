@@ -5,6 +5,8 @@
 #include "ConfigMan.h"
 #include "ConfigTF2.h"
 
+#include <EnjoLibBoost/Filesystem.hpp>
+
 #include <Util/FileUtils.hpp>
 #include <Util/Str.hpp>
 #include <Util/Except.hpp>
@@ -33,13 +35,13 @@ EnjoLib::Str CacheDynamicNonTpl::GetFilename() const
 {
     const ConfigDirs cfgDirs;
     const EnjoLib::Str dirFinal = cfgDirs.DIR_CACHE + '/' + m_name + '/';
-    FileUtils().CreateDirIfNotExistsLinux(cfgDirs.DIR_CACHE);
-    FileUtils().CreateDirIfNotExistsLinux(dirFinal);
+    Filesystem().CreateDirIfNotExists(cfgDirs.DIR_CACHE);
+    Filesystem().CreateDirIfNotExists(dirFinal);
     const char d = '_';
     EnjoLib::Osstream ossMT;
     if (m_isMT)
         ossMT << "MT" << d;
-        
+
     const EnjoLib::Str extension = ".bin" + cfgDirs.EXT_ARCHIVE;
     //const string extension = ".txt";
     return dirFinal + ossMT.str() + m_sym + d + m_per + extension;

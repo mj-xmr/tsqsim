@@ -2,6 +2,8 @@
 
 #include "ConfigDirs.h"
 
+#include <EnjoLibBoost/Filesystem.hpp>
+
 #include <Util/FileUtils.hpp>
 #include <Ios/Ofstream.hpp>
 #include <Ios/Ifstream.hpp>
@@ -33,7 +35,7 @@ bool IConfig::PrepareReadStream(EnjoLib::Istream & ifs) const
 
 void IConfig::Write() const
 {
-    EnjoLib::FileUtils().CreateDirIfNotExistsLinux(ConfigDirs().DIR_CFG);
+    EnjoLib::Filesystem().CreateDirIfNotExists(ConfigDirs().DIR_CFG);
     EnjoLib::Ofstream f(GetFileName());
     f << GetConfigString();
     //cout << GetConfigString() << endl;

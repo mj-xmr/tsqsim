@@ -210,7 +210,7 @@ void Monster::InitBufs(const IPeriod & per) const
             Ofstream fopens(baseDir + period.GetSymbolPeriodId() + "-opens.dat");
             Ofstream fcloses(baseDir + period.GetSymbolPeriodId() + "-closes.dat");
             Ofstream fatr   (baseDir + period.GetSymbolPeriodId() + "-atr.dat");
-            FileUtils().CreateDirIfNotExistsLinux(baseDir);
+            Filesystem().CreateDirIfNotExists(baseDir);
             fopens << "\"Opens\"\n";
             fcloses << "\"Closes\"\n";
             fatr    << "\"ATR\"\n";
