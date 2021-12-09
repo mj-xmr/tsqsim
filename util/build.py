@@ -132,7 +132,7 @@ def run_demo(args):
         #subprocess.run("ls ../..", shell=True, check=True)
         shutil.move('../../data', '.') # TODO: Ugly
         shutil.move('../../../src/tsqsim/scripts', '.') # Even uglier
-        cmd = "tsqsim.exe"
+        cmd = "tsqsim.exe --help && tsqsim.exe"
 
     proc = subprocess.run(cmd, shell=True, check=True)
     proc = subprocess.run(cmd, shell=True, check=True) # Run again to test the deserialization
