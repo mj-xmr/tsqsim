@@ -2,7 +2,7 @@
 
 echo "Building dependencies"
 # externals/URT/build/build-urt.sh # Not needed anymore. Using CMakeLists.txt
-if [ "$(uname)" == "Linux" ]; then
+if [ "$(uname)" != "Darwin" ]; then
 	externals/scripts/build-qcustomplot.sh
 fi
 #elif [ "$(uname)" == "MinGw" ]; then
