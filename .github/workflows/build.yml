@@ -143,10 +143,10 @@ jobs:
     - name: prepare environment
       run: util/prep-env.sh
 # TODO: Use python later
-#    - name: install dependencies
-#      run: util/deps-pull.sh
-#    - name: build & install the unmanaged dependencies
-#      run: util/deps-build.sh
+    - name: install dependencies
+      run: util/deps-pull.sh
+    - name: build & install the unmanaged dependencies
+      run: util/deps-build.sh
     - name: build
       run: ./ci-default --unity
     - name: run demo
