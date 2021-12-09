@@ -30,7 +30,8 @@ TicksFilesExt::TicksFilesExt(EnjoLib::Str symbolName, EnjoLib::Str fileName, Enj
     EnjoLib::Str dirBin = dirBase + symbolName + "/";
     binaryFile = dirBin   + symbolPer + ".bin";
     textFile   = fileBase + fileExt;
-    txtZipFile = textFile + ".gz";
+    txtGZipFile = textFile + ".gz";
+    txtZipFile  = textFile + ".zip";
     binZipFile = binaryFile + archiveFmt;
 
     EnjoLib::Filesystem().CreateDirIfNotExists(dirBin);

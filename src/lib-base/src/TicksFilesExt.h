@@ -11,6 +11,7 @@ class TicksFilesExt
 
         EnjoLib::Str binaryFile;
         EnjoLib::Str textFile;
+        EnjoLib::Str txtGZipFile;
         EnjoLib::Str txtZipFile;
         EnjoLib::Str binZipFile;
     protected:

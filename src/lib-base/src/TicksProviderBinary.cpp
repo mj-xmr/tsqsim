@@ -161,9 +161,13 @@ CorPtr<ITicks> TicksProviderBinary::StoreOrRestore(const EnjoLib::Str & symbol, 
     {
         return UnzipTxt(symbol, fileName, tfx.txtZipFile);
     }
+    else if (fu.FileExists(tfx.txtGZipFile))
+    {
+        return UnzipTxt(symbol, fileName, tfx.txtGZipFile);
+    }
     else
     {
-        throw ExceptInvalidArg("File " + tfx.txtZipFile + " doesn't exist");
+        throw ExceptInvalidArg("File " + tfx.txtGZipFile + " doesn't exist");
     }
 }
 
