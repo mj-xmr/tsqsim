@@ -69,7 +69,9 @@ if [[ "$(uname)" == "Linux"  || "$(uname)" == "Darwin" ]]; then
 else
 	$SUDO mv release/*qcustomplot* $DIR_TGT/lib
 	popd
+	#ls $DIR_TGT/include
 	$SUDO mv qcustomplot.h $DIR_TGT/include
+	ls $DIR_TGT/include
 fi
 #$SUDO mv libqcustomplot* $DIR_TGT/lib
 #popd
