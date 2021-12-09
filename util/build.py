@@ -83,6 +83,10 @@ def build(args):
     if platform.system() == 'Windows':
         prefix = ""
         args.generator = ""
+        MINGW_PREFIX=x86_64-w64-mingw32
+        cccompiler=MINGW_PREFIX + "-gcc"
+        cpcompiler=MINGW_PREFIX + "-g++"
+        make = MINGW_PREFIX + "-make"
 
     cmd = prefix + ' cmake  -S {} -B .'.format(path)
     if args.generator:
