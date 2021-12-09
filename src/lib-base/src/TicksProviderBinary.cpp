@@ -161,7 +161,7 @@ CorPtr<ITicks> TicksProviderBinary::StoreOrRestore(const EnjoLib::Str & symbol, 
     else if (fu.FileExists(tfx.textFile))
     {
         Ifstream ifs(tfx.textFile);
-        const auto & ticks = ReadFile(fileName, ifs); /// TODO: Join with UnzipTxt()
+        const auto & ticks = ReadFile(fileName, ifs); /// TODO: Join with UnzipTxt(). Used for Windows for now.
         Archive(fileName, ticks);
         return CorPtr<ITicks>(new Ticks(ticks));
     }
