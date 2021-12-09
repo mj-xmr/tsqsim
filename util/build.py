@@ -77,11 +77,16 @@ def build(args):
         
     prefix = "set -e\n"
     print("System = " + platform.system())
-    if platform.system() == 'Darwin':
+    #if platform.system() == 'Darwin':
         #prefix += 'PATH="$(brew --prefix qt5)/bin:$PATH"' # https://github.com/leela-zero/leela-zero/issues/2177 
-        pass
+    #    pass
+    if platform.system() == 'Windows':
+        prefix = ""
+        args.generator = ""
 
-    cmd = prefix + " cmake -G '{}'".format(args.generator) + ' -S {} -B .'.format(path)
+    cmd = prefix + ' cmake  -S {} -B .'.format(path)
+    if args.generator:
+        cmd += NL + "-G '{}'".format(args.generator)
     cmd += NL + '-DUSE_STATIC={}' .format(OFF if args.shared else ON)
     cmd += NL + '-DUSE_DEBUG={}'  .format(ON  if args.debug  else OFF)
     cmd += NL + '-DUSE_UNITY={}'  .format(ON  if args.unity  else OFF)
