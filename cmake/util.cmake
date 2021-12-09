@@ -139,7 +139,7 @@ endfunction()
 
 function (enjoCopyDir projName source dest)
 	add_custom_command(TARGET ${projName} POST_BUILD
-	       COMMAND ${CMAKE_COMMAND} -E copy_directory
+	       COMMAND ${CMAKE_COMMAND} --verbose -E copy_directory
 	       ${source}
 	       $<TARGET_FILE_DIR:${projName}>/${dest}
 	)
