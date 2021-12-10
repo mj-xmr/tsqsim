@@ -3,8 +3,9 @@ cmake_minimum_required(VERSION 3.5.1)
 add_subdirectory(lib-base)
 add_subdirectory(tsqsim-lib)
 
-# TODO: Don't build with NO_WS
-add_subdirectory(wxConfQT)
+if (BUILD_WX)
+	add_subdirectory(wxConfQT)
+endif()
 
 add_subdirectory(tsqsim)
 

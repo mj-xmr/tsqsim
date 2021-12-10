@@ -35,21 +35,22 @@ Please refer to [_"Fooled by Randomness"_](https://en.wikipedia.org/wiki/Fooled_
 # Requirements
 Supported Operating Systems and features:
 
-| OS \ Feature  | CI | gcc | clang | UT | QT |
-| ------------- | -- | --- | ----- | -- | -- |
-| Debian stable |    | ✓   | ✓     |  ✓ |    |
-| Debian buster |    | ✓   | ✓     |  ✓ | ✓  |
-| Ubuntu 21.04  |    | ✓   | ✓     |  ✓ |    |
-| Ubuntu 20.04  | ✓  | ✓   | ✓     |  ✓ | ✓  |
-| Mac OSX 11    | ✓  |     | ✓     |  ✓ |    |
-| Mac OSX 10.15 | ✓  |     | ✓     |  ✓ |    |
-| Windows       | ✓  | ✓   |       |  ✓ |    |
+| OS \ Feature  | CI | gcc | clang | UT | WX | QT |
+| ------------- | -- | --- | ----- | -- | -- | -- |
+| Debian stable |    | ✓   | ✓     |  ✓ | ✓  |    |
+| Debian buster |    | ✓   | ✓     |  ✓ | ✓  | ✓  |
+| Ubuntu 21.04  |    | ✓   | ✓     |  ✓ | ✓  |    |
+| Ubuntu 20.04  | ✓  | ✓   | ✓     |  ✓ | ✓  | ✓  |
+| Mac OSX 11    | ✓  |     | ✓     |  ✓ | ✓  |    |
+| Mac OSX 10.15 | ✓  |     | ✓     |  ✓ | ✓  |    |
+| Windows       | ✓  | ✓   |       |  ✓ | ✓  |    |
 
 Glossary:
 - CI = [Continuous Integration](https://github.com/mj-xmr/tsqsim/actions)
 - gcc & clang = C/C++ compilers
 - UT = Unit Tests
-- QT = QT Application (data viewer)
+- WX = wxWidgets configuration application
+- QT = QT application (data viewer)
 
 # Quickstart
 In case these instructions become outdated, please refer to the steps of the [CI](.github/workflows/build.yml).
@@ -78,6 +79,11 @@ To learn all the app's options and additional information, from within the targe
 ```bash
 ./tsqsim --help
 ```
+Some of the options are able to be modified more conviniently through the `wxConf` application, accessible from the same directory (TODO: add more help):
+```bash
+./wxConf
+```
+The changes made in `wxConf` are being read by all of the remaining applications right after performing any change in the `wxConf`, without any need of confirmation of the changes.
 
 ## Command line example
 For example, to override the default discrete period and the ending year, the following can be executed:
@@ -85,13 +91,18 @@ For example, to override the default discrete period and the ending year, the fo
 ./tsqsim --per h12 --max-year 2016  # Simulator
 ./tsqsim-qt --min-year 2015 --max-year 2016 --per h12   # QT data viewer
 ```
+Any alterations performed via the CLI override the changes made in the `wxConf` app. In case of the QT app though, the CLI options overwrite the configurations permanently, which is a system limitation. They can be however regenerated at any time by the `wxConf`.
+
+## Controlling the WX configurator
+Beside the usual application usage, please note, that it's very beneficial to use mouse scroll on the selection controls, like Months or Years, which eases their operation.
 
 ## Controlling the QT data viewer
-- Mouse right click reloads the data. Useful when a configuration has changed
+- Mouse right click reloads the data. Useful after a configuration has changed via `wxConf`
 - Mouse scroll zooms in and out
 - Mouse drag with left click moves the viewpoint within the same dataset
 - Cursors left/right move the viewpoint left/right, loading new dataset
 - Cursors up/down scale up/down
+- Control resets the state of the app completely and returns to the initial view
 
 ## Modifying the transformation script
 The TS transformation script's path can be obtained via `./tsqsim --help`, as well as it's currently available transformations. The script can modify the chain of transformations used by the executable, without the need for its recompilation.

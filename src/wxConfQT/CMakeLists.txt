@@ -3,7 +3,7 @@
 cmake_minimum_required(VERSION 3.5.1)
 include(../../cmake/util.cmake)
 
-project(wxConfQT)
+project(wxConf)
 SET(CMAKE_INSTALL_RPATH "lib")
 
 #message(FATAL_ERROR "${CMAKE_CURRENT_SOURCE_DIR}")
