@@ -64,6 +64,11 @@ jobs:
       run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} --unity --build-qt
     - name: run demo
       run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} --unity --build-qt --run-demo
+    - uses: actions/upload-artifact@v2
+      if: ${{ matrix.compiler == 'gcc' && matrix.linkage == '--lto' }}
+      with:
+        name: ${{ matrix.os }}
+        path: /home/runner/work/tsqsim/tsqsim/build/${{ matrix.compiler }}-static-release/bin/*
 
 # TODO: todos sorted by priority*realism:
 # TODO: All the unmaintained denendencies should have their own CMakeLists.txt file (URT. Others?) and the util/deps-build.sh should not be used, if possible.
@@ -109,6 +114,10 @@ jobs:
       run: ./ci-default --unity --lto
     - name: run demo
       run: ./ci-default --unity --lto --run-demo
+    - uses: actions/upload-artifact@v2
+      with:
+        name: ${{ matrix.os }}
+        path: /Users/runner/work/tsqsim/tsqsim/build/default-static-release/bin/*
 
   build-windows:
     runs-on: windows-latest
@@ -150,5 +159,9 @@ jobs:
     - name: build
       run: ./ci-default --unity
     - name: run demo
-      run: ./ci-default --unity --run-demo        
+      run: ./ci-default --unity --run-demo       
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Windows
+        path: D:/a/tsqsim/tsqsim/build/default-static-release/bin/* 
 
