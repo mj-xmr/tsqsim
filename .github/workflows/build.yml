@@ -150,7 +150,7 @@ jobs:
     - uses: eine/setup-msys2@v2
       with:
         update: true
-        install: mingw-w64-x86_64-toolchain make mingw-w64-x86_64-cmake mingw-w64-x86_64-ccache mingw-w64-x86_64-gnuplot mingw-w64-x86_64-eigen3 mingw-w64-x86_64-unittest-cpp mingw-w64-x86_64-boost mingw-w64-x86_64-gsl mingw-w64-x86_64-wxWidgets git # mingw-w64-x86_64-openssl mingw-w64-x86_64-zeromq
+        install: mingw-w64-x86_64-toolchain make mingw-w64-x86_64-cmake mingw-w64-x86_64-ccache mingw-w64-x86_64-gnuplot mingw-w64-x86_64-eigen3 mingw-w64-x86_64-unittest-cpp mingw-w64-x86_64-boost mingw-w64-x86_64-gsl mingw-w64-x86_64-wxWidgets mingw-w64-x86_64-winpthreads-git git # mingw-w64-x86_64-openssl mingw-w64-x86_64-zeromq
     - name: prepare environment
       run: util/prep-env.sh
 # TODO: Use python later
