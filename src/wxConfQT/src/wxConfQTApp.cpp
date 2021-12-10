@@ -21,7 +21,7 @@ bool wxConfQTApp::OnInit()
 {
     //(*AppInitialize
     bool wxsOK = true;
-    wxInitAllImageHandlers();
+    // wxInitAllImageHandlers();
     if ( wxsOK )
     {
     	wxConfQTFrame* Frame = new wxConfQTFrame(0);
