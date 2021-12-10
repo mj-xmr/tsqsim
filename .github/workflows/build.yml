@@ -58,6 +58,8 @@ jobs:
       run: ./ci-default --unity
     - name: run demo
       run: ./ci-default --unity --run-demo       
+    - name: prep bin
+      run: ls /mingw64/bin && cp /mingw32/bin/*.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin/
     - uses: actions/upload-artifact@v2
       with:
         name: tsqsim-Windows
