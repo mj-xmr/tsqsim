@@ -69,6 +69,7 @@ jobs:
         cp /mingw64/bin/libboost_system-mt.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
         cp /mingw64/bin/libboost_filesystem-mt.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
         cp /mingw64/bin/libboost_date_time-mt.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
+        cp /mingw64/bin/wxbase30u_gcc_custom.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
     - uses: actions/upload-artifact@v2
       with:
         name: tsqsim-Windows
