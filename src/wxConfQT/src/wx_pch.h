@@ -27,7 +27,7 @@
     #include <wx/app.h>
     #include <wx/msgdlg.h>
     #include <wx/valnum.h>
-    #include <wx/image.h>
+   // #include <wx/image.h>
     #include <wx/sizer.h>
     #include <wx/button.h>
     #include <wx/menu.h>

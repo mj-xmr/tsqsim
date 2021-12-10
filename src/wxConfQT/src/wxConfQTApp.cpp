@@ -12,7 +12,7 @@
 
 //(*AppHeaders
 #include "src/wxConfQTMain.h"
-#include <wx/image.h>
+//#include <wx/image.h>
 //*)
 
 IMPLEMENT_APP(wxConfQTApp);
@@ -21,7 +21,7 @@ bool wxConfQTApp::OnInit()
 {
     //(*AppInitialize
     bool wxsOK = true;
-    wxInitAllImageHandlers();
+    // wxInitAllImageHandlers();
     if ( wxsOK )
     {
     	wxConfQTFrame* Frame = new wxConfQTFrame(0);
