@@ -64,12 +64,16 @@ jobs:
       run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} --unity --build-qt
     - name: run demo
       run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} --unity --build-qt --run-demo
+# It doesn't make sense for now, since we're not linking Boost statically yet.
+#    - uses: actions/upload-artifact@v2
+#      if: ${{ matrix.compiler == 'gcc' && matrix.linkage == '--lto' }}
+#      with:
+#        name: tsqsim-${{ matrix.os }}
+#        path: /home/runner/work/tsqsim/tsqsim/build/${{ matrix.compiler }}-static-release/bin/*
 
 # TODO: todos sorted by priority*realism:
 # TODO: All the unmaintained denendencies should have their own CMakeLists.txt file (URT. Others?) and the util/deps-build.sh should not be used, if possible.
 # TODO: All the testing should be done in a separate job, AFTER building and downloading resources, in order to use caches better (short and easy. Needs to have the build scripts restructured - separate building and testing)
-# TODO: Add OSX build.	   Problem: stdfwd.hh has to be conditionally disabled for _APPLE_ (huge but simple)
-# TODO: Add Windows build. Problem: EnjoLibBoost fails to compile without wstring (short but harder)
 
   build-macos:
     runs-on: ${{ matrix.os }}
@@ -109,6 +113,13 @@ jobs:
       run: ./ci-default --unity --lto
     - name: run demo
       run: ./ci-default --unity --lto --run-demo
+    - uses: actions/upload-artifact@v2
+      with:
+        name: tsqsim-${{ matrix.os }}
+        path: |
+          /Users/runner/work/tsqsim/tsqsim/build/default-static-release/bin/*
+          !/Users/runner/work/tsqsim/tsqsim/build/default-static-release/bin/lib/*
+          !/Users/runner/work/tsqsim/tsqsim/build/default-static-release/bin/data/data/bin/*
 
   build-windows:
     runs-on: windows-latest
@@ -139,7 +150,7 @@ jobs:
     - uses: eine/setup-msys2@v2
       with:
         update: true
-        install: mingw-w64-x86_64-toolchain make mingw-w64-x86_64-cmake mingw-w64-x86_64-ccache mingw-w64-x86_64-gnuplot mingw-w64-x86_64-eigen3 mingw-w64-x86_64-unittest-cpp mingw-w64-x86_64-boost mingw-w64-x86_64-gsl mingw-w64-x86_64-wxWidgets git # mingw-w64-x86_64-openssl mingw-w64-x86_64-zeromq
+        install: mingw-w64-x86_64-toolchain make mingw-w64-x86_64-cmake mingw-w64-x86_64-ccache mingw-w64-x86_64-gnuplot mingw-w64-x86_64-eigen3 mingw-w64-x86_64-unittest-cpp mingw-w64-x86_64-boost mingw-w64-x86_64-gsl mingw-w64-x86_64-wxWidgets mingw-w64-x86_64-winpthreads-git git # mingw-w64-x86_64-openssl mingw-w64-x86_64-zeromq
     - name: prepare environment
       run: util/prep-env.sh
 # TODO: Use python later
@@ -150,5 +161,14 @@ jobs:
     - name: build
       run: ./ci-default --unity
     - name: run demo
-      run: ./ci-default --unity --run-demo        
+      run: ./ci-default --unity --run-demo       
+    - uses: actions/upload-artifact@v2
+      with:
+        name: tsqsim-Windows
+        path: |
+          D:/a/tsqsim/tsqsim/build/default-static-release/bin/*
+          !D:/a/tsqsim/tsqsim/build/default-static-release/bin/lib/*
+          !D:/a/tsqsim/tsqsim/build/default-static-release/bin/data/data/bin/*
+          !D:/a/tsqsim/tsqsim/build/default-static-release/bin/cfg/configTxt.txt
+
 
