@@ -68,14 +68,12 @@ jobs:
 #    - uses: actions/upload-artifact@v2
 #      if: ${{ matrix.compiler == 'gcc' && matrix.linkage == '--lto' }}
 #      with:
-#        name: ${{ matrix.os }}
+#        name: tsqsim-${{ matrix.os }}
 #        path: /home/runner/work/tsqsim/tsqsim/build/${{ matrix.compiler }}-static-release/bin/*
 
 # TODO: todos sorted by priority*realism:
 # TODO: All the unmaintained denendencies should have their own CMakeLists.txt file (URT. Others?) and the util/deps-build.sh should not be used, if possible.
 # TODO: All the testing should be done in a separate job, AFTER building and downloading resources, in order to use caches better (short and easy. Needs to have the build scripts restructured - separate building and testing)
-# TODO: Add OSX build.	   Problem: stdfwd.hh has to be conditionally disabled for _APPLE_ (huge but simple)
-# TODO: Add Windows build. Problem: EnjoLibBoost fails to compile without wstring (short but harder)
 
   build-macos:
     runs-on: ${{ matrix.os }}
@@ -117,7 +115,7 @@ jobs:
       run: ./ci-default --unity --lto --run-demo
     - uses: actions/upload-artifact@v2
       with:
-        name: ${{ matrix.os }}
+        name: tsqsim-${{ matrix.os }}
         path: |
           /Users/runner/work/tsqsim/tsqsim/build/default-static-release/bin/*
           !/Users/runner/work/tsqsim/tsqsim/build/default-static-release/bin/lib/*
@@ -166,7 +164,7 @@ jobs:
       run: ./ci-default --unity --run-demo       
     - uses: actions/upload-artifact@v2
       with:
-        name: Windows
+        name: tsqsim-Windows
         path: |
           D:/a/tsqsim/tsqsim/build/default-static-release/bin/*
           !D:/a/tsqsim/tsqsim/build/default-static-release/bin/lib/*
