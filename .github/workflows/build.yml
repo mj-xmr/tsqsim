@@ -64,6 +64,11 @@ jobs:
         cp /mingw64/bin/libwinpthread-1.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
         cp /mingw64/bin/libstdc++-6.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
         cp /mingw64/bin/libgcc_s_seh-1.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
+        cp /mingw64/bin/libboost_program_options-mt.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
+        cp /mingw64/bin/libboost_serialization-mt.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
+        cp /mingw64/bin/libboost_system-mt.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
+        cp /mingw64/bin/libboost_filesystem-mt.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
+        cp /mingw64/bin/libboost_date_time-mt.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
     - uses: actions/upload-artifact@v2
       with:
         name: tsqsim-Windows
