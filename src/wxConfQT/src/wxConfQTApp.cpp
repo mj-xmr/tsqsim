@@ -12,7 +12,7 @@
 
 //(*AppHeaders
 #include "src/wxConfQTMain.h"
-#include <wx/image.h>
+//#include <wx/image.h>
 //*)
 
 IMPLEMENT_APP(wxConfQTApp);
