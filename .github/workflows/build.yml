@@ -76,6 +76,8 @@ jobs:
         cp /mingw64/bin/libpng16-16.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
         cp /mingw64/bin/libbz2-1.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
         cp /mingw64/bin/liblzma-5.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
+        cp /mingw64/bin/libzstd.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
+        cp /mingw64/bin/libtiff-5.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
     - uses: actions/upload-artifact@v2
       with:
         name: tsqsim-Windows
