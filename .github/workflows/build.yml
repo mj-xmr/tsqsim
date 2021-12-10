@@ -164,10 +164,13 @@ jobs:
       run: ./ci-default --unity
     - name: run demo
       run: ./ci-default --unity --run-demo       
-#    - uses: actions/upload-artifact@v2
-#      with:
-#        name: Windows
-#        path: |
-#          D:/a/tsqsim/tsqsim/build/default-static-release/bin/*
-#          !D:/a/tsqsim/tsqsim/build/default-static-release/bin/lib/*
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Windows
+        path: |
+          D:/a/tsqsim/tsqsim/build/default-static-release/bin/*
+          !D:/a/tsqsim/tsqsim/build/default-static-release/bin/lib/*
+          !D:/a/tsqsim/tsqsim/build/default-static-release/bin/data/data/bin/*
+          !D:/a/tsqsim/tsqsim/build/default-static-release/bin/cfg/configTxt.txt
+
 
