@@ -27,7 +27,7 @@ jobs:
       matrix:
         os: [ubuntu-latest] #, ubuntu-18.04] # TODO: Consider(!) supporting the previous version.
         compiler: [gcc, clang]
-        linkage: ["", --shared] # TODO: Add LTO. Also needed for URT library via its CMakeLists.txt
+        linkage: ["", --shared, --lto]
     steps:
     - uses: actions/checkout@v1
       with:

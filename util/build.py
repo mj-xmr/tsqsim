@@ -31,6 +31,7 @@ NL=' '
 def get_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('-s', '--shared',    default=False, action='store_true', help="build shared libraries (default: OFF)")
+    parser.add_argument('-l', '--lto',       default=False, action='store_true', help="link time optimization (Release case; default: OFF)")
     parser.add_argument('-d', '--debug',     default=False, action='store_true', help="build debug (default: OFF)")
     parser.add_argument('-p', '--pch',       default=False, action='store_true', help="build pch   (Dev case; default: OFF)")
     parser.add_argument('-u', '--unity',     default=False, action='store_true', help="build unity (CI case;  default: OFF)")
@@ -46,6 +47,9 @@ def get_parser():
 
 def build(args):
     print("Args = ", args)
+    if args.lto and args.shared:
+        print("Enforcing a static build for the LTO to make sense.")
+        args.shared = False
     build_dir = DIR_BUILD_BASE + '/'
     if args.compiler:
         build_dir += args.compiler
@@ -95,9 +99,11 @@ def build(args):
     if args.generator:
         cmd += NL + '-G "{}"'.format(args.generator)
     cmd += NL + '-DUSE_STATIC={}' .format(OFF if args.shared else ON)
+    cmd += NL + '-DUSE_LTO={}'    .format(ON  if args.lto    else OFF)
     cmd += NL + '-DUSE_DEBUG={}'  .format(ON  if args.debug  else OFF)
     cmd += NL + '-DUSE_UNITY={}'  .format(ON  if args.unity  else OFF)
     cmd += NL + '-DUSE_PCH={}'    .format(ON  if args.pch    else OFF)
+    
     cmd += NL + '-DBUILD_QT={}'   .format(ON  if args.build_qt else OFF) # Optional
     cmd += NL + '-DBUILD_BOOST={}'.format(ON) # Required
     if args.compiler:
