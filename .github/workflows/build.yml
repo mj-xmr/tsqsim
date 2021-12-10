@@ -121,6 +121,7 @@ jobs:
         path: |
           /Users/runner/work/tsqsim/tsqsim/build/default-static-release/bin/*
           !/Users/runner/work/tsqsim/tsqsim/build/default-static-release/bin/lib/*
+          !/Users/runner/work/tsqsim/tsqsim/build/default-static-release/data/data/bin/*
 
   build-windows:
     runs-on: windows-latest
@@ -163,10 +164,10 @@ jobs:
       run: ./ci-default --unity
     - name: run demo
       run: ./ci-default --unity --run-demo       
-    - uses: actions/upload-artifact@v2
-      with:
-        name: Windows
-        path: |
-          D:/a/tsqsim/tsqsim/build/default-static-release/bin/*
-          !D:/a/tsqsim/tsqsim/build/default-static-release/bin/lib/*
+#    - uses: actions/upload-artifact@v2
+#      with:
+#        name: Windows
+#        path: |
+#          D:/a/tsqsim/tsqsim/build/default-static-release/bin/*
+#          !D:/a/tsqsim/tsqsim/build/default-static-release/bin/lib/*
 
