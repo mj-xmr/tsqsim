@@ -15,6 +15,7 @@ env:
         echo "Acquire::Retries       \"3\";"   | sudo tee -a /etc/apt/apt.conf.d/80-custom
         echo "Acquire::http::Timeout \"120\";" | sudo tee -a /etc/apt/apt.conf.d/80-custom
         echo "Acquire::ftp::Timeout  \"120\";" | sudo tee -a /etc/apt/apt.conf.d/80-custom
+  WIN_INSTALL_PATH: D:/a/tsqsim/tsqsim/build/default-static-release/bin
 
 jobs:
   build-ubuntu:
@@ -70,7 +71,6 @@ jobs:
 #      with:
 #        name: tsqsim-${{ matrix.os }}
 #        path: /home/runner/work/tsqsim/tsqsim/build/${{ matrix.compiler }}-static-release/bin/*
-
 # TODO: todos sorted by priority*realism:
 # TODO: All the unmaintained denendencies should have their own CMakeLists.txt file (URT. Others?) and the util/deps-build.sh should not be used, if possible.
 # TODO: All the testing should be done in a separate job, AFTER building and downloading resources, in order to use caches better (short and easy. Needs to have the build scripts restructured - separate building and testing)
@@ -165,30 +165,18 @@ jobs:
     - name: prep bin
       run: |
         ls /mingw64/bin
-        cp /mingw64/bin/libwinpthread-1.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
-        cp /mingw64/bin/libstdc++-6.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
-        cp /mingw64/bin/libgcc_s_seh-1.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
-        cp /mingw64/bin/libboost_program_options-mt.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
-        cp /mingw64/bin/libboost_serialization-mt.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
-        cp /mingw64/bin/libboost_system-mt.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
-        cp /mingw64/bin/libboost_filesystem-mt.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
-        cp /mingw64/bin/libboost_date_time-mt.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
-        cp /mingw64/bin/libboost_iostreams-mt.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
-        cp /mingw64/bin/wxbase30u_gcc_custom.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
-        cp /mingw64/bin/wxmsw30u_core_gcc_custom.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
-        cp /mingw64/bin/libjpeg-8.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
-        cp /mingw64/bin/libpng16-16.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
-        cp /mingw64/bin/libbz2-1.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
-        cp /mingw64/bin/liblzma-5.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
-        cp /mingw64/bin/libzstd.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
-        cp /mingw64/bin/libtiff-5.dll D:/a/tsqsim/tsqsim/build/default-static-release/bin
+        libs="libwinpthread-1.dll libstdc++-6.dll libgcc_s_seh-1.dll libboost_program_options-mt.dll libboost_serialization-mt.dll libboost_system-mt.dll libboost_filesystem-mt.dll libboost_date_time-mt.dll libboost_iostreams-mt.dll libbz2-1.dll liblzma-5.dll libzstd.dll wxbase30u_gcc_custom.dll wxmsw30u_core_gcc_custom.dll"
+        for token in ${libs}; do
+           cp -v /mingw64/bin/"$token" ${{env.WIN_INSTALL_PATH}}
+        done
+# libjpeg-8.dll libpng16-16.dll libtiff-5.dll 
     - uses: actions/upload-artifact@v2
       with:
         name: tsqsim-Windows
         path: |
-          D:/a/tsqsim/tsqsim/build/default-static-release/bin/*
-          !D:/a/tsqsim/tsqsim/build/default-static-release/bin/lib/*
-          !D:/a/tsqsim/tsqsim/build/default-static-release/bin/data/data/bin/*
-          !D:/a/tsqsim/tsqsim/build/default-static-release/bin/cfg/configTxt.txt
+          ${{env.WIN_INSTALL_PATH}}/*
+          !${{env.WIN_INSTALL_PATH}}/lib/*
+          !${{env.WIN_INSTALL_PATH}}/data/data/bin/*
+          !${{env.WIN_INSTALL_PATH}}/cfg/configTxt.txt
 
 
