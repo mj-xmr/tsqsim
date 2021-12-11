@@ -74,6 +74,19 @@ cd tsqsim		# Enter the cloned repo's dir
 ```
 The executables will be available under `build/*/bin`, where `*` depends on the choices you've just made above.
 
+## Rebuilding new versions
+```bash
+cd tsqsim             # Enter the cloned repo's dir
+git fetch             # Get new tags
+git checkout master   # Checkout master or a specific tag
+git pull
+git submodule update --remote; git submodule sync && git submodule update # Update the submodules
+rm build/* -fr        # Sometimes it might be needed to clean the build dir, if the directory structure changes
+./util/prep-env.sh
+./util/deps-pull.sh
+./util/deps-build.sh
+```
+
 # Controlling the application
 To learn all the app's options and additional information, from within the target build directory (`build/*/bin`) execute:
 ```bash
