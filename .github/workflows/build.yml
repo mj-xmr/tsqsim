@@ -28,7 +28,7 @@ jobs:
       matrix:
         os: [ubuntu-latest] #, ubuntu-18.04] # TODO: Consider(!) supporting the previous version.
         compiler: [gcc, clang]
-        linkage: ["", --shared, --lto]
+        linkage: ["", "--shared", "--lto"]
     steps:
     - uses: actions/checkout@v1
       with:
@@ -164,11 +164,27 @@ jobs:
     - name: run demo
       run: ./ci-default --unity --run-demo       
 # TODO: Make a separate package from GNUPLOT variable
-    - name: prep bin
+    - name: prep minimal
       run: |
         ls /mingw64/bin
+        libs="libwinpthread-1.dll libstdc++-6.dll libgcc_s_seh-1.dll libboost_program_options-mt.dll libboost_serialization-mt.dll libboost_system-mt.dll libboost_filesystem-mt.dll libboost_date_time-mt.dll libboost_iostreams-mt.dll libbz2-1.dll liblzma-5.dll libzstd.dll zlib1.dll"
+        for token in ${libs}; do
+           cp -v /mingw64/bin/"$token" ${{env.WIN_INSTALL_PATH}}
+        done
+    - uses: actions/upload-artifact@v2
+      with:
+        name: tsqsim-Windows-minimal
+        path: |
+          ${{env.WIN_INSTALL_PATH}}/tsqsim.exe
+          ${{env.WIN_INSTALL_PATH}}/*.dll
+          !${{env.WIN_INSTALL_PATH}}/lib/*
+          !${{env.WIN_INSTALL_PATH}}/data/data/bin/*
+          !${{env.WIN_INSTALL_PATH}}/cfg/configTxt.txt
+    - name: prep full
+      run: |
         GNUPLOT="gnuplot.exe libbrotlicommon.dll libbrotlidec.dll libbrotlienc.dll rav1e.dll libx265.dll libLerc.dll libjbig-0.dll libgmodule-2.0-0.dll libexpat-1.dll libdeflate.dll libde265-0.dll libdatrie-1.dll libdav1d.dll libbrotlidec.dll libaom.dll libffi-7.dll libpcre-1.dll libintl-8.dll libavif.dll libheif.dll libiconv-2.dll imagequant.dll libwebp-7.dll libthai-0.dll libgio-2.0-0.dll libtermcap-0.dll libjpeg-8.dll libpng16-16.dll libtiff-5.dll libfreetype-6.dll imagequant.dll libavif.dll libgd.dll libheif.dll libjpeg-8.dll libpangocairo-1.0-0.dll libpangoft2-1.0-0.dll libpangowin32-1.0-0.dll libreadline8.dll libtermcap-0.dll libtiff-5.dll libwebp-7.dll libXpm-noX4.dll libfontconfig-1.dll libreadline8.dll libgobject-2.0-0.dll libgd.dll libpango-1.0-0.dll libpangocairo-1.0-0.dll libpangoft2-1.0-0.dll libpangowin32-1.0-0.dll libharfbuzz-0.dll libharfbuzz-gobject-0.dll libharfbuzz-icu-0.dll libharfbuzz-subset-0.dll libgraphite2.dll libfribidi-0.dll libcairo-2.dll libcairo-gobject-2.dll libcairo-script-interpreter-2.dll libpixman-1-0.dll liblzo2-2.dll libglib-2.0-0.dll libcerf.dll libcaca-0.dll"
-        libs="$GNUPLOT libwinpthread-1.dll libstdc++-6.dll libgcc_s_seh-1.dll libboost_program_options-mt.dll libboost_serialization-mt.dll libboost_system-mt.dll libboost_filesystem-mt.dll libboost_date_time-mt.dll libboost_iostreams-mt.dll libbz2-1.dll liblzma-5.dll libzstd.dll zlib1.dll wxbase30u_gcc_custom.dll wxmsw30u_core_gcc_custom.dll"
+        WX="wxbase30u_gcc_custom.dll wxmsw30u_core_gcc_custom.dll"
+        libs="$GNUPLOT $WX"
         for token in ${libs}; do
            cp -v /mingw64/bin/"$token" ${{env.WIN_INSTALL_PATH}}
         done
