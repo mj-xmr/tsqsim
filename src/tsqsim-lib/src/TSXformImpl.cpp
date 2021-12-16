@@ -17,6 +17,11 @@ double TSXformDiff::Run(const TSFunBase & input, int idx, double valPrev) const
     const double diff = canCurr.GetClose() - canPrev.GetClose();
     return diff;
 }
+double TSXformDiff::Run(const EnjoLib::VecD & vals) const
+{
+    const double diff = vals.at(0) - vals.at(1);
+    return diff;
+}
 /// TODO: Unit test all the inversions with CHECK_CLOSE()
 double TSXformDiff::Invert(const EnjoLib::VecD & vals) const
 {
@@ -31,14 +36,22 @@ double TSXformFabs::Run(const TSFunBase & input, int idx, double valPrev) const
 {
     return GeneralMath().Fabs(valPrev);
 }
-
-double TSXformSqrt::Run(const TSFunBase & input, int idx, double valPrev) const
+double TSXformFabs::Run(const EnjoLib::VecD & vals) const
 {
-    return GeneralMath().Sqrt(valPrev);
+    return GeneralMath().Fabs(vals.at(0));
+}
+double TSXformFabs::Invert(const EnjoLib::VecD & vals) const
+{
+    return vals.at(0);
 }
 
 double TSXformSqrtSafe::Run(const TSFunBase & input, int idx, double valPrev) const
 {
+    return Run(VecD(1, valPrev));
+}
+double TSXformSqrtSafe::Run(const EnjoLib::VecD & vals) const
+{
+    const double valPrev = vals.at(0);
     const GMat gmat;
     if (valPrev > 0)
     {
@@ -53,24 +66,36 @@ double TSXformSqrtSafe::Run(const TSFunBase & input, int idx, double valPrev) co
         return -gmat.Sqrt(-valPrev);
     }
 }
+double TSXformSqrtSafe::Invert(const EnjoLib::VecD & vals) const
+{
+    const double valPrev = vals.at(0);
+    const GMat gmat;
+    const double pow = gmat.Pow(valPrev, 2);
+    return valPrev < 0 ? -pow : pow;
+}
 
 double TSXformLogSafe::Run(const TSFunBase & input, int idx, double valPrev) const
 {
+    return Run(VecD(1, valPrev));
+}
+double TSXformLogSafe::Run(const EnjoLib::VecD & vals) const
+{
+    const double valPrev = vals.at(0);
     const GMat gmat;
-    if (valPrev > 0)
+    if (valPrev > VAL_BORDER)
     {
         return gmat.Log(valPrev);
     }
-    else if (valPrev == 0)
+    else if (valPrev == VAL_BORDER)
     {
         return 0;
     }
     else
     {
-        return -gmat.Log(-valPrev); /// TODO: Call Log only once (after UTs)
+        const double diff = gmat.Fabs(VAL_BORDER - valPrev);
+        return -gmat.Log(diff + VAL_BORDER); /// TODO: Call Log only once (after UTs)
     }
 }
-
 double TSXformLogSafe::Invert(const EnjoLib::VecD & vals) const
 {
     const double val = vals.at(0);
@@ -79,13 +104,9 @@ double TSXformLogSafe::Invert(const EnjoLib::VecD & vals) const
     {
         return gmat.Exp(val);
     }
-    else if (val == 0)
-    {
-        return 0;
-    }
     else
     {
-        return -gmat.Exp(-val); /// TODO: Call Exp only once (after UTs)
+        return -gmat.Exp(-val) + 2* VAL_BORDER; /// TODO: Call Exp only once (after UTs)
     }
 }
 
@@ -98,3 +119,12 @@ double TSXformAdd::Run(const TSFunBase & input, int idx, double valPrev) const
 {
     return valPrev + m_add;
 }
+double TSXformAdd::Run(const EnjoLib::VecD & vals) const
+{
+    return vals.at(0) + m_add;
+}
+double TSXformAdd::Invert(const EnjoLib::VecD & vals) const
+{
+    return vals.at(0);
+}
+

@@ -7,6 +7,7 @@
 struct TSXformDiff : public ITSXform
 {
         double Run(const TSFunBase & input, int idx, double valPrev) const override;
+        double Run(const EnjoLib::VecD & vals) const override;
         unsigned MaxShift() const override;
         double Invert(const EnjoLib::VecD & vals) const override;
 };
@@ -14,28 +15,32 @@ struct TSXformDiff : public ITSXform
 struct TSXformFabs : public ITSXform
 {
         double Run(const TSFunBase & input, int idx, double valPrev) const override;
-};
-
-struct TSXformSqrt : public ITSXform
-{
-        double Run(const TSFunBase & input, int idx, double valPrev) const override;
+        double Run(const EnjoLib::VecD & vals) const override;
+        double Invert(const EnjoLib::VecD & vals) const override;
 };
 
 struct TSXformSqrtSafe : public ITSXform
 {
         double Run(const TSFunBase & input, int idx, double valPrev) const override;
+        double Run(const EnjoLib::VecD & vals) const override;
+        double Invert(const EnjoLib::VecD & vals) const override;
 };
 
 struct TSXformLogSafe : public ITSXform
 {
         double Run(const TSFunBase & input, int idx, double valPrev) const override;
+        double Run(const EnjoLib::VecD & vals) const override;
         double Invert(const EnjoLib::VecD & vals) const override;
+        
+        static constexpr double VAL_BORDER = 1;
 };
 
 struct TSXformAdd : public ITSXform
 {
         TSXformAdd(const VecStr & params);
         double Run(const TSFunBase & input, int idx, double valPrev) const override;
+        double Run(const EnjoLib::VecD & vals) const override;
+        double Invert(const EnjoLib::VecD & vals) const override;
 
         double m_add = 0;
 };
