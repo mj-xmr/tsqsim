@@ -7,8 +7,3 @@ unsigned ITSXform::MaxShift() const
 {
     return 0;
 }
-
-double ITSXform::Invert(const EnjoLib::VecD & vals) const
-{
-    return vals.at(0);
-}

@@ -6,7 +6,6 @@ enum class TSXformType
 {
     DIFF,
     FABS,
-    SQRT,
     SQRTS,
     LOGS,
     //POW, TODO
