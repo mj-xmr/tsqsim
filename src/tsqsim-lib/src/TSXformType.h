@@ -10,6 +10,8 @@ enum class TSXformType
     LOGS,
     //POW, TODO
     ADD,
+    MUL,
+    DIV,
     END
 };
 

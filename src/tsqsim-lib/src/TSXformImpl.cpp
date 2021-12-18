@@ -6,6 +6,7 @@
 #include <Math/GeneralMath.hpp>
 #include <Util/CoutBuf.hpp>
 #include <Util/CharManipulations.hpp>
+#include <Statistical/Assertions.hpp>
 
 using namespace EnjoLib;
 
@@ -117,7 +118,7 @@ TSXformAdd::TSXformAdd(const VecStr & params)
 }
 double TSXformAdd::Run(const TSFunBase & input, int idx, double valPrev) const
 {
-    return valPrev + m_add;
+    return Run(VecD(1, valPrev));
 }
 double TSXformAdd::Run(const EnjoLib::VecD & vals) const
 {
@@ -125,6 +126,41 @@ double TSXformAdd::Run(const EnjoLib::VecD & vals) const
 }
 double TSXformAdd::Invert(const EnjoLib::VecD & vals) const
 {
-    return vals.at(0);
+    return vals.at(0) - m_add;
 }
 
+TSXformMul::TSXformMul(const VecStr & params)
+: m_mul(CharManipulations().ToDouble(params.at(0)))
+{
+    Assertions::IsNonZero(m_mul, "TSXformMul::TSXformMul()");
+}
+double TSXformMul::Run(const TSFunBase & input, int idx, double valPrev) const
+{
+    return Run(VecD(1, valPrev));
+}
+double TSXformMul::Run(const EnjoLib::VecD & vals) const
+{
+    return vals.at(0) * m_mul;
+}
+double TSXformMul::Invert(const EnjoLib::VecD & vals) const
+{
+    return vals.at(0) / m_mul;
+}
+
+TSXformDiv::TSXformDiv(const VecStr & params)
+: m_div(CharManipulations().ToDouble(params.at(0)))
+{
+    Assertions::IsNonZero(m_div, "TSXformDiv::TSXformDiv()");
+}
+double TSXformDiv::Run(const TSFunBase & input, int idx, double valPrev) const
+{
+    return Run(VecD(1, valPrev));
+}
+double TSXformDiv::Run(const EnjoLib::VecD & vals) const
+{
+    return vals.at(0) / m_div;
+}
+double TSXformDiv::Invert(const EnjoLib::VecD & vals) const
+{
+    return vals.at(0) * m_div;
+}
