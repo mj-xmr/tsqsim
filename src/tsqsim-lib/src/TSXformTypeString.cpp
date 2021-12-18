@@ -15,6 +15,8 @@ TSXformTypeString:: TSXformTypeString()
             case TSXformType::SQRTS:    Add(i, "sqrts"); break;
             case TSXformType::LOGS:     Add(i, "logs"); break;
             case TSXformType::ADD:      Add(i, "add"); break;
+            case TSXformType::MUL:      Add(i, "mul"); break;
+            case TSXformType::DIV:      Add(i, "div"); break;
             //case TSXformType::POW:      Add(i, "pow"); break;
             case TSXformType::END:      Add(i, "end"); break;
         }

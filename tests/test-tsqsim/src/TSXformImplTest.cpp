@@ -37,15 +37,16 @@ TEST(Conv_inv)
     for (int itype = 0; itype < int(TSXformType::END); ++itype)
     {
         const TSXformType type = TSXformType(itype);
-        const Str xformStr = xform2str.at(itype);
+        Str xformStr = xform2str.at(itype);
         if (verbose)
         {
             LOGL << xformStr << Nl;
         }
-        if (type == TSXformType::ADD)
+        if (type == TSXformType::ADD ||
+            type == TSXformType::MUL ||
+            type == TSXformType::DIV )
         {
-            /// TODO: Uses a different constructor
-            continue;
+            xformStr += " 3"; // Expects a parameter
         }
         CorPtr<ITSXform> xform = TSXformFactory().Create(xformStr);
         
@@ -55,8 +56,6 @@ TEST(Conv_inv)
         case TSXformType::DIFF:
             break;        /// TODO: Probably the most important
         case TSXformType::FABS:
-            break;
-        case TSXformType::ADD:
             break;
         default:
             {
@@ -82,7 +81,7 @@ TEST(Conv_diffs)
     /// TODO: TSXformType::DIFF:
 }
 
-TEST(Conv_add)
+TEST(Conv_fabs)
 {
-    /// TODO: TSXformType::ADD:
+    /// TODO: TSXformType::FABS:
 }
