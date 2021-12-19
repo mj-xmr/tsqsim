@@ -138,7 +138,7 @@ def run_demo(args):
     if platform.system() == 'Windows':
         #subprocess.run("ls ../..", shell=True, check=True)
         shutil.move('../../data', '.') # TODO: Ugly
-        shutil.move('../../../src/tsqsim/static', '.') # TODO: Even uglier
+        shutil.move('../../../src/tsqsim-lib/static', '.') # TODO: Even uglier
         cmd = "tsqsim.exe --help && tsqsim.exe"
 
     proc = subprocess.run(cmd, shell=True, check=True)
