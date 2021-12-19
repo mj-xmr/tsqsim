@@ -8,9 +8,12 @@
 #include "TSInput.h"
 #include "ConfigTS.h"
 #include "StatsMedianSplit.h"
+#include "PredictorStats.h"
 #include "TSRes.h"
 #include "URTWrap.h"
 #include "DataOCHL.h"
+#include "PredictorType.h"
+#include "PredictorFactory.h"
 
 //#include <Template/ValArray.hpp>
 #include <Math/GeneralMath.hpp>
@@ -18,6 +21,7 @@
 #include <Util/Except.hpp>
 #include <Util/Tuple.hpp>
 #include <Util/ThreadWrap.hpp>
+#include <Statistical/Assertions.hpp>
 
 #include <STD/VectorCpp.hpp>
 
@@ -62,32 +66,70 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
          LOGL << "Calculating...\n";
     }
     {
-        const std::vector<TSRes> & rets = GetRets(input);
-        m_rets.clear();
-        for (const TSRes & res : rets)
-        {
-            if (res.valid)
-            {
-                m_rets.Add(res.val);
-            }
-        }
+        m_rets = GetRetsFiltered(input);
+    }
+    {
+        m_predsTrue     = Pred(m_rets, PredictorType::PRED_TRUE);       // Stays fixed
+        m_predsBaseline = Pred(m_rets, PredictorType::PRED_BASELINE);   // Stays fixed
+        m_preds         = Pred(m_rets, PredictorType::PRED_REGRESSION); // User interaction expected
+        //m_preds         = Pred(m_rets, PredictorType::PRED_DUMB); // User interaction expected
+
+        //{LOGL << "Sizes rets = " << m_rets.size() << ", true = " << m_predsTrue.size() << ", base = " << m_predsBaseline.size() << ", pred = " << m_preds.size() << Nl;}
+
+        Assertions::SizesEqual(m_rets, m_predsTrue,     "m_rets & m_predsTrue");
+        Assertions::SizesEqual(m_rets, m_predsBaseline, "m_rets & m_predsBaseline");
+        Assertions::SizesEqual(m_rets, m_preds,         "m_rets & m_preds");
+
+        Assertions::IsTrue (VecEqual(m_rets, m_predsTrue),       "m_rets == m_predsTrue");
+        Assertions::IsFalse(VecEqual(m_rets, m_predsBaseline),   "m_rets != m_predsBaseline");
+        Assertions::IsFalse(VecEqual(m_rets, m_preds),           "m_rets != m_preds");
     }
     {
         const std::vector<TSRes> & rec = GetReconstruction(&m_fun, m_rets, initial);
-        m_reconstr.clear();
-        for (const TSRes & res : rec)
-        {
-            //if (res.valid)
-            {
-                m_reconstr.Add(res.val);
-            }
-        }
-
+        m_reconstr = GetReconstructionFiltered(rec);
         /// TODO: Print also individual transformations and individual reconstructions sequentially for debugging.
         /// Iterate not by data point -> transformations, like now for speed, but by transformation -> data points
     }
 
     PrintResults();
+}
+
+EnjoLib::VecD SimulatorTS::Pred(const EnjoLib::VecD & data, const PredictorType & type) const
+{
+    //EnjoLib::VecD preds;
+    const int horizon = 1;
+
+    //preds.Add(data.at(0)); // Keep size equal
+    const CorPtr<IPredictor> predAlgo = PredictorFactory().Create(type);
+    return predAlgo->PredictNextVec(data);
+    //return preds;
+}
+
+EnjoLib::VecD SimulatorTS::GetRetsFiltered(const std::vector<Inp> & input) const
+{
+    const std::vector<TSRes> & rets = GetRets(input);
+    EnjoLib::VecD retsFiltered;
+    for (const TSRes & res : rets)
+    {
+        if (res.valid)
+        {
+            retsFiltered.Add(res.val);
+        }
+    }
+    return retsFiltered;
+}
+
+EnjoLib::VecD SimulatorTS::GetReconstructionFiltered(const std::vector<TSRes> & input) const
+{
+    EnjoLib::VecD reconstrFiltered;
+    for (const TSRes & res : input)
+    {
+        //if (res.valid)
+        {
+            reconstrFiltered.Add(res.val);
+        }
+    }
+    return reconstrFiltered;
 }
 
 std::vector<TSRes> SimulatorTS::GetRets(const std::vector<Inp> & input) const
@@ -152,12 +194,20 @@ void SimulatorTS::PrintResults()
 
 void SimulatorTS::PrintExperimental() const
 {
+    bool printPreds = false;
+    printPreds = true;
     const DataOCHL ohlc(m_per.GetCandles().GetDataIter());
     const EnjoLib::VecD closes(ohlc.closes);
-    const EnjoLib::Str descr = "\n1) Closes  2) Stationary  3) Reconstruction";
+    const EnjoLib::Str descr = "\n1) Closes  2) Stationary  3) Predictions  4) Reconstruction";
     STDFWD::vector<const EnjoLib::VecD *> plots;
     plots.push_back(&closes);
     plots.push_back(&m_rets);
+    if (printPreds)
+    {
+        //plots.push_back(&m_predsTrue);
+        //plots.push_back(&m_predsBaseline);
+        plots.push_back(&m_preds);
+    }
     plots.push_back(&m_reconstr);
     if (m_cfgTS.MT_REPORT)
     {
@@ -178,6 +228,7 @@ void SimulatorTS::PrintReportSingleThreaded(const EnjoLib::VecD & data, const En
     const URTWrap urtWrap1, urtWrap2;
     const bool multithreaded = false;
     const StatsMedianSplit stats(multithreaded);
+    const PredictorStats statsPred;
 
     ELO
     urtWrap2.Show(data);
@@ -188,4 +239,21 @@ void SimulatorTS::PrintReportSingleThreaded(const EnjoLib::VecD & data, const En
     stats.Stats(m_per.GetSymbolPeriodId(), data, numSplits);
     const double urtStat = urtWrap1.GetStatistic(data);
     LOG << "Stationarity score = " << urtStat << Nl;
+    LOG << statsPred.GenRepNext(m_rets, m_preds) << Nl;
+}
+
+bool SimulatorTS::VecEqual(const EnjoLib::VecD & data1, const EnjoLib::VecD & data2) const
+{
+    if (data1.size() != data2.size())
+    {
+        return false;
+    }
+    for (size_t i = 0; i < data1.size(); ++i)
+    {
+        if (data1.at(i) != data2.at(i))
+        {
+            return false;
+        }
+    }
+    return true;
 }
