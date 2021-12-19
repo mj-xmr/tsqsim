@@ -10,12 +10,7 @@ add_executable(${PROJECT_NAME} ${SRCS})
 enjoSetupTarget(${PROJECT_NAME})
 tsqSetupSymlinks(${PROJECT_NAME})
 
-# TODO: Rather copy than symlink?
-# TODO: Move scripts to tsqsim-lib
-enjoSymlink(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/scripts ${CMAKE_BINARY_DIR}/../scripts)
-
 target_link_libraries(${PROJECT_NAME} tsqsim-lib)
-
 
 # Make sure the compiler can find include files for our Hello library
 # when other libraries or executables link to Hello

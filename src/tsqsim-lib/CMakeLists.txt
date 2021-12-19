@@ -11,6 +11,10 @@ add_library (${PROJECT_NAME} ${LINK_TYPE} ${SRCS})
 enjoSetupTarget(${PROJECT_NAME})
 target_include_directories(${PROJECT_NAME} PUBLIC ${LUA_INCLUDE_DIR})
 target_link_libraries(${PROJECT_NAME} lib-base ${LUA_LIBRARIES})
+
+# TODO: Rather copy than symlink?
+enjoSymlink(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/static ${CMAKE_BINARY_DIR}/../static)
+
 # Make sure the compiler can find include files for our Hello library
 # when other libraries or executables link to Hello
 target_include_directories (${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
