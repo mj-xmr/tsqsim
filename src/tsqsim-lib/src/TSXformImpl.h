@@ -19,14 +19,14 @@ struct TSXformFabs : public ITSXform
         double Invert(const EnjoLib::VecD & vals) const override;
 };
 
-struct TSXformSqrtSafe : public ITSXform
+struct TSXformSqrt : public ITSXform
 {
         double Run(const TSFunBase & input, int idx, double valPrev) const override;
         double Run(const EnjoLib::VecD & vals) const override;
         double Invert(const EnjoLib::VecD & vals) const override;
 };
 
-struct TSXformLogSafe : public ITSXform
+struct TSXformLog : public ITSXform
 {
         double Run(const TSFunBase & input, int idx, double valPrev) const override;
         double Run(const EnjoLib::VecD & vals) const override;

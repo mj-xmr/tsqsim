@@ -1,9 +1,9 @@
 diff
 #fabs
 #sqrt
-logs
-#sqrts
-#logs
+log
+#sqrt
+#log
 add 0
 
 
