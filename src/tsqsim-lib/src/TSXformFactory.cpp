@@ -40,8 +40,8 @@ CorPtr<ITSXform> TSXformFactory::Create(const Str & name) const
         {
             case TSXformType::DIFF:     return CorPtr<ITSXform>(new TSXformDiff());
             case TSXformType::FABS:     return CorPtr<ITSXform>(new TSXformFabs());
-            case TSXformType::SQRTS:    return CorPtr<ITSXform>(new TSXformSqrtSafe());
-            case TSXformType::LOGS:     return CorPtr<ITSXform>(new TSXformLogSafe());
+            case TSXformType::SQRTS:    return CorPtr<ITSXform>(new TSXformSqrt());
+            case TSXformType::LOGS:     return CorPtr<ITSXform>(new TSXformLog());
             case TSXformType::ADD:      return CorPtr<ITSXform>(new TSXformAdd(params));
             case TSXformType::MUL:      return CorPtr<ITSXform>(new TSXformMul(params));
             case TSXformType::DIV:      return CorPtr<ITSXform>(new TSXformDiv(params));
