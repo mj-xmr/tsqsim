@@ -11,6 +11,7 @@ class ITSFun;
 class TSInput;
 class TSRes;
 class ConfigTS;
+enum class PredictorType;
 
 class SimulatorTS : public ISimulatorTS
 {
@@ -25,9 +26,14 @@ class SimulatorTS : public ISimulatorTS
         static TSRes IterBet(const Inp & ele);
 
         STDFWD::vector<TSRes> GetRets(const STDFWD::vector<Inp> & inp) const;
+        EnjoLib::VecD GetRetsFiltered(const STDFWD::vector<Inp> & inp) const;
         STDFWD::vector<TSRes> GetReconstruction(const ITSFun * fun, const EnjoLib::VecD & inp, double initial) const;
+        EnjoLib::VecD GetReconstructionFiltered(const STDFWD::vector<TSRes> & input) const;
 
         TSRes Reconstr(const ITSFun * fun, const double val) const;
+        EnjoLib::VecD Pred(const EnjoLib::VecD & data, const PredictorType & type) const;
+        
+        bool VecEqual(const EnjoLib::VecD & data1, const EnjoLib::VecD & data2) const; /// TODO: Extractg
 
     protected:
 
@@ -47,6 +53,9 @@ class SimulatorTS : public ISimulatorTS
         double m_meanChange = 0;
         EnjoLib::VecD m_balance;
         EnjoLib::VecD m_rets;
+        EnjoLib::VecD m_preds;
+        EnjoLib::VecD m_predsTrue;
+        EnjoLib::VecD m_predsBaseline;
         EnjoLib::VecD m_reconstr;
 };
 
