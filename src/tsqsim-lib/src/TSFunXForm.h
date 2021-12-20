@@ -9,6 +9,8 @@ class TSFunXForm : public TSFunBase
         TSFunXForm(const TSInput & tsin);
         virtual ~TSFunXForm();
 
+        const char * GetName() const override { return "TSFunXForm"; }
+
     protected:
         TSRes OnDataPointProt(int idx) const override;
         TSRes Reconstruct(int idx, const EnjoLib::VecD & input, double prev) const override;

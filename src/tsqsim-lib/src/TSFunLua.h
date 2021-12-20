@@ -11,6 +11,8 @@ class TSFunLua : public TSFunBase
         TSFunLua(const TSInput & tsin);
         virtual ~TSFunLua();
 
+        const char * GetName() const override { return "TSFunLua"; }
+
     protected:
         TSRes OnDataPointProt(int idx) const override;
         TSRes Reconstruct(int idx, const EnjoLib::VecD & input, double prev) const override;

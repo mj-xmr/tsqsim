@@ -8,6 +8,7 @@
 #include <Util/Str.hpp>
 #include <Util/CoutBuf.hpp>
 #include <Util/StrColour.hpp>
+#include <Util/Except.hpp>
 
 using namespace EnjoLib;
 
@@ -27,14 +28,16 @@ TSRes TSFunBase::OnDataPoint(int idx) const
     }
     catch (std::exception & exc)
     {
-        if (CrashOnWarning())
-        {
-            throw; /// TODO: Rethrow
-        }
         Osstream oss;
         oss << "TSFunBase::OnDataPoint: idx " << idx << Nl << exc.what();
         oss << "Is Len() overriden and adjusted?\n";
-        LOGL << EnjoLib::StrColour::GenWarn(oss.str()) << EnjoLib::Nl;
+        oss << GetName() << Nl;
+        const Str msg = oss.str();
+        if (CrashOnWarning())
+        {
+            throw ExceptLengthError(msg); /// TODO: Rethrow
+        }
+        LOGL << EnjoLib::StrColour::GenWarn(msg) << EnjoLib::Nl;
         return TSRes(true);
     }
 }

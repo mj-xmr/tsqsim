@@ -96,17 +96,6 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
     PrintResults();
 }
 
-EnjoLib::VecD SimulatorTS::Pred(const EnjoLib::VecD & data, const PredictorType & type) const
-{
-    //EnjoLib::VecD preds;
-    const int horizon = 1;
-
-    //preds.Add(data.at(0)); // Keep size equal
-    const CorPtr<IPredictor> predAlgo = PredictorFactory().Create(type);
-    return predAlgo->PredictNextVec(data);
-    //return preds;
-}
-
 EnjoLib::VecD SimulatorTS::GetRetsFiltered(const std::vector<Inp> & input) const
 {
     const std::vector<TSRes> & rets = GetRets(input);
@@ -119,6 +108,18 @@ EnjoLib::VecD SimulatorTS::GetRetsFiltered(const std::vector<Inp> & input) const
         }
     }
     return retsFiltered;
+}
+
+
+EnjoLib::VecD SimulatorTS::Pred(const EnjoLib::VecD & data, const PredictorType & type) const
+{
+    //EnjoLib::VecD preds;
+    const int horizon = 1;
+
+    //preds.Add(data.at(0)); // Keep size equal
+    const CorPtr<IPredictor> predAlgo = PredictorFactory().Create(type);
+    return predAlgo->PredictNextVec(data);
+    //return preds;
 }
 
 EnjoLib::VecD SimulatorTS::GetReconstructionFiltered(const std::vector<TSRes> & input) const
@@ -260,14 +261,14 @@ bool SimulatorTS::VecEqual(const EnjoLib::VecD & data1, const EnjoLib::VecD & da
     return true;
 }
 
-const EnjoLib::VecD & SimulatorTS::GetOutputSeries(const PredictorOutputType & type) const 
+const EnjoLib::VecD & SimulatorTS::GetOutputSeries(const PredictorOutputType & type) const
 {
     switch  (type)
     {
     case PredictorOutputType::SERIES:
        return m_rets;
     case PredictorOutputType::PREDICTION:
-        return m_preds;    
+        return m_preds;
     case PredictorOutputType::BASELINE:
         return m_predsBaseline;
     }
