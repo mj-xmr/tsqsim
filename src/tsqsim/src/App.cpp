@@ -56,11 +56,11 @@ void App::Run(const ConfigSym & confSymCmdLine) const
         //const TSFunType tsFunType = TSFunType::PRINT_CUMUL;
         //const TSFunType tsFunType = TSFunType::XFORM;
         //const TSFunType tsFunType = TSFunType::LUA;
-        const TSFunType tsFunType = TSFunType::TXT;
+        const TSFunType tsFunType = TSFunType::TXT; /// TODO: make user's choice
         const TSInput tsin(per, confTS);
 
         auto fun = tsFunFact.Create(tsin, tsFunType);
-        auto sim = simFact.CreateTS(tsin, *fun);
+        CorPtr<ISimulatorTS> sim = simFact.CreateTS(tsin, *fun);
 
         sim->RunRaw();
 

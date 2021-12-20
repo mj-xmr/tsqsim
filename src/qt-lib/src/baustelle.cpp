@@ -235,8 +235,8 @@ void MyMainWindow::setupVisuals(QCustomPlot * p, const IPeriod & period, const I
     // Indicator plot
     if (confPlot.TECHS)
     {
-        //m_techRect = SetupTechs(p, strat, d);
-        //m_techRect->setMarginGroup(QCP::msLeft|QCP::msRight, group);
+        m_techRect = SetupTechs(p, strat, d);
+        m_techRect->setMarginGroup(QCP::msLeft|QCP::msRight, group);
     }
 }
 

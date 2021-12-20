@@ -16,6 +16,7 @@ double TSXformDiff::Run(const TSFunBase & input, int idx, double valPrev) const
     const Candle & canPrev = input.GetCandle(idx, 1);
 
     const double diff = canCurr.GetClose() - canPrev.GetClose();
+    //const double diff = canCurr.GetHigh() - canPrev.GetHigh();
     return diff;
 }
 double TSXformDiff::Run(const EnjoLib::VecD & vals) const

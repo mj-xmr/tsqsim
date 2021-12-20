@@ -12,7 +12,7 @@ class SimulatorTSFactory
         SimulatorTSFactory();
         virtual ~SimulatorTSFactory();
 
-        Corrade::Containers::Pointer<ISimulatorTS> CreateTS(const TSInput & tsin, const ITSFun & fun) const;
+        CorPtr<ISimulatorTS> CreateTS(const TSInput & tsin, const ITSFun & fun) const;
 
 
     protected:

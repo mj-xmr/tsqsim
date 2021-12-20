@@ -21,6 +21,8 @@ class SimulatorTS : public ISimulatorTS
         void Run() override;
         //void Collect() override;
         void RunRaw(const StartEnd & startEndFrame = StartEnd()) override;
+        
+        const EnjoLib::VecD & GetOutputSeries(const PredictorOutputType & type) const override;
 
         using Inp = EnjoLib::Tuple<const IDataProvider *, const ITSFun *, int>;
         static TSRes IterBet(const Inp & ele);

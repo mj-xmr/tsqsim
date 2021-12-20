@@ -12,7 +12,7 @@ add_library(${PROJECT_NAME} ${LINK_TYPE} ${SRCS})
 
 enjoSetupTarget(${PROJECT_NAME})
 
-target_link_libraries(${PROJECT_NAME} lib-base Qt5::Core Qt5::Widgets qcustomplot)
+target_link_libraries(${PROJECT_NAME} lib-base tsqsim-lib Qt5::Core Qt5::Widgets qcustomplot)
 
 enjo_target_pch(${PROJECT_NAME} src/pch_qt.h)
 enjo_target_unity(${PROJECT_NAME})
