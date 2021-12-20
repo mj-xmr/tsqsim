@@ -14,6 +14,8 @@ class TSFunTxt : public TSFunBase
         TSFunTxt(const TSInput & tsin);
         virtual ~TSFunTxt();
 
+        const char * GetName() const override { return "TSFunTxt"; }
+
     protected:
         TSRes OnDataPointProt(int idx) const override;
         TSRes Reconstruct(int idx, const EnjoLib::VecD & input, double prev) const override;

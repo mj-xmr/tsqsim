@@ -9,6 +9,8 @@ class TSFunPrintAll : public TSFunBase
         TSFunPrintAll(const TSInput & tsin);
         virtual ~TSFunPrintAll();
 
+        const char * GetName() const override { return "PrintAll"; }
+
     protected:
         TSRes OnDataPointProt(int idx) const override;
         TSRes Reconstruct(int idx, const EnjoLib::VecD & input, double prev) const override;

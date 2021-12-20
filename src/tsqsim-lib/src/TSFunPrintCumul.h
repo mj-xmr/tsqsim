@@ -9,6 +9,8 @@ class TSFunPrintCumul : public TSFunBase
         TSFunPrintCumul(const TSInput & tsin);
         virtual ~TSFunPrintCumul();
 
+        const char * GetName() const override { return "TSFunPrintCumul"; }
+
     protected:
         TSRes OnDataPointProt(int idx) const override;
         TSRes Reconstruct(int idx, const EnjoLib::VecD & input, double prev) const override;

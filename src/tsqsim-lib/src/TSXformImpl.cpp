@@ -13,10 +13,18 @@ using namespace EnjoLib;
 double TSXformDiff::Run(const TSFunBase & input, int idx, double valPrev) const
 {
     const Candle & canCurr = input.GetCandle(idx);
-    const Candle & canPrev = input.GetCandle(idx, 1);
-
-    const double diff = canCurr.GetClose() - canPrev.GetClose();
-    //const double diff = canCurr.GetHigh() - canPrev.GetHigh();
+    double prev = canCurr.GetOpen();
+    if (idx < int(input.Len()) - 1) /// TODO: Retarded from a user's perspective. It should be: "if (i > 0)" ?
+    {
+        const Candle & canPrev = input.GetCandle(idx, 1);
+        prev = canPrev.GetClose();
+    }
+    else
+    {
+        //LOGL << "Prev = " << prev << Nl;
+    }
+    const double diff = canCurr.GetClose() - prev;
+    //const double diff = canCurr.GetHigh() - prev;
     return diff;
 }
 double TSXformDiff::Run(const EnjoLib::VecD & vals) const
@@ -31,7 +39,7 @@ double TSXformDiff::Invert(const EnjoLib::VecD & vals) const
 }
 unsigned TSXformDiff::MaxShift() const
 {
-    return 1;
+    return 0;
 }
 
 double TSXformFabs::Run(const TSFunBase & input, int idx, double valPrev) const
