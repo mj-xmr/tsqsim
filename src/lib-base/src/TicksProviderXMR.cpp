@@ -5,7 +5,7 @@
 #include <Ios/Osstream.hpp>
 #include <Util/Str.hpp>
 #include <Util/Tokenizer.hpp>
-#include <Template/LoopThreadedTpl.hpp>
+//#include <Template/LoopThreadedTpl.hpp>
 
 using namespace std;
 using namespace EnjoLib;

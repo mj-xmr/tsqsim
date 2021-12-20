@@ -118,10 +118,15 @@ void PeriodClean::Feed(const EnjoLib::IIterableConst<Tick> & ticks, bool updateT
 
 void PeriodClean::Feed(const Tick & tick, bool updateTech)
 {
+    const double prevClose = m_tickMod.close;
     m_tickMod = tick;
+    if (prevClose != 0)
+    {
+        m_tickMod.open = prevClose;
+    }
     if (not tick.IsValid())
         return;
-    m_currCandle.UpdateHighLow(tick); // Valid every time
+    m_currCandle.UpdateHighLow(m_tickMod); // used to be tick, but it messed up the opening of the next candle
     ++m_currTick;
 
     int tickDayMinutes = tick.GetDayMinute();
@@ -151,6 +156,7 @@ void PeriodClean::Feed(const Tick & tick, bool updateTech)
         tickDayMinutes = m_tickMod.GetDayMinute();
     }
     if (tickDayMinutes % m_numTicks == 0 ) // A full period achieved
+    //if (true ) // A full period achieved
     {
         FinalizeCandlePriv(updateTech);
     }
