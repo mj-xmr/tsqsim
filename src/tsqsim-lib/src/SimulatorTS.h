@@ -21,7 +21,7 @@ class SimulatorTS : public ISimulatorTS
         void Run() override;
         //void Collect() override;
         void RunRaw(const StartEnd & startEndFrame = StartEnd()) override;
-        
+
         const EnjoLib::VecD & GetOutputSeries(const PredictorOutputType & type) const override;
 
         using Inp = EnjoLib::Tuple<const IDataProvider *, const ITSFun *, int>;
@@ -34,7 +34,7 @@ class SimulatorTS : public ISimulatorTS
 
         TSRes Reconstr(const ITSFun * fun, const double val) const;
         EnjoLib::VecD Pred(const EnjoLib::VecD & data, const PredictorType & type) const;
-        
+
         bool VecEqual(const EnjoLib::VecD & data1, const EnjoLib::VecD & data2) const; /// TODO: Extractg
 
     protected:
@@ -59,6 +59,7 @@ class SimulatorTS : public ISimulatorTS
         EnjoLib::VecD m_predsTrue;
         EnjoLib::VecD m_predsBaseline;
         EnjoLib::VecD m_reconstr;
+        EnjoLib::VecD m_reconstrPred;
 };
 
 #endif // SIMULATORTS_H
