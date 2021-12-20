@@ -1,0 +1,12 @@
+#ifndef PREDICTOROUTPUTTYPE_H
+#define PREDICTOROUTPUTTYPE_H
+
+
+enum class PredictorOutputType
+{
+    SERIES,
+    PREDICTION,
+    BASELINE
+};
+
+#endif // PREDICTOROUTPUTTYPE_H
