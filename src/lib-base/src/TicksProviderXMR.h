@@ -14,6 +14,7 @@ class TicksProviderXMR : public TicksProviderBinary /// TODO: Consider compositi
         //CorPtr<ITicks> GetPeriod(const EnjoLib::Str & symbolName, const EnjoLib::Str & periodName) const override;
 
         static VecStr ConvertStat(const VecStr & raw);
+        static EnjoLib::Str ConvertStatSingle(const EnjoLib::Str & line);
 
     protected:
         VecStr Convert(const VecStr & raw) const override;

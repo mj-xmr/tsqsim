@@ -191,7 +191,7 @@ CorPtr<ITicks> TicksProviderBinary::UnzipTxt(const EnjoLib::Str & symbol, const 
 
 Ticks TicksProviderBinary::ReadFile(const EnjoLib::Str & symbolName, EnjoLib::Istream & is) const
 {
-    /// TODO: Memory hog. Read line by line.
+    /// TODO: Memory hog. Read line by line. Use Tokenizer().WorkOnLines with filtering
     cout << symbolName << ": Reading file ... ";
     //size_t sz = FileUtils().GetNumLinesFile(is);
     const VecStr & lines = Tokenizer().GetLines(is, true);
