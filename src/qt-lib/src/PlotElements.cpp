@@ -4,10 +4,9 @@
 #include "ConfigQTPlot.h"
 #include "IDataProvider.h"
 #include "Util.h"
-#include "ConfigMan.h"
+//#include "ConfigMan.h"
 #include "ConfigQT.h"
 #include "ConfigGlob.h"
-#include "ConfigTS.h"
 #include <IStrategy.h>
 #include <IPeriod.h>
 #include <Util/VecF.hpp>
@@ -15,11 +14,8 @@
 #include "BufferVecUpdateable.h"
 #include <BufferType.h>
 #include "BufferVecType.h"
-#include "TSFunType.h"
-#include "TSFunFactory.h"
-#include "TSInput.h"
-#include "SimulatorTSFactory.h"
 #include "PredictorOutputType.h"
+#include "ISimulatorTS.h"
 
 using namespace std;
 using namespace EnjoLib;
@@ -152,22 +148,17 @@ void PlotElements::SetupTechsVec(QCustomPlot * p, const IStrategy & strat, QCPAx
     //SetupTechLine(p, d, QVector<double>(d.GetTime().size(), 1), newCurve);
 }
 
-void PlotElements::SetupTechsXform(QCustomPlot * p, const IPeriod & per, QCPAxisRect *techRect, const PlotDataBase & d)
+void PlotElements::SetupTechsXform(QCustomPlot * p, const ISimulatorTS & simTS, QCPAxisRect *techRect, const PlotDataBase & d)
 {
-    const SimulatorTSFactory simFact;
-    const TSFunFactory tsFunFact;
-        
-    const ConfigTS & confTS   = *gcfgMan.cfgTS.get();
-    const TSFunType tsFunType = TSFunType::TXT; /// TODO: make user's choice
-    const TSInput tsin(per, confTS);
+    SetupTSLine(p, techRect, d, simTS, PredictorOutputType::SERIES,     QPen(Qt::blue),   "Series");
+    SetupTSLine(p, techRect, d, simTS, PredictorOutputType::PREDICTION, QPen(Qt::green),  "Prediction");
+    SetupTSLine(p, techRect, d, simTS, PredictorOutputType::BASELINE,   QPen(Qt::gray),   "Baseline");
+}
 
-    auto fun = tsFunFact.Create(tsin, tsFunType);
-    CorPtr<ISimulatorTS> sim = simFact.CreateTS(tsin, *fun);
-    sim->RunRaw();
-    
-    SetupTSLine(p, techRect, d, *sim, PredictorOutputType::SERIES,     QPen(Qt::blue),   "Series"); 
-    SetupTSLine(p, techRect, d, *sim, PredictorOutputType::PREDICTION, QPen(Qt::green),  "Prediction");
-    SetupTSLine(p, techRect, d, *sim, PredictorOutputType::BASELINE,   QPen(Qt::gray),   "Baseline");    
+void PlotElements::SetupReconstruction(QCustomPlot * p, const ISimulatorTS & simTS, const PlotDataBase & d)
+{
+    const VecD & tsdata = simTS.GetOutputSeries(PredictorOutputType::RECONSTRUCTION);
+    Util::AddMA(d.GetTime(), Util::stdVectToQVectF(tsdata.Data()), p, Qt::blue);
 }
 
 QCPGraph * PlotElements::SetupTSLine(QCustomPlot * p, QCPAxisRect *techRect, const PlotDataBase & d, const ISimulatorTS & simTS, const PredictorOutputType & type, const QPen & pen, const char * name)

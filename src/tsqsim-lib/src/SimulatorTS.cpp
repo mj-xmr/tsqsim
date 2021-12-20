@@ -271,6 +271,10 @@ const EnjoLib::VecD & SimulatorTS::GetOutputSeries(const PredictorOutputType & t
         return m_preds;
     case PredictorOutputType::BASELINE:
         return m_predsBaseline;
+    case PredictorOutputType::RECONSTRUCTION:
+        return m_reconstr;
+    case PredictorOutputType::RECONSTRUCTION_PRED:
+        return m_reconstrPred; /// TODO
     }
     throw ExceptLogicError("GetOutputSeries");
 }

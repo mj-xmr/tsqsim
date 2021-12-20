@@ -22,6 +22,7 @@ class ISimulatorStd;
 class SimulatorBet;
 class SymbolFactoryAbstract;
 class MainTester;
+class ISimulatorTS;
 
 class MyMainWindow : public MainWindow
 {
@@ -30,8 +31,8 @@ class MyMainWindow : public MainWindow
         virtual ~MyMainWindow();
 
         void Reload(const Monster & monst, int mode = 0, int relPeriod = 0, int relShift = 0, int relSymbol = 0);
-        void setupBaustelle(QCustomPlot * customPlot, const IPeriod & period, const IStrategy & strat, const PlotDataBase & d);
-        void setupVisuals(QCustomPlot * customPlot, const IPeriod & period, const IStrategy & strat, const PlotDataBase & d, double binSize);
+        void setupBaustelle(QCustomPlot * customPlot, const IPeriod & period, const IStrategy & strat, const ISimulatorTS & simTS, const PlotDataBase & d);
+        void setupVisuals(QCustomPlot * customPlot, const IPeriod & period, const IStrategy & strat, const ISimulatorTS & simTS, const PlotDataBase & d, double binSize);
         void setupVisualsBig(QCustomPlot * p, const IPeriod & period, const IStrategy & strat, const PlotData & d);
 
         void SetLabelStart(int i);
@@ -91,7 +92,7 @@ class MyMainWindow : public MainWindow
         void keyPressEvent(QKeyEvent *event);
         void timerEvent(QTimerEvent *event);
     private:
-        QCPAxisRect * SetupTechs(QCustomPlot * p, const IStrategy & strat, const PlotDataBase & d);
+        QCPAxisRect * SetupTechs(QCustomPlot * p, const IStrategy & strat, const ISimulatorTS & simTS, const PlotDataBase & d);
         void HandleScreenshot(ConfigSym * pconf);
         int HandleRelativeParUpdate(int relPar, int * relMember);
         Corrade::Containers::Pointer<ISymbol> LoadSymbolFromFile() const;

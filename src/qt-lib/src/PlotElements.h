@@ -24,8 +24,9 @@ class PlotElements
         void ConfigureCandlesticks(QCPFinancial *candlesticks, bool dark);
         void SetupDayWeekend(unsigned mi, QCustomPlot * p, const IDataProvider & period, const PlotDataBase & d, bool dark);
         void SetupTechs(QCustomPlot * p, const IStrategy & strat, QCPAxisRect *techRect, const PlotDataBase & d);
-        void SetupTechsXform(QCustomPlot * p, const IPeriod & per, QCPAxisRect *techRect, const PlotDataBase & d);
+        void SetupTechsXform(QCustomPlot * p, const ISimulatorTS & simTS, QCPAxisRect *techRect, const PlotDataBase & d);
         QCPGraph * SetupTSLine(QCustomPlot * p, QCPAxisRect *techRect, const PlotDataBase & d, const ISimulatorTS & simTS, const PredictorOutputType & type, const QPen & pen, const char * name);
+        void SetupReconstruction(QCustomPlot * p, const ISimulatorTS & simTS, const PlotDataBase & d);
         void SetupTechLine(QCustomPlot * p, const PlotDataBase & d, const QVector<double> & vec, QCPGraph *newCurve);
         QCPAxisRect * SetupGetIndicatorRect(QCustomPlot * p, const PlotDataBase & d);
         void HandleWeekendData(QCPAxis * axis, const PlotDataBase & d, bool hide);

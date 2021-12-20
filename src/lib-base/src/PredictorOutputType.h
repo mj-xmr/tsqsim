@@ -6,7 +6,9 @@ enum class PredictorOutputType
 {
     SERIES,
     PREDICTION,
-    BASELINE
+    BASELINE,
+    RECONSTRUCTION,
+    RECONSTRUCTION_PRED
 };
 
 #endif // PREDICTOROUTPUTTYPE_H

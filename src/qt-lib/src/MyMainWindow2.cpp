@@ -28,7 +28,7 @@ Corrade::Containers::Pointer<ISymbol> MyMainWindow::LoadSymbolFromFile() const
     return psym;
 }
 
-QCPAxisRect * MyMainWindow::SetupTechs(QCustomPlot * p, const IStrategy & strat, const PlotDataBase & d)
+QCPAxisRect * MyMainWindow::SetupTechs(QCustomPlot * p, const IStrategy & strat, const ISimulatorTS & simTS, const PlotDataBase & d)
 {
     PlotElements pel;
     QCPAxisRect * techRect = pel.SetupGetIndicatorRect(p, d);
@@ -38,7 +38,7 @@ QCPAxisRect * MyMainWindow::SetupTechs(QCustomPlot * p, const IStrategy & strat,
         pel.SetupTechs(p, strat, techRect, d);
         break;
     case DataSrcType::MONERO:
-        pel.SetupTechsXform(p, strat.GetPeriod(), techRect, d);
+        pel.SetupTechsXform(p, simTS, techRect, d);
         break;
     }
 

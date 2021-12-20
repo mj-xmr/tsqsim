@@ -19,6 +19,8 @@
 #include "PlotDataBase.h"
 #include "IPeriod.h"
 #include "IStrategy.h"
+#include "TSUtil.h"
+#include "ISimulatorTS.h"
 
 #include <ConfigMan.h>
 #include <ConfigSym.h>
@@ -28,6 +30,7 @@
 //#include <ConfigGlob.h>
 
 #include <Util/CoutBuf.hpp>
+#include <Template/CorradePointer.h>
 
 using namespace std;
 using namespace EnjoLib;
@@ -168,14 +171,15 @@ void MyMainWindow::Reload(const Monster & monst, int mode, int relPeriod, int re
             LOG << "Got symbols" << Endl;
             setupWindow();
 
-            LOG << "Setup baustelle" << Endl;
 
             const IPeriod & period = m_mons.m_symbol->GetPeriod(m_mons.m_periodName); /// TODO: a getter for random bars
             const IStrategy & strat = *m_mons.m_strategy;
             const Str & stratName = StrategyFactoryName().Create(strat.GetType());
+            LOG << "Run sim TS" << Endl;
+            CorPtr<ISimulatorTS> simTS = TSUtil().GetSim(period);
 
-
-            setupBaustelle(GetQCP(), period, strat, *m_mons.m_d);
+            LOG << "Setup baustelle" << Endl;
+            setupBaustelle(GetQCP(), period, strat, *simTS, *m_mons.m_d);
             setWindowTitle(symPerName + ": " + stratName.c_str());
             ui->customPlot->replot();
             m_mons.reg.past = period.Len();

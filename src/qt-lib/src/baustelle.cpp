@@ -169,7 +169,7 @@ void MyMainWindow::setupVisualsBig(QCustomPlot * p, const IPeriod & period, cons
     */
 }
 
-void MyMainWindow::setupVisuals(QCustomPlot * p, const IPeriod & period, const IStrategy & strat, const PlotDataBase & d, double binSize)
+void MyMainWindow::setupVisuals(QCustomPlot * p, const IPeriod & period, const IStrategy & strat, const ISimulatorTS & simTS, const PlotDataBase & d, double binSize)
 {
     ConfigQTPlot confPlot;
     confPlot.Read();
@@ -204,6 +204,9 @@ void MyMainWindow::setupVisuals(QCustomPlot * p, const IPeriod & period, const I
 
             //Util::AddMA(p, d, BUF_MA_AVG, "Pink");
         }
+        {
+            pel.SetupReconstruction(p, simTS, d);
+        }
     }
 
     pel.HandleWeekendData(p->xAxis, d, d.isHideWeekendData);
@@ -235,12 +238,12 @@ void MyMainWindow::setupVisuals(QCustomPlot * p, const IPeriod & period, const I
     // Indicator plot
     if (confPlot.TECHS)
     {
-        m_techRect = SetupTechs(p, strat, d);
+        m_techRect = SetupTechs(p, strat, simTS, d);
         m_techRect->setMarginGroup(QCP::msLeft|QCP::msRight, group);
     }
 }
 
-void MyMainWindow::setupBaustelle(QCustomPlot *p, const IPeriod & period, const IStrategy & strat, const PlotDataBase & d)
+void MyMainWindow::setupBaustelle(QCustomPlot *p, const IPeriod & period, const IStrategy & strat, const ISimulatorTS & simTS, const PlotDataBase & d)
 {
     try
     {
@@ -263,7 +266,7 @@ void MyMainWindow::setupBaustelle(QCustomPlot *p, const IPeriod & period, const 
         else
             m_i = d.GetSz() + m_mons.m_barNum;
 
-        setupVisuals(p, period, strat, d, binSize);
+        setupVisuals(p, period, strat, simTS, d, binSize);
         /// TODO: Restore
         //const PlotData * dBig = dynamic_cast<const PlotData*>(&d);
         const PlotData * dBig = nullptr;
