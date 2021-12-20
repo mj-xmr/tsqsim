@@ -4,8 +4,10 @@
 #include "ConfigQTPlot.h"
 #include "IDataProvider.h"
 #include "Util.h"
+#include "ConfigMan.h"
 #include "ConfigQT.h"
 #include "ConfigGlob.h"
+#include "ConfigTS.h"
 #include <IStrategy.h>
 #include <IPeriod.h>
 #include <Util/VecF.hpp>
@@ -13,6 +15,11 @@
 #include "BufferVecUpdateable.h"
 #include <BufferType.h>
 #include "BufferVecType.h"
+#include "TSFunType.h"
+#include "TSFunFactory.h"
+#include "TSInput.h"
+#include "SimulatorTSFactory.h"
+#include "PredictorOutputType.h"
 
 using namespace std;
 using namespace EnjoLib;
@@ -143,6 +150,33 @@ void PlotElements::SetupTechsVec(QCustomPlot * p, const IStrategy & strat, QCPAx
     newCurve->setPen(QPen(Qt::yellow));
     // Setup line with constant value
     //SetupTechLine(p, d, QVector<double>(d.GetTime().size(), 1), newCurve);
+}
+
+void PlotElements::SetupTechsXform(QCustomPlot * p, const IPeriod & per, QCPAxisRect *techRect, const PlotDataBase & d)
+{
+    const SimulatorTSFactory simFact;
+    const TSFunFactory tsFunFact;
+        
+    const ConfigTS & confTS   = *gcfgMan.cfgTS.get();
+    const TSFunType tsFunType = TSFunType::TXT; /// TODO: make user's choice
+    const TSInput tsin(per, confTS);
+
+    auto fun = tsFunFact.Create(tsin, tsFunType);
+    CorPtr<ISimulatorTS> sim = simFact.CreateTS(tsin, *fun);
+    sim->RunRaw();
+    
+    SetupTSLine(p, techRect, d, *sim, PredictorOutputType::SERIES,     QPen(Qt::blue),   "Series"); 
+    SetupTSLine(p, techRect, d, *sim, PredictorOutputType::PREDICTION, QPen(Qt::green),  "Prediction");
+    SetupTSLine(p, techRect, d, *sim, PredictorOutputType::BASELINE,   QPen(Qt::gray),   "Baseline");    
+}
+
+QCPGraph * PlotElements::SetupTSLine(QCustomPlot * p, QCPAxisRect *techRect, const PlotDataBase & d, const ISimulatorTS & simTS, const PredictorOutputType & type, const QPen & pen, const char * name)
+{
+    QCPGraph *newCurve = new QCPGraph(techRect->axis(QCPAxis::atBottom), techRect->axis(QCPAxis::atLeft));
+    newCurve->setPen(pen);
+    const VecD & tsdata = simTS.GetOutputSeries(type);
+    SetupTechLine(p, d, Util::stdVectToQVectF(tsdata.Data()), newCurve);
+    return newCurve;
 }
 
 void PlotElements::SetupTechLine(QCustomPlot * p, const PlotDataBase & d, const QVector<double> & vec, QCPGraph *newCurve)

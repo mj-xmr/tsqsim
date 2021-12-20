@@ -32,6 +32,7 @@ class Util
         template<class T, class N>
         static QVector<T> stdVectToQVect( const std::vector<N> & in );
         static QVector<double> stdVectToQVectF( const std::vector<float> & in );
+        static QVector<double> stdVectToQVectF( const std::vector<double> & in );
         static QVector<double> BufferToQVectF( Buffer in );
         template <class T>
         static QVector<T> ExtractEveryNth(const QVector<T> & in, int everyNth);

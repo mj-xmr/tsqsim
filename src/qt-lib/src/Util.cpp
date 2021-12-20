@@ -284,6 +284,11 @@ QVector<double> Util::stdVectToQVectF( const std::vector<float> & in )
     return Util::stdVectToQVect<double, float>(in);
 }
 
+QVector<double> Util::stdVectToQVectF( const std::vector<double> & in )
+{
+    return Util::stdVectToQVect<double, double>(in);
+}
+
 QVector<double> Util::BufferToQVectF( Buffer in )
 {
     return Util::stdVectToQVectF(in.GetData().Data());

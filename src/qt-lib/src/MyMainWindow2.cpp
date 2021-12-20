@@ -4,6 +4,10 @@
 #include "PeriodUtil.h"
 #include "PlotElements.h"
 #include "SymbolFactoryAbstract.h"
+#include "ConfigMan.h"
+#include "ConfigSym.h"
+#include "DataSrcType.h"
+#include "IStrategy.h"
 #include <ISymbol.h>
 #include <Template/CorradePointer.h>
 
@@ -28,7 +32,15 @@ QCPAxisRect * MyMainWindow::SetupTechs(QCustomPlot * p, const IStrategy & strat,
 {
     PlotElements pel;
     QCPAxisRect * techRect = pel.SetupGetIndicatorRect(p, d);
-    pel.SetupTechs(p, strat, techRect, d);
+    switch (gcfgMan.cfgSym->GetDataSrc())
+    {
+    case DataSrcType::FOREX_TESTER:
+        pel.SetupTechs(p, strat, techRect, d);
+        break;
+    case DataSrcType::MONERO:
+        pel.SetupTechsXform(p, strat.GetPeriod(), techRect, d);
+        break;
+    }
 
     m_techLineCursor = new QCPGraph(techRect->axis(QCPAxis::atBottom), techRect->axis(QCPAxis::atLeft));
     m_techLineCursor->setPen(QPen(Qt::black));

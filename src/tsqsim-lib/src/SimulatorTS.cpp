@@ -14,6 +14,7 @@
 #include "DataOCHL.h"
 #include "PredictorType.h"
 #include "PredictorFactory.h"
+#include "PredictorOutputType.h"
 
 //#include <Template/ValArray.hpp>
 #include <Math/GeneralMath.hpp>
@@ -49,6 +50,7 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
 
     std::vector<Inp> input;
     const double initial = m_per.GetCandles().GetDataIter().at(idxStart).GetClose();
+    //const double initial = m_per.GetCandles().GetDataIter().at(idxStart).GetHigh();
     input.reserve(idxFinish - idxStart);
     {
          LOGL << "Collecting input...\n";
@@ -256,4 +258,18 @@ bool SimulatorTS::VecEqual(const EnjoLib::VecD & data1, const EnjoLib::VecD & da
         }
     }
     return true;
+}
+
+const EnjoLib::VecD & SimulatorTS::GetOutputSeries(const PredictorOutputType & type) const 
+{
+    switch  (type)
+    {
+    case PredictorOutputType::SERIES:
+       return m_rets;
+    case PredictorOutputType::PREDICTION:
+        return m_preds;    
+    case PredictorOutputType::BASELINE:
+        return m_predsBaseline;
+    }
+    throw ExceptLogicError("GetOutputSeries");
 }
