@@ -11,17 +11,7 @@ static StrategyFactoryName sfn;
 // Exceptions mess up debugging sessions
 TEST(StrategyFactoryName_nonExisting_throws)
 {
-    const bool expected = false;
-    try
-    {
-        sfn.NameToType("Nonexisting");
-        CHECK_EQUAL(expected, true);
-    }
-    catch (std::exception & ex)
-    {
-        // Should throw
-        CHECK_EQUAL(expected, false);
-    }
+    CHECK_THROW(sfn.NameToType("Nonexisting"), std::exception);
 }
 #endif
 

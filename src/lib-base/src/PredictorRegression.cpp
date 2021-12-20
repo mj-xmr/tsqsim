@@ -13,8 +13,8 @@ PredictorRegression::~PredictorRegression(){}
 EnjoLib::VecD PredictorRegression::Predict(const EnjoLib::VecD & data, size_t idx, int horizon) const
 {
     EnjoLib::Regression reg;
-    const int degree = 2;
-    const int numSamples = 3;
+    const int degree = 1;
+    const int numSamples = 4;
     EnjoLib::VecD vdx;
     EnjoLib::VecD vdy;
 
