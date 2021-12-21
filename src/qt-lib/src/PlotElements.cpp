@@ -157,8 +157,9 @@ void PlotElements::SetupTechsXform(QCustomPlot * p, const ISimulatorTS & simTS, 
 
 void PlotElements::SetupReconstruction(QCustomPlot * p, const ISimulatorTS & simTS, const PlotDataBase & d)
 {
-    const VecD & tsdata = simTS.GetOutputSeries(PredictorOutputType::RECONSTRUCTION);
-    Util::AddMA(d.GetTime(), Util::stdVectToQVectF(tsdata.Data()), p, Qt::blue);
+    Util::AddMA(d.GetTime(), Util::stdVectToQVectF(simTS.GetOutputSeries(PredictorOutputType::RECONSTRUCTION).Data()),               p, Qt::blue);
+    Util::AddMA(d.GetTime(), Util::stdVectToQVectF(simTS.GetOutputSeries(PredictorOutputType::RECONSTRUCTION_PRED).Data()),          p, Qt::green);
+    //Util::AddMA(d.GetTime(), Util::stdVectToQVectF(simTS.GetOutputSeries(PredictorOutputType::RECONSTRUCTION_PRED_BASELINE).Data()), p, Qt::gray);
 }
 
 QCPGraph * PlotElements::SetupTSLine(QCustomPlot * p, QCPAxisRect *techRect, const PlotDataBase & d, const ISimulatorTS & simTS, const PredictorOutputType & type, const QPen & pen, const char * name)

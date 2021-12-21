@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<wxsmith>
+	<object class="wxDialog" name="DialogTF">
+		<title>TF2</title>
+		<pos>220,-1</pos>
+		<id_arg>0</id_arg>
+		<object class="wxBoxSizer" variable="m_sizerTop" member="yes">
+			<orient>wxVERTICAL</orient>
+			<object class="sizeritem">
+				<object class="wxBoxSizer" variable="m_sizerMain" member="no">
+					<orient>wxVERTICAL</orient>
+					<object class="sizeritem">
+						<object class="wxChoice" name="ID_CHOICE5" subclass="MyChoiceEnum" variable="m_choiceSim" member="yes">
+							<tooltip>Simulator type</tooltip>
+							<handler function="OnTF" entry="EVT_CHOICE" />
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxBoxSizer" variable="BoxSizer4" member="no">
+							<object class="sizeritem">
+								<object class="wxChoice" name="ID_CHOICE1" variable="m_choiceYearStartTF" member="yes">
+									<content>
+										<item>2000</item>
+									</content>
+									<selection>0</selection>
+									<handler function="OnTF" entry="EVT_CHOICE" />
+								</object>
+								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
+							<object class="sizeritem">
+								<object class="wxChoice" name="ID_CHOICE2" variable="m_choiceYearEndTF" member="yes">
+									<content>
+										<item>2000</item>
+									</content>
+									<selection>0</selection>
+									<handler function="OnTF" entry="EVT_CHOICE" />
+								</object>
+								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
+						</object>
+						<flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxBoxSizer" variable="BoxSizer5" member="no">
+							<object class="sizeritem">
+								<object class="wxChoice" name="ID_CHOICE3" variable="m_choiceMonthStartTF" member="yes">
+									<content>
+										<item>12</item>
+									</content>
+									<selection>0</selection>
+									<handler function="OnTF" entry="EVT_CHOICE" />
+								</object>
+								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
+							<object class="sizeritem">
+								<object class="wxChoice" name="ID_CHOICE4" variable="m_choiceMonthEndTF" member="yes">
+									<content>
+										<item>12</item>
+									</content>
+									<selection>0</selection>
+									<handler function="OnTF" entry="EVT_CHOICE" />
+								</object>
+								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
+						</object>
+						<flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxBoxSizer" variable="m_sizerBools" member="yes">
+							<orient>wxVERTICAL</orient>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX17" variable="m_checkPotentialProfit" member="yes">
+									<label>Potential</label>
+									<hidden>1</hidden>
+									<handler function="OnTF" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX1" variable="m_checkNetworked" member="yes">
+									<label>Networked</label>
+									<hidden>1</hidden>
+									<handler function="OnTF" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX15" variable="m_checkNetworkedCV" member="yes">
+									<label>Networked CV</label>
+									<hidden>1</hidden>
+									<handler function="OnTF" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX10" variable="m_optimCostly" member="yes">
+									<label>OptiCostly</label>
+									<hidden>1</hidden>
+									<handler function="OnTF" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX11" variable="m_checkCorrelCalc" member="yes">
+									<label>Correl calc</label>
+									<hidden>1</hidden>
+									<handler function="OnTF" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX12" variable="m_checkCorrelUse" member="yes">
+									<label>Correl use</label>
+									<hidden>1</hidden>
+									<handler function="OnTF" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX13" variable="m_checkCorrelAdapt" member="yes">
+									<label>Correl adapt</label>
+									<hidden>1</hidden>
+									<handler function="OnTF" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX14" variable="m_checkExperimental" member="yes">
+									<label>Experim</label>
+									<hidden>1</hidden>
+									<handler function="OnTF" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX7" variable="m_checkPyServer" member="yes">
+									<label>PyServ</label>
+									<hidden>1</hidden>
+									<handler function="OnTF" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX6" variable="m_checkFullData" member="yes">
+									<label>FullDat</label>
+									<hidden>1</hidden>
+									<handler function="OnTF" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX8" variable="m_checkBlacklist" member="yes">
+									<label>Blacklist</label>
+									<hidden>1</hidden>
+									<handler function="OnTF" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX3" variable="m_checkUseTicks" member="yes">
+									<label>Ticks</label>
+									<hidden>1</hidden>
+									<handler function="OnTF" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX2" variable="m_checkTechUpdate" member="yes">
+									<label>TechUp</label>
+									<hidden>1</hidden>
+									<handler function="OnTF" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX4" variable="m_checkTrain" member="yes">
+									<label>Train</label>
+									<hidden>1</hidden>
+									<handler function="OnTF" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX16" variable="m_checkPlotCompound" member="yes">
+									<label>Plot Compound</label>
+									<hidden>1</hidden>
+									<handler function="OnTF" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX5" variable="m_checkPlots" member="yes">
+									<label>PyPlt</label>
+									<hidden>1</hidden>
+									<style>wxCHK_3STATE|wxCHK_ALLOW_3RD_STATE_FOR_USER</style>
+									<handler function="OnTF" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX18" variable="m_checkRandomBars" member="yes">
+									<label>Random bars</label>
+									<hidden>1</hidden>
+									<handler function="OnTF" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX20" variable="m_checkSingleThreadedAll" member="yes">
+									<label>Single threaded</label>
+									<hidden>1</hidden>
+									<handler function="OnTF" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX21" variable="m_checkStatsSummary" member="yes">
+									<label>Stats summary</label>
+									<hidden>1</hidden>
+									<handler function="OnTF" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+						</object>
+						<flag>wxALL|wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxBoxSizer" variable="BoxSizer6" member="no">
+							<object class="sizeritem">
+								<object class="wxStaticText" name="ID_STATICTEXT1" variable="StaticText1" member="yes">
+									<label>%/S</label>
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxSpinCtrl" name="ID_SPINCTRL3" variable="m_spinRandomPercent" member="yes">
+									<value>0</value>
+									<size>40,-1</size>
+									<tooltip>Variance in %</tooltip>
+									<handler function="Onm_spinSLMulFilterChange" entry="EVT_SPINCTRL" />
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxSpinCtrl" name="ID_SPINCTRL4" variable="m_spinRandomSeed" member="yes">
+									<value>0</value>
+									<size>40,-1</size>
+									<tooltip>Seed</tooltip>
+									<handler function="Onm_spinSLMulFilterChange" entry="EVT_SPINCTRL" />
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxBoxSizer" variable="BoxSizer7" member="no">
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX19" variable="m_checkFilter" member="yes">
+									<label>Filter</label>
+									<hidden>1</hidden>
+									<handler function="OnTF" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxStaticText" name="ID_STATICTEXT2" variable="StaticText2" member="yes">
+									<label>Filter</label>
+								</object>
+								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxSpinCtrl" name="ID_SPINCTRL1" variable="m_spinSLMulFilter" member="yes">
+									<value>0</value>
+									<max>40</max>
+									<size>60,-1</size>
+									<tooltip>Mul spread</tooltip>
+									<handler function="Onm_spinSLMulFilterChange" entry="EVT_SPINCTRL" />
+								</object>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+							</object>
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+						<option>1</option>
+					</object>
+					<object class="sizeritem">
+						<object class="wxBoxSizer" variable="BoxSizer1" member="no">
+							<object class="sizeritem">
+								<object class="wxStaticText" name="ID_STATICTEXT3" variable="StaticText3" member="yes">
+									<label>Cores</label>
+								</object>
+								<flag>wxALL</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxSpinCtrl" name="ID_SPINCTRL2" variable="m_spinThreads" member="yes">
+									<value>0</value>
+									<max>8</max>
+									<size>30,-1</size>
+									<tooltip>Threads num</tooltip>
+									<handler function="Onm_spinSLMulFilterChange" entry="EVT_SPINCTRL" />
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+						<option>1</option>
+					</object>
+					<object class="sizeritem">
+						<object class="wxBoxSizer" variable="BoxSizer8" member="no">
+							<object class="sizeritem">
+								<object class="wxStaticText" name="ID_STATICTEXT4" variable="StaticText4" member="yes">
+									<label>Exper</label>
+								</object>
+								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
+							<object class="sizeritem">
+								<object class="wxSpinCtrl" name="ID_SPINCTRL5" variable="m_spinExperim1" member="yes">
+									<value>0</value>
+									<max>100000</max>
+									<tooltip>Experim 1</tooltip>
+									<minsize>50,30</minsize>
+									<handler function="Onm_spinSLMulFilterChange" entry="EVT_SPINCTRL" />
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxSpinCtrl" name="ID_SPINCTRL6" variable="m_spinExperim2" member="yes">
+									<value>0</value>
+									<max>100000</max>
+									<tooltip>Experim 2</tooltip>
+									<minsize>50,0</minsize>
+									<handler function="Onm_spinSLMulFilterChange" entry="EVT_SPINCTRL" />
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+				</object>
+				<flag>wxEXPAND</flag>
+				<border>5</border>
+				<option>1</option>
+			</object>
+			<object class="sizeritem">
+				<object class="wxBoxSizer" variable="BoxSizer3" member="no">
+					<orient>wxVERTICAL</orient>
+					<object class="sizeritem">
+						<object class="wxButton" name="wxID_CANCEL" variable="Button1" member="yes">
+							<label>Cancel</label>
+						</object>
+						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+						<option>1</option>
+					</object>
+					<object class="sizeritem">
+						<object class="wxButton" name="wxID_OK" variable="Button2" member="yes">
+							<label>OK</label>
+							<handler function="OnTF" entry="EVT_BUTTON" />
+						</object>
+						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+						<option>1</option>
+					</object>
+				</object>
+				<flag>wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+				<border>5</border>
+			</object>
+		</object>
+	</object>
+</wxsmith>

@@ -1,0 +1,22 @@
+#include "PredictorTypeStr.h"
+#include "PredictorType.h"
+
+PredictorTypeStr::PredictorTypeStr()
+{
+    for (int i = 0; i <= int(PredictorType::PRED_TRUE); ++i)
+    {
+        const PredictorType type = PredictorType(i);
+        switch (type) // Generate compiler warnings
+        {
+            case PredictorType::PRED_REGRESSION:    Add(i, "Regr"); break;
+            case PredictorType::PRED_TRUE:          Add(i, "True"); break;
+            case PredictorType::PRED_BASELINE:      Add(i, "Baseline"); break;
+            case PredictorType::PRED_DUMB:          Add(i, "Dumb"); break;
+        }
+    }
+}
+
+PredictorTypeStr::~PredictorTypeStr()
+{
+    //dtor
+}

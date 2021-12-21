@@ -70,10 +70,11 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
     {
         m_rets = GetRetsFiltered(input);
     }
+    
     {
         m_predsTrue     = Pred(m_rets, PredictorType::PRED_TRUE);       // Stays fixed
         m_predsBaseline = Pred(m_rets, PredictorType::PRED_BASELINE);   // Stays fixed
-        m_preds         = Pred(m_rets, PredictorType::PRED_REGRESSION); // User interaction expected
+        m_preds         = Pred(m_rets, m_cfgTS.GetPredType());
         //m_preds         = Pred(m_rets, PredictorType::PRED_DUMB); // User interaction expected
 
         //{LOGL << "Sizes rets = " << m_rets.size() << ", true = " << m_predsTrue.size() << ", base = " << m_predsBaseline.size() << ", pred = " << m_preds.size() << Nl;}
@@ -84,13 +85,27 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
 
         Assertions::IsTrue (VecEqual(m_rets, m_predsTrue),       "m_rets == m_predsTrue");
         Assertions::IsFalse(VecEqual(m_rets, m_predsBaseline),   "m_rets != m_predsBaseline");
-        Assertions::IsFalse(VecEqual(m_rets, m_preds),           "m_rets != m_preds");
+        if (m_cfgTS.GetPredType() != PredictorType::PRED_TRUE)
+        {
+            Assertions::IsFalse(VecEqual(m_rets, m_preds),           "m_rets != m_preds");
+        }
     }
     {
         const std::vector<TSRes> & rec = GetReconstruction(&m_fun, m_rets, initial);
         m_reconstr = GetReconstructionFiltered(rec);
+        Assertions::SizesEqual(m_rets, m_reconstr,     "m_rets & m_reconstr");
         /// TODO: Print also individual transformations and individual reconstructions sequentially for debugging.
         /// Iterate not by data point -> transformations, like now for speed, but by transformation -> data points
+    }
+    {
+        const std::vector<TSRes> & rec = GetReconstruction(&m_fun, m_predsBaseline, initial, false);
+        m_reconstrPredBase = m_reconstr + GetReconstructionFiltered(rec);
+        Assertions::SizesEqual(m_rets, m_reconstrPredBase,     "m_rets & m_reconstrPredBase");
+    }
+    {
+        const std::vector<TSRes> & rec = GetReconstruction(&m_fun, m_preds, initial, false);
+        m_reconstrPred = m_reconstr + GetReconstructionFiltered(rec);
+        Assertions::SizesEqual(m_rets, m_reconstrPred,     "m_rets & m_reconstrPred");
     }
 
     PrintResults();
@@ -155,21 +170,25 @@ std::vector<TSRes> SimulatorTS::GetRets(const std::vector<Inp> & input) const
     }
 }
 
-std::vector<TSRes> SimulatorTS::GetReconstruction(const ITSFun * fun, const EnjoLib::VecD & input, double initial) const
+std::vector<TSRes> SimulatorTS::GetReconstruction(const ITSFun * fun, const EnjoLib::VecD & input, double initial, bool additive) const
 {   /// TODO: the double "initial" should probably be a vector of initial conditions, built from the 1st diffs (len = 1), 2nd diffs (len = 2), and so on.
+    /// TODO: extract "lost information" from each transformation and apply here
     std::vector<TSRes> ret;
-    double prev = initial;
+    double prev = additive ? initial : 0;
     TSRes r1st(true);
     r1st.val = prev;
     ret.push_back(r1st);
     const size_t startIdx = 1; // Subject to transformation limits
-    for (size_t i = startIdx; i < input.size() - 1; ++i)
+    for (size_t i = startIdx; i < input.size(); ++i)
     {
         //if (inp.valid)
         {
             const TSRes & res = fun->Reconstruct(i, input, prev);
             //LOGL << "OUT = " << res.val << " " << res.valid << Nl;
-            prev = res.val;
+            if (additive)
+            {
+                prev = res.val;
+            }
             ret.push_back(res);
         }
     }
@@ -274,7 +293,9 @@ const EnjoLib::VecD & SimulatorTS::GetOutputSeries(const PredictorOutputType & t
     case PredictorOutputType::RECONSTRUCTION:
         return m_reconstr;
     case PredictorOutputType::RECONSTRUCTION_PRED:
-        return m_reconstrPred; /// TODO
+        return m_reconstrPred;
+   case PredictorOutputType::RECONSTRUCTION_PRED_BASELINE:
+        return m_reconstrPredBase;
     }
     throw ExceptLogicError("GetOutputSeries");
 }

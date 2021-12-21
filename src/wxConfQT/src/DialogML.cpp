@@ -10,6 +10,8 @@
 //(*InternalHeaders(DialogML)
 //*)
 
+#include <wx/spinctrl.h>
+
 //(*IdInit(DialogML)
 const long DialogML::ID_CHOICE1 = wxNewId();
 const long DialogML::ID_CHOICE3 = wxNewId();

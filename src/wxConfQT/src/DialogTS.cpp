@@ -8,6 +8,7 @@
 	#include <wx/button.h>
 	#include <wx/string.h>
 	#include <wx/textctrl.h>
+	#include <wx/choice.h>
 	//*)
 #endif
 //(*InternalHeaders(DialogTS)
@@ -17,6 +18,7 @@
 const long DialogTS::ID_TEXTCTRL1 = wxNewId();
 const long DialogTS::ID_BUTTON1 = wxNewId();
 const long DialogTS::ID_BUTTON2 = wxNewId();
+const long DialogTS::ID_CHOICE1 = wxNewId();
 const long DialogTS::ID_CHECKBOX12 = wxNewId();
 //*)
 
@@ -50,6 +52,8 @@ DialogTS::DialogTS(wxWindow* parent,wxWindowID id)
 	BoxSizer2->Add(m_butScriptTextOpen, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	StaticBoxSizer1->Add(BoxSizer2, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	m_sizerBools->Add(StaticBoxSizer1, 1, wxALL|wxEXPAND, 5);
+	m_choicePredType = new MyChoiceEnum(this, ID_CHOICE1, wxDefaultPosition, wxDefaultSize, 0, 0, 0, wxDefaultValidator, _T("ID_CHOICE1"));
+	m_sizerBools->Add(m_choicePredType, 0, wxALL|wxEXPAND, 5);
 	m_chkTechs = new wxCheckBox(this, ID_CHECKBOX12, _T("Techs"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX12"));
 	m_chkTechs->SetValue(true);
 	m_chkTechs->Hide();
@@ -67,6 +71,7 @@ DialogTS::DialogTS(wxWindow* parent,wxWindowID id)
 
 	Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DialogTS::Onm_butScriptTextClick);
 	Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DialogTS::Onm_butScriptTextOpenClick);
+	Connect(ID_CHOICE1,wxEVT_COMMAND_CHOICE_SELECTED,(wxObjectEventFunction)&DialogTS::OnTS);
 	Connect(ID_CHECKBOX12,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&DialogTS::OnTS);
 	//*)
 

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<wxsmith>
+	<object class="wxDialog" name="DialogOpti">
+		<title>Opti</title>
+		<pos>375,-1</pos>
+		<pos_arg>1</pos_arg>
+		<size_arg>1</size_arg>
+		<object class="wxBoxSizer" variable="m_sizerTop" member="yes">
+			<orient>wxVERTICAL</orient>
+			<object class="sizeritem">
+				<object class="wxBoxSizer" variable="BoxSizer2" member="no">
+					<orient>wxVERTICAL</orient>
+					<object class="sizeritem">
+						<object class="wxChoice" name="ID_CHOICE1" subclass="MyChoiceEnum" variable="m_choiceOpti" member="yes">
+							<handler function="OnOpti" entry="EVT_CHOICE" />
+						</object>
+						<flag>wxALL|wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxChoice" name="ID_CHOICE2" subclass="MyChoiceEnum" variable="m_choiceOptiMethod" member="yes">
+							<handler function="OnOpti" entry="EVT_CHOICE" />
+						</object>
+						<flag>wxALL|wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxChoice" name="ID_CHOICE3" subclass="MyChoiceEnum" variable="m_choiceOptiGoal" member="yes">
+							<handler function="OnOpti" entry="EVT_CHOICE" />
+						</object>
+						<flag>wxALL|wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxStaticBoxSizer" variable="StaticBoxSizer1" member="no">
+							<label>Monte Carlo</label>
+							<orient>wxVERTICAL</orient>
+							<object class="sizeritem">
+								<object class="wxSpinCtrl" name="ID_SPINCTRL3" variable="m_spinRandomSamples" member="yes">
+									<value>100</value>
+									<min>1</min>
+									<max>1000</max>
+									<size>130,-1</size>
+									<tooltip># random samples</tooltip>
+									<handler function="OnSpin" entry="EVT_SPINCTRL" />
+								</object>
+								<flag>wxALL</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxSpinCtrl" name="ID_SPINCTRL4" variable="m_spinMaxESPromile" member="yes">
+									<value>10</value>
+									<min>1</min>
+									<max>1000</max>
+									<size>130,-1</size>
+									<tooltip>Early stop: Percentile max change of goal</tooltip>
+									<handler function="OnSpin" entry="EVT_SPINCTRL" />
+								</object>
+								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
+						</object>
+						<flag>wxALL|wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxBoxSizer" variable="m_sizerBools" member="yes">
+							<orient>wxVERTICAL</orient>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX2" variable="m_checkXval" member="yes">
+									<label>Xval</label>
+									<hidden>1</hidden>
+									<handler function="OnOpti" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX9" variable="m_checkXValExtendable" member="yes">
+									<label>Xval Ext</label>
+									<hidden>1</hidden>
+									<tooltip>Extendable</tooltip>
+									<handler function="OnOpti" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX3" variable="m_checkLast" member="yes">
+									<label>Last</label>
+									<hidden>1</hidden>
+									<handler function="OnOpti" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX4" variable="m_checkDense" member="yes">
+									<label>Dense</label>
+									<hidden>1</hidden>
+									<handler function="OnOpti" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX5" variable="m_checkRelease" member="yes">
+									<label>Release</label>
+									<checked>1</checked>
+									<hidden>1</hidden>
+									<handler function="OnOpti" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX6" variable="m_checkVerbose" member="yes">
+									<label>Verbose</label>
+									<hidden>1</hidden>
+									<handler function="OnOpti" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX8" variable="m_checkGlobal" member="yes">
+									<label>Global</label>
+									<hidden>1</hidden>
+									<handler function="OnOpti" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxCheckBox" name="ID_CHECKBOX7" variable="m_checkNelder" member="yes">
+									<label>Nelder</label>
+									<hidden>1</hidden>
+									<handler function="OnOpti" entry="EVT_CHECKBOX" />
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+						</object>
+						<flag>wxALL|wxEXPAND</flag>
+						<border>5</border>
+						<option>1</option>
+					</object>
+					<object class="sizeritem">
+						<object class="wxBoxSizer" variable="BoxSizer4" member="no">
+							<object class="sizeritem">
+								<object class="wxSpinCtrl" name="ID_SPINCTRL1" variable="m_spinNumBarsOpti" member="yes">
+									<value>2000</value>
+									<min>10</min>
+									<max>1000000000</max>
+									<size>80,-1</size>
+									<handler function="OnSpin" entry="EVT_SPINCTRL" />
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxStaticText" name="ID_STATICTEXT1" variable="m_labDaysOpti" member="yes">
+									<label>days</label>
+									<tooltip>Days</tooltip>
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+						</object>
+						<flag>wxALL|wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxBoxSizer" variable="BoxSizer5" member="no">
+							<object class="sizeritem">
+								<object class="wxSpinCtrl" name="ID_SPINCTRL2" variable="m_spinPercent4XValid" member="yes">
+									<value>20</value>
+									<min>1</min>
+									<size>80,-1</size>
+									<tooltip>Days</tooltip>
+									<handler function="OnSpin" entry="EVT_SPINCTRL" />
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
+							<object class="sizeritem">
+								<object class="wxStaticText" name="ID_STATICTEXT2" variable="m_labDaysXVal" member="yes">
+									<label>days</label>
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+						</object>
+						<flag>wxALL|wxEXPAND</flag>
+						<border>5</border>
+					</object>
+				</object>
+				<flag>wxEXPAND</flag>
+				<border>5</border>
+			</object>
+			<object class="sizeritem">
+				<object class="wxBoxSizer" variable="BoxSizer3" member="no">
+					<orient>wxVERTICAL</orient>
+					<object class="sizeritem">
+						<object class="wxButton" name="wxID_CANCEL" variable="Button2" member="yes">
+							<label>Cancel</label>
+						</object>
+						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+						<option>1</option>
+					</object>
+					<object class="sizeritem">
+						<object class="wxButton" name="wxID_OK" variable="m_butOK" member="yes">
+							<label>OK</label>
+							<handler function="OnOpti" entry="EVT_BUTTON" />
+						</object>
+						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+						<option>1</option>
+					</object>
+				</object>
+				<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+				<border>5</border>
+				<option>1</option>
+			</object>
+		</object>
+	</object>
+</wxsmith>

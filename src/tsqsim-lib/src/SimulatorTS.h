@@ -29,7 +29,7 @@ class SimulatorTS : public ISimulatorTS
 
         STDFWD::vector<TSRes> GetRets(const STDFWD::vector<Inp> & inp) const;
         EnjoLib::VecD GetRetsFiltered(const STDFWD::vector<Inp> & inp) const;
-        STDFWD::vector<TSRes> GetReconstruction(const ITSFun * fun, const EnjoLib::VecD & inp, double initial) const;
+        STDFWD::vector<TSRes> GetReconstruction(const ITSFun * fun, const EnjoLib::VecD & inp, double initial, bool additive = true) const;
         EnjoLib::VecD GetReconstructionFiltered(const STDFWD::vector<TSRes> & input) const;
 
         TSRes Reconstr(const ITSFun * fun, const double val) const;
@@ -60,6 +60,7 @@ class SimulatorTS : public ISimulatorTS
         EnjoLib::VecD m_predsBaseline;
         EnjoLib::VecD m_reconstr;
         EnjoLib::VecD m_reconstrPred;
+        EnjoLib::VecD m_reconstrPredBase;
 };
 
 #endif // SIMULATORTS_H

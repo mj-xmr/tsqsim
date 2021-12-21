@@ -4,6 +4,8 @@
 #include "ConfigBase.h"
 #include <Util/Str.hpp>
 
+enum class PredictorType;
+
 class ConfigTS : public ConfigBase
 {
     public:
@@ -16,6 +18,9 @@ class ConfigTS : public ConfigBase
         void RegisterAndReadStrs  (EnjoLib::Istream & ifs) override;
 
         void FromOptsNumeric(const OptionsNumeric & optsNum) override;
+        
+        PredictorType GetPredType() const;
+        void SetPredType(const PredictorType & type);
 
         static const char * DEFAULT_SCRIPT_FILE_NAME;
 
@@ -24,6 +29,8 @@ class ConfigTS : public ConfigBase
         bool PLOT_SERIES = true;
         bool MT_REPORT = false;
         bool MT_XFORM = false;
+        
+        long int PRED_TYPE = 0;
 
     protected:
         EnjoLib::Str GetFileNameProt() const override;

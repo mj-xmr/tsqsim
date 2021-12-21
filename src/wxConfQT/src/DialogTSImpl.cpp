@@ -1,6 +1,8 @@
 #include "wx_pch.h"
 #include "DialogTS.h"
 #include "wxUtil.h"
+#include "PredictorTypeStr.h"
+#include "PredictorType.h"
 
 #include <Template/SafePtr.hpp>
 
@@ -18,12 +20,19 @@ void DialogTS::Init()
     m_mapCheckbox.Register(&m_confQTPlot.CANDLES,           m_chkCandles);
     m_mapCheckbox.Register(&m_confQTPlot.TECHS,             m_chkTechs);
     */
+    m_choicePredType->Init(PredictorTypeStr(), int(PredictorType::PRED_REGRESSION));
+    
+    m_mapChoice.Register(&m_confTS.PRED_TYPE, m_choicePredType);
+    
+    m_maps.push_back(&m_mapChoice);
+    m_maps.push_back(&m_mapCheckbox);
 }
 
 /// Store to config classes
 void DialogTS::ReadSelections()
 {
-    m_mapCheckbox.FromCheckToVariable();
+    for (IMapControl * pmap : m_maps)
+        pmap->FromCheckToVariable();
     m_confTS.m_scriptPathTxt = m_txtScriptPath->GetValue().c_str().AsChar();
 }
 
@@ -33,9 +42,10 @@ void DialogTS::RestoreConf()
     m_confTS.Read();
 
     wxUtil().AutoGenCheckBox(this, m_confTS, m_sizerBools, &m_mapCheckbox, (wxObjectEventFunction)&DialogTS::OnTS);
-
-    m_mapCheckbox.FromVariableToCheck();
     m_txtScriptPath->SetValue(m_confTS.m_scriptPathTxt.c_str());
+    
+    for (IMapControl * pmap : m_maps)
+        pmap->FromVariableToCheck();
 }
 
 void DialogTS::Onm_butScriptTextClick(wxCommandEvent& event)
