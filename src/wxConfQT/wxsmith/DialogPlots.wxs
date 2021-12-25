@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<wxsmith>
+	<object class="wxDialog" name="DialogPlots">
+		<title>Plots</title>
+		<pos>375,-1</pos>
+		<object class="wxBoxSizer" variable="BoxSizer1" member="no">
+			<orient>wxVERTICAL</orient>
+			<object class="sizeritem">
+				<object class="wxBoxSizer" variable="m_sizerBools" member="yes">
+					<orient>wxVERTICAL</orient>
+					<object class="sizeritem">
+						<object class="wxCheckBox" name="ID_CHECKBOX17" variable="m_chkDark" member="yes">
+							<label>Dark</label>
+							<hidden>1</hidden>
+							<handler function="OnQTPlot" entry="EVT_CHECKBOX" />
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxCheckBox" name="ID_CHECKBOX13" variable="m_chkCandles" member="yes">
+							<label>Candles</label>
+							<checked>1</checked>
+							<hidden>1</hidden>
+							<handler function="OnQTPlot" entry="EVT_CHECKBOX" />
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+						<option>1</option>
+					</object>
+					<object class="sizeritem">
+						<object class="wxCheckBox" name="ID_CHECKBOX11" variable="m_chkSigSpec" member="yes">
+							<label>Sig Spec</label>
+							<checked>1</checked>
+							<hidden>1</hidden>
+							<handler function="OnQTPlot" entry="EVT_CHECKBOX" />
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxCheckBox" name="ID_CHECKBOX1" variable="m_chkSigTrade" member="yes">
+							<label>Sig Trade</label>
+							<checked>1</checked>
+							<hidden>1</hidden>
+							<handler function="OnQTPlot" entry="EVT_CHECKBOX" />
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxCheckBox" name="ID_CHECKBOX3" variable="m_chkSimul" member="yes">
+							<label>Simul</label>
+							<checked>1</checked>
+							<hidden>1</hidden>
+							<handler function="OnQTPlot" entry="EVT_CHECKBOX" />
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxCheckBox" name="ID_CHECKBOX9" variable="m_chkSL" member="yes">
+							<label>SL</label>
+							<checked>1</checked>
+							<hidden>1</hidden>
+							<handler function="OnQTPlot" entry="EVT_CHECKBOX" />
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxCheckBox" name="ID_CHECKBOX2" variable="m_chkProfit" member="yes">
+							<label>Profit</label>
+							<checked>1</checked>
+							<hidden>1</hidden>
+							<handler function="OnQTPlot" entry="EVT_CHECKBOX" />
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxCheckBox" name="ID_CHECKBOX4" variable="m_chkTPs" member="yes">
+							<label>TPs</label>
+							<checked>1</checked>
+							<hidden>1</hidden>
+							<handler function="OnQTPlot" entry="EVT_CHECKBOX" />
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxCheckBox" name="ID_CHECKBOX5" variable="m_chkSR" member="yes">
+							<label>SR</label>
+							<checked>1</checked>
+							<hidden>1</hidden>
+							<handler function="OnQTPlot" entry="EVT_CHECKBOX" />
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxCheckBox" name="ID_CHECKBOX6" variable="m_chkSRgroups" member="yes">
+							<label>SR grp</label>
+							<checked>1</checked>
+							<hidden>1</hidden>
+							<handler function="OnQTPlot" entry="EVT_CHECKBOX" />
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxCheckBox" name="ID_CHECKBOX7" variable="m_chkMA" member="yes">
+							<label>MA</label>
+							<checked>1</checked>
+							<hidden>1</hidden>
+							<handler function="OnQTPlot" entry="EVT_CHECKBOX" />
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxCheckBox" name="ID_CHECKBOX8" variable="m_chkStdDev" member="yes">
+							<label>Std Dev</label>
+							<hidden>1</hidden>
+							<handler function="OnQTPlot" entry="EVT_CHECKBOX" />
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxCheckBox" name="ID_CHECKBOX10" variable="m_chkZigZag" member="yes">
+							<label>ZigZag</label>
+							<checked>1</checked>
+							<hidden>1</hidden>
+							<handler function="OnQTPlot" entry="EVT_CHECKBOX" />
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxCheckBox" name="ID_CHECKBOX15" variable="m_chkZZidx" member="yes">
+							<label>ZZindx</label>
+							<hidden>1</hidden>
+							<handler function="OnQTPlot" entry="EVT_CHECKBOX" />
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxCheckBox" name="ID_CHECKBOX14" variable="m_chkWknd" member="yes">
+							<label>Weekend</label>
+							<checked>1</checked>
+							<hidden>1</hidden>
+							<handler function="OnQTPlot" entry="EVT_CHECKBOX" />
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxCheckBox" name="ID_CHECKBOX16" variable="m_checkBet" member="yes">
+							<label>Bet</label>
+							<hidden>1</hidden>
+							<handler function="OnQTPlot" entry="EVT_CHECKBOX" />
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxCheckBox" name="ID_CHECKBOX12" variable="m_chkTechs" member="yes">
+							<label>Techs</label>
+							<checked>1</checked>
+							<hidden>1</hidden>
+							<handler function="OnQTPlot" entry="EVT_CHECKBOX" />
+						</object>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+					</object>
+				</object>
+				<flag>wxEXPAND</flag>
+				<border>5</border>
+			</object>
+			<object class="sizeritem">
+				<object class="wxBoxSizer" variable="BoxSizer3" member="no">
+					<orient>wxVERTICAL</orient>
+					<object class="sizeritem">
+						<object class="wxButton" name="wxID_CANCEL" variable="Button1" member="yes">
+							<label>Cancel</label>
+						</object>
+						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+						<option>1</option>
+					</object>
+					<object class="sizeritem">
+						<object class="wxButton" name="wxID_OK" variable="m_butOK" member="yes">
+							<label>OK</label>
+						</object>
+						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+						<option>1</option>
+					</object>
+				</object>
+				<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+				<border>5</border>
+				<option>1</option>
+			</object>
+		</object>
+	</object>
+</wxsmith>

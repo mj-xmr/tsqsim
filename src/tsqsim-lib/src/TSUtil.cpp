@@ -11,6 +11,7 @@
 TSUtil::TSUtil(){}
 TSUtil::~TSUtil(){}
 
+
 CorPtr<ISimulatorTS> TSUtil::GetSim(const IPeriod & per) const
 {
     const SimulatorTSFactory simFact;

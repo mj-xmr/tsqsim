@@ -125,7 +125,7 @@ QCPGraph * Util::AddMA(const QVector<double> & time, const QVector<double> & ma,
     QCPGraph * maGraph = new QCPGraph(customPlot->xAxis, customPlot->yAxis);
     //maGraph->setUseFastVectors(true);
     maGraph->setData(time, ma);
-    maGraph->removeData(time[time.size()-1]);
+    //maGraph->removeData(time[time.size()-1]); // Why was this done here? If really purged the last data point.
     maGraph->setPen(QPen(color));
     customPlot->setAutoAddPlottableToLegend(false);
     customPlot->addPlottable(maGraph);

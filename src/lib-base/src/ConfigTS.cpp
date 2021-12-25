@@ -36,7 +36,7 @@ void ConfigTS::RegisterAndReadBools(EnjoLib::Istream & f)
 
 void ConfigTS::RegisterAndReadInts(EnjoLib::Istream & f)
 {
-    //RegisterAndReadInt (f, percentBars, 100);
+    RegisterAndReadInt (f, PRED_TYPE, 0);
 }
 void ConfigTS::RegisterAndReadFloats(EnjoLib::Istream & f)
 {
@@ -44,4 +44,14 @@ void ConfigTS::RegisterAndReadFloats(EnjoLib::Istream & f)
 void ConfigTS::RegisterAndReadStrs(EnjoLib::Istream & f)
 {
     RegisterAndReadStr(f, m_scriptPathTxt, DEFAULT_SCRIPT_FILE_NAME);
+}
+
+PredictorType ConfigTS::GetPredType() const
+{
+    return static_cast<PredictorType>(PRED_TYPE);
+}
+
+void ConfigTS::SetPredType(const PredictorType & type)
+{
+    PRED_TYPE = static_cast<long int>(type);
 }
