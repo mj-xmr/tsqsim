@@ -4,33 +4,43 @@
 #include "ITSXform.h"
 #include "typesStr.h"
 
+struct TSXformOrig : public ITSXform
+{
+        XformRes Run(const IHasCandles & input, int idx, double prevConverted) const override;
+        XformRes Run(const EnjoLib::VecD & vals) const override;
+        double Invert(const EnjoLib::VecD & vals, double lost) const override;
+};
+
 struct TSXformDiff : public ITSXform
 {
-        double Run(const TSFunBase & input, int idx, double valPrev) const override;
-        double Run(const EnjoLib::VecD & vals) const override;
+        TSXformDiff(const VecStr & params);
+        XformRes Run(const IHasCandles & input, int idx, double prevConverted) const override;
+        XformRes Run(const EnjoLib::VecD & vals) const override;
         unsigned MaxShift() const override;
-        double Invert(const EnjoLib::VecD & vals) const override;
+        double Invert(const EnjoLib::VecD & vals, double lost) const override;
+        
+        int m_order = 1;
 };
 
 struct TSXformFabs : public ITSXform
 {
-        double Run(const TSFunBase & input, int idx, double valPrev) const override;
-        double Run(const EnjoLib::VecD & vals) const override;
-        double Invert(const EnjoLib::VecD & vals) const override;
+        XformRes Run(const IHasCandles & input, int idx, double prevConverted) const override;
+        XformRes Run(const EnjoLib::VecD & vals) const override;
+        double Invert(const EnjoLib::VecD & vals, double lost) const override;
 };
 
 struct TSXformSqrt : public ITSXform
 {
-        double Run(const TSFunBase & input, int idx, double valPrev) const override;
-        double Run(const EnjoLib::VecD & vals) const override;
-        double Invert(const EnjoLib::VecD & vals) const override;
+        XformRes Run(const IHasCandles & input, int idx, double prevConverted) const override;
+        XformRes Run(const EnjoLib::VecD & vals) const override;
+        double Invert(const EnjoLib::VecD & vals, double lost) const override;
 };
 
 struct TSXformLog : public ITSXform
 {
-        double Run(const TSFunBase & input, int idx, double valPrev) const override;
-        double Run(const EnjoLib::VecD & vals) const override;
-        double Invert(const EnjoLib::VecD & vals) const override;
+        XformRes Run(const IHasCandles & input, int idx, double prevConverted) const override;
+        XformRes Run(const EnjoLib::VecD & vals) const override;
+        double Invert(const EnjoLib::VecD & vals, double lost) const override;
         
         static constexpr double VAL_BORDER = 1;
 };
@@ -38,9 +48,9 @@ struct TSXformLog : public ITSXform
 struct TSXformAdd : public ITSXform
 {
         TSXformAdd(const VecStr & params);
-        double Run(const TSFunBase & input, int idx, double valPrev) const override;
-        double Run(const EnjoLib::VecD & vals) const override;
-        double Invert(const EnjoLib::VecD & vals) const override;
+        XformRes Run(const IHasCandles & input, int idx, double prevConverted) const override;
+        XformRes Run(const EnjoLib::VecD & vals) const override;
+        double Invert(const EnjoLib::VecD & vals, double lost) const override;
 
         double m_add = 0;
 };
@@ -48,9 +58,9 @@ struct TSXformAdd : public ITSXform
 struct TSXformMul : public ITSXform
 {
         TSXformMul(const VecStr & params);
-        double Run(const TSFunBase & input, int idx, double valPrev) const override;
-        double Run(const EnjoLib::VecD & vals) const override;
-        double Invert(const EnjoLib::VecD & vals) const override;
+        XformRes Run(const IHasCandles & input, int idx, double prevConverted) const override;
+        XformRes Run(const EnjoLib::VecD & vals) const override;
+        double Invert(const EnjoLib::VecD & vals, double lost) const override;
 
         double m_mul = 0;
 };
@@ -58,9 +68,9 @@ struct TSXformMul : public ITSXform
 struct TSXformDiv : public ITSXform
 {
         TSXformDiv(const VecStr & params);
-        double Run(const TSFunBase & input, int idx, double valPrev) const override;
-        double Run(const EnjoLib::VecD & vals) const override;
-        double Invert(const EnjoLib::VecD & vals) const override;
+        XformRes Run(const IHasCandles & input, int idx, double prevConverted) const override;
+        XformRes Run(const EnjoLib::VecD & vals) const override;
+        double Invert(const EnjoLib::VecD & vals, double lost) const override;
 
         double m_div = 0;
 };

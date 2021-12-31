@@ -53,6 +53,7 @@ DialogTS::DialogTS(wxWindow* parent,wxWindowID id)
 	StaticBoxSizer1->Add(BoxSizer2, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	m_sizerBools->Add(StaticBoxSizer1, 1, wxALL|wxEXPAND, 5);
 	m_choicePredType = new MyChoiceEnum(this, ID_CHOICE1, wxDefaultPosition, wxDefaultSize, 0, 0, 0, wxDefaultValidator, _T("ID_CHOICE1"));
+	m_choicePredType->SetToolTip(_T("Prediction type"));
 	m_sizerBools->Add(m_choicePredType, 0, wxALL|wxEXPAND, 5);
 	m_chkTechs = new wxCheckBox(this, ID_CHECKBOX12, _T("Techs"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX12"));
 	m_chkTechs->SetValue(true);

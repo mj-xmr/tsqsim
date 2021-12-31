@@ -28,7 +28,7 @@ TSRes TSFunXForm::OnDataPointProt(int idx) const
     return res;
 }
 
-TSRes TSFunXForm::Reconstruct(int idx, const EnjoLib::VecD & input, double prev) const
+TSRes TSFunXForm::Reconstruct(int idx, const EnjoLib::VecD & input, const EnjoLib::VecD & lost) const
 {
     TSRes res(true);
     return res;

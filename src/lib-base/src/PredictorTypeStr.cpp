@@ -8,9 +8,13 @@ PredictorTypeStr::PredictorTypeStr()
         const PredictorType type = PredictorType(i);
         switch (type) // Generate compiler warnings
         {
-            case PredictorType::PRED_REGRESSION:    Add(i, "Regr"); break;
-            case PredictorType::PRED_TRUE:          Add(i, "True"); break;
             case PredictorType::PRED_BASELINE:      Add(i, "Baseline"); break;
+            case PredictorType::PRED_BASELINE2:     Add(i, "Baseline 2"); break;
+            case PredictorType::PRED_AR:            Add(i, "AR"); break;
+            case PredictorType::PRED_SMAMA:         Add(i, "SmaMA"); break;
+            case PredictorType::PRED_ARMA:          Add(i, "ARMA"); break;
+            case PredictorType::PRED_TRUE:          Add(i, "True"); break;
+            case PredictorType::PRED_TEST:          Add(i, "Test"); break;
             case PredictorType::PRED_DUMB:          Add(i, "Dumb"); break;
         }
     }

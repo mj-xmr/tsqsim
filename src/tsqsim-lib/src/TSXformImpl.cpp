@@ -1,7 +1,8 @@
 #include "TSXformImpl.h"
 
-#include "TSFunBase.h"
+#include "IHasCandles.h"
 #include "Candle.h"
+#include "TSXformRes.h"
 
 #include <Math/GeneralMath.hpp>
 #include <Util/CoutBuf.hpp>
@@ -10,73 +11,119 @@
 
 using namespace EnjoLib;
 
-double TSXformDiff::Run(const TSFunBase & input, int idx, double valPrev) const
+
+TSXformDiff::TSXformDiff(const VecStr & params)
+{
+    if (params.size() > 0)
+    {
+         m_order = CharManipulations().ToInt(params.at(0));
+    }
+}
+XformRes TSXformDiff::Run(const IHasCandles & input, int idx, double prevConverted) const
 {
     const Candle & canCurr = input.GetCandle(idx);
-    double prev = canCurr.GetOpen();
-    if (idx < int(input.Len()) - 1) /// TODO: Retarded from a user's perspective. It should be: "if (i > 0)" ?
+    double prev = prevConverted ;
+    if (idx < int(input.Len()) - int(MaxShift())) /// TODO: Retarded from a user's perspective. It should be: "if (i > 0)" ?
     {
         const Candle & canPrev = input.GetCandle(idx, 1);
         prev = canPrev.GetClose();
+        //prev = 0;
     }
     else
     {
         //LOGL << "Prev = " << prev << Nl;
     }
-    const double diff = canCurr.GetClose() - prev;
+    //const double diff = canCurr.GetClose() - prev;
     //const double diff = canCurr.GetHigh() - prev;
+    //return diff;
+    VecD inp;
+    inp.Add(canCurr.GetClose());
+    inp.Add(prev);
+    const XformRes & diff = Run(inp);
     return diff;
 }
-double TSXformDiff::Run(const EnjoLib::VecD & vals) const
+XformRes TSXformDiff::Run(const EnjoLib::VecD & vals) const
 {
+    XformRes res;
+
     const double diff = vals.at(0) - vals.at(1);
-    return diff;
+    res.conv = diff;
+    //VecD lost;
+    //lost.Add();  // vals.at(0) ? rather not. Only add old and missing
+    res.lost = vals.at(1);
+
+    return res;
 }
 /// TODO: Unit test all the inversions with CHECK_CLOSE()
-double TSXformDiff::Invert(const EnjoLib::VecD & vals) const
+double TSXformDiff::Invert(const EnjoLib::VecD & vals, double lost) const
 {
-    return vals.at(0) + vals.at(1);
+    return vals.at(0) + lost;
 }
 unsigned TSXformDiff::MaxShift() const
 {
-    return 0;
+    return m_order;
 }
 
-double TSXformFabs::Run(const TSFunBase & input, int idx, double valPrev) const
+XformRes TSXformOrig::Run(const IHasCandles & input, int idx, double prevConverted) const
 {
-    return GeneralMath().Fabs(valPrev);
+    XformRes res;
+
+    const Candle & canCurr = input.GetCandle(idx);
+    res.conv = canCurr.GetClose();
+
+    return res; /// TODO: Get a common value of candle
 }
-double TSXformFabs::Run(const EnjoLib::VecD & vals) const
+XformRes TSXformOrig::Run(const EnjoLib::VecD & vals) const
 {
-    return GeneralMath().Fabs(vals.at(0));
+    XformRes res;
+    res.conv = vals.at(0);
+    return res;
 }
-double TSXformFabs::Invert(const EnjoLib::VecD & vals) const
+double TSXformOrig::Invert(const EnjoLib::VecD & vals, double lost) const
 {
     return vals.at(0);
 }
 
-double TSXformSqrt::Run(const TSFunBase & input, int idx, double valPrev) const
+XformRes TSXformFabs::Run(const IHasCandles & input, int idx, double prevConverted) const
 {
-    return Run(VecD(1, valPrev));
+    return Run(VecD(1, prevConverted));
 }
-double TSXformSqrt::Run(const EnjoLib::VecD & vals) const
+XformRes TSXformFabs::Run(const EnjoLib::VecD & vals) const
 {
+    XformRes res;
+    res.conv = GeneralMath().Fabs(vals.at(0));
+    res.lost = GeneralMath().sign(vals.at(0));
+    return res;
+}
+double TSXformFabs::Invert(const EnjoLib::VecD & vals, double lost) const
+{
+    return vals.at(0) * lost;
+}
+
+XformRes TSXformSqrt::Run(const IHasCandles & input, int idx, double prevConverted) const
+{
+    return Run(VecD(1, prevConverted));
+}
+XformRes TSXformSqrt::Run(const EnjoLib::VecD & vals) const
+{
+    XformRes res;
     const double valPrev = vals.at(0);
     const GMat gmat;
     if (valPrev > 0)
     {
-        return gmat.Sqrt(valPrev);
+        res.conv = gmat.Sqrt(valPrev);
     }
     else if (valPrev == 0)
     {
-        return 0;
+        res.conv = 0;
     }
     else
     {
-        return -gmat.Sqrt(-valPrev);
+        res.conv = -gmat.Sqrt(-valPrev);
     }
+    return res;
 }
-double TSXformSqrt::Invert(const EnjoLib::VecD & vals) const
+double TSXformSqrt::Invert(const EnjoLib::VecD & vals, double lost) const
 {
     const double valPrev = vals.at(0);
     const GMat gmat;
@@ -84,29 +131,31 @@ double TSXformSqrt::Invert(const EnjoLib::VecD & vals) const
     return valPrev < 0 ? -pow : pow;
 }
 
-double TSXformLog::Run(const TSFunBase & input, int idx, double valPrev) const
+XformRes TSXformLog::Run(const IHasCandles & input, int idx, double prevConverted) const
 {
-    return Run(VecD(1, valPrev));
+    return Run(VecD(1, prevConverted));
 }
-double TSXformLog::Run(const EnjoLib::VecD & vals) const
+XformRes TSXformLog::Run(const EnjoLib::VecD & vals) const
 {
+    XformRes res;
     const double valPrev = vals.at(0);
     const GMat gmat;
     if (valPrev > VAL_BORDER)
     {
-        return gmat.Log(valPrev);
+        res.conv = gmat.Log(valPrev);
     }
     else if (valPrev == VAL_BORDER)
     {
-        return 0;
+        res.conv = 0;
     }
     else
     {
         const double diff = gmat.Fabs(VAL_BORDER - valPrev);
-        return -gmat.Log(diff + VAL_BORDER); /// TODO: Call Log only once (after UTs)
+        res.conv = -gmat.Log(diff + VAL_BORDER); /// TODO: Call Log only once (after UTs)
     }
+    return res;
 }
-double TSXformLog::Invert(const EnjoLib::VecD & vals) const
+double TSXformLog::Invert(const EnjoLib::VecD & vals, double lost) const
 {
     const double val = vals.at(0);
     const GMat gmat;
@@ -125,15 +174,15 @@ TSXformAdd::TSXformAdd(const VecStr & params)
 : m_add(CharManipulations().ToDouble(params.at(0)))
 {
 }
-double TSXformAdd::Run(const TSFunBase & input, int idx, double valPrev) const
+XformRes TSXformAdd::Run(const IHasCandles & input, int idx, double prevConverted) const
 {
-    return Run(VecD(1, valPrev));
+    return Run(VecD(1, prevConverted));
 }
-double TSXformAdd::Run(const EnjoLib::VecD & vals) const
+XformRes TSXformAdd::Run(const EnjoLib::VecD & vals) const
 {
-    return vals.at(0) + m_add;
+    return XformRes(vals.at(0) + m_add);
 }
-double TSXformAdd::Invert(const EnjoLib::VecD & vals) const
+double TSXformAdd::Invert(const EnjoLib::VecD & vals, double lost) const
 {
     return vals.at(0) - m_add;
 }
@@ -143,15 +192,15 @@ TSXformMul::TSXformMul(const VecStr & params)
 {
     Assertions::IsNonZero(m_mul, "TSXformMul::TSXformMul()");
 }
-double TSXformMul::Run(const TSFunBase & input, int idx, double valPrev) const
+XformRes TSXformMul::Run(const IHasCandles & input, int idx, double prevConverted) const
 {
-    return Run(VecD(1, valPrev));
+    return Run(VecD(1, prevConverted));
 }
-double TSXformMul::Run(const EnjoLib::VecD & vals) const
+XformRes TSXformMul::Run(const EnjoLib::VecD & vals) const
 {
-    return vals.at(0) * m_mul;
+    return XformRes(vals.at(0) * m_mul);
 }
-double TSXformMul::Invert(const EnjoLib::VecD & vals) const
+double TSXformMul::Invert(const EnjoLib::VecD & vals, double lost) const
 {
     return vals.at(0) / m_mul;
 }
@@ -161,15 +210,15 @@ TSXformDiv::TSXformDiv(const VecStr & params)
 {
     Assertions::IsNonZero(m_div, "TSXformDiv::TSXformDiv()");
 }
-double TSXformDiv::Run(const TSFunBase & input, int idx, double valPrev) const
+XformRes TSXformDiv::Run(const IHasCandles & input, int idx, double prevConverted) const
 {
-    return Run(VecD(1, valPrev));
+    return Run(VecD(1, prevConverted));
 }
-double TSXformDiv::Run(const EnjoLib::VecD & vals) const
+XformRes TSXformDiv::Run(const EnjoLib::VecD & vals) const
 {
-    return vals.at(0) / m_div;
+    return XformRes(vals.at(0) / m_div);
 }
-double TSXformDiv::Invert(const EnjoLib::VecD & vals) const
+double TSXformDiv::Invert(const EnjoLib::VecD & vals, double lost) const
 {
     return vals.at(0) * m_div;
 }

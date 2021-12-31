@@ -1,6 +1,7 @@
 #ifndef TSRES_H
 #define TSRES_H
 
+#include <Util/VecD.hpp>
 
 class TSRes
 {
@@ -10,6 +11,7 @@ class TSRes
 
         bool valid = false;
         double val = 0;
+        EnjoLib::VecD lost;
 
 
 

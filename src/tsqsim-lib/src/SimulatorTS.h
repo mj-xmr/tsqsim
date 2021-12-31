@@ -2,8 +2,10 @@
 #define SIMULATORTS_H
 
 #include "ISimulatorTS.h"
+#include "TSXformDataMan.h"
 #include <Util/VecD.hpp>
 #include <Util/Tuple.hpp>
+#include <Statistical/Matrix.hpp>
 
 class ISimulatorAccum;
 class IPeriod;
@@ -28,14 +30,14 @@ class SimulatorTS : public ISimulatorTS
         static TSRes IterBet(const Inp & ele);
 
         STDFWD::vector<TSRes> GetRets(const STDFWD::vector<Inp> & inp) const;
-        EnjoLib::VecD GetRetsFiltered(const STDFWD::vector<Inp> & inp) const;
-        STDFWD::vector<TSRes> GetReconstruction(const ITSFun * fun, const EnjoLib::VecD & inp, double initial, bool additive = true) const;
+        TSXformDataMan GetRetsFiltered(const STDFWD::vector<Inp> & inp) const;
+        STDFWD::vector<TSRes> GetReconstruction(const ITSFun * fun, const EnjoLib::VecD & inp, const EnjoLib::Matrix & lost, bool additive = true) const;
         EnjoLib::VecD GetReconstructionFiltered(const STDFWD::vector<TSRes> & input) const;
 
         TSRes Reconstr(const ITSFun * fun, const double val) const;
-        EnjoLib::VecD Pred(const EnjoLib::VecD & data, const PredictorType & type) const;
+        EnjoLib::VecD Pred(const ITSFun & tsFun, const PredictorType & type) const;
 
-        bool VecEqual(const EnjoLib::VecD & data1, const EnjoLib::VecD & data2) const; /// TODO: Extractg
+        bool VecEqual(const EnjoLib::VecD & data1, const EnjoLib::VecD & data2, double eps = 0) const; /// TODO: Extractg
 
     protected:
 
@@ -54,13 +56,15 @@ class SimulatorTS : public ISimulatorTS
         double sum = 0;
         double m_meanChange = 0;
         EnjoLib::VecD m_balance;
-        EnjoLib::VecD m_rets;
+        EnjoLib::VecD m_original;
         EnjoLib::VecD m_preds;
         EnjoLib::VecD m_predsTrue;
         EnjoLib::VecD m_predsBaseline;
         EnjoLib::VecD m_reconstr;
         EnjoLib::VecD m_reconstrPred;
         EnjoLib::VecD m_reconstrPredBase;
+
+        TSXformDataMan m_dataMan;
 };
 
 #endif // SIMULATORTS_H

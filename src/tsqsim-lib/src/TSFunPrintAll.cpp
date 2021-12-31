@@ -22,7 +22,7 @@ TSRes TSFunPrintAll::OnDataPointProt(int idx) const
     return res;
 }
 
-TSRes TSFunPrintAll::Reconstruct(int idx, const EnjoLib::VecD & input, double prev) const
+TSRes TSFunPrintAll::Reconstruct(int idx, const EnjoLib::VecD & input, const EnjoLib::VecD & lost) const
 {
     TSRes res(true);
     return res;

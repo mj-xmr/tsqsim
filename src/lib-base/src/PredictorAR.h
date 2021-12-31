@@ -1,14 +1,14 @@
-#ifndef PREDICTORDUMB_H
-#define PREDICTORDUMB_H
+#ifndef PREDICTORAR_H
+#define PREDICTORAR_H
 
 #include "IPredictor.h"
 
 
-class PredictorDumb : public IPredictor
+class PredictorAR : public IPredictor
 {
     public:
-        PredictorDumb();
-        virtual ~PredictorDumb();
+        PredictorAR();
+        virtual ~PredictorAR();
 
         EnjoLib::VecD Predict(const EnjoLib::VecD & data) const override;
         unsigned GetLags() const override;
@@ -18,4 +18,4 @@ class PredictorDumb : public IPredictor
     private:
 };
 
-#endif // PREDICTORDUMB_H
+#endif // PREDICTORAR_H

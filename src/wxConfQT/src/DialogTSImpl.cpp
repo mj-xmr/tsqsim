@@ -20,7 +20,7 @@ void DialogTS::Init()
     m_mapCheckbox.Register(&m_confQTPlot.CANDLES,           m_chkCandles);
     m_mapCheckbox.Register(&m_confQTPlot.TECHS,             m_chkTechs);
     */
-    m_choicePredType->Init(PredictorTypeStr(), int(PredictorType::PRED_REGRESSION));
+    m_choicePredType->Init(PredictorTypeStr(), int(PredictorType::PRED_AR));
     
     m_mapChoice.Register(&m_confTS.PRED_TYPE, m_choicePredType);
     

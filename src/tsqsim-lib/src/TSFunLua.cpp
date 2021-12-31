@@ -75,7 +75,7 @@ TSRes TSFunLua::OnDataPointProt(int idx) const
     return res;
 }
 
-TSRes TSFunLua::Reconstruct(int idx, const EnjoLib::VecD & input, double prev) const
+TSRes TSFunLua::Reconstruct(int idx, const EnjoLib::VecD & input, const EnjoLib::VecD & lost) const
 {
     TSRes res(true);
     return res;

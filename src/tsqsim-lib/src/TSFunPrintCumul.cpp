@@ -33,7 +33,7 @@ TSRes TSFunPrintCumul::OnDataPointProt(int idx) const
     return res;
 }
 
-TSRes TSFunPrintCumul::Reconstruct(int idx, const EnjoLib::VecD & input, double prev) const
+TSRes TSFunPrintCumul::Reconstruct(int idx, const EnjoLib::VecD & input, const EnjoLib::VecD & lost) const
 {
     TSRes res(true);
     return res;

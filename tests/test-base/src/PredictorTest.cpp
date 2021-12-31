@@ -2,6 +2,7 @@
 
 #include "PredictorFactory.h"
 #include "PredictorType.h"
+#include "PredictorTypeStr.h"
 #include <Util/CoutBuf.hpp>
 #include <Util/VecD.hpp>
 
@@ -13,7 +14,7 @@ using namespace EnjoLib;
 static VecD PredGenTrue()
 {
     VecD ret;
-    for (int i = 1; i < 7; ++i)
+    for (int i = 1; i < 12; ++i)
     {
         ret.Add(i);
     }
@@ -23,7 +24,7 @@ static VecD PredGenTrue()
 static VecD Pred(const VecD & inp, const PredictorType & type)
 {
     CorPtr<IPredictor> algo = PredictorFactory().Create(type);
-    return algo->PredictNextVec(inp);
+    return algo->Predict(inp);
 }
 
 TEST(Pred_True)
@@ -41,7 +42,8 @@ TEST(Pred_Baseline)
     const VecD & vecActual = Pred(vecTrue, PredictorType::PRED_BASELINE);
     
     VecD vecExpected;
-    vecExpected.Add(vecTrue.at(0));
+    //vecExpected.Add(vecTrue.at(0)); // No chance of knowing the truth.
+    vecExpected.Add(IPredictor::ERROR);
     for (int i = 0; i < vecTrue.size() - 1; ++i)
     {
         vecExpected.Add(vecTrue.at(i));
@@ -51,3 +53,35 @@ TEST(Pred_Baseline)
     CHECK(vecExpected == vecActual);
 }
 
+TEST(Pred_all_zero_cond)
+{
+    bool verbose = false;
+    //verbose = true;
+    PredictorTypeStr typeStr;
+    const VecD & vecTrue = PredGenTrue();
+    for (int iType = 0; iType <= int(PredictorType::PRED_TRUE); ++iType)
+    {
+        if (verbose)
+        {
+            LOGL << "Pred type = " << typeStr.at(iType) << Nl;
+        }
+        const PredictorType type = PredictorType(iType);
+        CorPtr<IPredictor> algo = PredictorFactory().Create(type);
+        const VecD & vecActual = algo->Predict(vecTrue);
+        CHECK_EQUAL(vecTrue.size(), vecActual.size());
+        
+        const int lags = algo->GetLags();
+        for (int i = 0; i < lags; ++i)
+        {
+            CHECK_EQUAL(IPredictor::ERROR, vecActual.at(i)); // Initial condition: no predictions made
+        }
+        for (int i = lags; i < vecTrue.size() - 1; ++i)
+        {
+            CHECK(vecActual.at(i) != IPredictor::ERROR); // Predicted something
+            if (type != PredictorType::PRED_TRUE)
+            {
+                //CHECK(vecActual.at(i) != vecTrue.at(i));
+            }
+        }
+    }
+}

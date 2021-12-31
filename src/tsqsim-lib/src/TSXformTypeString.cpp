@@ -10,6 +10,7 @@ TSXformTypeString:: TSXformTypeString()
         TSXformType type = TSXformType(i);
         switch (type) // Generate compiler warnings
         {
+            case TSXformType::ORIG:     Add(i, "orig"); break;
             case TSXformType::DIFF:     Add(i, "diff"); break;
             case TSXformType::FABS:     Add(i, "fabs"); break;
             case TSXformType::SQRTS:    Add(i, "sqrt"); break;

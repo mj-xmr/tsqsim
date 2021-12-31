@@ -3,7 +3,10 @@
 
 #include "ITSXform.h"
 #include <Util/Str.hpp>
+#include <Util/VecStr.hpp>
 #include <Template/CorradePointer.h>
+
+enum class TSXformType;
 
 class TSXformFactory
 {
@@ -12,6 +15,7 @@ class TSXformFactory
         virtual ~TSXformFactory();
         
         CorPtr<ITSXform> Create(const EnjoLib::Str & name) const;
+        CorPtr<ITSXform> CreateByType(const TSXformType & type, const VecStr & params) const; // Not extensible.
 
     protected:
 
