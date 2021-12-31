@@ -50,7 +50,7 @@ TSRes TSXformMan::OnDataPointProt(const IHasCandles & funBase, int idx) const
 TSRes TSXformMan::Reconstruct(double val, const EnjoLib::VecD & valLostVec) const
 {
     bool verbose = true;
-    //verbose = false;
+    verbose = false;
     for (int i = int(m_xforms.size() - 1); i >= 0; --i)
     {   // Iterate the transformations in the reverse order w.r.t. as they were applied
         const CorPtr<ITSXform> & pxform = m_xforms.at(i);
@@ -91,7 +91,7 @@ TSRes TSXformMan::Reconstruct(double val, const EnjoLib::VecD & valLostVec) cons
     }
     if (verbose)
     {
-        LOGL << Nl;
+        //LOGL << Nl;
     }
 
     TSRes res(true);
