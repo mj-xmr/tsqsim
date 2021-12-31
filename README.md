@@ -155,6 +155,10 @@ Thus the priorities of the development are skewed towards delivering results to 
 
 ![image](https://user-images.githubusercontent.com/63722585/144647510-51028542-a4a7-497c-9bc1-053daf7af947.png)
 
+## wx Configurator
+![image](https://user-images.githubusercontent.com/63722585/147835250-e381ff4e-0665-44de-b384-03810a9fbfb1.png)
+
+
 ## Console simulator
 
 ```
