@@ -4,6 +4,7 @@
 
 enum class TSXformType
 {
+    ORIG,
     DIFF,
     FABS,
     SQRTS,

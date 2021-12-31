@@ -9,8 +9,21 @@ class PredictorBaseline : public IPredictor
     public:
         PredictorBaseline();
         virtual ~PredictorBaseline();
-        
-        EnjoLib::VecD Predict(const EnjoLib::VecD & data, size_t idx, int horizon) const override;
+
+        EnjoLib::VecD Predict(const EnjoLib::VecD & data) const override;
+        unsigned GetLags() const override;
+
+    protected:
+
+    private:
+};
+
+class PredictorBaseline2 : public PredictorBaseline
+{
+    public:
+        PredictorBaseline2();
+        virtual ~PredictorBaseline2();
+        unsigned GetLags() const override;
 
     protected:
 

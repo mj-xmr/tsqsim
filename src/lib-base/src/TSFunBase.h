@@ -23,7 +23,7 @@ class TSFunBase : public ITSFun
         const IPeriod & GetPer() const;
         const IDataProvider & GetData() const;
         const IBufferCandles & GetCandles() const;
-        Candle GetCandle(int idx, int shift = 0) const;
+        Candle GetCandle(int idx, int shift = 0) const override; // IHasCandles
 
     protected:
 

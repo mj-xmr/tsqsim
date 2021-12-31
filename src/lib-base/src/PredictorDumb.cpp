@@ -10,7 +10,12 @@ PredictorDumb::~PredictorDumb()
 {
 }
 
-EnjoLib::VecD PredictorDumb::Predict(const EnjoLib::VecD & data, size_t idx, int horizon) const
+EnjoLib::VecD PredictorDumb::Predict(const EnjoLib::VecD & data) const
 {
-    return PredictorBaseline().Predict(data, idx, horizon) * 1.2;
+    return PredictorBaseline().Predict(data) * 1.2;
+}
+
+unsigned PredictorDumb::GetLags() const
+{
+    return PredictorBaseline().GetLags();
 }

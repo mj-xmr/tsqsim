@@ -3,9 +3,13 @@
 
 enum class PredictorType
 {
-    PRED_REGRESSION,
     PRED_BASELINE,
+    PRED_BASELINE2,
+    PRED_AR,
+    PRED_SMAMA,
+    PRED_ARMA,
     PRED_DUMB,
+    PRED_TEST,
     PRED_TRUE
 };
 

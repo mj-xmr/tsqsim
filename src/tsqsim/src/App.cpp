@@ -13,6 +13,7 @@
 #include "ConfigTF.h"
 #include "ConfigTF2.h"
 #include "ConfigSym.h"
+#include "TSUtil.h"
 
 #include <Template/UniquePtrVecFwd.hpp>
 #include <Template/UniquePtr.hpp>
@@ -48,21 +49,8 @@ void App::Run(const ConfigSym & confSymCmdLine) const
         //const IPeriod & per = symbolsVec.at(0)->GetPeriod(periods.at(0));
         CorPtr<ISymbol> symbol = IMainTester::Create(symFact, &confTF2, &confSym)->GetSymbol(confSym.symbol, periods);
         const IPeriod & per = symbol->GetPeriod(periods.at(0));
-
-        const SimulatorTSFactory simFact;
-        const TSFunFactory tsFunFact;
-
-        //const TSFunType tsFunType = TSFunType::PRINT_ALL;
-        //const TSFunType tsFunType = TSFunType::PRINT_CUMUL;
-        //const TSFunType tsFunType = TSFunType::XFORM;
-        //const TSFunType tsFunType = TSFunType::LUA;
-        const TSFunType tsFunType = TSFunType::TXT; /// TODO: make user's choice
-        const TSInput tsin(per, confTS);
-
-        auto fun = tsFunFact.Create(tsin, tsFunType);
-        CorPtr<ISimulatorTS> sim = simFact.CreateTS(tsin, *fun);
-
-        sim->RunRaw();
+        
+        CorPtr<ISimulatorTS> sim = TSUtil().GetSim(per);
 
         {LOGL << confSym.GetDateFromToStr(false);}
 

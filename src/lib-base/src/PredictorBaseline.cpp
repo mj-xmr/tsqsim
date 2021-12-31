@@ -4,17 +4,34 @@
 PredictorBaseline::PredictorBaseline(){}
 PredictorBaseline::~PredictorBaseline(){}
 
-EnjoLib::VecD PredictorBaseline::Predict(const EnjoLib::VecD & data, size_t idx, int horizon) const
+EnjoLib::VecD PredictorBaseline::Predict(const EnjoLib::VecD & data) const
 {
+    const int lags = GetLags();
     EnjoLib::VecD ret;
-    ret.reserve(horizon);
-    if (idx == 0)
+    //ret.reserve(horizon);
+    for (int i = 0; i < lags; ++i)
     {
-        ret.Add(data.at(idx));
+        //ret.Add(data.at(0));
+        ret.Add(0);
+        //ret.Add(data.at(i));
+        
     }
-    else
+    
+    for (size_t i = lags; i < data.size(); ++i)
     {
-        ret.Add(data.at(idx - 1));
+        ret.Add(data.at(i - lags));
     }
     return ret;
+}
+
+unsigned PredictorBaseline::GetLags() const
+{
+    return 1;
+}
+
+PredictorBaseline2::PredictorBaseline2(){}
+PredictorBaseline2::~PredictorBaseline2(){}
+unsigned PredictorBaseline2::GetLags() const
+{
+    return 5;
 }

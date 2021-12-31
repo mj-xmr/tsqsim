@@ -151,8 +151,8 @@ void PlotElements::SetupTechsVec(QCustomPlot * p, const IStrategy & strat, QCPAx
 void PlotElements::SetupTechsXform(QCustomPlot * p, const ISimulatorTS & simTS, QCPAxisRect *techRect, const PlotDataBase & d)
 {
     SetupTSLine(p, techRect, d, simTS, PredictorOutputType::SERIES,     QPen(Qt::blue),   "Series");
-    SetupTSLine(p, techRect, d, simTS, PredictorOutputType::PREDICTION, QPen(Qt::green),  "Prediction");
-    SetupTSLine(p, techRect, d, simTS, PredictorOutputType::BASELINE,   QPen(Qt::gray),   "Baseline");
+    //SetupTSLine(p, techRect, d, simTS, PredictorOutputType::PREDICTION, QPen(Qt::green),  "Prediction");
+    //SetupTSLine(p, techRect, d, simTS, PredictorOutputType::BASELINE,   QPen(Qt::gray),   "Baseline");
 }
 
 void PlotElements::SetupReconstruction(QCustomPlot * p, const ISimulatorTS & simTS, const PlotDataBase & d)

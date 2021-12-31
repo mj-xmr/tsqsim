@@ -10,15 +10,8 @@
 
 using namespace EnjoLib;
 
-TSXformFactory::TSXformFactory()
-{
-    //ctor
-}
-
-TSXformFactory::~TSXformFactory()
-{
-    //dtor
-}
+TSXformFactory::TSXformFactory(){}
+TSXformFactory::~TSXformFactory(){}
 
 CorPtr<ITSXform> TSXformFactory::Create(const Str & name) const
 {
@@ -36,18 +29,26 @@ CorPtr<ITSXform> TSXformFactory::Create(const Str & name) const
     if (typeStr.HasName(namelo))
     {
         const TSXformType type = typeStr.ToType<TSXformType>(namelo);
-        switch (type)
-        {
-            case TSXformType::DIFF:     return CorPtr<ITSXform>(new TSXformDiff());
-            case TSXformType::FABS:     return CorPtr<ITSXform>(new TSXformFabs());
-            case TSXformType::SQRTS:    return CorPtr<ITSXform>(new TSXformSqrt());
-            case TSXformType::LOGS:     return CorPtr<ITSXform>(new TSXformLog());
-            case TSXformType::ADD:      return CorPtr<ITSXform>(new TSXformAdd(params));
-            case TSXformType::MUL:      return CorPtr<ITSXform>(new TSXformMul(params));
-            case TSXformType::DIV:      return CorPtr<ITSXform>(new TSXformDiv(params));
-            case TSXformType::END:      return CorPtr<ITSXform>(new TSXformDiff()); // Fake
-        }
+        return CreateByType(type, params);
     }
 
     throw ExceptNotImpl("Not implemented ISXform: '" + namelo + "'");
+}
+
+CorPtr<ITSXform> TSXformFactory::CreateByType(const TSXformType & type, const VecStr & params) const
+{
+    switch (type)
+    {
+        case TSXformType::ORIG:     return CorPtr<ITSXform>(new TSXformOrig());
+        case TSXformType::DIFF:     return CorPtr<ITSXform>(new TSXformDiff(params));
+        case TSXformType::FABS:     return CorPtr<ITSXform>(new TSXformFabs());
+        case TSXformType::SQRTS:    return CorPtr<ITSXform>(new TSXformSqrt());
+        case TSXformType::LOGS:     return CorPtr<ITSXform>(new TSXformLog());
+        case TSXformType::ADD:      return CorPtr<ITSXform>(new TSXformAdd(params));
+        case TSXformType::MUL:      return CorPtr<ITSXform>(new TSXformMul(params));
+        case TSXformType::DIV:      return CorPtr<ITSXform>(new TSXformDiv(params));
+        case TSXformType::END:      return CorPtr<ITSXform>(new TSXformDiff(params)); // Fake
+    }
+
+    throw ExceptNotImpl("Not implemented ISXform: '" + CharManipulations().ToStr(int(type)) + "'");
 }

@@ -9,8 +9,9 @@ class PredictorTrue : public IPredictor
     public:
         PredictorTrue();
         virtual ~PredictorTrue();
-        
-        EnjoLib::VecD Predict(const EnjoLib::VecD & data, size_t idx, int horizon) const override;
+
+        EnjoLib::VecD Predict(const EnjoLib::VecD & data) const override;
+        unsigned GetLags() const override;
 
     protected:
 

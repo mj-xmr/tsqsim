@@ -13,7 +13,7 @@ class TSFunPrintAll : public TSFunBase
 
     protected:
         TSRes OnDataPointProt(int idx) const override;
-        TSRes Reconstruct(int idx, const EnjoLib::VecD & input, double prev) const override;
+        TSRes Reconstruct(int idx, const EnjoLib::VecD & input, const EnjoLib::VecD & lost) const override;
 
     private:
 };
