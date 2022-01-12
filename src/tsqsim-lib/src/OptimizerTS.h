@@ -25,14 +25,14 @@ class OptimizerTS : public OptimizerBase
         void Consume(const EnjoLib::VecD & data) override; // IMultiDimIterConsumerTpl
 
     protected:
-        stdfwd::vector<const IPeriod *> GetPeriods() const override;
+        STDFWD::vector<const IPeriod *> GetPeriods() const override;
         void PrintStats() const override;
         void PrintStatsSummary() const override;
     private:
         const ISymbol & m_sym;
         const IPeriod & m_period;
         const TSFunFactory & m_funFact;
-        
+
         TSFunType m_funType;
 };
 

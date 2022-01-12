@@ -29,7 +29,7 @@ class OptimizerPred : public OptimizerBase, public OptimizerFactoryAbstract
         int Len() const override; // IHasLen
 
     protected:
-        stdfwd::vector<const IPeriod *> GetPeriods() const override;
+        STDFWD::vector<const IPeriod *> GetPeriods() const override;
         void PrintStats() const override;
         void PrintStatsSummary() const override;
     private:
@@ -38,7 +38,7 @@ class OptimizerPred : public OptimizerBase, public OptimizerFactoryAbstract
         const IPeriod & m_period;
         const PredictorFactory & m_fact;
         //EnjoLib::Str m_outDir;
-        
+
         PredictorType m_type;
         int m_len = 0;
 
