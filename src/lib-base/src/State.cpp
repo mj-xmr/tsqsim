@@ -1,8 +1,9 @@
 #include "State.h"
 #include "Candle.h"
 #include <Util/Except.hpp>
-#include <STD/Iostream.hpp>
 #include <Util/Pair.hpp>
+
+#include <STD/Iostream.hpp>
 
 using namespace std;
 //using namespace EnjoLib;

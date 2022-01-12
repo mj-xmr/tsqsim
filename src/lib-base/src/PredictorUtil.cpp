@@ -88,14 +88,16 @@ double  PredictorUtil::RegressionProt(int numSamples, const EnjoLib::VecD & data
 
 double PredictorUtil::Erratic(const EnjoLib::VecD & data, size_t idx, bool erratic0) const
 {
+    return 0; /// TODO: Decide it it's OK. So far everything would suggest so.
+    
     if (true)
     //if (erratic0)
     {
-        return 0; /// TODO: Decide it it's OK. So far everything would suggest so.
+        //return 0; /// TODO: Decide it it's OK. So far everything would suggest so.
     }
     else
     {
-        return PredictorBaseline().Predict(data).at(idx);
+        //return PredictorBaseline().Predict(data).at(idx);
     }
 }
 

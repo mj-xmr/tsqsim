@@ -1,13 +1,13 @@
 #ifndef PREDICTORSMAMA_H
 #define PREDICTORSMAMA_H
 
-#include "IPredictor.h"
+#include "PredictorBase.h"
 
 
-class PredictorSMAMA : public IPredictor
+class PredictorSMAMA : public PredictorBase
 {
     public:
-        PredictorSMAMA();
+        PredictorSMAMA(const IDataProvider & dat);
         virtual ~PredictorSMAMA();
 
         EnjoLib::VecD Predict(const EnjoLib::VecD & data) const override;
@@ -16,6 +16,7 @@ class PredictorSMAMA : public IPredictor
     protected:
 
     private:
+        OptiVarF m_lagMine;
 };
 
 #endif // PREDICTORMA_H

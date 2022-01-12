@@ -18,14 +18,20 @@ class TSFunBase : public ITSFun
 
         TSRes OnDataPoint(int idx) const override final;
         unsigned Len() const override final;
+        void SetSilent() override;
+        bool IsVerbose() const;
 
         const TSInput & GetTSIn() const;
         const IPeriod & GetPer() const;
         const IDataProvider & GetData() const;
         const IBufferCandles & GetCandles() const;
         Candle GetCandle(int idx, int shift = 0) const override; // IHasCandles
+        OptiVarVec GetOptiFloat() override; // IOptimizable
 
     protected:
+        void AddOptiVar(OptiVarF & var);
+        void AddOptiVars(IOptimizable & iopt);
+        OptiVarVec & GetOptiFloatRW();
 
         virtual TSRes OnDataPointProt(int idx) const = 0;
         virtual unsigned LenProt() const;       /// TODO remove
@@ -39,6 +45,8 @@ class TSFunBase : public ITSFun
         const TSInput & m_tsin;
         const IPeriod & m_per;
         const IBufferCandles & m_bufCan;
+        EnjoLib::SafePtrFast<OptiVarVec> m_optiFloats;
+        bool m_silent = false;
 };
 
 #endif // TSFUNBASE_H

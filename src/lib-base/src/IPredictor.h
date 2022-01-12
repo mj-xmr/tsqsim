@@ -1,11 +1,13 @@
 #ifndef IPREDICTOR_H
 #define IPREDICTOR_H
 
+#include "IOptimizable.h"
+#include "IHasLen.h"
 #include <Util/VecD.hpp>
 
 class ITSFun;
 
-class IPredictor
+class IPredictor : public IOptimizable, public IHasLen
 {
     public:
         IPredictor();

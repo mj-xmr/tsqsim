@@ -2,12 +2,16 @@
 #define ISIMULATOR_H
 
 #include "StartEnd.h"
+#include <Util/VecD.hpp>
+#include <Template/IIterable.hpp>
 #include <3rdParty/stdfwd.hh>
 
+class IOptimizable;
 class ISimulatorAccum;
 class ISimulObserver;
 class SvmWrapperProb;
 class MatplotSimResultsMT;
+class OptiVarF;
 
 class ISimulator
 {
@@ -17,6 +21,10 @@ class ISimulator
 
         virtual void Run() = 0;
         virtual void RunRaw(const StartEnd & startEndFrame = StartEnd()) {}
+        /// Used to close all open positions in optimization
+        virtual void Finalize(){}
+        //virtual void ReinitOptiVars(const EnjoLib::IIterable<OptiVarF *> & opti){}
+        virtual void ReinitOptiVars(const EnjoLib::VecD & optiVars){}
 
         void SetAccumulator(ISimulatorAccum * accum) { m_accum = accum; }
         void SetMatplotMT(MatplotSimResultsMT * mpMT) { m_mpMT = mpMT; }

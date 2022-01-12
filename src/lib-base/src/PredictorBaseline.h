@@ -1,13 +1,13 @@
 #ifndef PREDICTORBASELINE_H
 #define PREDICTORBASELINE_H
 
-#include "IPredictor.h"
+#include "PredictorBase.h"
 
 /// Baseline predictor simply uses the previous value of the series
-class PredictorBaseline : public IPredictor
+class PredictorBaseline : public PredictorBase
 {
     public:
-        PredictorBaseline();
+        PredictorBaseline(const IDataProvider & dat);
         virtual ~PredictorBaseline();
 
         EnjoLib::VecD Predict(const EnjoLib::VecD & data) const override;
@@ -21,7 +21,7 @@ class PredictorBaseline : public IPredictor
 class PredictorBaseline2 : public PredictorBaseline
 {
     public:
-        PredictorBaseline2();
+        PredictorBaseline2(const IDataProvider & dat);
         virtual ~PredictorBaseline2();
         unsigned GetLags() const override;
 

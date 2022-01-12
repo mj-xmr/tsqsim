@@ -16,13 +16,16 @@ class OptiVarF
         EnjoLib::VecF GetSpace() const;
         void StoreVariable(const IDataProvider & period) const;
         void Init();
-        
+        float GetVal() const;
+        const float & GetValRef() const;
+        void SetVal(float val);
+
         static EnjoLib::VecF GetSpaceDiscrete(float valMin, float valMax, float step, bool multiplyStep = false);
         static EnjoLib::VecF GetSpaceRandom(float valMin, float valMax, int number = 100);
 
         const IDataProvider * m_per;
         EnjoLib::Str varId;
-        float val;
+
         float valMin;
         float valMax;
         float step;
@@ -30,6 +33,8 @@ class OptiVarF
         bool fp;
     protected:
     private:
+        float val;
+        float valDefault;
 };
 
 //typedef OptiVar<int> OptiVarInt;

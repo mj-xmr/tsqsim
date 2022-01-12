@@ -14,6 +14,7 @@
 PredictorFactory::PredictorFactory(){}
 PredictorFactory::~PredictorFactory(){}
 
+/*
 CorPtr<IPredictor> PredictorFactory::Create(const PredictorType & type) const
 {
     switch (type)
@@ -26,6 +27,23 @@ CorPtr<IPredictor> PredictorFactory::Create(const PredictorType & type) const
         case PredictorType::PRED_TEST:          return CorPtr<IPredictor>(new PredictorExperimental());
         case PredictorType::PRED_DUMB:          return CorPtr<IPredictor>(new PredictorDumb());
         case PredictorType::PRED_TRUE:          return CorPtr<IPredictor>(new PredictorTrue());
+    }
+    throw EnjoLib::ExceptNotImpl("PredictorFactory(): Not implemented type");
+}
+*/
+
+CorPtr<IPredictor> PredictorFactory::Create(const IDataProvider & dat, const PredictorType & type) const
+{
+    switch (type)
+    {
+        case PredictorType::PRED_AR:            return CorPtr<IPredictor>(new PredictorAR(dat));
+        case PredictorType::PRED_SMAMA:         return CorPtr<IPredictor>(new PredictorSMAMA(dat));
+        case PredictorType::PRED_ARMA:          return CorPtr<IPredictor>(new PredictorARMA(dat));
+        case PredictorType::PRED_BASELINE:      return CorPtr<IPredictor>(new PredictorBaseline(dat));
+        case PredictorType::PRED_BASELINE2:     return CorPtr<IPredictor>(new PredictorBaseline2(dat));
+        case PredictorType::PRED_TEST:          return CorPtr<IPredictor>(new PredictorExperimental(dat));
+        case PredictorType::PRED_DUMB:          return CorPtr<IPredictor>(new PredictorDumb(dat));
+        case PredictorType::PRED_TRUE:          return CorPtr<IPredictor>(new PredictorTrue(dat));
     }
     throw EnjoLib::ExceptNotImpl("PredictorFactory(): Not implemented type");
 }

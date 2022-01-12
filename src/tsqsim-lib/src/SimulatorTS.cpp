@@ -1,5 +1,6 @@
 #include "SimulatorTS.h"
 #include "SimulatorTSMT.h"
+#include "SimulatorTSReports.h"
 #include "IPeriod.h"
 #include "IBufferCandles.h"
 #include "Candle.h"
@@ -18,6 +19,7 @@
 #include "Logic.h"
 
 #include <Math/GeneralMath.hpp>
+#include <Util/VecOpThin.hpp>
 #include <Util/CoutBuf.hpp>
 #include <Util/Except.hpp>
 #include <Util/Tuple.hpp>
@@ -35,6 +37,7 @@ SimulatorTS:: SimulatorTS(const TSInput & tsin, const ITSFun & fun)
 , m_per(tsin.m_per)
 , m_fun(fun)
 , m_cfgTS(tsin.m_cfgTS)
+, m_ppred(PredictorFactory().Create(m_per, m_cfgTS.GetPredType()))
 {
 }
 
@@ -46,8 +49,17 @@ void SimulatorTS::Run()
 void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
 {
     //const int idxStart  = m_per.Len() - m_fun.Len();
-    const int idxStart  = 0;
-    const int idxFinish = m_per.Len();
+    int idxStart  = 0;
+    int idxFinish = m_per.Len();
+    if (startEndFrame.IsValid())
+    {
+        idxStart = startEndFrame.start;
+        idxFinish = startEndFrame.end;
+    }
+    const int len = idxFinish - idxStart;
+    
+    
+    const SimulatorTSReports reps;
 
     std::vector<Inp> input;
     VecD original;
@@ -55,7 +67,7 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
     //const double initial = m_per.GetCandles().GetDataIter().at(idxStart).GetHigh();
     input.reserve(idxFinish - idxStart);
     {
-         LOGL << "Collecting input...\n";
+         //LOGL << "Collecting input...\n";
     }
     for (int i = idxStart; i < idxFinish; ++i)
     {
@@ -69,7 +81,7 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
         original.Add(m_per.GetCandles().GetDataIter().at(i).GetClose());
     }
     {
-         LOGL << "Calculating...\n";
+         //LOGL << "Calculating... " << startEndFrame.ToStr() << "\n";
     }
     {
         m_original = original;
@@ -80,23 +92,23 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
         m_predsTrue     = Pred(m_fun, PredictorType::PRED_TRUE);       // Stays fixed. Simulates transformation and inverse transformation
         m_predsBaseline = Pred(m_fun, PredictorType::PRED_BASELINE);   // Stays fixed
         {
-            LOGL << "\nPredn";
+            //LOGL << "\nPredn";
         }
-        m_preds         = Pred(m_fun, m_cfgTS.GetPredType());
+        m_preds         = Pred(*m_ppred);
 
         //{LOGL << "Sizes rets = " << m_rets.size() << ", true = " << m_predsTrue.size() << ", base = " << m_predsBaseline.size() << ", pred = " << m_preds.size() << Nl;}
 
-        Assertions::SizesEqual(m_dataMan.converted.size(), m_per.Len(),     "m_rets & m_per"); // Really?
-        Assertions::SizesEqual(m_dataMan.converted, m_predsTrue,     "m_rets & m_predsTrue");
-        Assertions::SizesEqual(m_dataMan.converted, m_predsBaseline, "m_rets & m_predsBaseline");
-        Assertions::SizesEqual(m_dataMan.converted, m_preds,         "m_rets & m_preds");
+        Assertions::SizesEqual(m_dataMan.converted.size(),  len,             "m_rets & m_per"); // Really?
+        Assertions::SizesEqual(m_dataMan.converted,         m_predsTrue,     "m_rets & m_predsTrue");
+        Assertions::SizesEqual(m_dataMan.converted,         m_predsBaseline, "m_rets & m_predsBaseline");
+        Assertions::SizesEqual(m_dataMan.converted,         m_preds,         "m_rets & m_preds");
 
-        Assertions::IsTrue (VecEqual(m_dataMan.converted,     m_predsTrue, 0.01),       "m_rets == m_predsTrue");
-        Assertions::IsTrue (VecEqual(m_original, m_predsTrue, 0.01),       "m_original == m_predsTrue");
-        Assertions::IsFalse(VecEqual(m_dataMan.converted, m_predsBaseline),   "m_rets != m_predsBaseline");
+        Assertions::IsTrue (reps.VecEqual(m_dataMan.converted,  m_predsTrue, 0.01),       "m_rets == m_predsTrue");
+        Assertions::IsTrue (reps.VecEqual(m_original,           m_predsTrue, 0.01),       "m_original == m_predsTrue");
+        Assertions::IsFalse(reps.VecEqual(m_dataMan.converted,  m_predsBaseline),   "m_rets != m_predsBaseline");
         if (m_cfgTS.GetPredType() != PredictorType::PRED_TRUE)
         {
-            Assertions::IsFalse(VecEqual(m_dataMan.converted, m_preds),           "m_rets != m_preds");
+            //Assertions::IsFalse(VecEqual(m_dataMan.converted, m_preds),           "m_rets != m_preds");
         }
     }
     {
@@ -114,7 +126,23 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
         Assertions::SizesEqual(m_dataMan.converted, m_reconstrPred,     "m_rets & m_reconstrPred");
     }
 
-    PrintResults();
+    {
+        const URTWrap urtWrap;
+        //const double urtStat = urtWrap.GetStatistic(m_dataMan.converted);
+        //m_goalStationarity = urtStat;
+
+        const PredictorStats statsPred;
+        const PredictorStatsRes & predPoints = statsPred.GenPoints(m_original, m_predsBaseline, m_preds);
+        m_goalPred = predPoints.ratioPred2Base;
+    }
+
+    const VecD & predsNew = reps.PrepPredsPlot(m_original, m_predsBaseline, m_preds);
+    VecOpThin().AddRef(predsNew, &m_predsPlot);
+    //m_predsPlot = predsNew;
+    if (IsVerbose())
+    {
+        PrintResults();
+    }
 }
 
 TSXformDataMan SimulatorTS::GetRetsFiltered(const std::vector<Inp> & input) const
@@ -133,11 +161,23 @@ TSXformDataMan SimulatorTS::GetRetsFiltered(const std::vector<Inp> & input) cons
 
 EnjoLib::VecD SimulatorTS::Pred(const ITSFun & tsFun, const PredictorType & type) const
 {
-    const int horizon = 1;
-    const CorPtr<IPredictor> predAlgo = PredictorFactory().Create(type);
+    const CorPtr<IPredictor> predAlgo = PredictorFactory().Create(m_per, type);
     const EnjoLib::VecD & preds = predAlgo->Predict(m_dataMan.converted);
 
-    LOGL << preds.Print() << Nl;
+    return Pred(*predAlgo);
+}
+
+EnjoLib::VecD SimulatorTS::Pred(const PredictorType & type) const
+{
+    return Pred(m_fun, type);
+}
+
+EnjoLib::VecD SimulatorTS::Pred(const IPredictor & predAlgo) const
+{
+    //const int horizon = 1;
+    const EnjoLib::VecD & preds = predAlgo.Predict(m_dataMan.converted);
+
+    //LOGL << "Preds = " << preds.Print() << Nl;
 
     const std::vector<TSRes> & rec = GetReconstruction(&m_fun, preds, m_dataMan.convertedLost);
     return GetReconstructionFiltered(rec);
@@ -223,11 +263,29 @@ TSRes SimulatorTS::IterBet(const Inp & ele)
     //LOGL << "i = " << i << ", res = " << res << Nl;
 }
 
-void SimulatorTS::PrintResults()
+/*
+void SimulatorTS::ReinitOptiVars(const EnjoLib::IIterable<OptiVarF *> & optiVars)
+{
+    m_ppred->UpdateOptiVars(optiVars);
+}
+*/
+void SimulatorTS::ReinitOptiVars(const EnjoLib::VecD & optiVars)
+{
+    m_ppred->UpdateOptiVars(optiVars);
+}
+
+void SimulatorTS::PrintResults() const
 {
     //PrintChanges();
     //PrintBalance();
     PrintExperimental();
+}
+
+void SimulatorTS::PrintOpti() const
+{
+    //const VecD & predsPlot = SimulatorTSReports().PrepPredsPlot(m_original, m_predsBaseline, m_preds);
+    //SimulatorTSReports().PrintOpti(predsPlot);
+    SimulatorTSReports().PrintOpti(m_predsPlot);
 }
 
 void SimulatorTS::PrintExperimental() const
@@ -236,7 +294,7 @@ void SimulatorTS::PrintExperimental() const
     printPreds = true;
     const DataOCHL ohlc(m_per.GetCandles().GetDataIter());
     const EnjoLib::VecD closes(ohlc.closes);
-    const EnjoLib::Str descr = "\n1) Original  2) Transformed  3) Predictions  4) Reconstruction";
+    const EnjoLib::Str descr = "\n1) Original  2) Transformed  3) Predictions  4) Cumul. score  5) Reconstruction";
     STDFWD::vector<const EnjoLib::VecD *> plots;
     plots.push_back(&closes);
     plots.push_back(&m_dataMan.converted);
@@ -245,8 +303,11 @@ void SimulatorTS::PrintExperimental() const
         //plots.push_back(&m_predsTrue);
         //plots.push_back(&m_predsBaseline);
         plots.push_back(&m_preds);
+        plots.push_back(&m_predsPlot);
     }
     plots.push_back(&m_reconstr);
+
+
     if (m_cfgTS.MT_REPORT)
     {
         // Multithreaded
@@ -254,51 +315,12 @@ void SimulatorTS::PrintExperimental() const
     }
     else
     {
-        PrintReportSingleThreaded(m_dataMan.converted, descr, plots);
+        SimulatorTSReports().PrintReportSingleThreaded(m_per, m_cfgTS, m_dataMan.converted, descr, plots);
     }
-}
-
-void SimulatorTS::PrintReportSingleThreaded(const EnjoLib::VecD & data, const EnjoLib::Str & descr, const STDFWD::vector<const EnjoLib::VecD *> & plots) const
-{
-    const float scaleX = 1.00;
-    const float scaleY = 0.6;
-    const int numSplits = 3;
-    const URTWrap urtWrap1, urtWrap2;
-    const bool multithreaded = false;
-    const StatsMedianSplit stats(multithreaded);
-    const PredictorStats statsPred;
-
     ELO
-    urtWrap2.Show(data);
-    if (m_cfgTS.PLOT_SERIES)
-    {
-        GnuplotPlotTerminal1dSubplots(plots, descr, scaleX, scaleY);
-    }
-    stats.Stats(m_per.GetSymbolPeriodId(), data, numSplits);
-    const double urtStat = urtWrap1.GetStatistic(data);
-    LOG << "Stationarity score = " << urtStat << Nl;
-    LOG << statsPred.GenRepNext(m_original, m_dataMan.converted, m_predsBaseline, m_preds) << Nl;
-}
-
-bool SimulatorTS::VecEqual(const EnjoLib::VecD & data1, const EnjoLib::VecD & data2, double eps) const
-{
-    if (data1.size() != data2.size())
-    {
-        return false;
-    }
-    for (size_t i = 0; i < data1.size(); ++i)
-    {
-        if (data1.at(i) != data2.at(i))
-        {
-            VecD vec {data1.at(i), data2.at(i) };
-            const double mean = vec.Mean();
-            if (not Logic::In(mean - eps, mean, mean + eps))
-            {
-                return false;
-            }
-        }
-    }
-    return true;
+    const PredictorStats statsPred;
+    const PredictorStatsRes & predPoints = statsPred.GenPoints(m_original, m_predsBaseline, m_preds);
+    LOG << statsPred.GenRepNext(predPoints) << Nl;
 }
 
 const EnjoLib::VecD & SimulatorTS::GetOutputSeries(const PredictorOutputType & type) const
@@ -319,4 +341,23 @@ const EnjoLib::VecD & SimulatorTS::GetOutputSeries(const PredictorOutputType & t
         return m_reconstrPredBase;
     }
     throw ExceptLogicError("GetOutputSeries");
+}
+
+float SimulatorTS::GetScorePred() const
+{
+    return - m_goalPred;
+}
+float SimulatorTS::GetScoreStationarity() const
+{
+    return - m_goalStationarity;
+}
+
+void SimulatorTS::SetSilent()
+{
+    m_silent = true;
+}
+
+bool SimulatorTS::IsVerbose() const
+{
+    return not m_silent;
 }

@@ -5,16 +5,18 @@
 #include <Util/Pimpl.hpp>
 #include <Template/Iters2.hpp>
 #include <Template/Array.hpp>
-#include <initializer_list>
 
 class OptiVarVec
 {
     public:
         OptiVarVec();
-        OptiVarVec(const std::initializer_list<OptiVarF *> & invec);
+        OptiVarVec(const STDFWD::initializer_list<OptiVarF *> & invec);
         virtual ~OptiVarVec();
 
         void Add(OptiVarF * var);
+        void Reinit(EnjoLib::Array<OptiVarF *> & vopti);
+        
+        int size() const;
 
         //OptiVarVecInternal vec;
 

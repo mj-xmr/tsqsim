@@ -1,13 +1,13 @@
 #ifndef PREDICTORARMA_H
 #define PREDICTORARMA_H
 
-#include "IPredictor.h"
+#include "PredictorBase.h"
+#include "PredictorAR.h"
 
-
-class PredictorARMA : public IPredictor
+class PredictorARMA : public PredictorBase
 {
     public:
-        PredictorARMA();
+        PredictorARMA(const IDataProvider & dat);
         virtual ~PredictorARMA();
 
         EnjoLib::VecD Predict(const EnjoLib::VecD & data) const override;
@@ -16,6 +16,7 @@ class PredictorARMA : public IPredictor
     protected:
 
     private:
+        PredictorAR m_predAR;
 };
 
 #endif // PREDICTORARMA_H

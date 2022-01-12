@@ -5,14 +5,15 @@
 EnumStringMapOptiType::~EnumStringMapOptiType(){}
 EnumStringMapOptiType::EnumStringMapOptiType()
 {
-    for (int i = 0; i <= int(OptiType::OPTI_TYPE_USE); ++i)
+    for (int i = 0; i <= int(OptiType::OPTI_TYPE_XVALID); ++i)
     {
         OptiType type = OptiType(i);
         switch (type) // Generate compiler warnings
         {
-            case OptiType::OPTI_TYPE_NONE:  Add(i, "None"); break;
-            case OptiType::OPTI_TYPE_FIND:  Add(i, "Find"); break;
-            case OptiType::OPTI_TYPE_USE:   Add(i, "Use");  break;
+            case OptiType::OPTI_TYPE_NONE:   Add(i, "None"); break;
+            case OptiType::OPTI_TYPE_FIND:   Add(i, "Find"); break;
+            case OptiType::OPTI_TYPE_USE:    Add(i, "Use");  break;
+            case OptiType::OPTI_TYPE_XVALID: Add(i, "W.F. Validation");  break;
         }
     }
 }
@@ -20,14 +21,14 @@ EnumStringMapOptiType::EnumStringMapOptiType()
 EnumStringMapOptiMethod::~EnumStringMapOptiMethod(){}
 EnumStringMapOptiMethod::EnumStringMapOptiMethod()
 {
-    for (int i = 0; i <= int(OptiMethod::OPTI_METHOD_NELDER); ++i)
+    for (int i = 0; i <= int(OptiMethod::OPTI_METHOD_BISECTION); ++i)
     {
         OptiMethod type = OptiMethod(i);
         switch (type) // Generate compiler warnings
         {
             case OptiMethod::OPTI_METHOD_GRID:       Add(i, "Grid");        break;
             case OptiMethod::OPTI_METHOD_MONTECARLO: Add(i, "MonteCarlo");  break;
-            case OptiMethod::OPTI_METHOD_NELDER:     Add(i, "Nelder");      break;
+            case OptiMethod::OPTI_METHOD_BISECTION:     Add(i, "Bisection");   break;
         }
     }
 }

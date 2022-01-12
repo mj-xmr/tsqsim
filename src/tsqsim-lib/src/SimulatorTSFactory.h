@@ -6,6 +6,7 @@
 
 class TSInput;
 class ITSFun;
+class IPredictor;
 class SimulatorTSFactory
 {
     public:
@@ -13,7 +14,6 @@ class SimulatorTSFactory
         virtual ~SimulatorTSFactory();
 
         CorPtr<ISimulatorTS> CreateTS(const TSInput & tsin, const ITSFun & fun) const;
-
 
     protected:
 

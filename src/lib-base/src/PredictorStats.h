@@ -6,13 +6,24 @@
 
 class ITSFun;
 
+struct PredictorStatsRes
+{
+    double rmsBase2Truth = 0;
+    double rmsPred2Base = 0;
+    double rmsPred2Truth = 0;
+    double ratioPred2Base = 0;
+    double points = 0;
+};
+
 class PredictorStats
 {
     public:
         PredictorStats();
         virtual ~PredictorStats();
         
-        EnjoLib::Str GenRepNext(const EnjoLib::VecD & orig, const EnjoLib::VecD & truth, const EnjoLib::VecD & predBaseline, const EnjoLib::VecD & pred) const;
+        PredictorStatsRes GenPoints(const EnjoLib::VecD & orig, const EnjoLib::VecD & predBaseline, const EnjoLib::VecD & pred) const;
+        EnjoLib::Str GenRepNext(const EnjoLib::VecD & orig, const EnjoLib::VecD & predBaseline, const EnjoLib::VecD & pred) const;
+        EnjoLib::Str GenRepNext(const PredictorStatsRes & points) const;
 
     protected:
 

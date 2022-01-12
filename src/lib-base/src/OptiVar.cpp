@@ -1,5 +1,6 @@
 #include "OptiVar.h"
 #include "OptimizerUtils.h"
+#include "OptiType.h"
 #include "IDataProvider.h"
 #include "ConfigMan.h"
 #include "ConfigOpti.h"
@@ -34,14 +35,43 @@ OptiVarF::OptiVarF(const IDataProvider & period, const EnjoLib::Str & varId, boo
 OptiVarF::OptiVarF(const IDataProvider & period, const EnjoLib::Str & varId, bool fp, float valDefault, float valMin, float valMax, float step, bool multiplyStep)
 : m_per(&period)
 , varId(varId)
-, val(valDefault)
 , valMin(valMin)
 , valMax(valMax)
 , step(step)
 , multiplyStep(multiplyStep)
 , fp(fp)
+, val(valDefault)
+, valDefault(valDefault)
 {
     Init();
+}
+
+float OptiVarF::GetVal() const
+{
+    if (gcfgMan.cfgOpti->GetOptimizer() == OptiType::OPTI_TYPE_NONE)
+    {
+        return valDefault;
+    }
+    else
+    {
+        return val;
+    }
+}
+void OptiVarF::SetVal(float val)
+{
+    this->val = val;
+}
+
+const float & OptiVarF::GetValRef() const
+{
+    if (gcfgMan.cfgOpti->GetOptimizer() == OptiType::OPTI_TYPE_NONE)
+    {
+        return valDefault;
+    }
+    else
+    {
+        return val;
+    }
 }
 
 

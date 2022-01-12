@@ -6,7 +6,10 @@
 
 using namespace EnjoLib;
 
-PredictorAR::PredictorAR(){}
+PredictorAR::PredictorAR(const IDataProvider & dat, const EnjoLib::Str & name)
+: PredictorBase(dat, name)
+{}
+
 PredictorAR::~PredictorAR(){}
 
 EnjoLib::VecD PredictorAR::Predict(const EnjoLib::VecD & data) const
@@ -18,5 +21,6 @@ EnjoLib::VecD PredictorAR::Predict(const EnjoLib::VecD & data) const
 
 unsigned PredictorAR::GetLags() const
 {
-    return 10;
+    //return 11;
+    return GetLag1().GetVal();
 }

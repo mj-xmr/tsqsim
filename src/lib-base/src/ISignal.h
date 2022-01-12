@@ -1,6 +1,7 @@
 #ifndef IINDICATORAGGREGATE_H
 #define IINDICATORAGGREGATE_H
 
+#include "IHasLen.h"
 //#include <Util/Bool3State.hpp>
 #include <Template/VecT.hpp>
 #include <Template/ArrayFwd.hpp>
@@ -10,7 +11,7 @@
 #include <3rdParty/stdfwd.hh>
 
 class State;
-class ISignal
+class ISignal : public IHasLen
 {
     public:
         ISignal();
@@ -21,7 +22,6 @@ class ISignal
         virtual bool IsSignal(const State & st) const = 0;
         virtual bool IsSignalBetween(const State & st1, const State & st2) const = 0;
         virtual float GetValue(const State & st) const;
-        virtual int Len() const = 0;
         virtual EnjoLib::VecT<int> GetSignalIndexes(Direction dir) const = 0;
         virtual EnjoLib::Pair<EnjoLib::VecT<int>, EnjoLib::VecT<int>> GetSignalIndexes() const = 0;
         virtual EnjoLib::Array<State> GetSignalStates() const = 0;

@@ -4,6 +4,8 @@
 #include <Util/PimplDeleter.hpp>
 #include <STD/VectorCpp.hpp>
 
+#include <initializer_list>
+
 using OptiVarVecInternal = std::vector<OptiVarF *>;
 
 struct OptiVarVec::Impl
@@ -41,6 +43,18 @@ std::vector<OptiVarF *> & OptiVarVec::VecRW()
 EnjoLib::Array<OptiVarF *> OptiVarVec::Vec() const
 {
     return GetImpl().vec;
+}
+
+void OptiVarVec::Reinit(EnjoLib::Array<OptiVarF *> & vopti)
+{
+    VecRW().clear();
+    for (OptiVarF * v : vopti)
+        VecRW().push_back(v);
+}
+
+int OptiVarVec::size() const
+{
+    return GetImpl().vec.size();
 }
 
 /*

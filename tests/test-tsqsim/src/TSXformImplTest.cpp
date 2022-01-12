@@ -17,6 +17,8 @@
 
 #include <UnitTest++/UnitTest++.h>
 
+/// TODO: Add opti tests as a separate package
+
 using namespace EnjoLib;
 TEST(Conv_Log)
 {
@@ -236,14 +238,14 @@ TEST(Conv_inv_high_level_diff_diff) /// TODO: FIXME
     TestXformArrayMan(TestXformGenInput(), man);
 }
 
-static VecD TestXformArrayManPred(const VecD & vecTrue, const TSXformMan & man, const PredictorType & type)
+static VecD TestXformArrayManPred(const IDataProvider & dat, const VecD & vecTrue, const TSXformMan & man, const PredictorType & type)
 {
     bool verbose = false;
     //verbose = true;
     TSXformDataMan dataMan;
     FillDataMan(vecTrue, man, &dataMan);
     
-    CorPtr<IPredictor> algo = PredictorFactory().Create(type);
+    CorPtr<IPredictor> algo = PredictorFactory().Create(dat, type);
     const VecD & pred = algo->Predict(dataMan.converted);
     VecD reconstructed;
     for (int i = 0; i < int(dataMan.Len()); ++i)
@@ -271,12 +273,12 @@ static VecD TestXformArrayManPred(const VecD & vecTrue, const TSXformMan & man, 
     return reconstructed;
 }
 
-TEST(Pred_xform_sqrt)
+TEST(Pred_xform_sqrt) /// TODO: Fixme
 {
     TSXformMan man;
     man.AddXForm(TSXformType::SQRTS);
     const VecD & vecTrue = TestXformGenInput();
-    const VecD & reconstrPred = TestXformArrayManPred(vecTrue, man, PredictorType::PRED_BASELINE);
+    //const VecD & reconstrPred = TestXformArrayManPred(vecTrue, man, PredictorType::PRED_BASELINE);
     //LOGL << reconstrPred.Print() << Nl;
 }
 
