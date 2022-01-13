@@ -34,6 +34,7 @@ class ConfigQTPlot : public ConfigBase
         bool DAY_WEEK = true;
         bool BET = false;
         bool DARK = false;
+        bool WEEKEND_DATA = true;
 
     protected:
         EnjoLib::Str GetFileNameProt() const override;

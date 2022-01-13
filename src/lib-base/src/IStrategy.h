@@ -98,8 +98,6 @@ class IStrategy : public SignalBase, public IOptimizable
         virtual ModelType GetMLModelType() const;
 
         //bool UseCache() const override {return false;}
-
-        void UpdateOptiVars(const EnjoLib::VecD & optiVarsLoopData);
         void SetUsePendingOrders(bool setting) { m_usePending = setting; }
         void SetLabelBased() { m_labelBased = true; }
 

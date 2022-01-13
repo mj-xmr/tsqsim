@@ -1,7 +1,7 @@
 #include "PredictorBaseline.h"
 
 
-PredictorBaseline::PredictorBaseline(){}
+PredictorBaseline::PredictorBaseline(const IDataProvider & dat) : PredictorBase(dat, "Baseline") {}
 PredictorBaseline::~PredictorBaseline(){}
 
 EnjoLib::VecD PredictorBaseline::Predict(const EnjoLib::VecD & data) const
@@ -29,7 +29,7 @@ unsigned PredictorBaseline::GetLags() const
     return 1;
 }
 
-PredictorBaseline2::PredictorBaseline2(){}
+PredictorBaseline2::PredictorBaseline2(const IDataProvider & dat) : PredictorBaseline(dat) {}
 PredictorBaseline2::~PredictorBaseline2(){}
 unsigned PredictorBaseline2::GetLags() const
 {

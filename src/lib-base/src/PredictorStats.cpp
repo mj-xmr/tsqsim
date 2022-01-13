@@ -13,27 +13,39 @@ using namespace EnjoLib;
 PredictorStats::PredictorStats(){}
 PredictorStats::~PredictorStats(){}
 
-EnjoLib::Str PredictorStats::GenRepNext(const EnjoLib::VecD & orig, const EnjoLib::VecD & truth, const EnjoLib::VecD & predBaseline, const EnjoLib::VecD & pred) const
+EnjoLib::Str PredictorStats::GenRepNext(const EnjoLib::VecD & orig, const EnjoLib::VecD & predBaseline, const EnjoLib::VecD & pred) const
 {
-    const Statistical stat;
-    const double rmsBase2Truth  = stat.RMSTwo(predBaseline, orig); /// TODO: different readouts with diffs and without
-    const double rmsPred2Base   = stat.RMSTwo(pred, predBaseline);
-    const double rmsPred2Truth  = stat.RMSTwo(pred, orig);
+    const PredictorStatsRes & res = GenPoints(orig, predBaseline, pred);
+    return GenRepNext(res);
+}
 
-    double ratioPred2Base = 0, points = 0;
-    if (rmsBase2Truth != 0)
-    {
-        ratioPred2Base = rmsPred2Truth / rmsBase2Truth;
-        points = GMat().round((1 - ratioPred2Base) * 100);
-    }
-
+EnjoLib::Str PredictorStats::GenRepNext(const PredictorStatsRes & res) const
+{
+    
     Osstream oss;
     oss << IoManip::SetPrecision(oss, 3);
     oss << "Prediction scores:";
-    oss << "\nRMS Base 2 True\t = "  << rmsBase2Truth;
-    oss << "\nRMS Pred 2 True\t = "  << rmsPred2Truth << " -> ";
-    oss << (rmsPred2Truth >= rmsBase2Truth ? ":( not better" : "^_^ Better!") << " than the baseline.";
+    oss << "\nRMS Base 2 True\t = "  << res.rmsBase2Truth;
+    oss << "\nRMS Pred 2 True\t = "  << res.rmsPred2Truth << " -> ";
+    oss << (res.rmsPred2Truth >= res.rmsBase2Truth ? ":( not better" : "^_^ Better!") << " than the baseline.";
     //oss << "\nRMS Pred 2 Base\t = " << rmsPred2Base;
-    oss << "\nRatio Pred2Base\t = " << ratioPred2Base << " " << ToolsMixed().GenBars10(points) << Nl;
+    oss << "\nRatio Pred2Base\t = " << res.ratioPred2Base << " " << ToolsMixed().GenBars10(res.points) << Nl;
     return oss.str();
+}
+
+PredictorStatsRes PredictorStats::GenPoints(const EnjoLib::VecD & orig, const EnjoLib::VecD & predBaseline, const EnjoLib::VecD & pred) const
+{
+    const Statistical stat;
+    PredictorStatsRes res{};
+    
+    res.rmsBase2Truth  = stat.RMSTwo(predBaseline, orig); /// TODO: different readouts with diffs and without
+    res.rmsPred2Base   = stat.RMSTwo(pred, predBaseline);
+    res.rmsPred2Truth  = stat.RMSTwo(pred, orig);
+    
+    if (res.rmsBase2Truth != 0)
+    {
+        res.ratioPred2Base = res.rmsPred2Truth / res.rmsBase2Truth;
+        res.points = GMat().round((1 - res.ratioPred2Base) * 100);
+    }
+    return res;
 }

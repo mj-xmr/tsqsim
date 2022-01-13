@@ -21,6 +21,8 @@ static VecD PredGenTrue()
     return ret;
 }
 
+/// TODO: Restore
+/*
 static VecD Pred(const VecD & inp, const PredictorType & type)
 {
     CorPtr<IPredictor> algo = PredictorFactory().Create(type);
@@ -85,3 +87,4 @@ TEST(Pred_all_zero_cond)
         }
     }
 }
+*/

@@ -32,6 +32,7 @@ void ConfigQTPlot::RegisterAndReadBools(EnjoLib::Istream & f)
     RegisterAndReadBool(f, ZIG_ZAG, false,      "ZIG_ZAG");
     RegisterAndReadBool(f, ZIG_ZAG_INDEXES, false, "ZIG_ZAG_IDX");
     RegisterAndReadBool(f, DAY_WEEK, false,     "DAY_WEEK");
+    RegisterAndReadBool(f, WEEKEND_DATA, true,  "Wknd data", "Plot weekend data");
     RegisterAndReadBool(f, BET, false,          "BET");
 }
 void ConfigQTPlot::RegisterAndReadInts(EnjoLib::Istream & ifs)

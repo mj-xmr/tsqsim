@@ -1,13 +1,13 @@
 #ifndef PredictorExperimental_H
 #define PredictorExperimental_H
 
-#include "IPredictor.h"
+#include "PredictorBase.h"
 
 
-class PredictorExperimental : public IPredictor
+class PredictorExperimental : public PredictorBase
 {
     public:
-        PredictorExperimental();
+        PredictorExperimental(const IDataProvider & dat);
         virtual ~PredictorExperimental();
 
         EnjoLib::VecD Predict(const EnjoLib::VecD & data) const override;

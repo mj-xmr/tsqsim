@@ -10,7 +10,7 @@ SimulatorTSFactory::~SimulatorTSFactory()
 {
 }
 
-Corrade::Containers::Pointer<ISimulatorTS> SimulatorTSFactory::CreateTS(const TSInput & tsin, const ITSFun & fun) const
+CorPtr<ISimulatorTS> SimulatorTSFactory::CreateTS(const TSInput & tsin, const ITSFun & fun) const
 {
-    return  Corrade::Containers::Pointer<ISimulatorTS> (new SimulatorTS(tsin, fun));
+    return  CorPtr<ISimulatorTS> (new SimulatorTS(tsin, fun));
 }

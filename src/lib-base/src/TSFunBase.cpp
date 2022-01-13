@@ -3,12 +3,15 @@
 #include "IBufferCandles.h"
 #include "Candle.h"
 #include "ConfigTS.h"
+#include "OptiVarVec.h"
 
 #include <Ios/Osstream.hpp>
 #include <Util/Str.hpp>
 #include <Util/CoutBuf.hpp>
 #include <Util/StrColour.hpp>
 #include <Util/Except.hpp>
+
+#include <STD/VectorCpp.hpp>
 
 using namespace EnjoLib;
 
@@ -17,6 +20,7 @@ TSFunBase:: TSFunBase(const TSInput & tsin)
 : m_tsin(tsin)
 , m_per(tsin.m_per)
 , m_bufCan(tsin.m_per.GetCandles())
+, m_optiFloats(new OptiVarVec())
 {
 }
 
@@ -86,4 +90,38 @@ bool TSFunBase::CrashOnWarning() const
 {
     return m_tsin.m_cfgTS.crashOnRecoverableErrors;
     //return false;
+}
+
+OptiVarVec & TSFunBase::GetOptiFloatRW()
+{
+    return *m_optiFloats;
+    //return m_optiFloats;
+}
+
+OptiVarVec TSFunBase::GetOptiFloat()
+{
+    return *m_optiFloats;
+    //return m_optiFloats;
+}
+
+
+void TSFunBase::AddOptiVars(IOptimizable & iopt)
+{
+    for (auto v : iopt.GetOptiFloat().Vec())
+        AddOptiVar(*v);
+}
+
+void TSFunBase::AddOptiVar(OptiVarF & var)
+{
+    GetOptiFloatRW().VecRW().push_back(&var);
+    //m_optiFloats.push_back(&var);
+}
+
+void TSFunBase::SetSilent()
+{
+    m_silent = true;
+}
+bool TSFunBase::IsVerbose() const
+{
+    return not m_silent;
 }

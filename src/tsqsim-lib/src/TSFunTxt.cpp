@@ -16,19 +16,17 @@ using namespace EnjoLib;
 
 TSFunTxt::TSFunTxt(const TSInput & tsin)
 : TSFunBase(tsin)
-{
-    ELO
-       
+{      
     //const CharManipulations cman;
     const Tokenizer tok;
     const Str & fname = tsin.m_cfgTS.m_scriptPathTxt;
 
     { Ifstream file(fname); } /// TODO: Move functionality to tok.GetLine
-    LOG << "Reading script file: '" << fname << "'" << Nl;
+    //LOG << "Reading script file: '" << fname << "'" << Nl;
     const VecStr & lines = tok.GetLines(fname);
     for (const Str & line : tok.FilterLines(lines))
     {
-        LOG << "Script line: '" << line << "'" << Nl;
+        //LOG << "Script line: '" << line << "'" << Nl;
         m_xformMan.AddXForm(line);
     }
 }

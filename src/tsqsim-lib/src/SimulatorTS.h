@@ -6,6 +6,7 @@
 #include <Util/VecD.hpp>
 #include <Util/Tuple.hpp>
 #include <Statistical/Matrix.hpp>
+#include <Template/CorradePointer.h>
 
 class ISimulatorAccum;
 class IPeriod;
@@ -13,6 +14,7 @@ class ITSFun;
 class TSInput;
 class TSRes;
 class ConfigTS;
+class IPredictor;
 enum class PredictorType;
 
 class SimulatorTS : public ISimulatorTS
@@ -25,6 +27,12 @@ class SimulatorTS : public ISimulatorTS
         void RunRaw(const StartEnd & startEndFrame = StartEnd()) override;
 
         const EnjoLib::VecD & GetOutputSeries(const PredictorOutputType & type) const override;
+        float GetScorePred() const override;
+        float GetScoreStationarity() const override;
+        void SetSilent() override;
+        void PrintOpti() const override;
+        //void ReinitOptiVars(const EnjoLib::IIterable<OptiVarF *> & opti) override; 
+        void ReinitOptiVars(const EnjoLib::VecD & optiVars) override; 
 
         using Inp = EnjoLib::Tuple<const IDataProvider *, const ITSFun *, int>;
         static TSRes IterBet(const Inp & ele);
@@ -36,15 +44,15 @@ class SimulatorTS : public ISimulatorTS
 
         TSRes Reconstr(const ITSFun * fun, const double val) const;
         EnjoLib::VecD Pred(const ITSFun & tsFun, const PredictorType & type) const;
-
-        bool VecEqual(const EnjoLib::VecD & data1, const EnjoLib::VecD & data2, double eps = 0) const; /// TODO: Extractg
+        EnjoLib::VecD Pred(const PredictorType & type) const;
+        EnjoLib::VecD Pred(const IPredictor & pred) const;
 
     protected:
+        bool IsVerbose() const;
 
     private:
-        void PrintResults();
+        void PrintResults() const;
         void PrintExperimental() const;
-        void PrintReportSingleThreaded(const EnjoLib::VecD & data, const EnjoLib::Str & descr, const STDFWD::vector<const EnjoLib::VecD *> & plots) const;
 
         const TSInput & m_tsin;
         const IPeriod & m_per;
@@ -53,8 +61,11 @@ class SimulatorTS : public ISimulatorTS
 
         ISimulatorAccum * m_accum = nullptr;
 
-        double sum = 0;
+        //double sum = 0;
         double m_meanChange = 0;
+        float m_goalPred = 0;
+        float m_goalStationarity = 0; /// TODO: A separate simulator for this?
+        bool m_silent = false;
         EnjoLib::VecD m_balance;
         EnjoLib::VecD m_original;
         EnjoLib::VecD m_preds;
@@ -63,6 +74,9 @@ class SimulatorTS : public ISimulatorTS
         EnjoLib::VecD m_reconstr;
         EnjoLib::VecD m_reconstrPred;
         EnjoLib::VecD m_reconstrPredBase;
+        EnjoLib::VecD m_predsPlot;
+
+        CorPtr<IPredictor> m_ppred;
 
         TSXformDataMan m_dataMan;
 };

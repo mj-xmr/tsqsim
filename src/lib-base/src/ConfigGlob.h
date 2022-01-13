@@ -60,7 +60,7 @@ public:
     bool SIMUL_SCREENSHOTS = true;
     bool SIMUL_VERBOSE = false;
 
-    bool OPTI_USE = true;
+    bool OPTI_USE = true; /// TODO: Ditch? YES! ASAP!
 
     bool SIGNALS_MINATURES = true;
     bool SIGNALS_PYTHON = false;

@@ -29,7 +29,7 @@ short CtplWrapStatic::GetNumCores() const
 
 void CtplWrapStatic::SetMT(bool mtt)
 {
-    m_single = mtt;
+    m_single = !mtt;
 }
 
 void CtplWrapStatic::SetSingle()

@@ -1,13 +1,13 @@
 #ifndef PREDICTORAR_H
 #define PREDICTORAR_H
 
-#include "IPredictor.h"
+#include "PredictorBase.h"
 
 
-class PredictorAR : public IPredictor
+class PredictorAR : public PredictorBase
 {
     public:
-        PredictorAR();
+        PredictorAR(const IDataProvider & dat, const EnjoLib::Str & name = "AR");
         virtual ~PredictorAR();
 
         EnjoLib::VecD Predict(const EnjoLib::VecD & data) const override;

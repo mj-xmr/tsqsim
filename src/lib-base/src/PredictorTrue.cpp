@@ -1,6 +1,8 @@
 #include "PredictorTrue.h"
 
-PredictorTrue::PredictorTrue(){}
+PredictorTrue::PredictorTrue(const IDataProvider & dat)
+ : PredictorBase(dat, "True")
+{}
 PredictorTrue::~PredictorTrue(){}
 
 EnjoLib::VecD PredictorTrue::Predict(const EnjoLib::VecD & data) const

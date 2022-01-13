@@ -1,13 +1,13 @@
 #ifndef PREDICTORDUMB_H
 #define PREDICTORDUMB_H
 
-#include "IPredictor.h"
+#include "PredictorBase.h"
 
 
-class PredictorDumb : public IPredictor
+class PredictorDumb : public PredictorBase
 {
     public:
-        PredictorDumb();
+        PredictorDumb(const IDataProvider & dat);
         virtual ~PredictorDumb();
 
         EnjoLib::VecD Predict(const EnjoLib::VecD & data) const override;

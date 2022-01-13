@@ -4,16 +4,22 @@
 #include "ITSFun.h"
 
 //#include <Util/CoutBuf.hpp>
+#include <Template/AlgoSTDThin.hpp>
 
 using namespace EnjoLib;
 
-PredictorSMAMA::PredictorSMAMA(){}
+PredictorSMAMA::PredictorSMAMA(const IDataProvider & dat) 
+: PredictorBase(dat, "SMAMA_MA") 
+, m_lagMine(dat, "LAG_SMAMA", true, 10, 1, 20, 1)
+{
+    AddOptiVar(m_lagMine);
+}
 PredictorSMAMA::~PredictorSMAMA(){}
 
 EnjoLib::VecD PredictorSMAMA::Predict(const EnjoLib::VecD & data) const
 {
-    const int numSamplesSma = GetLags(); // 
-    const int numSamplesMA  = GetLags();  // ParQ
+    const int numSamplesSma = m_lagMine.GetVal(); // 
+    const int numSamplesMA  = GetLag1().GetVal();  // ParQ
     const PredictorUtil util;
     const EnjoLib::VecD & predSma = util.SimpleMA(numSamplesSma, data);
     const EnjoLib::VecD & errors = util.GetErrorsCorrected(predSma, data);
@@ -25,5 +31,5 @@ EnjoLib::VecD PredictorSMAMA::Predict(const EnjoLib::VecD & data) const
 
 unsigned PredictorSMAMA::GetLags() const
 {
-    return 10;
+    return AlgoSTDThin().Max(m_lagMine.GetVal(), GetLag1().GetVal());
 }
