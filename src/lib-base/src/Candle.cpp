@@ -232,6 +232,7 @@ float Candle::GetPriceByType(const PriceType & type) const
     case PriceType::TYPICAL:
         return GetTypical();
     }
-
-    throw EnjoLib::ExceptRuntimeError("Candle::GetPriceByType(): unimplemented type");
+    Osstream oss;
+    oss << "Candle::GetPriceByType(): unimplemented type = " << int(type);
+    throw EnjoLib::ExceptRuntimeError(oss.str());
 }

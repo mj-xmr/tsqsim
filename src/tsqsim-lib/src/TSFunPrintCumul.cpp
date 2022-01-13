@@ -1,6 +1,7 @@
 #include "TSFunPrintCumul.h"
 
 #include "Candle.h"
+#include "ConfigTS.h"
 
 #include <Math/GeneralMath.hpp>
 #include <Util/CoutBuf.hpp>
@@ -25,7 +26,7 @@ TSRes TSFunPrintCumul::OnDataPointProt(int idx) const
     const Candle & canCurr = GetCandle(idx);
     const Candle & canPrev = GetCandle(idx, 1);
 
-    const double ret = gmat.Sqrt(gmat.Fabs(canCurr.GetClose() - canPrev.GetClose()));// - 0.035;
+    const double ret = gmat.Sqrt(gmat.Fabs(canCurr.GetPriceByType(GetTSIn().m_cfgTS.GetPriceType()) - canPrev.GetPriceByType(GetTSIn().m_cfgTS.GetPriceType())));// - 0.035;
 
     TSRes res(true);
     res.val = ret;

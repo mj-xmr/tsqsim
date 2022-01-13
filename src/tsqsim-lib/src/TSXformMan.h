@@ -2,6 +2,7 @@
 #define TSXFORMMAN_H
 
 #include "ITSXform.h"
+#include "PriceType.h"
 #include <Template/CorradePointer.h>
 #include <Statistical/Matrix.hpp>
 #include <Util/VecStr.hpp>
@@ -14,7 +15,7 @@ class TSRes;
 class TSXformMan
 {
     public:
-        TSXformMan();
+        TSXformMan(const PriceType & priceType);
         virtual ~TSXformMan();
         
         TSRes OnDataPointProt(const IHasCandles & funBase, int idx) const;
@@ -28,7 +29,7 @@ class TSXformMan
     protected:
 
     private:
-        
+        PriceType m_priceType;
         std::vector<CorPtr<ITSXform>> m_xforms;
 };
 

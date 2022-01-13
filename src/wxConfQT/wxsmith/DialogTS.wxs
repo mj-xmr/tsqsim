@@ -56,8 +56,32 @@
 						<option>1</option>
 					</object>
 					<object class="sizeritem">
-						<object class="wxChoice" name="ID_CHOICE1" subclass="MyChoiceEnum" variable="m_choicePredType" member="yes">
-							<handler function="OnTS" entry="EVT_CHOICE" />
+						<object class="wxStaticBoxSizer" variable="StaticBoxSizer2" member="no">
+							<label>Series type</label>
+							<orient>wxVERTICAL</orient>
+							<object class="sizeritem">
+								<object class="wxChoice" name="ID_CHOICE2" subclass="MyChoiceEnum" variable="m_choiceSeriesType" member="yes">
+									<handler function="OnTS" entry="EVT_CHOICE" />
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+						</object>
+						<flag>wxALL|wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxStaticBoxSizer" variable="StaticBoxSizer3" member="no">
+							<label>Predictor type</label>
+							<orient>wxVERTICAL</orient>
+							<object class="sizeritem">
+								<object class="wxChoice" name="ID_CHOICE1" subclass="MyChoiceEnum" variable="m_choicePredType" member="yes">
+									<tooltip>Prediction type</tooltip>
+									<handler function="OnTS" entry="EVT_CHOICE" />
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
 						</object>
 						<flag>wxALL|wxEXPAND</flag>
 						<border>5</border>

@@ -37,6 +37,7 @@ void ConfigTS::RegisterAndReadBools(EnjoLib::Istream & f)
 void ConfigTS::RegisterAndReadInts(EnjoLib::Istream & f)
 {
     RegisterAndReadInt (f, PRED_TYPE, 0);
+    RegisterAndReadInt (f, PRICE_TYPE, 0);
 }
 void ConfigTS::RegisterAndReadFloats(EnjoLib::Istream & f)
 {
@@ -54,4 +55,13 @@ PredictorType ConfigTS::GetPredType() const
 void ConfigTS::SetPredType(const PredictorType & type)
 {
     PRED_TYPE = static_cast<long int>(type);
+}
+
+PriceType ConfigTS::GetPriceType() const
+{
+    return static_cast<PriceType>(PRICE_TYPE);
+}
+void ConfigTS::SetPriceType(const PriceType & type)
+{
+    PRICE_TYPE = static_cast<long int>(type);
 }

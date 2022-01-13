@@ -14,7 +14,8 @@
 using namespace EnjoLib;
 
 TSXformMan::~TSXformMan(){}
-TSXformMan::TSXformMan()
+TSXformMan::TSXformMan(const PriceType & priceType)
+: m_priceType(priceType)
 {
     const TSXformFactory fact;
     AddXForm("orig");
@@ -38,7 +39,7 @@ TSRes TSXformMan::OnDataPointProt(const IHasCandles & funBase, int idx) const
     double conv = 0;
     for (const CorPtr<ITSXform> & pxform : m_xforms)
     {
-        const XformRes & val = pxform->Run(funBase, idx, conv);
+        const XformRes & val = pxform->Run(funBase, m_priceType, idx, conv);
         conv = val.conv;
         res.lost.Add(val.lost);
         /// TODO: 2) Collect a VecD of lost info for each xform individually

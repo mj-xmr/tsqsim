@@ -32,6 +32,7 @@ class DialogTS : public wxDialog
 
 		//(*Declarations(DialogTS)
 		MyChoiceEnum* m_choicePredType;
+		MyChoiceEnum* m_choiceSeriesType;
 		wxBoxSizer* m_sizerBools;
 		wxButton* Button1;
 		wxButton* m_butOK;
@@ -49,6 +50,7 @@ class DialogTS : public wxDialog
 		static const long ID_TEXTCTRL1;
 		static const long ID_BUTTON1;
 		static const long ID_BUTTON2;
+		static const long ID_CHOICE2;
 		static const long ID_CHOICE1;
 		static const long ID_CHECKBOX12;
 		//*)

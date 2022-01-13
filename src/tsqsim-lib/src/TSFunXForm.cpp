@@ -1,4 +1,5 @@
 #include "TSFunXForm.h"
+#include "ConfigTS.h"
 
 #include "Candle.h"
 
@@ -20,7 +21,7 @@ TSRes TSFunXForm::OnDataPointProt(int idx) const
     const Candle & canCurr = GetCandle(idx);
     const Candle & canPrev = GetCandle(idx, 1);
 
-    const double ret = gmat.Fabs(canCurr.GetClose() - canPrev.GetClose());
+    const double ret = gmat.Fabs(canCurr.GetPriceByType(GetTSIn().m_cfgTS.GetPriceType()) - canPrev.GetPriceByType(GetTSIn().m_cfgTS.GetPriceType()));
 
     TSRes res(true);
     res.val = ret;

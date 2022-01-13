@@ -10,8 +10,8 @@ unsigned ITSXform::MaxShift() const
     return 0;
 }
 
-double ITSXform::GetVal(const IHasCandles & input, int idx) const
+double ITSXform::GetVal(const IHasCandles & input, const PriceType & priceType, int idx) const
 {
     const Candle & can = input.GetCandle(idx);
-    return can.GetClose(); /// TODO: Return a common value
+    return can.GetPriceByType(priceType); /// TODO: Return a common value
 }
