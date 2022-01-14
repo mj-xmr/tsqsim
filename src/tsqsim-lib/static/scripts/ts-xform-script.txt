@@ -1,9 +1,7 @@
-diff
+#diff
 #fabs
 #sqrt
 log
 #sqrt
 #log
 add 0
-
-
