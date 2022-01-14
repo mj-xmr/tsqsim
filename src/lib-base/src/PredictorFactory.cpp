@@ -8,6 +8,8 @@
 #include "PredictorAR.h"
 #include "PredictorSMAMA.h"
 #include "PredictorARMA.h"
+#include "PredictorRBaseline.h"
+#include "PredictorRCustom.h"
 
 #include <Util/Except.hpp>
 
@@ -41,6 +43,8 @@ CorPtr<IPredictor> PredictorFactory::Create(const IDataProvider & dat, const Pre
         case PredictorType::PRED_ARMA:          return CorPtr<IPredictor>(new PredictorARMA(dat));
         case PredictorType::PRED_BASELINE:      return CorPtr<IPredictor>(new PredictorBaseline(dat));
         case PredictorType::PRED_BASELINE2:     return CorPtr<IPredictor>(new PredictorBaseline2(dat));
+        case PredictorType::PRED_R_BASELINE:    return CorPtr<IPredictor>(new PredictorRBaseline(dat));
+        case PredictorType::PRED_R_CUSTOM:      return CorPtr<IPredictor>(new PredictorRCustom(dat));
         case PredictorType::PRED_TEST:          return CorPtr<IPredictor>(new PredictorExperimental(dat));
         case PredictorType::PRED_DUMB:          return CorPtr<IPredictor>(new PredictorDumb(dat));
         case PredictorType::PRED_TRUE:          return CorPtr<IPredictor>(new PredictorTrue(dat));

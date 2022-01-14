@@ -8,6 +8,8 @@ enum class PredictorType
     PRED_AR,
     PRED_SMAMA,
     PRED_ARMA,
+    PRED_R_BASELINE,
+    PRED_R_CUSTOM,
     PRED_DUMB,
     PRED_TEST,
     PRED_TRUE
