@@ -75,6 +75,51 @@ jobs:
 # TODO: All the unmaintained denendencies should have their own CMakeLists.txt file (URT. Others?) and the util/deps-build.sh should not be used, if possible.
 # TODO: All the testing should be done in a separate job, AFTER building and downloading resources, in order to use caches better (short and easy. Needs to have the build scripts restructured - separate building and testing)
 
+  build-macos:
+    runs-on: ${{ matrix.os }}
+    env:
+      CCACHE_TEMPDIR: /tmp/.ccache-temp
+    strategy:
+      fail-fast: false
+      matrix:
+        #os: [macOS-latest, macOS-11]    # prev
+        #os: [macOS-latest, macOS-10.15] # future 
+        os: [macOS-10.15, macOS-11]      # transitionary
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        submodules: recursive
+    # Volatile cache
+    - name: ccache
+      uses: actions/cache@v2
+      with:
+        path: /Users/runner/Library/Caches/ccache
+        key:          ccache03-${{ runner.os }}-${{ matrix.os }}-build-${{ github.sha }}
+        restore-keys: ccache03-${{ runner.os }}-${{ matrix.os }}-build-
+    # Less volatile cache
+    - name: data cache
+      uses: actions/cache@v2
+      with:
+        path: build/data/data/txt
+        key:          data-${{ hashFiles('build/data/data/txt/**/*') }}
+        restore-keys: data-${{ hashFiles('build/data/data/txt/**/*') }}
+    - name: prepare environment
+      run: util/prep-env.sh
+    - name: install dependencies
+      run: util/deps-pull.sh
+    - name: build & install the unmanaged dependencies
+      run: util/deps-build.sh
+    - name: build
+      run: ./ci-default --unity --lto
+    - name: run demo
+      run: ./ci-default --unity --lto --run-demo
+    - uses: actions/upload-artifact@v2
+      with:
+        name: tsqsim-${{ matrix.os }}
+        path: |
+          /Users/runner/work/tsqsim/tsqsim/build/default-static-release/bin/*
+          !/Users/runner/work/tsqsim/tsqsim/build/default-static-release/bin/lib/*
+          !/Users/runner/work/tsqsim/tsqsim/build/default-static-release/bin/data/data/bin/*
 
   build-windows:
     runs-on: windows-latest
