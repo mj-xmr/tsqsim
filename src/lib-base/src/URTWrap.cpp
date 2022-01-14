@@ -1,5 +1,6 @@
 #include "URTWrap.h"
 
+#include <Statistical/3rdParty/EigenUtil.hpp>
 #include <Template/CorradePointer.h>
 
 #include <STD/VectorCpp.hpp>
@@ -7,18 +8,6 @@
 using namespace std;
 
 URTWrap::URTWrap(){}
-
-#include <Eigen/Dense>
-/// TODO: Upstream to EnjoLib 3rd
-static Eigen::VectorXd ConvertVector1( const EnjoLib::VecD & vec )
-{
-    const int nrows = vec.size();
-    Eigen::VectorXd veceig(nrows);
-    for ( int i = 0; i < nrows; ++i )
-            veceig(i) = vec.at(i);
-
-    return veceig;
-}
 
 //#define USE_URT
 #ifdef USE_URT
@@ -62,11 +51,11 @@ class URTAlgo : public IURTAlgo
         {
             if (lags == 0)
             {
-                m_algo = CorPtr<Algo>(new Algo(ConvertVector1(data.Data()), "AIC", "c"));
+                m_algo = CorPtr<Algo>(new Algo(EigenUtil::ConvertVector2Eigen(data.Data()), "AIC", "c"));
             }
             else
             {
-                m_algo = CorPtr<Algo>(new Algo(ConvertVector1(data.Data()), lags, "c"));
+                m_algo = CorPtr<Algo>(new Algo(EigenUtil::ConvertVector2Eigen(data.Data()), lags, "c"));
             }
         }
         virtual ~URTAlgo(){}

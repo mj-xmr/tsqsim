@@ -19,25 +19,22 @@ TSXformDiff::TSXformDiff(const VecStr & params)
          m_order = CharManipulations().ToInt(params.at(0));
     }
 }
-XformRes TSXformDiff::Run(const IHasCandles & input, int idx, double prevConverted) const
+XformRes TSXformDiff::Run(const IHasCandles & input, const PriceType & priceType, int idx, double prevConverted) const
 {
     const Candle & canCurr = input.GetCandle(idx);
     double prev = prevConverted ;
     if (idx < int(input.Len()) - int(MaxShift())) /// TODO: Retarded from a user's perspective. It should be: "if (i > 0)" ?
     {
         const Candle & canPrev = input.GetCandle(idx, 1);
-        prev = canPrev.GetClose();
+        prev = canPrev.GetPriceByType(priceType);
         //prev = 0;
     }
     else
     {
         //LOGL << "Prev = " << prev << Nl;
     }
-    //const double diff = canCurr.GetClose() - prev;
-    //const double diff = canCurr.GetHigh() - prev;
-    //return diff;
     VecD inp;
-    inp.Add(canCurr.GetClose());
+    inp.Add(canCurr.GetPriceByType(priceType));
     inp.Add(prev);
     const XformRes & diff = Run(inp);
     return diff;
@@ -64,12 +61,12 @@ unsigned TSXformDiff::MaxShift() const
     return m_order;
 }
 
-XformRes TSXformOrig::Run(const IHasCandles & input, int idx, double prevConverted) const
+XformRes TSXformOrig::Run(const IHasCandles & input, const PriceType & priceType, int idx, double prevConverted) const
 {
     XformRes res;
 
     const Candle & canCurr = input.GetCandle(idx);
-    res.conv = canCurr.GetClose();
+    res.conv = canCurr.GetPriceByType(priceType);
 
     return res; /// TODO: Get a common value of candle
 }
@@ -84,7 +81,7 @@ double TSXformOrig::Invert(const EnjoLib::VecD & vals, double lost) const
     return vals.at(0);
 }
 
-XformRes TSXformFabs::Run(const IHasCandles & input, int idx, double prevConverted) const
+XformRes TSXformFabs::Run(const IHasCandles & input, const PriceType & priceType, int idx, double prevConverted) const
 {
     return Run(VecD(1, prevConverted));
 }
@@ -100,7 +97,7 @@ double TSXformFabs::Invert(const EnjoLib::VecD & vals, double lost) const
     return vals.at(0) * lost;
 }
 
-XformRes TSXformSqrt::Run(const IHasCandles & input, int idx, double prevConverted) const
+XformRes TSXformSqrt::Run(const IHasCandles & input, const PriceType & priceType, int idx, double prevConverted) const
 {
     return Run(VecD(1, prevConverted));
 }
@@ -131,7 +128,7 @@ double TSXformSqrt::Invert(const EnjoLib::VecD & vals, double lost) const
     return valPrev < 0 ? -pow : pow;
 }
 
-XformRes TSXformLog::Run(const IHasCandles & input, int idx, double prevConverted) const
+XformRes TSXformLog::Run(const IHasCandles & input, const PriceType & priceType, int idx, double prevConverted) const
 {
     return Run(VecD(1, prevConverted));
 }
@@ -174,7 +171,7 @@ TSXformAdd::TSXformAdd(const VecStr & params)
 : m_add(CharManipulations().ToDouble(params.at(0)))
 {
 }
-XformRes TSXformAdd::Run(const IHasCandles & input, int idx, double prevConverted) const
+XformRes TSXformAdd::Run(const IHasCandles & input, const PriceType & priceType, int idx, double prevConverted) const
 {
     return Run(VecD(1, prevConverted));
 }
@@ -192,7 +189,7 @@ TSXformMul::TSXformMul(const VecStr & params)
 {
     Assertions::IsNonZero(m_mul, "TSXformMul::TSXformMul()");
 }
-XformRes TSXformMul::Run(const IHasCandles & input, int idx, double prevConverted) const
+XformRes TSXformMul::Run(const IHasCandles & input, const PriceType & priceType, int idx, double prevConverted) const
 {
     return Run(VecD(1, prevConverted));
 }
@@ -210,7 +207,7 @@ TSXformDiv::TSXformDiv(const VecStr & params)
 {
     Assertions::IsNonZero(m_div, "TSXformDiv::TSXformDiv()");
 }
-XformRes TSXformDiv::Run(const IHasCandles & input, int idx, double prevConverted) const
+XformRes TSXformDiv::Run(const IHasCandles & input, const PriceType & priceType, int idx, double prevConverted) const
 {
     return Run(VecD(1, prevConverted));
 }

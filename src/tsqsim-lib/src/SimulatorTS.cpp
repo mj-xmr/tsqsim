@@ -63,7 +63,7 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
 
     std::vector<Inp> input;
     VecD original;
-    const double initial = m_per.GetCandles().GetDataIter().at(idxStart).GetClose();
+    const double initial = m_per.GetCandles().GetDataIter().at(idxStart).GetPriceByType(m_cfgTS.GetPriceType());
     //const double initial = m_per.GetCandles().GetDataIter().at(idxStart).GetHigh();
     input.reserve(idxFinish - idxStart);
     {
@@ -78,7 +78,7 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
         Get<2>(ele) = i;
         input.push_back(ele);
 
-        original.Add(m_per.GetCandles().GetDataIter().at(i).GetClose());
+        original.Add(m_per.GetCandles().GetDataIter().at(i).GetPriceByType(m_cfgTS.GetPriceType()));
     }
     {
          //LOGL << "Calculating... " << startEndFrame.ToStr() << "\n";

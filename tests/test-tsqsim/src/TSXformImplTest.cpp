@@ -12,6 +12,7 @@
 
 #include "PredictorFactory.h"
 #include "PredictorType.h"
+#include "PriceType.h"
 
 #include <Util/CoutBuf.hpp>
 
@@ -167,7 +168,7 @@ static void TestXformArrayMan(const VecD & inp, const TSXformMan & man)
 
 TEST(Conv_inv_high_level_diff)
 {
-    TSXformMan man;
+    TSXformMan man(PriceType::CLOSE);
     man.AddXForm(TSXformType::DIFF);
     TestXformArrayMan(TestXformGenInput(), man);
 }
@@ -175,14 +176,14 @@ TEST(Conv_inv_high_level_diff)
 
 TEST(Conv_inv_high_level_sqrt1)
 {
-    TSXformMan man;
+    TSXformMan man(PriceType::CLOSE);
     man.AddXForm(TSXformType::SQRTS);
     TestXformArrayMan(TestXformGenInput(), man);
 }
 
 TEST(Conv_inv_high_level_sqrt_sqrt)
 {
-    TSXformMan man;
+    TSXformMan man(PriceType::CLOSE);
     man.AddXForm(TSXformType::SQRTS);
     man.AddXForm(TSXformType::SQRTS);
     TestXformArrayMan(TestXformGenInput(), man);
@@ -191,7 +192,7 @@ TEST(Conv_inv_high_level_sqrt_sqrt)
 
 TEST(Conv_inv_high_level_sqrt_fabs)
 {
-    TSXformMan man;
+    TSXformMan man(PriceType::CLOSE);
     man.AddXForm(TSXformType::SQRTS);
     man.AddXForm(TSXformType::FABS);
     TestXformArrayMan(TestXformGenInput(), man);
@@ -199,7 +200,7 @@ TEST(Conv_inv_high_level_sqrt_fabs)
 
 TEST(Conv_inv_high_level_fabs_sqrt)
 {
-    TSXformMan man;
+    TSXformMan man(PriceType::CLOSE);
     man.AddXForm(TSXformType::FABS);
     man.AddXForm(TSXformType::SQRTS);
     TestXformArrayMan(TestXformGenInput(), man);
@@ -207,7 +208,7 @@ TEST(Conv_inv_high_level_fabs_sqrt)
 
 TEST(Conv_inv_high_level_diff_sqrts)
 {
-    TSXformMan man;
+    TSXformMan man(PriceType::CLOSE);
     man.AddXForm(TSXformType::DIFF);
     man.AddXForm(TSXformType::SQRTS);
     TestXformArrayMan(TestXformGenInput(), man);
@@ -215,7 +216,7 @@ TEST(Conv_inv_high_level_diff_sqrts)
 
 TEST(Conv_inv_high_level_sqrts_diff) /// TODO: FIXME
 {
-    TSXformMan man;
+    TSXformMan man(PriceType::CLOSE);
     man.AddXForm(TSXformType::SQRTS);
     /// man.AddXForm(TSXformType::DIFF); /// TODO
     TestXformArrayMan(TestXformGenInput(), man);
@@ -223,7 +224,7 @@ TEST(Conv_inv_high_level_sqrts_diff) /// TODO: FIXME
 
 TEST(Conv_inv_high_level_diff_sqrt_fabs)
 {
-    TSXformMan man;
+    TSXformMan man(PriceType::CLOSE);
     man.AddXForm(TSXformType::DIFF);
     man.AddXForm(TSXformType::SQRTS);
     man.AddXForm(TSXformType::FABS);
@@ -232,7 +233,7 @@ TEST(Conv_inv_high_level_diff_sqrt_fabs)
 
 TEST(Conv_inv_high_level_diff_diff) /// TODO: FIXME
 {
-    TSXformMan man;
+    TSXformMan man(PriceType::CLOSE);
     man.AddXForm(TSXformType::DIFF);
     /// man.AddXForm(TSXformType::DIFF); /// TODO
     TestXformArrayMan(TestXformGenInput(), man);
@@ -275,7 +276,7 @@ static VecD TestXformArrayManPred(const IDataProvider & dat, const VecD & vecTru
 
 TEST(Pred_xform_sqrt) /// TODO: Fixme
 {
-    TSXformMan man;
+    TSXformMan man(PriceType::CLOSE);
     man.AddXForm(TSXformType::SQRTS);
     const VecD & vecTrue = TestXformGenInput();
     //const VecD & reconstrPred = TestXformArrayManPred(vecTrue, man, PredictorType::PRED_BASELINE);
@@ -284,7 +285,7 @@ TEST(Pred_xform_sqrt) /// TODO: Fixme
 
 TEST(Pred_xform_diff) /// TODO: FIXME
 {
-    TSXformMan man;
+    TSXformMan man(PriceType::CLOSE);
     man.AddXForm(TSXformType::DIFF);
     const VecD & vecTrue = TestXformGenInput();
     /// TODO: Diff distorts the signal being inverted

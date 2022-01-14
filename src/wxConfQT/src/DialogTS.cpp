@@ -18,6 +18,7 @@
 const long DialogTS::ID_TEXTCTRL1 = wxNewId();
 const long DialogTS::ID_BUTTON1 = wxNewId();
 const long DialogTS::ID_BUTTON2 = wxNewId();
+const long DialogTS::ID_CHOICE2 = wxNewId();
 const long DialogTS::ID_CHOICE1 = wxNewId();
 const long DialogTS::ID_CHECKBOX12 = wxNewId();
 //*)
@@ -35,6 +36,8 @@ DialogTS::DialogTS(wxWindow* parent,wxWindowID id)
 	wxBoxSizer* BoxSizer3;
 	wxBoxSizer* BoxSizer4;
 	wxStaticBoxSizer* StaticBoxSizer1;
+	wxStaticBoxSizer* StaticBoxSizer2;
+	wxStaticBoxSizer* StaticBoxSizer3;
 
 	Create(parent, id, _T("Time Series Analysis"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("id"));
 	BoxSizer1 = new wxBoxSizer(wxVERTICAL);
@@ -52,9 +55,15 @@ DialogTS::DialogTS(wxWindow* parent,wxWindowID id)
 	BoxSizer2->Add(m_butScriptTextOpen, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	StaticBoxSizer1->Add(BoxSizer2, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	m_sizerBools->Add(StaticBoxSizer1, 1, wxALL|wxEXPAND, 5);
+	StaticBoxSizer2 = new wxStaticBoxSizer(wxVERTICAL, this, _T("Series type"));
+	m_choiceSeriesType = new MyChoiceEnum(this, ID_CHOICE2, wxDefaultPosition, wxDefaultSize, 0, 0, 0, wxDefaultValidator, _T("ID_CHOICE2"));
+	StaticBoxSizer2->Add(m_choiceSeriesType, 0, wxALL|wxEXPAND, 5);
+	m_sizerBools->Add(StaticBoxSizer2, 0, wxALL|wxEXPAND, 5);
+	StaticBoxSizer3 = new wxStaticBoxSizer(wxVERTICAL, this, _T("Predictor type"));
 	m_choicePredType = new MyChoiceEnum(this, ID_CHOICE1, wxDefaultPosition, wxDefaultSize, 0, 0, 0, wxDefaultValidator, _T("ID_CHOICE1"));
 	m_choicePredType->SetToolTip(_T("Prediction type"));
-	m_sizerBools->Add(m_choicePredType, 0, wxALL|wxEXPAND, 5);
+	StaticBoxSizer3->Add(m_choicePredType, 0, wxALL|wxEXPAND, 5);
+	m_sizerBools->Add(StaticBoxSizer3, 0, wxALL|wxEXPAND, 5);
 	m_chkTechs = new wxCheckBox(this, ID_CHECKBOX12, _T("Techs"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX12"));
 	m_chkTechs->SetValue(true);
 	m_chkTechs->Hide();
@@ -67,11 +76,11 @@ DialogTS::DialogTS(wxWindow* parent,wxWindowID id)
 	BoxSizer3->Add(m_butOK, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer1->Add(BoxSizer3, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	SetSizer(BoxSizer1);
-	BoxSizer1->Fit(this);
 	BoxSizer1->SetSizeHints(this);
 
 	Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DialogTS::Onm_butScriptTextClick);
 	Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DialogTS::Onm_butScriptTextOpenClick);
+	Connect(ID_CHOICE2,wxEVT_COMMAND_CHOICE_SELECTED,(wxObjectEventFunction)&DialogTS::OnTS);
 	Connect(ID_CHOICE1,wxEVT_COMMAND_CHOICE_SELECTED,(wxObjectEventFunction)&DialogTS::OnTS);
 	Connect(ID_CHECKBOX12,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&DialogTS::OnTS);
 	//*)

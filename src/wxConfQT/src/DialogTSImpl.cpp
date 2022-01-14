@@ -3,6 +3,8 @@
 #include "wxUtil.h"
 #include "PredictorTypeStr.h"
 #include "PredictorType.h"
+#include "PriceTypeStr.h"
+#include "PriceType.h"
 
 #include <Template/SafePtr.hpp>
 
@@ -20,10 +22,12 @@ void DialogTS::Init()
     m_mapCheckbox.Register(&m_confQTPlot.CANDLES,           m_chkCandles);
     m_mapCheckbox.Register(&m_confQTPlot.TECHS,             m_chkTechs);
     */
-    m_choicePredType->Init(PredictorTypeStr(), int(PredictorType::PRED_AR));
-    
-    m_mapChoice.Register(&m_confTS.PRED_TYPE, m_choicePredType);
-    
+    m_choicePredType  ->Init(PredictorTypeStr(),    int(PredictorType::PRED_AR));
+    m_choiceSeriesType->Init(PriceTypeStr(),        int(PriceType::HIGH));
+
+    m_mapChoice.Register(&m_confTS.PRED_TYPE,  m_choicePredType);
+    m_mapChoice.Register(&m_confTS.PRICE_TYPE, m_choiceSeriesType);
+
     m_maps.push_back(&m_mapChoice);
     m_maps.push_back(&m_mapCheckbox);
 }
@@ -43,7 +47,7 @@ void DialogTS::RestoreConf()
 
     wxUtil().AutoGenCheckBox(this, m_confTS, m_sizerBools, &m_mapCheckbox, (wxObjectEventFunction)&DialogTS::OnTS);
     m_txtScriptPath->SetValue(m_confTS.m_scriptPathTxt.c_str());
-    
+
     for (IMapControl * pmap : m_maps)
         pmap->FromVariableToCheck();
 }

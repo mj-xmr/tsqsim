@@ -13,7 +13,7 @@
 #include "ConfigTF2.h"
 #include "OptimizerFactoryAbstract.h"
 
-#include "OptiVar.h" /// TODO: Remove
+//#include "OptiVar.h" /// TODO: Remove
 
 #include <Ios/Osstream.hpp>
 #include <Util/Str.hpp>
@@ -50,6 +50,7 @@ EnjoLib::Str OptiHigh::WalkForwardOptiIndiv(const ISymbol & sym, const IPeriod &
     const OptiXValid & optiXvalidInitial = cvc.GetPass(i);
     OptiXValid optiXvalid = optiXvalidInitial;
     
+    // This is how you'd create a simulator and pass it the accumulator:
     //const SimulatorFactory simFact;
     //Corrade::Containers::Pointer<ISimulatorStd> simul = simFact.CreateStandard(*stratPtr, 0, false, ConfigGlob().MIN_SCORE);
     //simul->SetAccumulator(&simAccum);
@@ -63,12 +64,7 @@ EnjoLib::Str OptiHigh::WalkForwardOptiIndiv(const ISymbol & sym, const IPeriod &
         ossPassed << "X-Valid - " +  per.GetSymbolPeriodId() << " " << gm.round(iprogress / double(totalSize) * 100) << "%";
         progressMonitHigh.PrintProgressBarTime(optiXvalid.xvalid.end, optiConst.Len(), ossPassed.str(), false);
         {
-            //cout << "OPTI\n";
-            //gcfg.OPTI_USE = false;
-            //Optimizer opti(stratType, sym, period, fact.GetStrat(), optiXvalid.opti);
-            //confOpti.SetOptimizer(OptiType::OPTI_TYPE_FIND); /// TODO: Make it implicit in the optiBase(); and make OPTI_TYPE_XVALID?
             CorPtr<IOptimizer> opti = optiFact.Create(optiXvalid.opti);
-            //optiBase.SetStartEnd(optiXvalid.opti);
             (*opti)();
             {
                 //{LOGL << "\nValid:\n";}

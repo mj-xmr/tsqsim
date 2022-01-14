@@ -6,7 +6,7 @@
 
 struct TSXformOrig : public ITSXform
 {
-        XformRes Run(const IHasCandles & input, int idx, double prevConverted) const override;
+        XformRes Run(const IHasCandles & input, const PriceType & priceType, int idx, double prevConverted) const override;
         XformRes Run(const EnjoLib::VecD & vals) const override;
         double Invert(const EnjoLib::VecD & vals, double lost) const override;
 };
@@ -14,7 +14,7 @@ struct TSXformOrig : public ITSXform
 struct TSXformDiff : public ITSXform
 {
         TSXformDiff(const VecStr & params);
-        XformRes Run(const IHasCandles & input, int idx, double prevConverted) const override;
+        XformRes Run(const IHasCandles & input, const PriceType & priceType, int idx, double prevConverted) const override;
         XformRes Run(const EnjoLib::VecD & vals) const override;
         unsigned MaxShift() const override;
         double Invert(const EnjoLib::VecD & vals, double lost) const override;
@@ -24,21 +24,21 @@ struct TSXformDiff : public ITSXform
 
 struct TSXformFabs : public ITSXform
 {
-        XformRes Run(const IHasCandles & input, int idx, double prevConverted) const override;
+        XformRes Run(const IHasCandles & input, const PriceType & priceType, int idx, double prevConverted) const override;
         XformRes Run(const EnjoLib::VecD & vals) const override;
         double Invert(const EnjoLib::VecD & vals, double lost) const override;
 };
 
 struct TSXformSqrt : public ITSXform
 {
-        XformRes Run(const IHasCandles & input, int idx, double prevConverted) const override;
+        XformRes Run(const IHasCandles & input, const PriceType & priceType, int idx, double prevConverted) const override;
         XformRes Run(const EnjoLib::VecD & vals) const override;
         double Invert(const EnjoLib::VecD & vals, double lost) const override;
 };
 
 struct TSXformLog : public ITSXform
 {
-        XformRes Run(const IHasCandles & input, int idx, double prevConverted) const override;
+        XformRes Run(const IHasCandles & input, const PriceType & priceType, int idx, double prevConverted) const override;
         XformRes Run(const EnjoLib::VecD & vals) const override;
         double Invert(const EnjoLib::VecD & vals, double lost) const override;
         
@@ -48,7 +48,7 @@ struct TSXformLog : public ITSXform
 struct TSXformAdd : public ITSXform
 {
         TSXformAdd(const VecStr & params);
-        XformRes Run(const IHasCandles & input, int idx, double prevConverted) const override;
+        XformRes Run(const IHasCandles & input, const PriceType & priceType, int idx, double prevConverted) const override;
         XformRes Run(const EnjoLib::VecD & vals) const override;
         double Invert(const EnjoLib::VecD & vals, double lost) const override;
 
@@ -58,7 +58,7 @@ struct TSXformAdd : public ITSXform
 struct TSXformMul : public ITSXform
 {
         TSXformMul(const VecStr & params);
-        XformRes Run(const IHasCandles & input, int idx, double prevConverted) const override;
+        XformRes Run(const IHasCandles & input, const PriceType & priceType, int idx, double prevConverted) const override;
         XformRes Run(const EnjoLib::VecD & vals) const override;
         double Invert(const EnjoLib::VecD & vals, double lost) const override;
 
@@ -68,7 +68,7 @@ struct TSXformMul : public ITSXform
 struct TSXformDiv : public ITSXform
 {
         TSXformDiv(const VecStr & params);
-        XformRes Run(const IHasCandles & input, int idx, double prevConverted) const override;
+        XformRes Run(const IHasCandles & input, const PriceType & priceType, int idx, double prevConverted) const override;
         XformRes Run(const EnjoLib::VecD & vals) const override;
         double Invert(const EnjoLib::VecD & vals, double lost) const override;
 

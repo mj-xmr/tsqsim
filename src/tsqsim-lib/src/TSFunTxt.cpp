@@ -16,6 +16,7 @@ using namespace EnjoLib;
 
 TSFunTxt::TSFunTxt(const TSInput & tsin)
 : TSFunBase(tsin)
+, m_xformMan(tsin.m_cfgTS.GetPriceType())
 {      
     //const CharManipulations cman;
     const Tokenizer tok;
