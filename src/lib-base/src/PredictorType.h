@@ -8,10 +8,8 @@ enum class PredictorType
     PRED_AR,
     PRED_SMAMA,
     PRED_ARMA,
-#ifdef USE_R
     PRED_R_BASELINE,
     PRED_R_CUSTOM,
-#endif
     PRED_DUMB,
     PRED_TEST,
     PRED_TRUE

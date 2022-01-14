@@ -1,5 +1,10 @@
 #include "PredictorRCustom.h"
 
+#ifdef USE_R
+#include <Rinternals.h>
+#include <Rembedded.h>
+#endif //USE_R
+
 PredictorRCustom::PredictorRCustom(const IDataProvider & dat)
 : PredictorBase(dat, "RCustom")
 {
