@@ -4,25 +4,36 @@ cmake_minimum_required(VERSION 3.5.1)
 include(../../cmake/util.cmake)
 project( lib-base )
 
+find_package(R)
+
 file( GLOB SRCS src/*.cpp */*.h */*.hpp)
 
+if (R_FOUND)
+	option(WITH_FEATURE_R 	"Use R" ON)
+else()
+	option(WITH_FEATURE_R 	"Use R" OFF)
+endif()
 option(WITH_FEATURE_URT 	"Use URT" ON)
 
-add_library (${PROJECT_NAME} ${LINK_TYPE} ${SRCS})
 if (WITH_FEATURE_URT)
-	target_compile_definitions(${PROJECT_NAME} PRIVATE -DUSE_URT)
-	set (EXTRA_LIBS ${EXTRA_LIBS} URT)
+	set (EXTRA_LIBS  ${EXTRA_LIBS} URT)
+	set (DEFINITIONS ${DEFINITIONS} -DUSE_URT)
 endif()
+if (WITH_FEATURE_R)
+	set (EXTRA_LIBS  ${EXTRA_LIBS} ${R_LIBRARIES})
+	set (DEFINITIONS ${DEFINITIONS} -DUSE_R)
+	file( GLOB SRCS_R src/r/*.cpp src/r/*.*h)
+	set (SRCS ${SRCS} ${SRCS_R})
+endif()
+
+add_library (${PROJECT_NAME} ${LINK_TYPE} ${SRCS})
 enjoSetupTarget(${PROJECT_NAME})
+target_compile_definitions(${PROJECT_NAME} PRIVATE ${DEFINITIONS})
 target_link_libraries(${PROJECT_NAME} EnjoLibBoost EnjoLibStat3rd FuzzyEngine++ URT ${EXTRA_LIBS})
+target_include_directories(${PROJECT_NAME} PUBLIC src/r ${R_INCLUDE_DIRS})
 enjo_target_pch(${PROJECT_NAME} src/pch_base.h)
 target_compile_definitions(${PROJECT_NAME} PUBLIC PUB)
-if (APPLE)
-	# TODO: Upstream this to libBoost
-	# https://apple.stackexchange.com/questions/337940/why-is-usr-include-missing-i-have-xcode-and-command-line-tools-installed-moja
-	# https://lists.macports.org/pipermail/macports-dev/2019-September/041201.html
-	#target_compile_options(${PROJECT_NAME} PUBLIC "-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk")
-endif()
+
 #enjoCopyFile(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/../run-tests.sh ../run-tests.sh)
 #enjoCopyFile(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/../libs-base.sh ../libs-base.sh)
 #enjoCopyFile(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/../libs-stock.sh ../libs-stock.sh)
