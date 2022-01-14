@@ -1,7 +1,9 @@
 #include "PredictorRBaseline.h"
 
+#ifdef USE_R
 #include <Rinternals.h>
 #include <Rembedded.h>
+#endif //USE_R
 
 PredictorRBaseline::PredictorRBaseline(const IDataProvider & dat)
 : PredictorBase(dat, "RBaseline")
