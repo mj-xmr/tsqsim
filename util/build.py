@@ -130,8 +130,15 @@ def build(args):
     #print(cmd)
 def run_demo(args):
     os.chdir(DIR_BIN)
+    exports_r = ""
+    if platform.system() == 'Linux':
+        exports_r = "&& export R_HOME=/usr/lib/R && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib"
+    elif platform.system() == 'Darwin':
+        exports_r = "&& export R_HOME=/Library/Frameworks/R.framework/Resources && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib"
+    
     cmd = ""
     cmd += ' export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:lib' # TODO: Solve in CMake?
+    cmd += exports_r
     cmd += '&& ./tsqsim --help'
     cmd += '&& ./tsqsim'
 
