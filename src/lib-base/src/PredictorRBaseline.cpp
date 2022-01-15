@@ -1,24 +1,26 @@
 #include "PredictorRBaseline.h"
 
-#ifdef USE_R
-#include <Rinternals.h>
-#include <Rembedded.h>
-#endif //USE_R
+#include "ConfigDirs.h"
+#include "RWrapper.h"
+
+const char * PredictorRBaseline::SCRIPT_NAME = "r-baseline.R";
 
 PredictorRBaseline::PredictorRBaseline(const IDataProvider & dat)
 : PredictorBase(dat, "RBaseline")
 {
-    //ctor
 }
 
 PredictorRBaseline::~PredictorRBaseline()
 {
-    //dtor
 }
 
 EnjoLib::VecD PredictorRBaseline::Predict(const EnjoLib::VecD & data) const
 {
-    return data;
+    // Invoke a function in R
+    RWrapper::source(ConfigDirs().DIR_SCRIPTS2 + SCRIPT_NAME);
+    const EnjoLib::VecD & ret = RWrapper::R_predictVec(data);
+    
+    return ret;
 }
 
 unsigned PredictorRBaseline::GetLags() const

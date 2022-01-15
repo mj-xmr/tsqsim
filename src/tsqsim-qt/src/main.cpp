@@ -35,6 +35,7 @@
 #include <ConfigSym.h>
 #include "StrategyType.h"
 #include "StrategyTypeEnum.h"
+#include "RInitDeinit.h"
 
 //#include <Util/Trim.hpp>
 #include <Util/CharManipulations.hpp>
@@ -49,6 +50,7 @@ using namespace EnjoLib;
 
 int main(int argc, char *argv[])
 {
+    RInitDeinit rinit;
     int mode = 0;
     if (argc > 1)
     {
