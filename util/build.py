@@ -134,7 +134,11 @@ def run_demo(args):
     if platform.system() == 'Linux':
         exports_r = "&& export R_HOME=/usr/lib/R && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib"
     elif platform.system() == 'Darwin':
-        exports_r = "&& export R_HOME=/Library/Frameworks/R.framework/Resources && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib"
+        dir_framework = '/Library/Frameworks/R.framework/Resources'
+        dir_osx11 = '/usr/local/Cellar/r/4.1.2/lib/R'
+        if os.path.isdir(dir_osx11):
+            dir_framework = dir_osx11
+        exports_r = "&& export R_HOME={} && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib".format(dir_framework)
     
     cmd = ""
     cmd += ' export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:lib' # TODO: Solve in CMake?
