@@ -8,7 +8,7 @@ if [ "$(uname)" == "Darwin" ]; then
 	fi
 	#HOMEBREW_NO_AUTO_UPDATE=1 brew install qt5
 	#brew link -v qt5 --force
-	HOMEBREW_NO_AUTO_UPDATE=1 brew install -vd r # openssl zmq
+	HOMEBREW_NO_AUTO_UPDATE=1 brew install r # openssl zmq
 	# TODO: install qt instead of qt5, after moving to latest QCustomPlot. Then the "--prefix" and "link" aren't needed.
 	Rscript src/tsqsim-lib/static/scripts/r-path.R
 
