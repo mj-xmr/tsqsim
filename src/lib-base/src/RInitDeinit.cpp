@@ -8,8 +8,8 @@
 RInitDeinit::RInitDeinit()
 {
 #ifdef USE_R
-    int r_argc = 2;
-    char *r_argv[] = { "R", "--silent" };
+    const int r_argc = 3;
+    char *r_argv[] = { "R", "--silent", "--vanilla" };
     Rf_initEmbeddedR(r_argc, r_argv);
 #endif //USE_R
 }
