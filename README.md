@@ -120,6 +120,23 @@ Beside the usual application usage, please note, that it's very beneficial to us
 ## Modifying the transformation script
 The TS transformation script's path can be obtained via `./tsqsim --help`, as well as it's currently available transformations. The script can modify the chain of transformations used by the executable, without the need for its recompilation.
 
+## Running R scripts
+The tool delivers binding to the R's C interface, currently via `PredictorRBaseline` and `PredictorRCustom`. Their corresponding R scripts can be found in the directory `static/scripts`
+Before running the wrapped R scripts, two variables need to be exported from the shell, that is supposed to run the predictors. Under Linux:
+```
+export R_HOME=/usr/lib/R
+export LD_LIBRARY_PATH=$R_HOME/lib
+./tsqsim
+```
+
+and under OSX:
+
+```
+export R_HOME=/Library/Frameworks/R.framework/Resources
+export LD_LIBRARY_PATH=$R_HOME/lib
+./tsqsim
+```
+
 # Development
 For the development use case, it's recommended to turn on certain optimizations, that reduce the recompilation and linking time while changing the source code often. The optimizations are: dynamic linking (*shared*), precompiled headers (*pch*) and (optionally) a networked parallel compiler's wrapper, [icecc](https://github.com/icecc/icecream).
 

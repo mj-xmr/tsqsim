@@ -12,6 +12,9 @@ class PredictorRBaseline : public PredictorBase
 
         EnjoLib::VecD Predict(const EnjoLib::VecD & data) const override;
         unsigned GetLags() const override;
+        
+        static const char * SCRIPT_NAME;
+        //static const char * FUNCTION_NAME;
 
     protected:
 

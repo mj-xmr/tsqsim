@@ -2,6 +2,7 @@
 
 #include "CLITsq.h"
 #include "CLIResult.h"
+#include "RInitDeinit.h"
 
 #include <Util/CoutBuf.hpp>
 #include <Util/StrColour.hpp>
@@ -15,6 +16,7 @@ int main(int argc, char ** argv)
 {
     try
     {
+        RInitDeinit rinit;
         const CLITsq cli;
         const EnjoLib::Result<CLIResult> & result = cli.GetConfigs(argc, argv);
         

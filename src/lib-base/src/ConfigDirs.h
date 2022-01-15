@@ -16,6 +16,7 @@ class ConfigDirs
         const EnjoLib::Str DIR_CACHE;
         const EnjoLib::Str DIR_CFG;
         const EnjoLib::Str DIR_SCRIPTS;
+        const EnjoLib::Str DIR_SCRIPTS2;
         const EnjoLib::Str DIR_OUT;
         const EnjoLib::Str DIR_OUT_LABELS;
         const EnjoLib::Str DIR_LABELS_RANGE;
