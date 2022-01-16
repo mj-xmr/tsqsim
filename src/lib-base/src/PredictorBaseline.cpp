@@ -1,10 +1,9 @@
 #include "PredictorBaseline.h"
 
-
 PredictorBaseline::PredictorBaseline(const IDataProvider & dat) : PredictorBase(dat, "Baseline") {}
 PredictorBaseline::~PredictorBaseline(){}
 
-EnjoLib::VecD PredictorBaseline::Predict(const EnjoLib::VecD & data) const
+EnjoLib::VecD PredictorBaseline::PredictVec(const EnjoLib::VecD & data) const
 {
     const int lags = GetLags();
     EnjoLib::VecD ret;
@@ -22,6 +21,11 @@ EnjoLib::VecD PredictorBaseline::Predict(const EnjoLib::VecD & data) const
         ret.Add(data.at(i - lags));
     }
     return ret;
+}
+
+double PredictorBaseline::PredictNext(const BufferDouble & datExpanding) const
+{
+    return datExpanding[GetLags()];
 }
 
 unsigned PredictorBaseline::GetLags() const

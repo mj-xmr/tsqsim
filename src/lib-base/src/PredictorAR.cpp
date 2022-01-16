@@ -12,11 +12,17 @@ PredictorAR::PredictorAR(const IDataProvider & dat, const EnjoLib::Str & name)
 
 PredictorAR::~PredictorAR(){}
 
-EnjoLib::VecD PredictorAR::Predict(const EnjoLib::VecD & data) const
+EnjoLib::VecD PredictorAR::PredictVec(const EnjoLib::VecD & data) const
 {
     const int numSamples = GetLags();
     const EnjoLib::VecD & predAR = PredictorUtil().Regression(numSamples, data, false);
     return predAR;
+}
+
+double PredictorAR::PredictNext(const BufferDouble & datExpanding) const
+{
+    const VecD & vec = PredictVec(datExpanding.GetData());
+    return vec.Last();
 }
 
 unsigned PredictorAR::GetLags() const

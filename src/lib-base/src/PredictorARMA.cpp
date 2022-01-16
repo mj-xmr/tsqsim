@@ -16,7 +16,7 @@ PredictorARMA::PredictorARMA(const IDataProvider & dat)
 }
 PredictorARMA::~PredictorARMA(){}
 
-EnjoLib::VecD PredictorARMA::Predict(const EnjoLib::VecD & data) const
+EnjoLib::VecD PredictorARMA::PredictVec(const EnjoLib::VecD & data) const
 {
     const int numSamplesMA  = GetLag1().GetVal();  // ParQ
     const PredictorUtil util;
@@ -26,6 +26,12 @@ EnjoLib::VecD PredictorARMA::Predict(const EnjoLib::VecD & data) const
     const EnjoLib::VecD & predARMA = predAR + predMA;
 
     return predARMA;
+}
+
+double PredictorARMA::PredictNext(const BufferDouble & datExpanding) const
+{
+    const VecD & vec = PredictVec(datExpanding.GetData());
+    return vec.Last();
 }
 
 unsigned PredictorARMA::GetLags() const

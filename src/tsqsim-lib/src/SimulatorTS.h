@@ -46,6 +46,7 @@ class SimulatorTS : public ISimulatorTS
         EnjoLib::VecD Pred(const ITSFun & tsFun, const PredictorType & type) const;
         EnjoLib::VecD Pred(const PredictorType & type) const;
         EnjoLib::VecD Pred(const IPredictor & pred) const;
+        EnjoLib::VecD PredCommon(const IPredictor & predAlgo, const EnjoLib::VecD & data) const;
 
     protected:
         bool IsVerbose() const;

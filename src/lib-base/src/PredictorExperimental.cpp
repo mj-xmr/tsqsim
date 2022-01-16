@@ -6,11 +6,15 @@ PredictorExperimental:: PredictorExperimental(const IDataProvider & dat) : Predi
 PredictorExperimental::~PredictorExperimental(){}
 
 
-EnjoLib::VecD PredictorExperimental::Predict(const EnjoLib::VecD & data) const
+EnjoLib::VecD PredictorExperimental::PredictVec(const EnjoLib::VecD & data) const
 {
     return PredictorBaseline(GetDat()).Predict(data);
 }
 
+double PredictorExperimental::PredictNext(const BufferDouble & datExpanding) const
+{
+    return PredictorBaseline(GetDat()).PredictNext(datExpanding);
+}
 
 unsigned PredictorExperimental::GetLags() const
 {

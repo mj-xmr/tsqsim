@@ -10,7 +10,8 @@ class PredictorRCustom : public PredictorBase
         PredictorRCustom(const IDataProvider & dat);
         virtual ~PredictorRCustom();
 
-        EnjoLib::VecD Predict(const EnjoLib::VecD & data) const override;
+        EnjoLib::VecD PredictVec(const EnjoLib::VecD & data) const override;
+        double PredictNext(const BufferDouble & datExpanding) const override;
         unsigned GetLags() const override;
         
         static const char * SCRIPT_NAME;

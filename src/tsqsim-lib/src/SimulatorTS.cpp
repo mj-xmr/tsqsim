@@ -16,7 +16,7 @@
 #include "PredictorType.h"
 #include "PredictorFactory.h"
 #include "PredictorOutputType.h"
-#include "Logic.h"
+#include "BufferDouble.h"
 
 #include <Math/GeneralMath.hpp>
 #include <Util/VecOpThin.hpp>
@@ -57,7 +57,6 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
         idxFinish = startEndFrame.end;
     }
     const int len = idxFinish - idxStart;
-    
     
     const SimulatorTSReports reps;
 
@@ -162,7 +161,7 @@ TSXformDataMan SimulatorTS::GetRetsFiltered(const std::vector<Inp> & input) cons
 EnjoLib::VecD SimulatorTS::Pred(const ITSFun & tsFun, const PredictorType & type) const
 {
     const CorPtr<IPredictor> predAlgo = PredictorFactory().Create(m_per, type);
-    const EnjoLib::VecD & preds = predAlgo->Predict(m_dataMan.converted);
+    const EnjoLib::VecD & preds = PredCommon(*predAlgo, m_dataMan.converted);
 
     return Pred(*predAlgo);
 }
@@ -175,12 +174,30 @@ EnjoLib::VecD SimulatorTS::Pred(const PredictorType & type) const
 EnjoLib::VecD SimulatorTS::Pred(const IPredictor & predAlgo) const
 {
     //const int horizon = 1;
-    const EnjoLib::VecD & preds = predAlgo.Predict(m_dataMan.converted);
+    const EnjoLib::VecD & preds = PredCommon(predAlgo, m_dataMan.converted);
 
     //LOGL << "Preds = " << preds.Print() << Nl;
 
     const std::vector<TSRes> & rec = GetReconstruction(&m_fun, preds, m_dataMan.convertedLost);
     return GetReconstructionFiltered(rec);
+}
+
+EnjoLib::VecD SimulatorTS::PredCommon(const IPredictor & predAlgo, const EnjoLib::VecD & data) const
+{
+    if (m_cfgTS.USE_VECTOR_PRED)
+    {
+        const EnjoLib::VecD & predVec = predAlgo.PredictVec(data);
+        
+        // Assertion, checking if just some of the returned values are the same as predAlgo.Predict(data);
+        BufferDouble buf(data);
+        const double predLast = predAlgo.PredictNext(buf);
+        Assertions::IsTrue (SimulatorTSReports().DoublesEqual(predLast,  predVec.Last(), 0.01),       "DoublesEqual(predLast,  predVec)");
+        return predVec;
+    }
+    else
+    {
+        return predAlgo.Predict(data);
+    }
 }
 
 EnjoLib::VecD SimulatorTS::GetReconstructionFiltered(const std::vector<TSRes> & input) const

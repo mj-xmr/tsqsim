@@ -16,7 +16,7 @@ PredictorSMAMA::PredictorSMAMA(const IDataProvider & dat)
 }
 PredictorSMAMA::~PredictorSMAMA(){}
 
-EnjoLib::VecD PredictorSMAMA::Predict(const EnjoLib::VecD & data) const
+EnjoLib::VecD PredictorSMAMA::PredictVec(const EnjoLib::VecD & data) const
 {
     const int numSamplesSma = m_lagMine.GetVal(); // 
     const int numSamplesMA  = GetLag1().GetVal();  // ParQ
@@ -27,6 +27,12 @@ EnjoLib::VecD PredictorSMAMA::Predict(const EnjoLib::VecD & data) const
     const EnjoLib::VecD & SMAMA = predSma + predMA;
 
     return SMAMA;
+}
+
+double PredictorSMAMA::PredictNext(const BufferDouble & datExpanding) const
+{
+    const VecD & vec = PredictVec(datExpanding.GetData());
+    return vec.Last();
 }
 
 unsigned PredictorSMAMA::GetLags() const
