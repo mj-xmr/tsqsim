@@ -4,6 +4,8 @@
 #include "SymbolFactoryAbstract.h"
 #include "ISymbol.h"
 
+#include <Template/CorradePointer.h>
+
 class SymbolFactoryClean : public SymbolFactoryAbstract
 {
     public:

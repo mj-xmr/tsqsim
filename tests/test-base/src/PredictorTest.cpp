@@ -3,6 +3,9 @@
 #include "PredictorFactory.h"
 #include "PredictorType.h"
 #include "PredictorTypeStr.h"
+#include "OrderedSeries.h"
+#include "SymbolFactoryClean.h"
+
 #include <Util/CoutBuf.hpp>
 #include <Util/VecD.hpp>
 
@@ -21,11 +24,13 @@ static VecD PredGenTrue()
     return ret;
 }
 
-/// TODO: Restore
-/*
 static VecD Pred(const VecD & inp, const PredictorType & type)
 {
-    CorPtr<IPredictor> algo = PredictorFactory().Create(type);
+    CorPtr<ISymbol> sym = SymbolFactoryClean().Create("Ordered");
+    OrderedSeries oser(*sym);
+    oser.FeedVals(inp);
+    
+    CorPtr<IPredictor> algo = PredictorFactory().Create(oser, type);
     return algo->Predict(inp);
 }
 
@@ -68,7 +73,15 @@ TEST(Pred_all_zero_cond)
             LOGL << "Pred type = " << typeStr.at(iType) << Nl;
         }
         const PredictorType type = PredictorType(iType);
-        CorPtr<IPredictor> algo = PredictorFactory().Create(type);
+        if (type == PredictorType::PRED_R_BASELINE || type == PredictorType::PRED_R_CUSTOM)
+        {
+            LOGL << "Ignoring: " << typeStr.at(iType) << Nl;
+            continue;
+        }
+        CorPtr<ISymbol> sym = SymbolFactoryClean().Create("Ordered");
+        OrderedSeries oser(*sym);
+        //oser.FeedVals(vecTrue); // Not needed
+        CorPtr<IPredictor> algo = PredictorFactory().Create(oser, type);
         const VecD & vecActual = algo->Predict(vecTrue);
         CHECK_EQUAL(vecTrue.size(), vecActual.size());
         
@@ -87,4 +100,4 @@ TEST(Pred_all_zero_cond)
         }
     }
 }
-*/
+
