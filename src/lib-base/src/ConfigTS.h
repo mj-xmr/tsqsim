@@ -34,6 +34,7 @@ class ConfigTS : public ConfigBase
         bool PLOT_SERIES = true;
         bool MT_REPORT = false;
         bool MT_XFORM = false;
+        bool USE_VECTOR_PRED = false;
 
         long int PRED_TYPE = 0;
         long int PRICE_TYPE = 0;

@@ -53,17 +53,27 @@ bool SimulatorTSReports::VecEqual(const EnjoLib::VecD & data1, const EnjoLib::Ve
     }
     for (size_t i = 0; i < data1.size(); ++i)
     {
-        if (data1.at(i) != data2.at(i))
+        if (not DoublesEqual(data1.at(i), data2.at(i), eps))
         {
-            VecD vec;
-            vec.Add(data1.at(i));
-            vec.Add(data2.at(i));
-            const double mean = vec.Mean();
-            if (not Logic::In(mean - eps, mean, mean + eps))
-            {
-                return false;
-            }
+            return false;
         }
+    }
+    return true;
+}
+
+bool SimulatorTSReports::DoublesEqual(const double data1, const double data2, double eps) const
+{
+    if (data1 == data2)
+    {
+        return true;
+    }
+    VecD vec;
+    vec.Add(data1);
+    vec.Add(data2);
+    const double mean = vec.Mean();
+    if (not Logic::In(mean - eps, mean, mean + eps))
+    {
+        return false;
     }
     return true;
 }

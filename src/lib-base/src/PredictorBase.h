@@ -3,7 +3,7 @@
 
 #include "IPredictor.h"
 #include "OptiVar.h"
-
+#include "BufferDouble.h"
 
 class PredictorBase : public IPredictor
 {

@@ -10,7 +10,8 @@ class PredictorBaseline : public PredictorBase
         PredictorBaseline(const IDataProvider & dat);
         virtual ~PredictorBaseline();
 
-        EnjoLib::VecD Predict(const EnjoLib::VecD & data) const override;
+        EnjoLib::VecD PredictVec(const EnjoLib::VecD & data) const override;
+        double PredictNext(const BufferDouble & datExpanding) const override;
         unsigned GetLags() const override;
 
     protected:
