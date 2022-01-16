@@ -84,7 +84,8 @@ jobs:
       matrix:
         #os: [macOS-latest, macOS-11]    # prev
         #os: [macOS-latest, macOS-10.15] # future 
-        os: [macOS-10.15, macOS-11]      # transitionary
+        #os: [macOS-10.15, macOS-11]      # transitionary
+        os: [macOS-11]     
     steps:
     - uses: actions/checkout@v1
       with:
