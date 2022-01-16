@@ -57,7 +57,7 @@ class PeriodClean : public IPeriod
         float GetLeverage() const override;
         virtual float GetTPRatio() const override {return 3;}
         //virtual float GetTPRatio() const {return 100;};
-        virtual float GetMaxLossPercent() const override = 0;
+        virtual float GetMaxLossPercent() const override { return 0.01; };
         bool UsingTicks() const override { return m_usingTicks; }
 
         Buffer GetBuf(const BufferType & type) const override;
