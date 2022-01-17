@@ -4,6 +4,7 @@
 #include "TicksProviderXMR.h"
 
 #include <Util/Str.hpp>
+#include <Util/CoutBuf.hpp>
 #include <Util/Tokenizer.hpp>
 
 using namespace std;
@@ -50,7 +51,12 @@ CorPtr<ITicks> TicksProviderXMRFake::GetTicks(const Str & symbolName, const Conf
 
     const VecStr & linesConv = TicksProviderXMR::ConvertStat(lines);
     /// TODO: Analyze the linesConv, if the format is still OK, because they don't seem to scale up very well.
-    return CorPtr<ITicks>(new Ticks(symbolName, linesConv));
+    
+    CorPtr<ITicks> ret(new Ticks(symbolName, linesConv));
+    
+    //LOGL << "TicksProviderXMRFake: Got ticks of: " << ret->size() << Nl;
+    
+    return ret;
 }
 
 CorPtr<ITicks> TicksProviderXMRFake::GetPeriod(const Str & symbolName, const Str & periodName) const

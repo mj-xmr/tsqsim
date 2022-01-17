@@ -144,7 +144,7 @@ void OptimizerBase::operator()()
     }
 
     if (gcfgMan.cfgOpti->OPTI_VERBOSE && m_isVerbose)
-        if (not gcfgMan.cfgOpti->OPTI_CROSS_VALID)
+        if (not gcfgMan.cfgOpti->IsXValid())
         {
             LOGL << Endl;
         }
@@ -162,7 +162,7 @@ void OptimizerBase::PrintCurrentResults() const
 
 void OptimizerBase::PrintArgs(const std::vector<OptiVarF> & args) const
 {
-    if (not gcfgMan.cfgOpti->OPTI_CROSS_VALID && m_isVerbose)
+    if (not gcfgMan.cfgOpti->IsXValid() && m_isVerbose)
     {
         const EnjoLib::Str id = GetPeriods().at(0)->GetSymbolPeriodId();
         for (OptiVarF v : args)

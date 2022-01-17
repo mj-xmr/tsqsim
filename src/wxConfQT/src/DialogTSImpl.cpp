@@ -6,9 +6,8 @@
 #include "PriceTypeStr.h"
 #include "PriceType.h"
 
+#include <UtilWx.hpp>
 #include <Template/SafePtr.hpp>
-
-#include <wx/mimetype.h>
 
 void DialogTS::OnTS(wxCommandEvent& event)
 {
@@ -37,7 +36,8 @@ void DialogTS::ReadSelections()
 {
     for (IMapControl * pmap : m_maps)
         pmap->FromCheckToVariable();
-    m_confTS.m_scriptPathTxt = m_txtScriptPath->GetValue().c_str().AsChar();
+    m_confTS.m_scriptPathTxt  = m_txtScriptPath-> GetValue().c_str().AsChar();
+    m_confTS.m_scriptPathTxtR = m_txtScriptPathR->GetValue().c_str().AsChar();
 }
 
 /// Populate selections
@@ -46,7 +46,8 @@ void DialogTS::RestoreConf()
     m_confTS.Read();
 
     wxUtil().AutoGenCheckBox(this, m_confTS, m_sizerBools, &m_mapCheckbox, (wxObjectEventFunction)&DialogTS::OnTS);
-    m_txtScriptPath->SetValue(m_confTS.m_scriptPathTxt.c_str());
+    m_txtScriptPath ->SetValue(m_confTS.m_scriptPathTxt. c_str());
+    m_txtScriptPathR->SetValue(m_confTS.m_scriptPathTxtR.c_str());
 
     for (IMapControl * pmap : m_maps)
         pmap->FromVariableToCheck();
@@ -54,35 +55,25 @@ void DialogTS::RestoreConf()
 
 void DialogTS::Onm_butScriptTextClick(wxCommandEvent& event)
 {
-    const wxString & fil = m_txtScriptPath->GetValue();
-
-    wxFileDialog openFileDialog(this, _("Save " + fil), "", fil,  "", wxFD_PREVIEW);
-    if (openFileDialog.ShowModal() == wxID_CANCEL)
-        return;     // the user changed idea...
-
-    m_txtScriptPath->SetValue(openFileDialog.GetPath());
+    EnjoLib::UtilWx::FindFileFillTxt(this, m_txtScriptPath);
     OnTS(event);
 }
 
 void DialogTS::Onm_butScriptTextOpenClick(wxCommandEvent& event)
 {
     const wxString file_name = m_txtScriptPath->GetValue();
+    EnjoLib::UtilWx::ExecuteDefaultEditorOnFile(file_name, ".txt");
+}
 
-    // 1) Get File Type
-    EnjoLib::SafePtr<wxFileType> c_type(wxTheMimeTypesManager->GetFileTypeFromExtension(".txt"));
-    if(!c_type.IsValid())
-    {
-        wxMessageBox("Couldnt find asosiation");
-        return;
-    }
 
-    // 2) Get Open Message
-    const wxString command = c_type->GetOpenCommand(file_name);
-    if(!command)
-    {
-        wxMessageBox("No default program");
-        return; //No defoult program
-    }
-    // 3) Execute message
-    wxExecute(command);
+void DialogTS::Onm_butScriptTextRClick(wxCommandEvent& event)
+{
+    EnjoLib::UtilWx::FindFileFillTxt(this, m_txtScriptPathR);
+    OnTS(event);
+}
+
+void DialogTS::Onm_butScriptTextOpenRClick(wxCommandEvent& event)
+{
+    const wxString file_name = m_txtScriptPathR->GetValue();
+    EnjoLib::UtilWx::ExecuteDefaultEditorOnFile(file_name, ".txt");
 }

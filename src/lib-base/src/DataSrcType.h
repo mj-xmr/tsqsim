@@ -5,7 +5,8 @@
 enum class DataSrcType
 {
     FOREX_TESTER,
-    MONERO
+    MONERO,
+    GENERATED
 };
 
 #endif // DATASRCTYPE_H

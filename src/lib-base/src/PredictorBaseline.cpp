@@ -3,6 +3,7 @@
 PredictorBaseline::PredictorBaseline(const IDataProvider & dat) : PredictorBase(dat, "Baseline") {}
 PredictorBaseline::~PredictorBaseline(){}
 
+/*
 EnjoLib::VecD PredictorBaseline::PredictVec(const EnjoLib::VecD & data) const
 {
     const int lags = GetLags();
@@ -22,7 +23,7 @@ EnjoLib::VecD PredictorBaseline::PredictVec(const EnjoLib::VecD & data) const
     }
     return ret;
 }
-
+*/
 double PredictorBaseline::PredictNext(const BufferDouble & datExpanding) const
 {
     return datExpanding[GetLags()];

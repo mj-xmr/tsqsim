@@ -1,5 +1,6 @@
 #include "ConfigTS.h"
 
+#include "ConfigDirs.h"
 #include "Consts.h"
 
 //#include <Util/Except.hpp>
@@ -10,7 +11,9 @@
 using namespace std;
 using namespace EnjoLib;
 
-const char * ConfigTS::DEFAULT_SCRIPT_FILE_NAME = "static/scripts/ts-xform-script.txt";
+const char * ConfigTS::DEFAULT_SCRIPT_FILE_NAME   = "ts-xform-script.txt";
+const char * ConfigTS::DEFAULT_SCRIPT_FILE_NAME_R = "r-custom.R";
+
 
 ConfigTS::~ConfigTS(){}
 ConfigTS::ConfigTS()
@@ -28,10 +31,11 @@ void ConfigTS::FromOptsNumeric(const OptionsNumeric & optsNum)
 
 void ConfigTS::RegisterAndReadBools(EnjoLib::Istream & f)
 {
-    RegisterAndReadBool(f, crashOnRecoverableErrors, 0, "Crash on err", "Crash on recoverable errors");
-    RegisterAndReadBool(f, PLOT_SERIES,              1, "Plot series",  "Plot output series after evaluation");
-    RegisterAndReadBool(f, MT_XFORM,                 1, "MT xform",     "Perform the transformations in a multithreaded way (still unstable)");
-    RegisterAndReadBool(f, MT_REPORT,                0, "MT report",    "Generate report in multithreaded way (still unstable)");
+    RegisterAndReadBool(f, crashOnRecoverableErrors, 0, "Crash on err",     "Crash on recoverable errors");
+    RegisterAndReadBool(f, PLOT_SERIES,              1, "Plot series",      "Plot output series after evaluation");
+    RegisterAndReadBool(f, PLOT_BASELINE,            1, "Plot baseline",    "Plot baseline prediction in QT app");
+    RegisterAndReadBool(f, MT_XFORM,                 1, "MT xform",         "Perform the transformations in a multithreaded way (still unstable)");
+    RegisterAndReadBool(f, MT_REPORT,                0, "MT report",        "Generate report in multithreaded way (still unstable)");
     RegisterAndReadBool(f, USE_VECTOR_PRED,          1, "Opti vec pred",    "Use optimized vectored prediction");
 }
 
@@ -45,7 +49,9 @@ void ConfigTS::RegisterAndReadFloats(EnjoLib::Istream & f)
 }
 void ConfigTS::RegisterAndReadStrs(EnjoLib::Istream & f)
 {
-    RegisterAndReadStr(f, m_scriptPathTxt, DEFAULT_SCRIPT_FILE_NAME);
+    const ConfigDirs dirs;
+    RegisterAndReadStr(f, m_scriptPathTxt,  dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME);
+    RegisterAndReadStr(f, m_scriptPathTxtR, dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME_R);
 }
 
 PredictorType ConfigTS::GetPredType() const

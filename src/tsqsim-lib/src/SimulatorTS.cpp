@@ -17,6 +17,7 @@
 #include "PredictorFactory.h"
 #include "PredictorOutputType.h"
 #include "BufferDouble.h"
+#include "Logic.h"
 
 #include <Math/GeneralMath.hpp>
 #include <Util/VecOpThin.hpp>
@@ -51,7 +52,7 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
     //const int idxStart  = m_per.Len() - m_fun.Len();
     int idxStart  = 0;
     int idxFinish = m_per.Len();
-    if (startEndFrame.IsValid())
+    if (startEndFrame.IsValid()) /// TODO: This should only influence the VIEW of the data, not the data itself. Symptom - torn XVAL plot at the end.
     {
         idxStart = startEndFrame.start;
         idxFinish = startEndFrame.end;
@@ -88,12 +89,12 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
     }
 
     {
-        m_predsTrue     = Pred(m_fun, PredictorType::PRED_TRUE);       // Stays fixed. Simulates transformation and inverse transformation
-        m_predsBaseline = Pred(m_fun, PredictorType::PRED_BASELINE);   // Stays fixed
+        m_predsTrue     = Pred(PredictorType::PRED_TRUE);       // Stays fixed. Simulates transformation and inverse transformation
+        m_predsBaseline = Pred(PredictorType::PRED_BASELINE);   // Stays fixed
         {
             //LOGL << "\nPredn";
         }
-        m_preds         = Pred(*m_ppred);
+        m_preds         = PredAlgo(*m_ppred);
 
         //{LOGL << "Sizes rets = " << m_rets.size() << ", true = " << m_predsTrue.size() << ", base = " << m_predsBaseline.size() << ", pred = " << m_preds.size() << Nl;}
 
@@ -102,12 +103,12 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
         Assertions::SizesEqual(m_dataMan.converted,         m_predsBaseline, "m_rets & m_predsBaseline");
         Assertions::SizesEqual(m_dataMan.converted,         m_preds,         "m_rets & m_preds");
 
-        Assertions::IsTrue (reps.VecEqual(m_dataMan.converted,  m_predsTrue, 0.01),       "m_rets == m_predsTrue");
-        Assertions::IsTrue (reps.VecEqual(m_original,           m_predsTrue, 0.01),       "m_original == m_predsTrue");
-        Assertions::IsFalse(reps.VecEqual(m_dataMan.converted,  m_predsBaseline),   "m_rets != m_predsBaseline");
+        Assertions::IsTrue (Logic::VecEqual(m_dataMan.converted,  m_predsTrue, 0.01),   "m_rets == m_predsTrue");
+        Assertions::IsTrue (Logic::VecEqual(m_original,           m_predsTrue, 0.01),   "m_original == m_predsTrue");
+        Assertions::IsFalse(Logic::VecEqual(m_dataMan.converted,  m_predsBaseline),     "m_rets != m_predsBaseline");
         if (m_cfgTS.GetPredType() != PredictorType::PRED_TRUE)
         {
-            //Assertions::IsFalse(VecEqual(m_dataMan.converted, m_preds),           "m_rets != m_preds");
+            //Assertions::IsFalse(Logic::VecEqual(m_dataMan.converted, m_preds, 0.01),           "m_rets != m_preds");
         }
     }
     {
@@ -158,20 +159,13 @@ TSXformDataMan SimulatorTS::GetRetsFiltered(const std::vector<Inp> & input) cons
     return dataMan;
 }
 
-EnjoLib::VecD SimulatorTS::Pred(const ITSFun & tsFun, const PredictorType & type) const
-{
-    const CorPtr<IPredictor> predAlgo = PredictorFactory().Create(m_per, type);
-    const EnjoLib::VecD & preds = PredCommon(*predAlgo, m_dataMan.converted);
-
-    return Pred(*predAlgo);
-}
-
 EnjoLib::VecD SimulatorTS::Pred(const PredictorType & type) const
 {
-    return Pred(m_fun, type);
+    const CorPtr<IPredictor> predAlgo = PredictorFactory().Create(m_per, type);
+    return PredAlgo(*predAlgo);
 }
 
-EnjoLib::VecD SimulatorTS::Pred(const IPredictor & predAlgo) const
+EnjoLib::VecD SimulatorTS::PredAlgo(const IPredictor & predAlgo) const
 {
     //const int horizon = 1;
     const EnjoLib::VecD & preds = PredCommon(predAlgo, m_dataMan.converted);
@@ -191,7 +185,7 @@ EnjoLib::VecD SimulatorTS::PredCommon(const IPredictor & predAlgo, const EnjoLib
         // Assertion, checking if just some of the returned values are the same as predAlgo.Predict(data);
         BufferDouble buf(data);
         const double predLast = predAlgo.PredictNext(buf);
-        Assertions::IsTrue (SimulatorTSReports().DoublesEqual(predLast,  predVec.Last(), 0.01),       "DoublesEqual(predLast,  predVec)");
+        Assertions::IsTrue (Logic::DoublesEqual(predLast,  predVec.Last(), 0.01),       "DoublesEqual(predLast,  predVec)");
         return predVec;
     }
     else

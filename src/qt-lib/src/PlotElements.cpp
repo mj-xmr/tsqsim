@@ -6,7 +6,9 @@
 #include "Util.h"
 //#include "ConfigMan.h"
 #include "ConfigQT.h"
+#include "ConfigTS.h"
 #include "ConfigGlob.h"
+#include "ConfigMan.h"
 #include <IStrategy.h>
 #include <IPeriod.h>
 #include <Util/VecF.hpp>
@@ -157,9 +159,13 @@ void PlotElements::SetupTechsXform(QCustomPlot * p, const ISimulatorTS & simTS, 
 
 void PlotElements::SetupReconstruction(QCustomPlot * p, const ISimulatorTS & simTS, const PlotDataBase & d)
 {
+    const ConfigTS & confTS = *gcfgMan.cfgTS;
     Util::AddMA(d.GetTime(), Util::stdVectToQVectF(simTS.GetOutputSeries(PredictorOutputType::RECONSTRUCTION).Data()),               p, Qt::blue);
     Util::AddMA(d.GetTime(), Util::stdVectToQVectF(simTS.GetOutputSeries(PredictorOutputType::RECONSTRUCTION_PRED).Data()),          p, Qt::green);
-    //Util::AddMA(d.GetTime(), Util::stdVectToQVectF(simTS.GetOutputSeries(PredictorOutputType::RECONSTRUCTION_PRED_BASELINE).Data()), p, Qt::gray);
+    if (confTS.PLOT_BASELINE)
+    {
+        Util::AddMA(d.GetTime(), Util::stdVectToQVectF(simTS.GetOutputSeries(PredictorOutputType::RECONSTRUCTION_PRED_BASELINE).Data()), p, Qt::gray);
+    }
 }
 
 QCPGraph * PlotElements::SetupTSLine(QCustomPlot * p, QCPAxisRect *techRect, const PlotDataBase & d, const ISimulatorTS & simTS, const PredictorOutputType & type, const QPen & pen, const char * name)

@@ -7,6 +7,7 @@
 #include "TicksProviderBinary.h"
 #include "TicksProviderXMR.h"
 #include "TicksProviderFake.h"
+#include "TicksProviderGenerated.h"
 
 TickProviderFactory::TickProviderFactory()
 {
@@ -26,6 +27,8 @@ Corrade::Containers::Pointer<ITicksProvider> TickProviderFactory::Create(TickPro
         return Corrade::Containers::Pointer<ITicksProvider>(new TicksProviderBinary());
     case TickProviderType::SMALL:
         return Corrade::Containers::Pointer<ITicksProvider>(new TicksProviderFake());
+    case TickProviderType::GENERATED:
+        return Corrade::Containers::Pointer<ITicksProvider>(new TicksProviderGenerated());
     case TickProviderType::XMR_FAKE:
         return Corrade::Containers::Pointer<ITicksProvider>(new TicksProviderXMRFake());
     case TickProviderType::XMR:

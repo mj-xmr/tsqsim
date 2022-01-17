@@ -130,7 +130,7 @@ void OptimizerPred::Consume(const EnjoLib::VecD & data)
         // Plot new, better solution
         if (verbose)
         {
-            if (not gcfgMan.cfgOpti->OPTI_CROSS_VALID)
+            if (not gcfgMan.cfgOpti->IsXValid())
             {
                 //GnuplotMan().PlotGnuplot(profits.GetProfits(), m_outDir, true);
                 PrintCurrentResults();
@@ -145,7 +145,7 @@ void OptimizerPred::Consume(const EnjoLib::VecD & data)
         // Print status, erasing the previous one
         if (verbose)
         {
-            if (not gcfgMan.cfgOpti->OPTI_CROSS_VALID)
+            if (not gcfgMan.cfgOpti->IsXValid())
             {
                 m_progressMonitHigh.PrintProgressBarTime(m_iter, m_numCombis, idd);
             }

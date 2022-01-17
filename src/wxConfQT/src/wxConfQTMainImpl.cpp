@@ -75,12 +75,20 @@ void wxConfQTFrame::InitSymbols()
         m_choiceSym->Clear();
         const VecStr & symbols = TradeUtil().GetAllSymbolsFromTxtDir();
         //wxMessageBox(wxString::Format("%d", symbols.size()));
-        for (const EnjoLib::Str & symbol : symbols)
+        if (symbols.empty())
         {
-            //cout << "File = " << gcfgMan << endl;
-            //wxMessageBox(symbol.c_str());
-            m_choiceSym->Append(_(symbol.str()));
+            m_choiceSym->Append(_("Empty."));
         }
+        else
+        {
+            for (const EnjoLib::Str & symbol : symbols)
+            {
+                //cout << "File = " << gcfgMan << endl;
+                //wxMessageBox(symbol.c_str());
+                m_choiceSym->Append(_(symbol.str()));
+            }
+        }
+
     }
     catch (exception & ex)
     {

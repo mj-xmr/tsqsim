@@ -29,6 +29,7 @@ class ConfigOpti : public ConfigBase
         bool IsSearchFloatingPoint() const;
         bool IsSearchGrid() const;
         bool IsSearchRandom() const;
+        bool IsXValid() const;
         OptiType GetOptimizer() const;
         OptiMethod GetOptimizerMethod() const;
         OptiGoalType GetOptimizerGoalType() const;
@@ -45,7 +46,7 @@ class ConfigOpti : public ConfigBase
         bool OPTI_RANDOM_EARLY_STOP = false;
         bool OPTI_USE_RELEASE = true;
         bool OPTI_GLOBAL = false;
-        bool OPTI_CROSS_VALID = false; /// TODO: Remove - already done via OptiType
+        //bool OPTI_CROSS_VALID = false; /// TODO: Remove - already done via OptiType
         bool OPTI_LAST = false;
         bool OPTI_SERVER_DENSE = false;
         bool OPTI_XVAL_EXTENDABLE = false;

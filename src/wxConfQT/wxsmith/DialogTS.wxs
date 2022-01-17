@@ -9,7 +9,7 @@
 					<orient>wxVERTICAL</orient>
 					<object class="sizeritem">
 						<object class="wxStaticBoxSizer" variable="StaticBoxSizer1" member="no">
-							<label>Script textual</label>
+							<label>Script data xform</label>
 							<orient>wxVERTICAL</orient>
 							<object class="sizeritem">
 								<object class="wxBoxSizer" variable="BoxSizer4" member="no">
@@ -56,11 +56,59 @@
 						<option>1</option>
 					</object>
 					<object class="sizeritem">
-						<object class="wxStaticBoxSizer" variable="StaticBoxSizer2" member="no">
-							<label>Series type</label>
+						<object class="wxStaticBoxSizer" variable="StaticBoxSizer4" member="no">
+							<label>Script R Custom</label>
 							<orient>wxVERTICAL</orient>
 							<object class="sizeritem">
-								<object class="wxChoice" name="ID_CHOICE2" subclass="MyChoiceEnum" variable="m_choiceSeriesType" member="yes">
+								<object class="wxBoxSizer" variable="BoxSizer5" member="no">
+									<object class="sizeritem">
+										<object class="wxTextCtrl" name="ID_TEXTCTRL2" variable="m_txtScriptPathR" member="yes" />
+										<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+										<border>5</border>
+										<option>1</option>
+									</object>
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
+							<object class="sizeritem">
+								<object class="wxBoxSizer" variable="BoxSizer6" member="no">
+									<object class="sizeritem">
+										<object class="wxButton" name="ID_BUTTON3" variable="m_butScriptTextR" member="yes">
+											<label>Find</label>
+											<handler function="Onm_butScriptTextRClick" entry="EVT_BUTTON" />
+										</object>
+										<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+										<border>5</border>
+										<option>1</option>
+									</object>
+									<object class="sizeritem">
+										<object class="wxButton" name="ID_BUTTON4" variable="m_butScriptTextOpenR" member="yes">
+											<label>Open</label>
+											<handler function="Onm_butScriptTextOpenRClick" entry="EVT_BUTTON" />
+										</object>
+										<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+										<border>5</border>
+										<option>1</option>
+									</object>
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
+						</object>
+						<flag>wxALL|wxEXPAND</flag>
+						<border>5</border>
+						<option>1</option>
+					</object>
+					<object class="sizeritem">
+						<object class="wxStaticBoxSizer" variable="StaticBoxSizer3" member="no">
+							<label>Predictor type</label>
+							<orient>wxVERTICAL</orient>
+							<object class="sizeritem">
+								<object class="wxChoice" name="ID_CHOICE1" subclass="MyChoiceEnum" variable="m_choicePredType" member="yes">
+									<tooltip>Prediction type</tooltip>
 									<handler function="OnTS" entry="EVT_CHOICE" />
 								</object>
 								<flag>wxALL|wxEXPAND</flag>
@@ -71,12 +119,11 @@
 						<border>5</border>
 					</object>
 					<object class="sizeritem">
-						<object class="wxStaticBoxSizer" variable="StaticBoxSizer3" member="no">
-							<label>Predictor type</label>
+						<object class="wxStaticBoxSizer" variable="StaticBoxSizer2" member="no">
+							<label>Series type</label>
 							<orient>wxVERTICAL</orient>
 							<object class="sizeritem">
-								<object class="wxChoice" name="ID_CHOICE1" subclass="MyChoiceEnum" variable="m_choicePredType" member="yes">
-									<tooltip>Prediction type</tooltip>
+								<object class="wxChoice" name="ID_CHOICE2" subclass="MyChoiceEnum" variable="m_choiceSeriesType" member="yes">
 									<handler function="OnTS" entry="EVT_CHOICE" />
 								</object>
 								<flag>wxALL|wxEXPAND</flag>

@@ -70,6 +70,10 @@ bool ConfigOpti::IsSearchRandom() const
 {
     return GetOptimizerMethod() == OptiMethod::OPTI_METHOD_MONTECARLO;
 }
+bool ConfigOpti::IsXValid() const
+{
+    return GetOptimizer() == OptiType::OPTI_TYPE_XVALID;
+}
 
 ConfigOpti::~ConfigOpti(){}
 
@@ -78,7 +82,7 @@ void ConfigOpti::RegisterAndReadBools(EnjoLib::Istream & f)
     RegisterAndReadBool(f, OPTI_VERBOSE, true,              "VERBOSE",          "Show plots and stats");
     RegisterAndReadBool(f, OPTI_USE_RELEASE, false,         "USE_RELEASE",      "Use parameters stored as 'release'");
     RegisterAndReadBool(f, OPTI_GLOBAL, false,              "GLOBAL",           "Find parameters, which optimize all series at the same time");
-    RegisterAndReadBool(f, OPTI_CROSS_VALID, false,         "W.F. Validation",  "Walk forward optimization / validation");
+    //RegisterAndReadBool(f, OPTI_CROSS_VALID, false,         "W.F. Validation",  "Walk forward optimization / validation");
     RegisterAndReadBool(f, OPTI_LAST, false,                "LAST",             "Use only the last window (iteration) of the W.F. Validation");
     RegisterAndReadBool(f, OPTI_RANDOM_EARLY_STOP, false,   "Early stop",       "Stop Monte Carlo if the change of variance of the optimized var is below threshold");
     RegisterAndReadBool(f, OPTI_SERVER_DENSE, false,        "SERVER_DENSE",     "Use dense sampling of the variables in production (on server).");

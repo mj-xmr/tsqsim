@@ -181,6 +181,8 @@ EnjoLib::Str ConfigSym::GetDataDir(const EnjoLib::Str & baseDir) const
         return baseDir + "fxt/";
     case DataSrcType::MONERO:
         return baseDir + "xmr/";
+    case DataSrcType::GENERATED:
+        return baseDir + "generated/";
     }
     throw ExceptNotImpl("ConfigSym::GetDataDir()" +baseDir);
 }
@@ -193,6 +195,8 @@ EnjoLib::Str ConfigSym::GetDataExt() const
         return ".txt";
     case DataSrcType::MONERO:
         return ".csv";
+    case DataSrcType::GENERATED:
+        return ".txt";
     }
     throw ExceptNotImpl("ConfigSym::GetDataExt()");
 }

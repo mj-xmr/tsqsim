@@ -2,12 +2,16 @@
 
 #include "PlotDataBase.h"
 #include "Util.h"
+#include "ConfigMan.h"
+#include "ConfigQTPlot.h"
 #include <IDataProvider.h>
 
 
 using namespace std;
 
 PlotDataBase::PlotDataBase(const IDataProvider & period)
+/// TODO: clearly wrong time ticks on the x axis, than when not hiding the weekend data
+//: isHideWeekendData(not gcfgMan.cfgQTPlot->WEEKEND_DATA)
 : isHideWeekendData(true)
 //: isHideWeekendData(false)
 , everyNth(10)

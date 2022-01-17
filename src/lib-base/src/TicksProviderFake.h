@@ -14,6 +14,8 @@ class TicksProviderFake : public ITicksProvider
 
         CorPtr<ITicks> GetTicks(const EnjoLib::Str & symbolName, const ConfigSym * confSym = nullptr) const override;
         CorPtr<ITicks> GetPeriod(const EnjoLib::Str & symbolName, const EnjoLib::Str & periodName) const override;
+        
+        bool IsFake() const override { return true; }
     protected:
     private:
 };
@@ -26,6 +28,8 @@ class TicksProviderXMRFake : public ITicksProvider
 
         CorPtr<ITicks> GetTicks(const EnjoLib::Str & symbolName, const ConfigSym * confSym = nullptr) const override;
         CorPtr<ITicks> GetPeriod(const EnjoLib::Str & symbolName, const EnjoLib::Str & periodName) const override;
+        
+        bool IsFake() const override { return true; }
 
     protected:
     private:

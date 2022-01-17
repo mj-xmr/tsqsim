@@ -40,6 +40,9 @@ QCPAxisRect * MyMainWindow::SetupTechs(QCustomPlot * p, const IStrategy & strat,
     case DataSrcType::MONERO:
         pel.SetupTechsXform(p, simTS, techRect, d);
         break;
+    case DataSrcType::GENERATED:
+        pel.SetupTechsXform(p, simTS, techRect, d);
+        break;
     }
 
     m_techLineCursor = new QCPGraph(techRect->axis(QCPAxis::atBottom), techRect->axis(QCPAxis::atLeft));

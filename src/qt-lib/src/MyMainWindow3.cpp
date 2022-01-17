@@ -54,6 +54,7 @@ int MyMainWindow::HandleRelativeParUpdate(int relPar, int * relMember)
 void MyMainWindow::Reload(const Monster & monst, int mode, int relPeriod, int relShift, int relSymbol)
 {
     ELO
+    LOG << "MyMainWindow::Reload(): relShift = " << relShift << Endl;
     int prevPeriod = HandleRelativeParUpdate(relPeriod, &m_relPeriod);
     int prevShift  = HandleRelativeParUpdate(relShift,  &m_relShift);
                      HandleRelativeParUpdate(relSymbol, &m_relSymbol);

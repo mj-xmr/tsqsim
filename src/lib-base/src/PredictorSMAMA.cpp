@@ -8,9 +8,9 @@
 
 using namespace EnjoLib;
 
-PredictorSMAMA::PredictorSMAMA(const IDataProvider & dat) 
-: PredictorBase(dat, "SMAMA_MA") 
-, m_lagMine(dat, "LAG_SMAMA", true, 10, 1, 20, 1)
+PredictorSMAMA::PredictorSMAMA(const IDataProvider & dat)
+: PredictorBase(dat, "SMAMA_MA")
+, m_lagMine(dat, "LAG_SMAMA", true, 10, 1, 50, 1)
 {
     AddOptiVar(m_lagMine);
 }
@@ -18,7 +18,7 @@ PredictorSMAMA::~PredictorSMAMA(){}
 
 EnjoLib::VecD PredictorSMAMA::PredictVec(const EnjoLib::VecD & data) const
 {
-    const int numSamplesSma = m_lagMine.GetVal(); // 
+    const int numSamplesSma = m_lagMine.GetVal(); //
     const int numSamplesMA  = GetLag1().GetVal();  // ParQ
     const PredictorUtil util;
     const EnjoLib::VecD & predSma = util.SimpleMA(numSamplesSma, data);

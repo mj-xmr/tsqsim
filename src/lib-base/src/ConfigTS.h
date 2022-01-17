@@ -28,10 +28,13 @@ class ConfigTS : public ConfigBase
 
 
         static const char * DEFAULT_SCRIPT_FILE_NAME;
+        static const char * DEFAULT_SCRIPT_FILE_NAME_R;
 
         EnjoLib::Str m_scriptPathTxt;
+        EnjoLib::Str m_scriptPathTxtR;
         bool crashOnRecoverableErrors = false;
         bool PLOT_SERIES = true;
+        bool PLOT_BASELINE = true;
         bool MT_REPORT = false;
         bool MT_XFORM = false;
         bool USE_VECTOR_PRED = false;

@@ -1,7 +1,6 @@
 #ifndef OPTIONSNUMERIC_H
 #define OPTIONSNUMERIC_H
 
-
 #include <Template/SafePtr.hpp>
 #include <Util/Str.hpp>
 

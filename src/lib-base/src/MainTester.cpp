@@ -55,6 +55,9 @@ MainTester::MainTester(const SymbolFactoryAbstract & symFact, const ConfigTF2 * 
         case DataSrcType::MONERO:
             m_tickProvType = TickProviderType::XMR;
             break;
+        case DataSrcType::GENERATED:
+            m_tickProvType = TickProviderType::GENERATED;
+            break;
         }
     }
 }
@@ -86,29 +89,34 @@ CorPtr<ISymbol> MainTester::GetSymbol(EnjoLib::Str symbolName, const VecStr & pe
         {
             // Speed up loading by aggregating monthly ticks
             m_log << "Restoring Ticks '" << symbolName << "'" << EnjoLib::Nl;
-            CorPtr<ITicks> t = tickProvider->GetTicks(symbolName, m_confSym);
-            t->Set(*mtu.Filter(symbolName, *t, m_confSym));
-            p->Feed(*t);
+            CorPtr<ITicks> pticks = tickProvider->GetTicks(symbolName, m_confSym);
+            pticks->Set(*mtu.Filter(symbolName, *pticks, m_confSym));
+            p->Feed(*pticks);
         }
         else
         {
-            Ticks t;
+            Ticks ticks;
             if (lastSymbol == symbolName && lastPeriod == p->GetName())
             {
                 m_log << "Uncaching '" << p->GetSymbolPeriodId() << "'" << EnjoLib::Nl;
-                t = m_cacheTicks->GetTicksView();
+                ticks = m_cacheTicks->GetTicksView();
             }
             else
             {
-                m_log << "Restoring '" << p->GetSymbolPeriodId() << "'" << EnjoLib::Nl;
-                t = tickProvider->GetPeriod(symbolName, p->GetName())->GetTicksView();
+                m_log << "Restoring1 '" << p->GetSymbolPeriodId() << "'" << EnjoLib::Nl;
+                const CorPtr<ITicks> pticks = tickProvider->GetPeriod(symbolName, p->GetName());
+                ticks = pticks->GetTicksView();
+                //LOGL << "Got '" << int(ticks.size()) << " " << pticks->size() << "'" << EnjoLib::Nl;
                 // TODO: Mutex, or segfaults.
                 //m_cacheTicks = t;
                 //lastSymbol = symbolName;
                 //lastPeriod = p->GetName();
             }
-            t = mtu.Filter(symbolName, t, m_confSym)->GetTicksView();
-            p->SetCandles(t.ToCandles());
+            if (not tickProvider->IsFake()) // Don't filter generated data (for now)
+            {
+                ticks = mtu.Filter(symbolName, ticks, m_confSym)->GetTicksView();
+            }
+            p->SetCandles(ticks.ToCandles());
         }
 
         /*
@@ -130,6 +138,11 @@ CorPtr<ISymbol> MainTester::GetSymbol(EnjoLib::Str symbolName, const VecStr & pe
 
 void MainTester::ArchiveSymbol(EnjoLib::Str symbolName, const ITicksProvider * tickProvider) const
 {
+    if (tickProvider->IsFake())
+    {
+        m_log << symbolName << ": " << "Fake provider - not storing." << EnjoLib::Nl;
+        return;
+    }
     Ticks t = tickProvider->GetTicks(symbolName)->GetTicksView();
     m_log << t.GetTicks3().size() << EnjoLib::Nl;
     m_log << symbolName << ": " << "Converting" << EnjoLib::Nl;

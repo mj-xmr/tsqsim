@@ -38,8 +38,11 @@ class DialogTS : public wxDialog
 		wxButton* m_butOK;
 		wxButton* m_butScriptText;
 		wxButton* m_butScriptTextOpen;
+		wxButton* m_butScriptTextOpenR;
+		wxButton* m_butScriptTextR;
 		wxCheckBox* m_chkTechs;
 		wxTextCtrl* m_txtScriptPath;
+		wxTextCtrl* m_txtScriptPathR;
 		//*)
 
 		ConfigTS m_confTS;
@@ -50,8 +53,11 @@ class DialogTS : public wxDialog
 		static const long ID_TEXTCTRL1;
 		static const long ID_BUTTON1;
 		static const long ID_BUTTON2;
-		static const long ID_CHOICE2;
+		static const long ID_TEXTCTRL2;
+		static const long ID_BUTTON3;
+		static const long ID_BUTTON4;
 		static const long ID_CHOICE1;
+		static const long ID_CHOICE2;
 		static const long ID_CHECKBOX12;
 		//*)
 
@@ -64,6 +70,8 @@ class DialogTS : public wxDialog
 		void Onm_butScriptTextClick(wxCommandEvent& event);
 		void OnTS(wxCommandEvent& event);
 		void Onm_butScriptTextOpenClick(wxCommandEvent& event);
+		void Onm_butScriptTextRClick(wxCommandEvent& event);
+		void Onm_butScriptTextOpenRClick(wxCommandEvent& event);
 		//*)
         MapCheckbox m_mapCheckbox;
         MapChoiceEnum m_mapChoice;

@@ -1,9 +1,8 @@
 #include "PredictorRCustom.h"
 
-#include "ConfigDirs.h"
+#include "ConfigMan.h"
+#include "ConfigTS.h"
 #include "RWrapper.h"
-
-const char * PredictorRCustom::SCRIPT_NAME = "r-custom.R";
 
 PredictorRCustom::PredictorRCustom(const IDataProvider & dat)
 : PredictorBase(dat, "RCustom")
@@ -19,7 +18,7 @@ PredictorRCustom::~PredictorRCustom()
 EnjoLib::VecD PredictorRCustom::PredictVec(const EnjoLib::VecD & data) const
 {
     // Invoke a function in R
-    RWrapper::source(ConfigDirs().DIR_SCRIPTS2 + SCRIPT_NAME);
+    RWrapper::source(gcfgMan.cfgTS->m_scriptPathTxtR);
     const EnjoLib::VecD & ret = RWrapper::R_predictVec(data);
     
     return ret;

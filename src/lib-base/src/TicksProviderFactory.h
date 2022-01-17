@@ -9,6 +9,7 @@ enum class TickProviderType
     ARCHIVER,
     SMALL,
     XMR,
+    GENERATED,
     XMR_FAKE
 };
 

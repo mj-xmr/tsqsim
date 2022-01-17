@@ -18,9 +18,6 @@ class SimulatorTSReports
                                        
         void PrintOpti(const EnjoLib::VecD & predsPlot) const;
 
-        bool VecEqual(const EnjoLib::VecD & data1, const EnjoLib::VecD & data2, double eps = 0) const; /// TODO: Extractg
-        bool DoublesEqual(const double data1, const double, double eps = 0) const; /// TODO: Extractg
-
     protected:
 
     private:

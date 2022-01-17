@@ -45,39 +45,6 @@ void SimulatorTSReports::PrintReportSingleThreaded(const IDataProvider & per, co
     LOG << "Stationarity score = " << urtStat << Nl;
 }
 
-bool SimulatorTSReports::VecEqual(const EnjoLib::VecD & data1, const EnjoLib::VecD & data2, double eps) const
-{
-    if (data1.size() != data2.size())
-    {
-        return false;
-    }
-    for (size_t i = 0; i < data1.size(); ++i)
-    {
-        if (not DoublesEqual(data1.at(i), data2.at(i), eps))
-        {
-            return false;
-        }
-    }
-    return true;
-}
-
-bool SimulatorTSReports::DoublesEqual(const double data1, const double data2, double eps) const
-{
-    if (data1 == data2)
-    {
-        return true;
-    }
-    VecD vec;
-    vec.Add(data1);
-    vec.Add(data2);
-    const double mean = vec.Mean();
-    if (not Logic::In(mean - eps, mean, mean + eps))
-    {
-        return false;
-    }
-    return true;
-}
-
 void SimulatorTSReports::PrintOpti(const VecD & predsPlot) const
 {
     const EnjoLib::Str descr = "Opti results";

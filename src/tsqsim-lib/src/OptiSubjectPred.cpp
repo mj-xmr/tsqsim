@@ -64,7 +64,7 @@ double OptiSubjectPred::Get(const double * inp, int n)
         //if (gcfgMan.cfgOpti->OPTI_VERBOSE && m_isVerbose)
         if (gcfgMan.cfgOpti->OPTI_VERBOSE)
         {
-            if (not gcfgMan.cfgOpti->OPTI_CROSS_VALID)
+            if (not gcfgMan.cfgOpti->IsXValid())
             {
                 psim->PrintOpti();
                 //GnuplotMan().PlotGnuplot(profits.GetProfits(), "/tmp/a", true);
