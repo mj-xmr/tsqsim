@@ -13,6 +13,7 @@ using namespace EnjoLib;
 
 const char * ConfigTS::DEFAULT_SCRIPT_FILE_NAME   = "ts-xform-script.txt";
 const char * ConfigTS::DEFAULT_SCRIPT_FILE_NAME_R = "r-custom.R";
+const char * ConfigTS::DEFAULT_SCRIPT_FILE_NAME_GEN = "data-generation.txt";
 
 
 ConfigTS::~ConfigTS(){}
@@ -50,8 +51,9 @@ void ConfigTS::RegisterAndReadFloats(EnjoLib::Istream & f)
 void ConfigTS::RegisterAndReadStrs(EnjoLib::Istream & f)
 {
     const ConfigDirs dirs;
-    RegisterAndReadStr(f, m_scriptPathTxt,  dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME);
-    RegisterAndReadStr(f, m_scriptPathTxtR, dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME_R);
+    RegisterAndReadStr(f, m_scriptPathTxt,      dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME);
+    RegisterAndReadStr(f, m_scriptPathTxtR,     dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME_R);
+    RegisterAndReadStr(f, m_scriptPathTxtGen,   dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME_GEN);
 }
 
 PredictorType ConfigTS::GetPredType() const

@@ -1,6 +1,8 @@
 #include "OrderedSeries.h"
 #include "Tick.h"
 
+#include <Util/CoutBuf.hpp>
+
 OrderedSeries::OrderedSeries(const ISymbol & sym)
 : PeriodClean(1, sym)
 {
@@ -20,12 +22,12 @@ void OrderedSeries::FeedVals(const EnjoLib::VecD & vals)
     }
 }
 
-void OrderedSeries::FeedVal(double val)
+void OrderedSeries::FeedVal(double open, double close, double high, double low)
 {
     Tick tick;
     if (Len() == 0)
     {
-        tick.year = 1970;
+        tick.year = 2010;
         tick.month = 1;
         tick.day = 1;
         tick.hour = 0;
@@ -44,10 +46,13 @@ void OrderedSeries::FeedVal(double val)
             {
                 tick.hour = 0;
                 tick.day++;
+                //LOGL << "New day = " << int(tick.day) << EnjoLib::Nl;
                 if (tick.day == 29) // Dubious
                 {
                     tick.day = 1;
                     tick.month++;
+                    //LOGL << "New month = " << int(tick.month) << EnjoLib::Nl;
+                    
                     if (tick.month == 13)
                     {
                         tick.month = 1;
@@ -57,6 +62,15 @@ void OrderedSeries::FeedVal(double val)
             }
         }
     }
-    tick.open = tick.close = tick.hi = tick.lo = val;
+    tick.open = open;
+    tick.close = close;
+    tick.hi = high;
+    tick.lo = low;
+
     Feed(tick);
+}
+
+void OrderedSeries::FeedVal(double val)
+{
+    FeedVal(val, val, val, val);
 }

@@ -112,9 +112,12 @@ CorPtr<ISymbol> MainTester::GetSymbol(EnjoLib::Str symbolName, const VecStr & pe
                 //lastSymbol = symbolName;
                 //lastPeriod = p->GetName();
             }
-            if (not tickProvider->IsFake()) // Don't filter generated data (for now)
+            if (not tickProvider->IsGenerated()) // Don't filter generated data (for now)
             {
+                ELO
+                //LOG << "Pre filter " << ticks.size() << Nl;
                 ticks = mtu.Filter(symbolName, ticks, m_confSym)->GetTicksView();
+                //LOG << "Post filter " << ticks.size() << Nl;
             }
             p->SetCandles(ticks.ToCandles());
         }
@@ -138,7 +141,7 @@ CorPtr<ISymbol> MainTester::GetSymbol(EnjoLib::Str symbolName, const VecStr & pe
 
 void MainTester::ArchiveSymbol(EnjoLib::Str symbolName, const ITicksProvider * tickProvider) const
 {
-    if (tickProvider->IsFake())
+    if (tickProvider->IsGenerated())
     {
         m_log << symbolName << ": " << "Fake provider - not storing." << EnjoLib::Nl;
         return;

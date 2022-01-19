@@ -21,39 +21,31 @@
 										<border>5</border>
 										<option>1</option>
 									</object>
-								</object>
-								<flag>wxALL|wxEXPAND</flag>
-								<border>5</border>
-								<option>1</option>
-							</object>
-							<object class="sizeritem">
-								<object class="wxBoxSizer" variable="BoxSizer2" member="no">
 									<object class="sizeritem">
 										<object class="wxButton" name="ID_BUTTON1" variable="m_butScriptText" member="yes">
 											<label>Find</label>
+											<size>50,-1</size>
 											<handler function="Onm_butScriptTextClick" entry="EVT_BUTTON" />
 										</object>
-										<flag>wxALL|wxEXPAND</flag>
+										<flag>wxALL</flag>
 										<border>5</border>
 									</object>
 									<object class="sizeritem">
 										<object class="wxButton" name="ID_BUTTON2" variable="m_butScriptTextOpen" member="yes">
 											<label>Open</label>
+											<size>50,-1</size>
 											<handler function="Onm_butScriptTextOpenClick" entry="EVT_BUTTON" />
 										</object>
-										<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+										<flag>wxALL</flag>
 										<border>5</border>
-										<option>1</option>
 									</object>
 								</object>
-								<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+								<flag>wxALL|wxEXPAND</flag>
 								<border>5</border>
-								<option>1</option>
 							</object>
 						</object>
 						<flag>wxALL|wxEXPAND</flag>
 						<border>5</border>
-						<option>1</option>
 					</object>
 					<object class="sizeritem">
 						<object class="wxStaticBoxSizer" variable="StaticBoxSizer4" member="no">
@@ -67,30 +59,62 @@
 										<border>5</border>
 										<option>1</option>
 									</object>
+									<object class="sizeritem">
+										<object class="wxButton" name="ID_BUTTON3" variable="m_butScriptTextR" member="yes">
+											<label>Find</label>
+											<size>50,-1</size>
+											<handler function="Onm_butScriptTextRClick" entry="EVT_BUTTON" />
+										</object>
+										<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+										<border>5</border>
+									</object>
+									<object class="sizeritem">
+										<object class="wxButton" name="ID_BUTTON4" variable="m_butScriptTextOpenR" member="yes">
+											<label>Open</label>
+											<size>50,-1</size>
+											<handler function="Onm_butScriptTextOpenRClick" entry="EVT_BUTTON" />
+										</object>
+										<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+										<border>5</border>
+									</object>
 								</object>
 								<flag>wxALL|wxEXPAND</flag>
 								<border>5</border>
 								<option>1</option>
 							</object>
+						</object>
+						<flag>wxALL|wxEXPAND</flag>
+						<border>5</border>
+						<option>1</option>
+					</object>
+					<object class="sizeritem">
+						<object class="wxStaticBoxSizer" variable="StaticBoxSizer5" member="no">
+							<label>Script data generation</label>
 							<object class="sizeritem">
-								<object class="wxBoxSizer" variable="BoxSizer6" member="no">
+								<object class="wxBoxSizer" variable="BoxSizer2" member="no">
 									<object class="sizeritem">
-										<object class="wxButton" name="ID_BUTTON3" variable="m_butScriptTextR" member="yes">
-											<label>Find</label>
-											<handler function="Onm_butScriptTextRClick" entry="EVT_BUTTON" />
-										</object>
+										<object class="wxTextCtrl" name="ID_TEXTCTRL3" variable="m_txtScriptPathGen" member="yes" />
 										<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 										<border>5</border>
 										<option>1</option>
 									</object>
 									<object class="sizeritem">
-										<object class="wxButton" name="ID_BUTTON4" variable="m_butScriptTextOpenR" member="yes">
-											<label>Open</label>
-											<handler function="Onm_butScriptTextOpenRClick" entry="EVT_BUTTON" />
+										<object class="wxButton" name="ID_BUTTON5" variable="m_butScriptTextGen" member="yes">
+											<label>Find</label>
+											<size>50,-1</size>
+											<handler function="Onm_butScriptTextGenClick" entry="EVT_BUTTON" />
 										</object>
 										<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 										<border>5</border>
-										<option>1</option>
+									</object>
+									<object class="sizeritem">
+										<object class="wxButton" name="ID_BUTTON6" variable="m_butScriptTextOpenGen" member="yes">
+											<label>Open</label>
+											<size>50,-1</size>
+											<handler function="Onm_butScriptTextOpenGenClick" entry="EVT_BUTTON" />
+										</object>
+										<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+										<border>5</border>
 									</object>
 								</object>
 								<flag>wxALL|wxEXPAND</flag>

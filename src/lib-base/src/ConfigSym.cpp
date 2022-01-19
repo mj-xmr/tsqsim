@@ -114,11 +114,16 @@ bool ConfigSym::ShiftRange(int shift)
 
     ConfigSym backup = *this;
     if (not ShiftRangeUpdate(change, &dates.yearStart, &dates.monthStart))
+    {
         return false;
+    }
     if (not ShiftRangeUpdate(change, &dates.yearEnd,   &dates.monthEnd))
+    {
         return false;
+    }
 
-    const Pair<int, int> yearMonthMax = TradeUtil().GetYearMonthMax();
+
+    const Pair<int, int> yearMonthMax = TradeUtil().GetYearMonthMax(symbol);
     const int yearMax = yearMonthMax.first;
     const int monthMax = yearMonthMax.second;
     if ((dates.yearStart < YEAR_MIN) ||

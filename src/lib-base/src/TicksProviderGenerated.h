@@ -4,13 +4,15 @@
 #include <TicksProviderFake.h>
 
 
-class TicksProviderGenerated : public TicksProviderXMRFake
+class TicksProviderGenerated : public ITicksProvider
 {
     public:
         TicksProviderGenerated();
         virtual ~TicksProviderGenerated();
         
-        bool IsFake() const override { return true; }
+        CorPtr<ITicks> GetTicks(const EnjoLib::Str & symbolName, const ConfigSym * confSym = nullptr) const override;
+        CorPtr<ITicks> GetPeriod(const EnjoLib::Str & symbolName, const EnjoLib::Str & periodName) const override;
+        bool IsGenerated() const override { return true; }
 
     protected:
 

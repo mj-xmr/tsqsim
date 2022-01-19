@@ -34,7 +34,7 @@ class TradeUtil
         DateInt DateZeroMinute(DateInt date) const;
         DateInt DateZeroHour(DateInt date) const;
         DateInt DateZeroNumSuffix(DateInt date, int numZeros) const;
-        EnjoLib::Pair<int, int> GetYearMonthMax() const;
+        EnjoLib::Pair<int, int> GetYearMonthMax(const EnjoLib::Str & symbolName) const;
 
         EnjoLib::Str MinutesToPeriodName(int minutes) const;
 

@@ -10,6 +10,7 @@ class OrderedSeries : public PeriodClean
         OrderedSeries(const ISymbol & sym);
         virtual ~OrderedSeries();
         
+        void FeedVal(double open, double close, double high, double low);
         void FeedVal(double val);
         void FeedVals(const EnjoLib::VecD & vals);
 

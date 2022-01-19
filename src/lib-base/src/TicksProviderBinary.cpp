@@ -56,7 +56,6 @@ CorPtr<ITicks> TicksProviderBinary::GetTicks(const EnjoLib::Str & symbol, const 
         }
         return CorPtr<ITicks>(new Ticks(ret));
     }
-
 }
 
 CorPtr<ITicks> TicksProviderBinary::GetPeriod(const EnjoLib::Str & symbolName, const EnjoLib::Str & periodName) const
