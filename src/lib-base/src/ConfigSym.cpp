@@ -50,7 +50,7 @@ void ConfigSym::RegisterAndReadFloats(EnjoLib::Istream & f)
 }
 void ConfigSym::RegisterAndReadStrs(EnjoLib::Istream & f)
 {
-    RegisterAndReadStr(f, symbol, "TX-TS");
+    RegisterAndReadStr(f, symbol, "TXTS");
     RegisterAndReadStr(f, period, "h8");
 }
 
