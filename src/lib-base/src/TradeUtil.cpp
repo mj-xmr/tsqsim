@@ -240,12 +240,11 @@ EnjoLib::Str TradeUtil::CutSymbolTestingPrefix(const EnjoLib::Str & symbolName) 
     return symbolName;
 }
 
-EnjoLib::Pair<int, int> TradeUtil::GetYearMonthMax() const
+EnjoLib::Pair<int, int> TradeUtil::GetYearMonthMax(const EnjoLib::Str & symbolName) const
 {
     EnjoLib::Pair<int, int> err(2018, 12);
     MaxMinFind<int> maxMonth, maxYear;
-    const string sym = "EURUSD";
-    const EnjoLib::Str dirBase = gcfgMan.cfgSym->GetDataBinDir() + sym + "/";
+    const EnjoLib::Str dirBase = gcfgMan.cfgSym->GetDataBinDir() + symbolName + "/";
     if (not FileUtils().DirExists(dirBase))
     {
         return err;
@@ -274,7 +273,7 @@ EnjoLib::Pair<int, int> TradeUtil::GetYearMonthMax() const
     }
     const int year = maxYear .GetMax();
     const int mont = maxMonth.GetMax();
-    //cout << sym << ": Year/month max = " << year << "." << mont << endl;
+    LOGL << symbolName << ": Year/month max = " << year << "." << mont << Endl;
     return EnjoLib::Pair<int, int>(year, mont);
 
 }

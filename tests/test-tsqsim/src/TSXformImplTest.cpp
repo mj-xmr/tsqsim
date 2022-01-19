@@ -9,6 +9,8 @@
 #include "IHasCandles.h"
 #include "TSXformRes.h"
 #include "Candle.h"
+#include "SymbolFactoryClean.h"
+#include "OrderedSeries.h"
 
 #include "PredictorFactory.h"
 #include "PredictorType.h"
@@ -125,9 +127,8 @@ TEST(Conv_inv_low_level_1_iter)
 
         switch (type)
         {
-            /// TODO: Service exceptions
         //case TSXformType::DIFF:
-         //   break;        /// TODO: Probably the most important
+         //   break;        // This is how you'd make exceptions
         default:
             {
                 TestXformIteration(inp, xform.get(), verbose);
@@ -245,7 +246,7 @@ static VecD TestXformArrayManPred(const IDataProvider & dat, const VecD & vecTru
     //verbose = true;
     TSXformDataMan dataMan;
     FillDataMan(vecTrue, man, &dataMan);
-    
+
     CorPtr<IPredictor> algo = PredictorFactory().Create(dat, type);
     const VecD & pred = algo->Predict(dataMan.converted);
     VecD reconstructed;
@@ -256,7 +257,7 @@ static VecD TestXformArrayManPred(const IDataProvider & dat, const VecD & vecTru
         const TSRes & reconstr = man.Reconstruct(conv, lost);
         reconstructed.push_back(reconstr.val);
     }
-    
+
     VecD vecExpected;
     const int lags = algo->GetLags();
     for (int i = 0; i < lags; ++i)
@@ -270,16 +271,19 @@ static VecD TestXformArrayManPred(const IDataProvider & dat, const VecD & vecTru
     CHECK_EQUAL(vecTrue.size(), reconstructed.size());
     CHECK_EQUAL(vecExpected.size(), reconstructed.size());
     CHECK_ARRAY_CLOSE(vecExpected, reconstructed, reconstructed.size(), 0.01);
-    
+
     return reconstructed;
 }
 
-TEST(Pred_xform_sqrt) /// TODO: Fixme
+TEST(Pred_xform_sqrt)
 {
     TSXformMan man(PriceType::CLOSE);
     man.AddXForm(TSXformType::SQRTS);
     const VecD & vecTrue = TestXformGenInput();
-    //const VecD & reconstrPred = TestXformArrayManPred(vecTrue, man, PredictorType::PRED_BASELINE);
+    CorPtr<ISymbol> isym = SymbolFactoryClean().Create("Oser");
+    OrderedSeries oser(*isym);
+    //oser.FeedVals(vecTrue);
+    const VecD & reconstrPred = TestXformArrayManPred(oser, vecTrue, man, PredictorType::PRED_BASELINE);
     //LOGL << reconstrPred.Print() << Nl;
 }
 
@@ -289,6 +293,9 @@ TEST(Pred_xform_diff) /// TODO: FIXME
     man.AddXForm(TSXformType::DIFF);
     const VecD & vecTrue = TestXformGenInput();
     /// TODO: Diff distorts the signal being inverted
-    //const VecD & reconstrPred = TestXformArrayManPred(vecTrue, man, PredictorType::PRED_BASELINE);    
+    CorPtr<ISymbol> isym = SymbolFactoryClean().Create("Oser");
+    OrderedSeries oser(*isym);
+    //oser.FeedVals(vecTrue);
+    //const VecD & reconstrPred = TestXformArrayManPred(oser, vecTrue, man, PredictorType::PRED_BASELINE);
     //LOGL << reconstrPred.Print() << Nl;
 }

@@ -36,8 +36,9 @@ void DialogTS::ReadSelections()
 {
     for (IMapControl * pmap : m_maps)
         pmap->FromCheckToVariable();
-    m_confTS.m_scriptPathTxt  = m_txtScriptPath-> GetValue().c_str().AsChar();
-    m_confTS.m_scriptPathTxtR = m_txtScriptPathR->GetValue().c_str().AsChar();
+    m_confTS.m_scriptPathTxt    = m_txtScriptPath->   GetValue().c_str().AsChar();
+    m_confTS.m_scriptPathTxtR   = m_txtScriptPathR->  GetValue().c_str().AsChar();
+    m_confTS.m_scriptPathTxtGen = m_txtScriptPathGen->GetValue().c_str().AsChar();
 }
 
 /// Populate selections
@@ -46,8 +47,9 @@ void DialogTS::RestoreConf()
     m_confTS.Read();
 
     wxUtil().AutoGenCheckBox(this, m_confTS, m_sizerBools, &m_mapCheckbox, (wxObjectEventFunction)&DialogTS::OnTS);
-    m_txtScriptPath ->SetValue(m_confTS.m_scriptPathTxt. c_str());
-    m_txtScriptPathR->SetValue(m_confTS.m_scriptPathTxtR.c_str());
+    m_txtScriptPath   ->SetValue(m_confTS.m_scriptPathTxt.   c_str());
+    m_txtScriptPathR  ->SetValue(m_confTS.m_scriptPathTxtR.  c_str());
+    m_txtScriptPathGen->SetValue(m_confTS.m_scriptPathTxtGen.c_str());
 
     for (IMapControl * pmap : m_maps)
         pmap->FromVariableToCheck();
@@ -75,5 +77,17 @@ void DialogTS::Onm_butScriptTextRClick(wxCommandEvent& event)
 void DialogTS::Onm_butScriptTextOpenRClick(wxCommandEvent& event)
 {
     const wxString file_name = m_txtScriptPathR->GetValue();
+    EnjoLib::UtilWx::ExecuteDefaultEditorOnFile(file_name, ".txt");
+}
+
+void DialogTS::Onm_butScriptTextGenClick(wxCommandEvent& event)
+{
+    EnjoLib::UtilWx::FindFileFillTxt(this, m_txtScriptPathGen);
+    OnTS(event);
+}
+
+void DialogTS::Onm_butScriptTextOpenGenClick(wxCommandEvent& event)
+{
+    const wxString file_name = m_txtScriptPathGen->GetValue();
     EnjoLib::UtilWx::ExecuteDefaultEditorOnFile(file_name, ".txt");
 }

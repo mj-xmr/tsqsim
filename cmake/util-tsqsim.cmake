@@ -12,3 +12,10 @@ function (tsqSetupSymlinks target)
 	enjoSymlink(${target} ../../../static ${CMAKE_CURRENT_BINARY_DIR}/static)	# Common static dir
 endfunction()
 
+
+function (tsqSetupDirStatic target)
+	# A hack to make the tests run around OptiVar
+	add_custom_command(TARGET ${target} POST_BUILD
+		       COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/static/opti-release
+	)
+endfunction()

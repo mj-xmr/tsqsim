@@ -9,7 +9,7 @@
 #include <STD/VectorCpp.hpp>
 
 #include <Util/CoutBuf.hpp>
-#include <STD/Algorithm.hpp>
+//#include <STD/Algorithm.hpp>
 
 using namespace std;
 using namespace EnjoLib;
@@ -22,7 +22,9 @@ VecCan PriceFilterSpreadMul::Filter(const PriceFilterConfig & cfg, const IDataPr
     //return canDef; /// DISABLED
     LOGL << "PriceFilterSpreadMul::Filter() " << per.GetName() << Nl;
     if (cfg.spreadMulFilter <= 0)
+    {
         return canDef;
+    }
 
     const CandleCalc ccc;
     VecCan ret;
@@ -54,7 +56,7 @@ VecCan PriceFilterSpreadMul::Filter(const PriceFilterConfig & cfg, const IDataPr
                 }
             }
             ret.push_back(cani);
-            
+
             maxMinBody.Reset();
             maxMinWick.Reset();
         }

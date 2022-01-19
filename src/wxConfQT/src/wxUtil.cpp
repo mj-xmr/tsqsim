@@ -59,7 +59,17 @@ void wxUtil::SetSelectionInt(wxChoice* choice, long int sel) const
 
 void wxUtil::InitYears(wxChoice* choice) const
 {
-    InitChoice(choice, 2000, TradeUtil().GetYearMonthMax().first);
+    const int startYear = 2000; /// TODO: Make it dynamic
+    const VecStr & symbols = TradeUtil().GetAllSymbolsFromTxtDir();
+    if (symbols.empty())
+    {
+        InitChoice(choice, startYear, 2022);
+    }
+    else
+    {
+        InitChoice(choice, startYear, TradeUtil().GetYearMonthMax(symbols.at(0)).first);
+    }
+
 }
 void wxUtil::InitMonths(wxChoice* choice) const
 {
