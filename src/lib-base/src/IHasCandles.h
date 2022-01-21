@@ -9,7 +9,8 @@ class IHasCandles
         IHasCandles();
         virtual ~IHasCandles();
         
-        virtual Candle GetCandle(int idx, int shift = 0) const = 0;
+        virtual Candle GetCandle0Based(int idx) const = 0;
+        virtual Candle GetCandleTS(int idx, int shift = 0) const = 0;
         virtual unsigned Len() const = 0;
 
     protected:

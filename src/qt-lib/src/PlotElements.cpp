@@ -162,6 +162,7 @@ void PlotElements::SetupReconstruction(QCustomPlot * p, const ISimulatorTS & sim
     const ConfigTS & confTS = *gcfgMan.cfgTS;
     Util::AddMA(d.GetTime(), Util::stdVectToQVectF(simTS.GetOutputSeries(PredictorOutputType::RECONSTRUCTION).Data()),               p, Qt::blue);
     Util::AddMA(d.GetTime(), Util::stdVectToQVectF(simTS.GetOutputSeries(PredictorOutputType::RECONSTRUCTION_PRED).Data()),          p, Qt::green);
+    //Util::AddMA(d.GetTime(), Util::stdVectToQVectF(simTS.GetOutputSeries(PredictorOutputType::PREDICTION).Data()),          p, Qt::yellow);
     if (confTS.PLOT_BASELINE)
     {
         Util::AddMA(d.GetTime(), Util::stdVectToQVectF(simTS.GetOutputSeries(PredictorOutputType::RECONSTRUCTION_PRED_BASELINE).Data()), p, Qt::gray);

@@ -25,7 +25,8 @@ class TSFunBase : public ITSFun
         const IPeriod & GetPer() const;
         const IDataProvider & GetData() const;
         const IBufferCandles & GetCandles() const;
-        Candle GetCandle(int idx, int shift = 0) const override; // IHasCandles
+        Candle GetCandleTS(int idx, int shift = 0) const override; // IHasCandles
+        Candle GetCandle0Based(int idx) const override; // IHasCandles /// TODO: decide what kind of index to use
         OptiVarVec GetOptiFloat() override; // IOptimizable
 
     protected:

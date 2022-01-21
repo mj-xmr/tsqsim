@@ -15,8 +15,8 @@ class ITSFun : public IHasCandles, public IOptimizable
         virtual ~ITSFun();
 
         virtual TSRes OnDataPoint(int idx) const = 0;
-        virtual TSRes Reconstruct(int idx, const EnjoLib::VecD & input, const EnjoLib::VecD & lost) const = 0;
-        EnjoLib::VecD ReconstructVec(const EnjoLib::VecD & input, const EnjoLib::Matrix & lost) const;
+        //virtual TSRes Reconstruct(int idx, const EnjoLib::VecD & input, const EnjoLib::VecD & lost) const = 0;
+        virtual EnjoLib::VecD ReconstructVec(const EnjoLib::VecD & input, const EnjoLib::Matrix & lost) const = 0;
         virtual const char * GetName() const = 0;
         virtual void SetSilent() = 0;
 

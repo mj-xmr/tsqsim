@@ -66,9 +66,14 @@ const IBufferCandles & TSFunBase::GetCandles() const
     return m_bufCan;
 }
 
-Candle TSFunBase::GetCandle(int idx, int shift) const
+Candle TSFunBase::GetCandleTS(int idx, int shift) const
 {
     return m_bufCan[idx + shift];
+}
+
+Candle TSFunBase::GetCandle0Based(int idx) const
+{
+    return m_bufCan.GetDataVec()[idx];
 }
 
 unsigned TSFunBase::Len() const
