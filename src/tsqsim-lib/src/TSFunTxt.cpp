@@ -39,9 +39,9 @@ TSRes TSFunTxt::OnDataPointProt(int idx) const
     return m_xformMan.OnDataPointProt(*this, idx);
 }
 
-TSRes TSFunTxt::Reconstruct(int idx, const EnjoLib::VecD & input, const EnjoLib::VecD & lost) const
+VecD TSFunTxt::ReconstructVec(const EnjoLib::VecD & input, const EnjoLib::Matrix & lost) const
 {
-    return m_xformMan.Reconstruct(input.at(idx), lost);
+    return m_xformMan.ReconstructVec(input, lost);
 }
 
 unsigned TSFunTxt::LenProt() const

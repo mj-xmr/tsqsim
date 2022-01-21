@@ -20,6 +20,8 @@ struct ITSXform
         virtual unsigned MaxShift() const;
 
         double GetVal(const IHasCandles & input, const PriceType & priceType, int idx) const;
+        
+        static const double DATA_INITIAL;
 };
 
 #endif // ITSXFORM_H

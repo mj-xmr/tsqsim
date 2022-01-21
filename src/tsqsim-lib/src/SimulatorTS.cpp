@@ -58,13 +58,12 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
         idxFinish = startEndFrame.end;
     }
     const int len = idxFinish - idxStart;
-    
+
     const SimulatorTSReports reps;
 
     std::vector<Inp> input;
     VecD original;
-    const double initial = m_per.GetCandles().GetDataIter().at(idxStart).GetPriceByType(m_cfgTS.GetPriceType());
-    //const double initial = m_per.GetCandles().GetDataIter().at(idxStart).GetHigh();
+    //const double initial = m_per.GetCandles().GetDataIter().at(idxStart).GetPriceByType(m_cfgTS.GetPriceType());
     input.reserve(idxFinish - idxStart);
     {
          //LOGL << "Collecting input...\n";
@@ -170,10 +169,10 @@ EnjoLib::VecD SimulatorTS::PredAlgo(const IPredictor & predAlgo) const
     //const int horizon = 1;
     const EnjoLib::VecD & preds = PredCommon(predAlgo, m_dataMan.converted);
 
-    //LOGL << "Preds = " << preds.Print() << Nl;
-
     const std::vector<TSRes> & rec = GetReconstruction(&m_fun, preds, m_dataMan.convertedLost);
-    return GetReconstructionFiltered(rec);
+    const EnjoLib::VecD & recV = GetReconstructionFiltered(rec);
+    //LOGL << "Preds = " << preds.Print() << Nl << "Reconstr = " << recV.Print()<< Nl;
+    return recV;
 }
 
 EnjoLib::VecD SimulatorTS::PredCommon(const IPredictor & predAlgo, const EnjoLib::VecD & data) const
@@ -181,7 +180,7 @@ EnjoLib::VecD SimulatorTS::PredCommon(const IPredictor & predAlgo, const EnjoLib
     if (m_cfgTS.USE_VECTOR_PRED)
     {
         const EnjoLib::VecD & predVec = predAlgo.PredictVec(data);
-        
+
         // Assertion, checking if just some of the returned values are the same as predAlgo.Predict(data);
         BufferDouble buf(data);
         const double predLast = predAlgo.PredictNext(buf);
@@ -227,37 +226,28 @@ std::vector<TSRes> SimulatorTS::GetRets(const std::vector<Inp> & input) const
     }
 }
 
-std::vector<TSRes> SimulatorTS::GetReconstruction(const ITSFun * fun, const EnjoLib::VecD & input, const EnjoLib::Matrix & lostMat, bool additive) const
+std::vector<TSRes> SimulatorTS::GetReconstruction(const ITSFun * fun, const EnjoLib::VecD & input, const EnjoLib::Matrix & lostMat) const
 {   /// TODO: the double "initial" should probably be a vector of initial conditions, built from the 1st diffs (len = 1), 2nd diffs (len = 2), and so on.
     /// TODO: extract "lost information" from each transformation and apply here
     std::vector<TSRes> ret;
-    //double prev = additive ? initial : 0;
-    double prev = 0;
-    //TSRes r1st(true);
-    //r1st.val = prev;
-    //ret.push_back(r1st);
-    const size_t startIdx = 0; // Subject to transformation limits
-    for (size_t i = startIdx; i < input.size(); ++i)
+    const VecD & reconstr = fun->ReconstructVec(input, lostMat);
+    //LOGL << "Reconstr = " << reconstr.Print() << Nl;
+    for (int i = 0; i < reconstr.size(); ++i)
     {
-        //if (inp.valid)
+        TSRes res;
+        res.val = reconstr.at(i);
+        if (reconstr.at(i) == 0)
         {
-            const VecD & lost = lostMat.at(i);
-            TSRes res = fun->Reconstruct(i, input, lost);
-            //LOGL << "OUT = " << res.val << " " << res.valid << Nl;
-            //if (res.val != 0 && prev == 0 && i > 0)
-            if (res.val == 0)
+            if (i == 0)
             {
-                if (i == 0)
-                {
-                    res.val = m_original.at(0);
-                }
-                else
-                {
-                    res.val = m_original.at(i-1);  // Simulate baseline
-                }
+                res.val = m_original.at(0);
             }
-            ret.push_back(res);
+            else
+            {
+                res.val = m_original.at(i-1);  // Simulate baseline
+            }
         }
+        ret.push_back(res);
     }
     return ret;
 }
@@ -268,18 +258,12 @@ TSRes SimulatorTS::IterBet(const Inp & ele)
     const ITSFun * fun = Get<1>(ele);
     const int i = Get<2>(ele);
 
-    const unsigned sti = data->GetCandles().ConvertIndex(i);
-    const TSRes & res = fun->OnDataPoint(sti);
+    //const unsigned sti = data->GetCandles().ConvertIndex(i);
+    const TSRes & res = fun->OnDataPoint(i);
     return res;
     //LOGL << "i = " << i << ", res = " << res << Nl;
 }
 
-/*
-void SimulatorTS::ReinitOptiVars(const EnjoLib::IIterable<OptiVarF *> & optiVars)
-{
-    m_ppred->UpdateOptiVars(optiVars);
-}
-*/
 void SimulatorTS::ReinitOptiVars(const EnjoLib::VecD & optiVars)
 {
     m_ppred->UpdateOptiVars(optiVars);

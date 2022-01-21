@@ -23,8 +23,8 @@ TSRes TSFunPrintCumul::OnDataPointProt(int idx) const
 {
     const GMat gmat;
 
-    const Candle & canCurr = GetCandle(idx);
-    const Candle & canPrev = GetCandle(idx, 1);
+    const Candle & canCurr = GetCandle0Based(idx);
+    const Candle & canPrev = GetCandle0Based(idx - 1);
 
     const double ret = gmat.Sqrt(gmat.Fabs(canCurr.GetPriceByType(GetTSIn().m_cfgTS.GetPriceType()) - canPrev.GetPriceByType(GetTSIn().m_cfgTS.GetPriceType())));// - 0.035;
 
@@ -34,9 +34,16 @@ TSRes TSFunPrintCumul::OnDataPointProt(int idx) const
     return res;
 }
 
+
+EnjoLib::VecD TSFunPrintCumul::ReconstructVec(const EnjoLib::VecD & input, const EnjoLib::Matrix & lost) const
+{
+    return EnjoLib::VecD();
+}
+
+/*
 TSRes TSFunPrintCumul::Reconstruct(int idx, const EnjoLib::VecD & input, const EnjoLib::VecD & lost) const
 {
     TSRes res(true);
     return res;
 }
-
+*/

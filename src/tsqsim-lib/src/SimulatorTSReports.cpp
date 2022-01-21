@@ -20,7 +20,10 @@ SimulatorTSReports::SimulatorTSReports()
 
 EnjoLib::VecD SimulatorTSReports::PrepPredsPlot(const EnjoLib::VecD & orig, const EnjoLib::VecD & predBaseline, const EnjoLib::VecD & pred) const
 {
-    const VecD & diff = (predBaseline - orig) - (pred - orig); /// TODO: this could make more sense using squares?
+    //const VecD & diff = (predBaseline - orig) - (pred - orig); /// TODO: this could make more sense using squares?
+    //const VecD & diff = (predBaseline - orig);// - (pred - orig);
+    const VecD & diff = (pred - orig);// - (predBaseline - orig);
+    //const VecD & diff = (predBaseline - orig) / (pred - orig); /// TODO: this could make more sense using squares?
     return Statistical().CumSum(diff);
 }
 
