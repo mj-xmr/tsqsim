@@ -11,7 +11,7 @@ ITSFun::~ITSFun()
     //dtor
 }
 
-
+/*
 EnjoLib::VecD ITSFun::ReconstructVec(const EnjoLib::VecD & input, const EnjoLib::Matrix & lost) const
 {
     EnjoLib::VecD reconstr;
@@ -22,3 +22,4 @@ EnjoLib::VecD ITSFun::ReconstructVec(const EnjoLib::VecD & input, const EnjoLib:
     }
     return reconstr;
 }
+*/

@@ -19,7 +19,7 @@ class TSFunTxt : public TSFunBase
 
     protected:
         TSRes OnDataPointProt(int idx) const override;
-        TSRes Reconstruct(int idx, const EnjoLib::VecD & input, const EnjoLib::VecD & lost) const override;
+        EnjoLib::VecD ReconstructVec(const EnjoLib::VecD & input, const EnjoLib::Matrix & lost) const override;
 
         unsigned LenProt() const override;
 

@@ -33,10 +33,15 @@ void TSXformMan::AddXForm(const TSXformType & type, const VecStr & params)
     m_xforms.push_back(fact.CreateByType(type, params));
 }
 
+void TSXformMan::AddXForm(ITSXform * xform)
+{
+    m_xforms.push_back(CorPtr<ITSXform>(xform));
+}
+
 TSRes TSXformMan::OnDataPointProt(const IHasCandles & funBase, int idx) const
 {
     TSRes res(true);
-    double conv = 0;
+    double conv = ITSXform::DATA_INITIAL;
     for (const CorPtr<ITSXform> & pxform : m_xforms)
     {
         const XformRes & val = pxform->Run(funBase, m_priceType, idx, conv);
@@ -45,59 +50,46 @@ TSRes TSXformMan::OnDataPointProt(const IHasCandles & funBase, int idx) const
         /// TODO: 2) Collect a VecD of lost info for each xform individually
     }
     res.val = conv;
+    //LOGL << " TSXformMan::OnDataPointProt res.val = " << res.val << Nl;
     return res;
 }
 
-TSRes TSXformMan::Reconstruct(double val, const EnjoLib::VecD & valLostVec) const
+VecD TSXformMan::ReconstructVec(const EnjoLib::VecD & input, const EnjoLib::Matrix & lost) const
 {
     bool verbose = true;
     verbose = false;
+
+    VecD ret;
+    if (verbose)
+    {
+        LOGL << "ReconstructVec input = " << input.Print() << Nl;
+    }
+
+    double valPrev = 0;
+    for (int j = 0; j < input.size(); ++j)
+    {
+    double val = input.at(j);
+    const VecD & valLostVec = lost.at(j);
     for (int i = int(m_xforms.size() - 1); i >= 0; --i)
     {   // Iterate the transformations in the reverse order w.r.t. as they were applied
         const CorPtr<ITSXform> & pxform = m_xforms.at(i);
 
-        const int idxMin = pxform->MaxShift();
-
-        //if (idx - idxMin < 0)
-        {
-          //  val = 0;
-            //continue;
-        }
-
         VecD vecIn;
-        //for (int j = idx; j >= idx - idxMin; --j)
-        {
-            //if (j < 0)
-            {
-              //  vecIn.Add(input.at(0)); /// TODO: use lost
-            }
-            //else
-            {
-                //vecIn.Add(input.at(j));
-            }
-
-        }
-        //const VecD & inVecLost = lost.at(idx);
-        //vecIn.Add(inVecLost.at(0));
-        //vecIn.Add(input.at(idx));
         vecIn.Add(val);
+        vecIn.Add(valPrev); // Add lost?
 
         const double valLost = valLostVec.at(i);
 
         val = pxform->Invert(vecIn, valLost);
         if (verbose)
         {
-            //LOGL << idx << ":\txf = " << i << ", in = " << vecIn.Print() << ", out = " << val << Nl;
+            LOGL << i << ", j = " << j << ", in = " << vecIn.Print() << ", lost = " << valLost << ", out = " << val << Nl;
         }
     }
-    if (verbose)
-    {
-        //LOGL << Nl;
+    ret.Add(val);
+    valPrev = val;
     }
-
-    TSRes res(true);
-    res.val = val;
-    return res;
+    return ret;
 }
 
 unsigned TSXformMan::MaxShift() const

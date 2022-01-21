@@ -1,7 +1,5 @@
-#diff
+#diff 1
 #fabs
 #sqrt
-log
-#sqrt
 #log
-add 0
+#add 0

@@ -17,16 +17,19 @@ class TSXformMan
     public:
         TSXformMan(const PriceType & priceType);
         virtual ~TSXformMan();
-        
+
         TSRes OnDataPointProt(const IHasCandles & funBase, int idx) const;
-        TSRes Reconstruct(double input, const EnjoLib::VecD & lost) const;
-        unsigned MaxShift() const;
         
+        EnjoLib::VecD ReconstructVec(const EnjoLib::VecD & input, const EnjoLib::Matrix & lost) const;
+        unsigned MaxShift() const;
+
+        void AddXForm(ITSXform * xform);
         void AddXForm(const EnjoLib::Str & namePars);
         void AddXForm(const TSXformType & type, const VecStr & params = {});
-        
+
 
     protected:
+        //TSRes Reconstruct(double input, const EnjoLib::VecD & lost) const;
 
     private:
         PriceType m_priceType;

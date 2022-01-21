@@ -39,7 +39,7 @@ class SimulatorTS : public ISimulatorTS
 
         STDFWD::vector<TSRes> GetRets(const STDFWD::vector<Inp> & inp) const;
         TSXformDataMan GetRetsFiltered(const STDFWD::vector<Inp> & inp) const;
-        STDFWD::vector<TSRes> GetReconstruction(const ITSFun * fun, const EnjoLib::VecD & inp, const EnjoLib::Matrix & lost, bool additive = true) const;
+        STDFWD::vector<TSRes> GetReconstruction(const ITSFun * fun, const EnjoLib::VecD & inp, const EnjoLib::Matrix & lost) const;
         EnjoLib::VecD GetReconstructionFiltered(const STDFWD::vector<TSRes> & input) const;
 
         TSRes Reconstr(const ITSFun * fun, const double val) const;

@@ -5,6 +5,8 @@
 ITSXform::ITSXform(){}
 ITSXform::~ITSXform(){}
 
+const double ITSXform::DATA_INITIAL = -100000;
+
 unsigned ITSXform::MaxShift() const
 {
     return 0;
@@ -12,6 +14,6 @@ unsigned ITSXform::MaxShift() const
 
 double ITSXform::GetVal(const IHasCandles & input, const PriceType & priceType, int idx) const
 {
-    const Candle & can = input.GetCandle(idx);
+    const Candle & can = input.GetCandle0Based(idx);
     return can.GetPriceByType(priceType); /// TODO: Return a common value
 }

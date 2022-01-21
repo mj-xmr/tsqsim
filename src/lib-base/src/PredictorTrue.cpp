@@ -5,6 +5,7 @@ PredictorTrue::PredictorTrue(const IDataProvider & dat)
 {}
 PredictorTrue::~PredictorTrue(){}
 
+/*
 EnjoLib::VecD PredictorTrue::PredictVec(const EnjoLib::VecD & data) const
 {
     EnjoLib::VecD ret;
@@ -12,7 +13,7 @@ EnjoLib::VecD PredictorTrue::PredictVec(const EnjoLib::VecD & data) const
     //ret.Add(data.at(idx));
     return data;
 }
-
+*/
 double PredictorTrue::PredictNext(const BufferDouble & datExpanding) const
 {
     return datExpanding[0];

@@ -15,7 +15,8 @@ class TSFunLua : public TSFunBase
 
     protected:
         TSRes OnDataPointProt(int idx) const override;
-        TSRes Reconstruct(int idx, const EnjoLib::VecD & input, const EnjoLib::VecD & lost) const override;
+        //TSRes Reconstruct(int idx, const EnjoLib::VecD & input, const EnjoLib::VecD & lost) const override;
+        EnjoLib::VecD ReconstructVec(const EnjoLib::VecD & input, const EnjoLib::Matrix & lost) const override;
 
     private:
         // create new Lua state
