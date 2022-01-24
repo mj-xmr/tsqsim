@@ -3,9 +3,11 @@
 
 #include <Util/Str.hpp>
 
+class ConfigTS;
 class ConfigSym;
 class ISymbol;
 class IPeriod;
+class ISimulatorTS;
 
 class App
 {
@@ -16,6 +18,7 @@ class App
         void Run(const ConfigSym & cfgSymCmdLine) const;
         void Optim(const ISymbol & sym, const IPeriod & per) const;
         void XValid(const ISymbol & sym, const IPeriod & per) const;
+        void PlotPython(const ConfigSym & confSym, const ConfigTS & confTS, const ISimulatorTS & sim) const;
 
     protected:
 

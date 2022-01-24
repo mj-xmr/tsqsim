@@ -22,6 +22,8 @@
 #include "TSUtil.h"
 #include "OptiHigh.h"
 #include "SimulatorTSFactoryImpl.h"
+#include "MatplotLine.h"
+#include "PredictorOutputType.h"
 
 #include <Ios/Cin.hpp>
 #include <Util/Trim.hpp>
@@ -40,7 +42,7 @@ void App::Run(const ConfigSym & confSymCmdLine) const
     {
         gcfgMan.Read();
 
-        //const ConfigTS & confTS     = *gcfgMan.cfgTS.get();
+        const ConfigTS & confTS     = *gcfgMan.cfgTS.get();
         const ConfigTF2 & confTF2   = *gcfgMan.cfgTF2.get();
         const ConfigOpti & confOpti = *gcfgMan.cfgOpti.get();
         ConfigSym & confSym         = *gcfgMan.cfgSym.get();
@@ -68,13 +70,17 @@ void App::Run(const ConfigSym & confSymCmdLine) const
         case OptiType::OPTI_TYPE_USE:
             {
                 CorPtr<ISimulatorTS> sim = TSUtil().GetSim(per);
+                if (confTS.PLOT_PYTHON)
+                {
+                    PlotPython(confSym, confTS, *sim);
+                }
             }
         break;
         case OptiType::OPTI_TYPE_XVALID:
                 XValid(*symbol, per);
         break;
         }
-        {LOGL << confSym.GetDateFromToStr(false);}
+        {LOGL << confSym.GetDateFromToStr(false) << Nl;}
 
         if (confTF.REPEAT)
         {
@@ -102,20 +108,20 @@ void App::XValid(const ISymbol & sym, const IPeriod & per) const
     const ConfigTS & confTS   = *gcfgMan.cfgTS.get(); /// TODO: Allow override via console
     const PredictorFactory predFact;
     const PredictorType predType = confTS.GetPredType();
-    
+
     const TSInput tsin(per, confTS);
-    
+
      CorPtr<ITSFun> fun = tsFunFact.Create(tsin, tsFunType);
-    
+
     OptimizerPred optiPred(predType, sym, per, predFact);
     const SimulatorTSFactory simFact;
     CorPtr<ISimulatorTS> sim = simFact.CreateTS(tsin, *fun);
     fun->SetSilent();
     sim->SetSilent();
     SimulatorTSFactoryImpl simFactImpl(tsin, *fun);
-            
+
     OptiHigh().WalkForwardOptiIndiv(sym, per, 1, 1, optiPred, *sim, simFactImpl);
-    
+
     sim->PrintOpti();
 }
 
@@ -132,4 +138,20 @@ void App::Optim(const ISymbol & sym, const IPeriod & per) const
     const PredictorType predType = confTS.GetPredType();
     OptimizerPred optiPred(predType, sym, per, predFact);
     optiPred();
+}
+
+void App::PlotPython(const ConfigSym & confSym, const ConfigTS & confTS, const ISimulatorTS & sim) const
+{
+    {LOGL << "Plot Python\n"; }
+
+    MatplotLine plot;
+    plot.AddLine(sim.GetOutputSeries(PredictorOutputType::RECONSTRUCTION),               "Signal", "Blue");
+    if (confTS.PLOT_BASELINE)
+    {
+        plot.AddLine(sim.GetOutputSeries(PredictorOutputType::RECONSTRUCTION_PRED_BASELINE), "Prediction baseline", "Gray");
+    }
+    plot.AddLine(sim.GetOutputSeries(PredictorOutputType::RECONSTRUCTION_PRED),          "Prediction", "Green");
+
+    const Str title = confSym.symbol + " " + confSym.period + " " + confSym.GetDateFromToStr(false);
+    plot.Plot(title);
 }

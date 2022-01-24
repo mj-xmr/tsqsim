@@ -160,7 +160,7 @@ EnjoLib::Str ConfigSym::GetDateFromToStr(bool lineBreak) const
     EnjoLib::Osstream oss;
     oss << dates.yearStart << "." << cma.MakeLeadingZeroes(dates.monthStart, 2);
     oss << (lineBreak ? "\n" : " - " );
-    oss << dates.yearEnd   << "." << cma.MakeLeadingZeroes(dates.monthEnd, 2) << Nl;
+    oss << dates.yearEnd   << "." << cma.MakeLeadingZeroes(dates.monthEnd, 2);
     return oss.str();
 }
 
