@@ -51,7 +51,7 @@ Glossary:
 - UT = Unit Tests
 - WX = wxWidgets configuration application
 - QT = QT application (data viewer)
-- Py = Python replacement for the QT app
+- Py = Python alternative to the QT app
 - R = bindings to R statistical framework
 
 # Quickstart
