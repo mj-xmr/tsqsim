@@ -35,15 +35,15 @@ Please refer to [_"Fooled by Randomness"_](https://en.wikipedia.org/wiki/Fooled_
 # Requirements
 Supported Operating Systems and features:
 
-| OS \ Feature  | CI | gcc | clang | UT | WX | QT | R  |
-| ------------- | -- | --- | ----- | -- | -- | -- | -- |
-| Debian stable |    | ✓   | ✓     |  ✓ | ✓  |    | ✓  |
-| Debian buster |    | ✓   | ✓     |  ✓ | ✓  | ✓  | ✓  |
-| Ubuntu 21.04  |    | ✓   | ✓     |  ✓ | ✓  |    | ✓  |
-| Ubuntu 20.04  | ✓  | ✓   | ✓     |  ✓ | ✓  | ✓  | ✓  |
-| Mac OSX 11    | ✓  |     | ✓     |  ✓ | ✓  |    | ✓  |
-| Mac OSX 10.15 | ✓  |     | ✓     |  ✓ | ✓  |    |    |
-| Windows       | ✓  | ✓   |       |  ✓ |    |    |    |
+| OS \ Feature  | CI | gcc | clang | UT | WX | QT | Py | R  |
+| ------------- | -- | --- | ----- | -- | -- | -- | -- | -- |
+| Debian stable |    | ✓   | ✓     |  ✓ | ✓  |    | ✓  | ✓  |
+| Debian buster |    | ✓   | ✓     |  ✓ | ✓  | ✓  | ✓  | ✓  |
+| Ubuntu 21.04  |    | ✓   | ✓     |  ✓ | ✓  |    | ✓  | ✓  |
+| Ubuntu 20.04  | ✓  | ✓   | ✓     |  ✓ | ✓  | ✓  | ✓  | ✓  |
+| Mac OSX 11    | ✓  |     | ✓     |  ✓ | ✓  |    | ✓  | ✓  |
+| Mac OSX 10.15 | ✓  |     | ✓     |  ✓ | ✓  |    | ✓  |    |
+| Windows       | ✓  | ✓   |       |  ✓ |    |    | ✓  |    |
 
 Glossary:
 - CI = [Continuous Integration](https://github.com/mj-xmr/tsqsim/actions)
@@ -51,6 +51,7 @@ Glossary:
 - UT = Unit Tests
 - WX = wxWidgets configuration application
 - QT = QT application (data viewer)
+- Py = Python replacement for the QT app
 - R = bindings to R statistical framework
 
 # Quickstart
