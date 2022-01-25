@@ -24,7 +24,7 @@ CorPtr<ISimulatorTS> TSUtil::GetSim(const IPeriod & per, const StartEnd & startE
     CorPtr<ITSFun> fun = tsFunFact.Create(tsin, tsFunType);
     CorPtr<ISimulatorTS> sim = simFact.CreateTS(tsin, *fun);
     sim->RunRaw(startEndFrame);
-    return sim;
+    return CorPtr<ISimulatorTS>(sim.release());
 }
 
 CorPtr<ISimulatorTS> TSUtil::GetSim(const IPeriod & per, const ITSFun & tsFun, const StartEnd & startEndFrame) const
@@ -36,7 +36,7 @@ CorPtr<ISimulatorTS> TSUtil::GetSim(const IPeriod & per, const ITSFun & tsFun, c
 
     CorPtr<ISimulatorTS> sim = simFact.CreateTS(tsin, tsFun);
     sim->RunRaw(startEndFrame);
-    return sim;
+    return CorPtr<ISimulatorTS>(sim.release());
 }
 
 CorPtr<ISimulatorTS> TSUtil::GetSimPred(const IPeriod & per, const EnjoLib::VecD & opti, const StartEnd & startEndFrame) const
@@ -54,5 +54,5 @@ CorPtr<ISimulatorTS> TSUtil::GetSimPred(const IPeriod & per, const EnjoLib::VecD
     sim->SetSilent();
     sim->ReinitOptiVars(opti);
     sim->RunRaw(startEndFrame);
-    return sim;
+    return CorPtr<ISimulatorTS>(sim.release());
 }

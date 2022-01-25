@@ -38,6 +38,7 @@ class ConfigTS : public ConfigBase
         bool PLOT_SERIES = true;
         bool PLOT_BASELINE = true;
         bool PLOT_PYTHON = false;
+        bool PLOT_PYTHON_ACF = false;
         bool MT_REPORT = false;
         bool MT_XFORM = false;
         bool USE_VECTOR_PRED = false;

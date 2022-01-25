@@ -23,6 +23,7 @@
 #include "OptiHigh.h"
 #include "SimulatorTSFactoryImpl.h"
 #include "MatplotLine.h"
+#include "MatplotACF.h"
 #include "PredictorOutputType.h"
 
 #include <Ios/Cin.hpp>
@@ -73,6 +74,10 @@ void App::Run(const ConfigSym & confSymCmdLine) const
                 if (confTS.PLOT_PYTHON)
                 {
                     PlotPython(confSym, confTS, *sim);
+                }
+                if (confTS.PLOT_PYTHON_ACF)
+                {
+                    PlotPythonACF(confSym, confTS, *sim);
                 }
             }
         break;
@@ -150,8 +155,18 @@ void App::PlotPython(const ConfigSym & confSym, const ConfigTS & confTS, const I
     {
         plot.AddLine(sim.GetOutputSeries(PredictorOutputType::RECONSTRUCTION_PRED_BASELINE), "Prediction baseline", "Gray");
     }
-    plot.AddLine(sim.GetOutputSeries(PredictorOutputType::RECONSTRUCTION_PRED),          "Prediction", "Green");
+    plot.AddLine(sim.GetOutputSeries(PredictorOutputType::RECONSTRUCTION_PRED),          "Prediction modeled", "Green");
 
     const Str title = confSym.symbol + " " + confSym.period + " " + confSym.GetDateFromToStr(false);
     plot.Plot(title);
+}
+
+void App::PlotPythonACF(const ConfigSym & confSym, const ConfigTS & confTS, const ISimulatorTS & sim) const
+{
+    {LOGL << "Plot Python ACF\n"; }
+
+    const int lags = 30; // TODO: Make user's choice
+    const MatplotACF plot;
+    const Str title = "ACF of " + confSym.symbol + " " + confSym.period + " " + confSym.GetDateFromToStr(false);
+    plot.Plot(sim.GetOutputSeries(PredictorOutputType::SERIES), lags, title);
 }
