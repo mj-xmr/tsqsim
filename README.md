@@ -174,8 +174,13 @@ Thus the priorities of the development are skewed towards delivering results to 
 
 ![image](https://user-images.githubusercontent.com/63722585/144647510-51028542-a4a7-497c-9bc1-053daf7af947.png)
 
+## Python QT app's alternative
+Above: The interactive QT data viewer
+Below: A very portable Python alternative
+![image](https://user-images.githubusercontent.com/63722585/151012558-2751868a-de4d-4a97-bac6-fc599b336d7a.png)
+
 ## wx Configurator
-![image](https://user-images.githubusercontent.com/63722585/147835250-e381ff4e-0665-44de-b384-03810a9fbfb1.png)
+![image](https://user-images.githubusercontent.com/63722585/151012395-0b984207-cfa3-468d-81ca-d2da10132091.png)
 
 
 ## Console simulator
