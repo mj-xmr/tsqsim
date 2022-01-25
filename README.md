@@ -49,10 +49,10 @@ Glossary:
 - CI = [Continuous Integration](https://github.com/mj-xmr/tsqsim/actions)
 - gcc & clang = C/C++ compilers
 - UT = Unit Tests
-- WX = wxWidgets configuration application
+- WX = [wxWidgets](https://www.wxwidgets.org/)-based configuration application
 - QT = QT application (data viewer)
 - Py = Python alternative to the QT app
-- R = bindings to R statistical framework
+- R = bindings to the ["R" statistical framework](https://www.r-project.org/)
 
 # Quickstart
 In case these instructions become outdated, please refer to the steps of the [CI](.github/workflows/build.yml).
