@@ -19,6 +19,7 @@ class App
         void Optim(const ISymbol & sym, const IPeriod & per) const;
         void XValid(const ISymbol & sym, const IPeriod & per) const;
         void PlotPython(const ConfigSym & confSym, const ConfigTS & confTS, const ISimulatorTS & sim) const;
+        void PlotPythonACF(const ConfigSym & confSym, const ConfigTS & confTS, const ISimulatorTS & sim) const;
 
     protected:
 
