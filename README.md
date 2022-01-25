@@ -186,6 +186,7 @@ ACF of the original series:
 ![image](https://user-images.githubusercontent.com/63722585/151013189-43f1f028-32ff-4f8c-a8e1-ff9f69bd409d.png)
 
 ACF of the first difference of the series, exhibiting a statistically significant inverse correlation at lag 1:
+
 ![image](https://user-images.githubusercontent.com/63722585/151015304-b90e07c0-a2ec-448a-8a18-61ada8687b79.png)
 
 
