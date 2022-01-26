@@ -179,7 +179,7 @@ Thus the priorities of the development are skewed towards delivering results to 
 - Below: A very portable Python alternative
 ![image](https://user-images.githubusercontent.com/63722585/151012558-2751868a-de4d-4a97-bac6-fc599b336d7a.png)
 
-## Python-based AutoCorrelation Function (ACF) plot
+## Python-based (Partial) AutoCorrelation Function (ACF & PACF) plots
 
 ACF of the original series:
 
