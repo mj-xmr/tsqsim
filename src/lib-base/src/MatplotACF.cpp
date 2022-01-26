@@ -36,7 +36,8 @@ void MatplotACF::Plot(const EnjoLib::VecD & dat, int lags, const EnjoLib::Str & 
         AlgoSTDIVec<double>().Reverse(&reversed);
         //ofs << dat.PrintPython("dat") << Nl;
         ofs << reversed.PrintPython("dat") << Nl;
-        ofs << "plotData(dat, " << lags << ", '" << title << "')" << Nl;
+        ofs <<  "plotACF(dat, " << lags << ", '" << title << "')" << Nl;
+        ofs << "plotPACF(dat, " << lags << ", '" << title << "')" << Nl;
     }
 
     ToolsMixed().SystemCallWarn("python3 " + scriptOut, "MatplotACF::Plot()");
