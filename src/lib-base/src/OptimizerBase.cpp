@@ -123,7 +123,7 @@ void OptimizerBase::operator()()
             Consume(dataNewT.at(i));
             if (gcfgMan.cfgOpti->OPTI_RANDOM_EARLY_STOP && IsEarlyStop())
             {
-                LOGL << "Early stop. The recent changes were less than " << gcfgMan.cfgOpti->OPTI_RANDOM_MIN_DIFF_PROMILE << " ‰ after " << i << " iterations.\n";
+                LOGL << "Early stop. The recent variance changes were less than " << gcfgMan.cfgOpti->OPTI_RANDOM_MIN_DIFF_PROMILE << " ‰ after " << i << " iterations.\n";
                 break;
             }
         }
@@ -251,7 +251,7 @@ void OptimizerBase::PlotVariance() const
     const float scaleY = 0.5;
     const Formatters fmt;
     ELO
-    GnuplotPlotTerminal1d(m_goalsMod.Diffs().Smooth(GetSmoothing()), "Variance changes:", scaleX, scaleY);
+    GnuplotPlotTerminal1d(m_goalsMod.Diffs().Smooth(GetSmoothing()), "Variance changes (low values mean that no better solution can be found):", scaleX, scaleY);
     LOG << "Best  │  " << fmt.VecLabel() << "  │\n";
     LOG << fmt.FormatVar(m_goalMax) << " " << fmt.FormatVec(m_goals) << Endl;
     const StatsUtil::Distrib & distrib = StatsUtil().GetDistrib(m_goals);

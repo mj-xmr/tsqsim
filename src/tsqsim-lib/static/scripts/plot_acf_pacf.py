@@ -15,11 +15,28 @@ import matplotlib.pyplot as plt
 #from pandas.plotting import register_matplotlib_converters
 #from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 #register_matplotlib_converters()
+from statsmodels.tsa.stattools import acf, pacf
 
         
-def plotData(data, lags):
+def plotACF(data, lags, title):
     obj = pd.plotting.autocorrelation_plot(data)
     obj.set_xlim([0, lags])
+    obj.set_title("Autocorr. (" + str(lags) + ") " + title)
+    plt.show()
+    
+def plotPACF(data, lags, title):
+    pacf_vals = pacf(data)
+    #fig = plt.figure()
+    y = pacf_vals#[:lags]
+    length = len(y)
+    if lags > length:
+        lags = length
+    x = list(range(lags))
+    print(len(x))
+    print(length)
+    plt.bar(x, y)
+    plt.grid()
+    plt.title("Partial Autocorr. (" + str(lags) + ") " + title)
     plt.show()
         
 def demo():
@@ -41,7 +58,8 @@ def demo():
     #acf_plot = plot_acf(df_ice_cream.production, lags=100)
 
     a = [1, 2, 3, 4, 5, 6]
-    plotData(a, 4)
+    plotACF(a, 4, "demo")
+    plotPACF(a, 4, "demo")
     #obj = pd.plotting.autocorrelation_plot(df_ice_cream.production)
     #plt.show()
 
@@ -49,4 +67,4 @@ def demo():
     #acf_plot = plot_acf(a, lags=5)
     #acf_plot.show()
 
-#demo()
+demo()
