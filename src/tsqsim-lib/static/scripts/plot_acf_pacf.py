@@ -37,6 +37,8 @@ def plotPACF(data, lags, title):
     plt.bar(x, y)
     plt.ylim([-1, 1])
     plt.grid()
+    plt.xlabel("Lag")
+    plt.ylabel("Autocorrelation")
     plt.title("Partial Autocorr. (" + str(lags) + ") " + title)
     plt.show()
         
@@ -68,4 +70,4 @@ def demo():
     #acf_plot = plot_acf(a, lags=5)
     #acf_plot.show()
 
-#demo()
+demo()
