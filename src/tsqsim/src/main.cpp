@@ -19,12 +19,12 @@ int main(int argc, char ** argv)
         RInitDeinit rinit;
         const CLITsq cli;
         const EnjoLib::Result<CLIResult> & result = cli.GetConfigs(argc, argv);
-        
+
         if (not result.isSuccess)
         {
             return 0;
         }
-        App().Run(result.value.m_confSym);
+        App().Run(result.value);
     }
     catch (exception & ex)
     {

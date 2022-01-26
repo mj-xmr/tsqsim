@@ -11,6 +11,7 @@ using namespace EnjoLib;
 CLI::CLI(){}
 CLI::~CLI(){}
 
+/// TODO: Fill all the possible options
 EnjoLib::Result<CLIResult> CLI::GetConfigs(int argc, char ** argv) const
 {
     //const char * OPT_PLUGIN  = "plugin";
@@ -22,6 +23,7 @@ EnjoLib::Result<CLIResult> CLI::GetConfigs(int argc, char ** argv) const
     //const char * OPT_LATEST_DATE = "latest-date";
     const char * OPT_SYMBOL = "sym";
     const char * OPT_PERIOD  = "per";
+    const char * OPT_LAGS  = "lags";
 
     EnjoLib::ProgramOptionsState popState;
     ////popState.AddStr(OPT_PLUGIN,    "Plugin name");
@@ -32,10 +34,13 @@ EnjoLib::Result<CLIResult> CLI::GetConfigs(int argc, char ** argv) const
     popState.AddStr(OPT_SYMBOL,     "Symbol name");
     popState.AddStr(OPT_PERIOD,     "Period name");
 
+    popState.AddInt(OPT_LAGS,       ConfigTS::DESCR_PLOT_LAGS_NUM);
+
     popState.ReadArgs(argc, argv);
     const EnjoLib::ProgramOptions pops(popState);
-    
+
     ConfigSym confSym;
+    ConfigTS  confTS;
 
     if (pops.IsHelpRequested())
     {
@@ -57,9 +62,9 @@ EnjoLib::Result<CLIResult> CLI::GetConfigs(int argc, char ** argv) const
         LOG << "\n(C) 2012-2022 mj-xmr. Licensed under AGPLv3.\n";
         LOG << "https://github.com/mj-xmr/tsqsim\n";
         LOG << "\nRemember to be happy.\n\n";
-        return EnjoLib::Result<CLIResult>(CLIResult(confSym), false);
+        return EnjoLib::Result<CLIResult>(CLIResult(confSym, confTS), false);
     }
-    
+
     confSym.dates.Set0();
 
     confSym.dates.monthStart 	= pops.GetIntFromMap(OPT_MIN_MONTH);
@@ -68,10 +73,12 @@ EnjoLib::Result<CLIResult> CLI::GetConfigs(int argc, char ** argv) const
     confSym.dates.yearEnd    	= pops.GetIntFromMap(OPT_MAX_YEAR);
     confSym.symbol     		    = pops.GetStrFromMap(OPT_SYMBOL);
     confSym.period     		    = pops.GetStrFromMap(OPT_PERIOD);
-    
+
+    confTS.PLOT_LAGS_NUM        = pops.GetIntFromMap(OPT_LAGS);
+
     //auto pluginName = pops.GetStrFromMap (OPT_PLUGIN);
-    
-    CLIResult res(confSym);
-    
-    return EnjoLib::Result<CLIResult>(CLIResult(confSym), true);
+
+    CLIResult res(confSym, confTS);
+
+    return EnjoLib::Result<CLIResult>(CLIResult(confSym, confTS), true);
 }

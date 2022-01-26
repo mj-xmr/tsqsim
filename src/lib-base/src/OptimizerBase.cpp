@@ -12,6 +12,7 @@
 #include "ConfigOpti.h"
 #include "ConfigMan.h"
 #include "TradeUtil.h"
+#include "StatsUtil.h"
 
 #include <Statistical/Formatters.hpp>
 #include <Statistical/Statistical.hpp>
@@ -122,7 +123,7 @@ void OptimizerBase::operator()()
             Consume(dataNewT.at(i));
             if (gcfgMan.cfgOpti->OPTI_RANDOM_EARLY_STOP && IsEarlyStop())
             {
-                LOGL << "Early stop. The recent changes were less than " << gcfgMan.cfgOpti->OPTI_RANDOM_MIN_DIFF_PROMILE << " ‰\n";
+                LOGL << "Early stop. The recent changes were less than " << gcfgMan.cfgOpti->OPTI_RANDOM_MIN_DIFF_PROMILE << " ‰ after " << i << " iterations.\n";
                 break;
             }
         }
@@ -246,12 +247,19 @@ bool OptimizerBase::IsEarlyStop() const
 
 void OptimizerBase::PlotVariance() const
 {
+    const float scaleX = 1;
+    const float scaleY = 0.5;
     const Formatters fmt;
-    {LOGL << "Variance changes:" << Endl;}
     ELO
-    //GnuplotPlotTerminal1d(m_goalsMod.Diffs().Smooth(GetSmoothing()));
+    GnuplotPlotTerminal1d(m_goalsMod.Diffs().Smooth(GetSmoothing()), "Variance changes:", scaleX, scaleY);
     LOG << "Best  │  " << fmt.VecLabel() << "  │\n";
     LOG << fmt.FormatVar(m_goalMax) << " " << fmt.FormatVec(m_goals) << Endl;
+    const StatsUtil::Distrib & distrib = StatsUtil().GetDistrib(m_goals);
+    if (distrib.IsValid())
+    {
+        GnuplotPlotTerminal2d(distrib.data, "Distribution of solutions (median must be > -1):", scaleX, scaleY);
+    }
+    //cout << "Changes abs = " << chg.sumAbsolute << " rel = " << chg.sumRelative << endl;
 }
 
 const std::vector<OptiVarF> & OptimizerBase::GetOptiFloat() const
