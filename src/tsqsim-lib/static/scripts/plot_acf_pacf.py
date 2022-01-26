@@ -35,6 +35,7 @@ def plotPACF(data, lags, title):
     print(len(x))
     print(length)
     plt.bar(x, y)
+    plt.ylim([-1, 1])
     plt.grid()
     plt.title("Partial Autocorr. (" + str(lags) + ") " + title)
     plt.show()
