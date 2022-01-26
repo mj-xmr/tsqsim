@@ -26,6 +26,8 @@ class ConfigTS : public ConfigBase
         PriceType GetPriceType() const;
         void SetPriceType(const PriceType & type);
 
+        void UpdateFromOther(const ConfigTS & cfgTSCmdLine);
+
 
         static const char * DEFAULT_SCRIPT_FILE_NAME;
         static const char * DEFAULT_SCRIPT_FILE_NAME_R;
@@ -45,6 +47,7 @@ class ConfigTS : public ConfigBase
 
         long int PRED_TYPE = 0;
         long int PRICE_TYPE = 0;
+        long int PLOT_LAGS_NUM = 30; constexpr static const char * DESCR_PLOT_LAGS_NUM = "Number of lags for ACF/PACF plot";
 
     protected:
         EnjoLib::Str GetFileNameProt() const override;

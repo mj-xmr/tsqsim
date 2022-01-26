@@ -46,6 +46,7 @@ void ConfigTS::RegisterAndReadInts(EnjoLib::Istream & f)
 {
     RegisterAndReadInt (f, PRED_TYPE, 0);
     RegisterAndReadInt (f, PRICE_TYPE, 0);
+    RegisterAndReadInt (f, PLOT_LAGS_NUM, 30);
 }
 void ConfigTS::RegisterAndReadFloats(EnjoLib::Istream & f)
 {
@@ -75,4 +76,16 @@ PriceType ConfigTS::GetPriceType() const
 void ConfigTS::SetPriceType(const PriceType & type)
 {
     PRICE_TYPE = static_cast<long int>(type);
+}
+
+void ConfigTS::UpdateFromOther(const ConfigTS & cfgTSCmdLine)
+{
+    if (cfgTSCmdLine.PLOT_LAGS_NUM > 0)
+    {
+        PLOT_LAGS_NUM = cfgTSCmdLine.PLOT_LAGS_NUM;
+    }
+    else
+    {
+        PLOT_LAGS_NUM = 30;
+    }
 }

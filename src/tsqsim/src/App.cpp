@@ -25,6 +25,7 @@
 #include "MatplotLine.h"
 #include "MatplotACF.h"
 #include "PredictorOutputType.h"
+#include "CLIResult.h"
 
 #include <Ios/Cin.hpp>
 #include <Util/Trim.hpp>
@@ -36,19 +37,20 @@ using namespace EnjoLib;
 
 App::App(){}
 
-void App::Run(const ConfigSym & confSymCmdLine) const
+void App::Run(const CLIResult & cliResultCmdLine) const
 {
     const ConfigTF  & confTF    = *gcfgMan.cfgTF.get();
     do
     {
         gcfgMan.Read();
 
-        const ConfigTS & confTS     = *gcfgMan.cfgTS.get();
+        ConfigTS & confTS     = *gcfgMan.cfgTS.get();
         const ConfigTF2 & confTF2   = *gcfgMan.cfgTF2.get();
         const ConfigOpti & confOpti = *gcfgMan.cfgOpti.get();
         ConfigSym & confSym         = *gcfgMan.cfgSym.get();
 
-        confSym.UpdateFromOther(confSymCmdLine);
+        confSym.UpdateFromOther(cliResultCmdLine.m_confSym);
+        confTS.UpdateFromOther(cliResultCmdLine.m_confTS);
 
         VecStr symbols = {confSym.symbol};
         VecStr periods = {confSym.period};
@@ -157,7 +159,7 @@ void App::PlotPython(const ConfigSym & confSym, const ConfigTS & confTS, const I
     }
     plot.AddLine(sim.GetOutputSeries(PredictorOutputType::RECONSTRUCTION_PRED),          "Prediction modeled", "Green");
 
-    const Str title = confSym.symbol + " " + confSym.period + " " + confSym.GetDateFromToStr(false);
+    const Str title = GetTitle(confSym);
     plot.Plot(title);
 }
 
@@ -165,8 +167,13 @@ void App::PlotPythonACF(const ConfigSym & confSym, const ConfigTS & confTS, cons
 {
     {LOGL << "Plot Python ACF\n"; }
 
-    const int lags = 30; // TODO: Make user's choice
+    const int lags = confTS.PLOT_LAGS_NUM; // TODO: Make user's choice
     const MatplotACF plot;
-    const Str title = "ACF of " + confSym.symbol + " " + confSym.period + " " + confSym.GetDateFromToStr(false);
+    const Str title = ": " + GetTitle(confSym);
     plot.Plot(sim.GetOutputSeries(PredictorOutputType::SERIES), lags, title);
+}
+
+Str App::GetTitle(const ConfigSym & confSym) const
+{
+    return confSym.symbol + " " + confSym.period + " " + confSym.GetDateFromToStr(false);
 }
