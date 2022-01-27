@@ -15,6 +15,8 @@ which can be just anything that changes across time and depends on values from t
 The patterns can be used to build a model of the data, that can be in turn used to predict future data points 
 up to a certain confidence, which decreases gradually, as the requested prediction horizon expands.
 
+In order to understand better what the project does, or the TSA in general, I recommend watching [this playlist](https://www.youtube.com/watch?v=ZoJ2OctrFLA&list=PLvcbYUQ5t0UHOLnBzl46_Q6QKtFgfMGc3).
+
 ## The dangers of modeling
 As with just every model for every single task, it's much easier to optimize a model to work great for the data known at the moment of optimization (_in-sample_), 
 rather than to make it generic and work even just satisfactory enough on new, yet unknown data (_out-of-sample_). 
