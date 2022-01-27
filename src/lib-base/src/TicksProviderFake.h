@@ -14,8 +14,9 @@ class TicksProviderFake : public ITicksProvider
 
         CorPtr<ITicks> GetTicks(const EnjoLib::Str & symbolName, const ConfigSym * confSym = nullptr) const override;
         CorPtr<ITicks> GetPeriod(const EnjoLib::Str & symbolName, const EnjoLib::Str & periodName) const override;
-        
         bool IsGenerated() const override { return true; }
+
+        VecStr Generate() const;
     protected:
     private:
 };
@@ -28,8 +29,27 @@ class TicksProviderXMRFake : public ITicksProvider
 
         CorPtr<ITicks> GetTicks(const EnjoLib::Str & symbolName, const ConfigSym * confSym = nullptr) const override;
         CorPtr<ITicks> GetPeriod(const EnjoLib::Str & symbolName, const EnjoLib::Str & periodName) const override;
-        
+
         bool IsGenerated() const override { return true; }
+
+        VecStr Generate() const;
+
+    protected:
+    private:
+};
+
+class TicksProviderOrderedSeriesFake : public ITicksProvider
+{
+    public:
+        TicksProviderOrderedSeriesFake(){}
+        virtual ~TicksProviderOrderedSeriesFake(){}
+
+        CorPtr<ITicks> GetTicks(const EnjoLib::Str & symbolName, const ConfigSym * confSym = nullptr) const override;
+        CorPtr<ITicks> GetPeriod(const EnjoLib::Str & symbolName, const EnjoLib::Str & periodName) const override;
+
+        bool IsGenerated() const override { return true; }
+
+        VecStr Generate() const;
 
     protected:
     private:

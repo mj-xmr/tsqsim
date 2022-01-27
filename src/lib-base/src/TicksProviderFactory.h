@@ -10,7 +10,9 @@ enum class TickProviderType
     SMALL,
     XMR,
     GENERATED,
-    XMR_FAKE
+    XMR_FAKE,
+    ADAPTIVE_FAKE,
+    ADAPTIVE
 };
 
 class TickProviderFactory

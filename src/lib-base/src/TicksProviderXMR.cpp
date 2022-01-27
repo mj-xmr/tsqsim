@@ -21,7 +21,7 @@ VecStr TicksProviderXMR::ConvertStat(const VecStr & raw)
     /// TODO: Create a DataInputFormat class
     /// TODO: Give a possibility to guess the format without the descriptor - test throuroughly
     /// ^ The system ultimately only needs closing values, not even the timestamps (a.k.a. "Ordered series").
-    
+
     VecStr lines;
     lines.DataRW().reserve(raw.size());
     for (const Str & line : raw)
@@ -30,11 +30,11 @@ VecStr TicksProviderXMR::ConvertStat(const VecStr & raw)
     }
     //std::function<decltype(ConvertStatSingle)> f_conv = &ConvertStatSingle;
     //const std::vector<Str> & lines = ConvertVectorThreaded(raw.Data(), f_conv); // Causes a dead loop later at storing.
-    
+
     return lines;
 }
 
-EnjoLib::Str TicksProviderXMR::ConvertStatSingle(const EnjoLib::Str & line)
+EnjoLib::Str TicksProviderXMR::ConvertStatSingle(const EnjoLib::Str & line) /// TODO: Unit test and optimize
 {
     const Tokenizer tok;
     const TradeUtil tut;
@@ -43,19 +43,8 @@ EnjoLib::Str TicksProviderXMR::ConvertStatSingle(const EnjoLib::Str & line)
     const Str & txnumbStr = toks.at(1);
 
     const DateInt dateTime = tut.Timestamp2DateInt(tstampStr);
-    const Str & date = tut.Date2DateRawStr(dateTime);
-    const Str & time = tut.Date2TimeRawStr(dateTime);
 
-    Osstream ostr;
-    ostr << "MONERO,"  << date  << ","  << time;
-    const Str txNumbStrLine = "," + txnumbStr;
-    for (int i = 0; i < 4; ++i)
-    {
-        ostr << txNumbStrLine;
-    }
-    ostr << ",0";
-
-    return ostr.str();
+    return tut.GetLineFXfromSeries(dateTime, txnumbStr);
 }
 
 VecStr TicksProviderXMR::Convert(const VecStr & raw) const
