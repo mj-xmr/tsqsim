@@ -8,31 +8,30 @@
 #include "TicksProviderXMR.h"
 #include "TicksProviderFake.h"
 #include "TicksProviderGenerated.h"
+#include "TicksProviderAdaptive.h"
+#include "TicksProviderAdaptiveFake.h"
 
-TickProviderFactory::TickProviderFactory()
-{
-    //ctor
-}
+TickProviderFactory::TickProviderFactory(){}
+TickProviderFactory::~TickProviderFactory(){}
 
-TickProviderFactory::~TickProviderFactory()
-{
-    //dtor
-}
-
-Corrade::Containers::Pointer<ITicksProvider> TickProviderFactory::Create(TickProviderType type) const
+CorPtr<ITicksProvider> TickProviderFactory::Create(TickProviderType type) const
 {
     switch (type)
     {
     case TickProviderType::ARCHIVER:
-        return Corrade::Containers::Pointer<ITicksProvider>(new TicksProviderBinary());
+        return CorPtr<ITicksProvider>(new TicksProviderAdaptive());
     case TickProviderType::SMALL:
-        return Corrade::Containers::Pointer<ITicksProvider>(new TicksProviderFake());
+        return CorPtr<ITicksProvider>(new TicksProviderFake());
     case TickProviderType::GENERATED:
-        return Corrade::Containers::Pointer<ITicksProvider>(new TicksProviderGenerated());
+        return CorPtr<ITicksProvider>(new TicksProviderGenerated());
     case TickProviderType::XMR_FAKE:
-        return Corrade::Containers::Pointer<ITicksProvider>(new TicksProviderXMRFake());
+        return CorPtr<ITicksProvider>(new TicksProviderXMRFake());
     case TickProviderType::XMR:
-        return Corrade::Containers::Pointer<ITicksProvider>(new TicksProviderXMR());
+        return CorPtr<ITicksProvider>(new TicksProviderAdaptive());
+    case TickProviderType::ADAPTIVE:
+        return CorPtr<ITicksProvider>(new TicksProviderAdaptive());
+    case TickProviderType::ADAPTIVE_FAKE:
+        return CorPtr<ITicksProvider>(new TicksProviderAdaptiveFake());
     }
     throw EnjoLib::ExceptRuntimeError("Not handled type ");
 }

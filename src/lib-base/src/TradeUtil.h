@@ -71,6 +71,9 @@ class TradeUtil
         EnjoLib::Str GetOutputDir(const EnjoLib::Str & fullIdOfSymbolsPeriods) const;
         EnjoLib::Str GetOutputDirAccum() const;
 
+        EnjoLib::Str GetLineFXfromSeries(DateInt dateTime, const EnjoLib::Str & txnumbStr) const;
+
+
         const static EnjoLib::Str SYMBOL_TEST_PREFIX;
 
     protected:

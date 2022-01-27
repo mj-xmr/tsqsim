@@ -591,3 +591,20 @@ EnjoLib::VecF  TradeUtil::GetAverage(const EnjoLib::Array<EnjoLib::VecF > & vdat
     }
     return ret;
 }
+
+EnjoLib::Str TradeUtil::GetLineFXfromSeries(DateInt dateTime, const EnjoLib::Str & txnumbStr) const
+{
+    const Str & date = Date2DateRawStr(dateTime);
+    const Str & time = Date2TimeRawStr(dateTime);
+
+    Osstream ostr;
+    ostr << "MONERO,"  << date  << ","  << time;
+    const Str txNumbStrLine = "," + txnumbStr;
+    for (int i = 0; i < 4; ++i)
+    {
+        ostr << txNumbStrLine;
+    }
+    ostr << ",0";
+
+    return ostr.str();
+}
