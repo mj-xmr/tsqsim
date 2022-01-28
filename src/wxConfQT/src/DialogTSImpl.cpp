@@ -15,6 +15,12 @@ void DialogTS::OnTS(wxCommandEvent& event)
     m_confTS.Write(); // OK not needed
 }
 
+void DialogTS::Onm_spinChange(wxSpinEvent& event)
+{
+    ReadSelections();
+    m_confTS.Write(); // OK not needed
+}
+
 void DialogTS::Init()
 {
     /*
@@ -27,8 +33,12 @@ void DialogTS::Init()
     m_mapChoice.Register(&m_confTS.PRED_TYPE,  m_choicePredType);
     m_mapChoice.Register(&m_confTS.PRICE_TYPE, m_choiceSeriesType);
 
+    m_mapSpin.Register(&m_confTS.PLOT_LAGS_NUM,   m_spinLagACF);
+    m_mapSpin.Register(&m_confTS.PLOT_PERIOD_NUM, m_spinPeriodSeasonal);
+
     m_maps.push_back(&m_mapChoice);
     m_maps.push_back(&m_mapCheckbox);
+    m_maps.push_back(&m_mapSpin);
 }
 
 /// Store to config classes

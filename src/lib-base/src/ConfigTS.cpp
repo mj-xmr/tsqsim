@@ -47,6 +47,7 @@ void ConfigTS::RegisterAndReadInts(EnjoLib::Istream & f)
     RegisterAndReadInt (f, PRED_TYPE, 0);
     RegisterAndReadInt (f, PRICE_TYPE, 0);
     RegisterAndReadInt (f, PLOT_LAGS_NUM, 30);
+    RegisterAndReadInt (f, PLOT_PERIOD_NUM, 30);
 }
 void ConfigTS::RegisterAndReadFloats(EnjoLib::Istream & f)
 {
@@ -84,8 +85,8 @@ void ConfigTS::UpdateFromOther(const ConfigTS & cfgTSCmdLine)
     {
         PLOT_LAGS_NUM = cfgTSCmdLine.PLOT_LAGS_NUM;
     }
-    else
+    if (cfgTSCmdLine.PLOT_PERIOD_NUM > 0)
     {
-        PLOT_LAGS_NUM = 30;
+        PLOT_PERIOD_NUM = cfgTSCmdLine.PLOT_PERIOD_NUM;
     }
 }

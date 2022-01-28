@@ -24,6 +24,8 @@ EnjoLib::Result<CLIResult> CLI::GetConfigs(int argc, char ** argv) const
     const char * OPT_SYMBOL = "sym";
     const char * OPT_PERIOD  = "per";
     const char * OPT_LAGS  = "lags";
+    const char * OPT_PER_SEASONAL  = "per-easonal";
+
 
     EnjoLib::ProgramOptionsState popState;
     ////popState.AddStr(OPT_PLUGIN,    "Plugin name");
@@ -34,7 +36,9 @@ EnjoLib::Result<CLIResult> CLI::GetConfigs(int argc, char ** argv) const
     popState.AddStr(OPT_SYMBOL,     "Symbol name");
     popState.AddStr(OPT_PERIOD,     "Period name");
 
-    popState.AddInt(OPT_LAGS,       ConfigTS::DESCR_PLOT_LAGS_NUM);
+    popState.AddInt(OPT_LAGS,           ConfigTS::DESCR_PLOT_LAGS_NUM);
+    popState.AddInt(OPT_PER_SEASONAL,   ConfigTS::DESCR_PLOT_PERIOD_NUM);
+
 
     popState.ReadArgs(argc, argv);
     const EnjoLib::ProgramOptions pops(popState);
@@ -75,6 +79,7 @@ EnjoLib::Result<CLIResult> CLI::GetConfigs(int argc, char ** argv) const
     confSym.period     		    = pops.GetStrFromMap(OPT_PERIOD);
 
     confTS.PLOT_LAGS_NUM        = pops.GetIntFromMap(OPT_LAGS);
+    confTS.PLOT_PERIOD_NUM      = pops.GetIntFromMap(OPT_PER_SEASONAL);
 
     //auto pluginName = pops.GetStrFromMap (OPT_PLUGIN);
 
