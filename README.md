@@ -196,6 +196,11 @@ ACF of the first difference of the series, exhibiting a statistically significan
 
 ![image](https://user-images.githubusercontent.com/63722585/151221354-f233f937-cbe0-443c-840c-2be77376f24e.png)
 
+Seasonal decomposition of the daily bars exhibits a strong seasonal pattern over the week:
+
+![image](https://user-images.githubusercontent.com/63722585/151616487-d26419cd-89db-462a-946a-0eedc4a4e7c9.png)
+
+
 
 ## wx Configurator
 ![image](https://user-images.githubusercontent.com/63722585/151012395-0b984207-cfa3-468d-81ca-d2da10132091.png)
