@@ -167,10 +167,11 @@ void App::PlotPythonACF(const ConfigSym & confSym, const ConfigTS & confTS, cons
 {
     {LOGL << "Plot Python ACF\n"; }
 
-    const int lags = confTS.PLOT_LAGS_NUM; // TODO: Make user's choice
+    const int lags = confTS.PLOT_LAGS_NUM;
+    const int per  = confTS.PLOT_PERIOD_NUM;
     const MatplotACF plot;
     const Str title = ": " + GetTitle(confSym);
-    plot.Plot(sim.GetOutputSeries(PredictorOutputType::SERIES), lags, title);
+    plot.Plot(sim.GetOutputSeries(PredictorOutputType::SERIES), lags, per, title);
 }
 
 Str App::GetTitle(const ConfigSym & confSym) const

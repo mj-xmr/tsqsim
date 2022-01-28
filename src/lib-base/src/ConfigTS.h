@@ -48,6 +48,7 @@ class ConfigTS : public ConfigBase
         long int PRED_TYPE = 0;
         long int PRICE_TYPE = 0;
         long int PLOT_LAGS_NUM = 30; constexpr static const char * DESCR_PLOT_LAGS_NUM = "Number of lags for ACF/PACF plot";
+        long int PLOT_PERIOD_NUM = 30; constexpr static const char * DESCR_PLOT_PERIOD_NUM = "Seasonal period for seasonal decomposition plot";
 
     protected:
         EnjoLib::Str GetFileNameProt() const override;

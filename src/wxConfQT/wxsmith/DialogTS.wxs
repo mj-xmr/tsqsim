@@ -167,6 +167,36 @@
 						<flag>wxEXPAND</flag>
 						<border>5</border>
 					</object>
+					<object class="sizeritem">
+						<object class="wxStaticBoxSizer" variable="StaticBoxSizer6" member="no">
+							<label>Lags ACF/PACF + Seasonal Period</label>
+							<object class="sizeritem">
+								<object class="wxSpinCtrl" name="ID_SPINCTRL1" variable="m_spinLagACF" member="yes">
+									<value>30</value>
+									<min>1</min>
+									<size>110,-1</size>
+									<tooltip>Lag ACF/PACF</tooltip>
+									<handler function="Onm_spinChange" entry="EVT_SPINCTRL" />
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+							<object class="sizeritem">
+								<object class="wxSpinCtrl" name="ID_SPINCTRL2" variable="m_spinPeriodSeasonal" member="yes">
+									<value>30</value>
+									<min>1</min>
+									<size>110,-1</size>
+									<tooltip>Seasonal period</tooltip>
+									<handler function="Onm_spinChange" entry="EVT_SPINCTRL" />
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+							</object>
+						</object>
+						<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+						<border>5</border>
+						<option>1</option>
+					</object>
 				</object>
 				<flag>wxEXPAND</flag>
 				<border>5</border>

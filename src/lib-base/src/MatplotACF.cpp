@@ -15,7 +15,7 @@ using namespace EnjoLib;
 MatplotACF::MatplotACF(){}
 MatplotACF::~MatplotACF(){}
 
-void MatplotACF::Plot(const EnjoLib::VecD & dat, int lags, const EnjoLib::Str & title) const
+void MatplotACF::Plot(const EnjoLib::VecD & dat, int lags, int periodSeasonal, const EnjoLib::Str & title) const
 {
     const ConfigDirs cfgDirs;
     const Str pyModuleIn = cfgDirs.DIR_SCRIPTS2 + "plot_acf_pacf.py";
@@ -40,7 +40,7 @@ void MatplotACF::Plot(const EnjoLib::VecD & dat, int lags, const EnjoLib::Str & 
         ofs << reversed.PrintPython("dat") << Nl;
         ofs <<  "plotACF(dat, " << lags << ", '" << title << "')" << Nl;
         ofs << "plotPACF(dat, " << lags << ", '" << title << "')" << Nl;
-        ofs << "plotSeasonalDecomposition(dat, " << lags << ", '" << title << "')" << Nl; /// TODO: Different lags for seasonality. It's the period. Do in wx.
+        ofs << "plotSeasonalDecomposition(dat, " << periodSeasonal << ", '" << title << "')" << Nl; /// TODO: Different lags for seasonality. It's the period. Do in wx.
     }
 
     ToolsMixed().SystemCallWarn("python3 " + scriptOut, "MatplotACF::Plot()");
