@@ -4,6 +4,7 @@
 #include <Ios/Osstream.hpp>
 #include <Ios/Ofstream.hpp>
 #include <Ios/Ifstream.hpp>
+#include <Util/CoutBuf.hpp>
 #include <Util/Tokenizer.hpp>
 #include <Util/AlgoSTDIVec.hpp>
 #include <Util/ToolsMixed.hpp>
@@ -21,6 +22,7 @@ void MatplotACF::Plot(const EnjoLib::VecD & dat, int lags, const EnjoLib::Str & 
     {
         Ifstream ifs(pyModuleIn);
     }
+    LOGL << "Reading file: " << pyModuleIn << Nl;
     const VecStr & linesModule = Tokenizer().GetLines(pyModuleIn);
     const Str scriptOut = ToolsMixed().GetTmpDir() + "/plot_acf_pacf_out.py";
     {
@@ -38,6 +40,7 @@ void MatplotACF::Plot(const EnjoLib::VecD & dat, int lags, const EnjoLib::Str & 
         ofs << reversed.PrintPython("dat") << Nl;
         ofs <<  "plotACF(dat, " << lags << ", '" << title << "')" << Nl;
         ofs << "plotPACF(dat, " << lags << ", '" << title << "')" << Nl;
+        ofs << "plotSeasonalDecomposition(dat, " << lags << ", '" << title << "')" << Nl; /// TODO: Different lags for seasonality. It's the period. Do in wx.
     }
 
     ToolsMixed().SystemCallWarn("python3 " + scriptOut, "MatplotACF::Plot()");
