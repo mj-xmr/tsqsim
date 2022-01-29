@@ -40,7 +40,7 @@ About 4 GB of RAM is expected for the initial data serialization step, although 
 
 Supported Operating Systems and features:
 
-| OS \ Feature  | CI | gcc | clang | UT | WX | QT | Py | R  |
+| OS \ Feature  | CI | gcc | clang | UT | wx | Qt | Py | R  |
 | ------------- | -- | --- | ----- | -- | -- | -- | -- | -- |
 | Debian stable |    | ✓   | ✓     |  ✓ | ✓  |    | ✓  | ✓  |
 | Debian buster |    | ✓   | ✓     |  ✓ | ✓  | ✓  | ✓  | ✓  |
@@ -54,8 +54,8 @@ Glossary:
 - CI = [Continuous Integration](https://github.com/mj-xmr/tsqsim/actions)
 - gcc & clang = C/C++ compilers
 - UT = [Unit Tests](https://en.wikipedia.org/wiki/Unit_testing)
-- WX = [wxWidgets](https://www.wxwidgets.org/)-based configuration application
-- QT = QT application (data viewer)
+- wx = [wxWidgets](https://www.wxwidgets.org/)-based configuration application
+- Qt = [Qt](https://en.wikipedia.org/wiki/Qt_(software)) application (data viewer)
 - Py = [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) alternative to the QT app
 - R = bindings to the ["R" statistical framework](https://www.r-project.org/)
 
