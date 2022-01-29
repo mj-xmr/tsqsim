@@ -53,10 +53,10 @@ Supported Operating Systems and features:
 Glossary:
 - CI = [Continuous Integration](https://github.com/mj-xmr/tsqsim/actions)
 - gcc & clang = C/C++ compilers
-- UT = Unit Tests
+- UT = [Unit Tests](https://en.wikipedia.org/wiki/Unit_testing)
 - WX = [wxWidgets](https://www.wxwidgets.org/)-based configuration application
 - QT = QT application (data viewer)
-- Py = Python alternative to the QT app
+- Py = [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) alternative to the QT app
 - R = bindings to the ["R" statistical framework](https://www.r-project.org/)
 
 # Quickstart
