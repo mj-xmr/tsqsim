@@ -60,6 +60,13 @@ Glossary:
 - Py = [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) alternative to the QT app
 - R = bindings to the ["R" statistical framework](https://www.r-project.org/)
 
+Optional components:
+- UT (TODO)
+- wx
+- Qt
+- Py
+- R
+
 # Quickstart
 In case these instructions become outdated, please refer to the steps of the [CI](.github/workflows/build.yml).
 
