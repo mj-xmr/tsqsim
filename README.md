@@ -3,7 +3,7 @@ Time Series Quick Simulator - able to perform time series analysis
 and to setup validation experiments.
 With its somewhat limited plotting capabilities, 
 but highly optimized run time speed, the simulator serves more as a stress-tester 
-of your models, challenging their robustness. 
+of your models, challenging their robustness, rather than a pattern discovery tool. 
 The assumption is that some preliminary research has already been done, 
 using scripting languages like `Python`, `R` or `Weka`, where patterns are easy to eyball. 
 Teaching a machine to detect these patterns automatically in rigorous conditions 
