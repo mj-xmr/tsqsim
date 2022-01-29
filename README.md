@@ -61,7 +61,7 @@ Glossary:
 - R = bindings to the ["R" statistical framework](https://www.r-project.org/)
 
 Optional components:
-- UT (TODO)
+- UT
 - wx
 - Qt
 - Py
