@@ -29,7 +29,7 @@ The combination of these two methods serves as the ultimate stress-test method.
 Remember, that the _observed history_ is just the single story line out of many possibilities, that could have happened. 
 What we observe is simply something that just happened to agree to collapse into one story line, 
 based on the probabilities attached to the set of interacting events in question, including those with low probability but impact so high, 
-that it can break the (almost) agreed story line.
+that they can break the (almost) agreed story line.
 If something dramatic could have happened, but was avoided only because of sheer luck, it will happen in future in an altered constellation, given enough time. 
 You'd best be ready by fortifying your model (through simulation) against these dramatic events and their alterations. 
 Please refer to [_"Fooled by Randomness"_](https://en.wikipedia.org/wiki/Fooled_by_Randomness) by Nassim Nicholas Taleb if you are interested in learning such concepts.
