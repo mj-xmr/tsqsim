@@ -36,7 +36,7 @@ Please refer to [_"Fooled by Randomness"_](https://en.wikipedia.org/wiki/Fooled_
 
 # Requirements
 - The console simulator should be compilable and run fast enough on almost any OS, where a POSIX C++ compiler is available. 
-- About 4 GB of RAM is expected for the initial data serialization step, although this shall be cut down a bit in near future.
+- About 4 GB of RAM is expected for the initial data serialization step, although this shall be cut by half in near future.
 - Depending on the granuality of your data, the according data storage space is needed for the textual (CSV) input, as well as for the serialized binary data. Both types of data are stored compressed though and are being decompressed on the fly into memory, as they are needed.
 
 Supported Operating Systems and features:
