@@ -32,7 +32,7 @@ based on the probabilities attached to the set of interacting events in question
 that it can break the (almost) agreed story line.
 If something dramatic could have happened, but was avoided only because of sheer luck, it will happen in future in an altered constellation, given enough time. 
 You'd best be ready by fortifying your model (through simulation) against these dramatic events and their alterations. 
-Please refer to [_"Fooled by Randomness"_](https://en.wikipedia.org/wiki/Fooled_by_Randomness) by Nassim Nicholas Taleb for more details.
+Please refer to [_"Fooled by Randomness"_](https://en.wikipedia.org/wiki/Fooled_by_Randomness) by Nassim Nicholas Taleb if you are interested in learning such concepts.
 
 # Requirements
 Supported Operating Systems and features:
