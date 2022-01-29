@@ -178,7 +178,7 @@ Thus the priorities of the development are skewed towards delivering results to 
 
 ## Python-based QT app's alternative
 - Upper window: The interactive QT data viewer
-- Lower window: A very portable Python alternative
+- Lower window: A very portable Python alternative, useful where QT is unavailable
 
 ![image](https://user-images.githubusercontent.com/63722585/151012558-2751868a-de4d-4a97-bac6-fc599b336d7a.png)
 
