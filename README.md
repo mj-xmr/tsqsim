@@ -35,6 +35,9 @@ You'd best be ready by fortifying your model (through simulation) against these 
 Please refer to [_"Fooled by Randomness"_](https://en.wikipedia.org/wiki/Fooled_by_Randomness) by Nassim Nicholas Taleb if you are interested in learning such concepts.
 
 # Requirements
+The console simulator should run fast enough on almost any OS, where a POSIX C++ compiler is available. 
+About 4 GB of RAM is expected for the initial data serialization step, although this shall be cut down a bit in near future.
+
 Supported Operating Systems and features:
 
 | OS \ Feature  | CI | gcc | clang | UT | WX | QT | Py | R  |
