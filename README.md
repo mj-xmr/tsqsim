@@ -10,7 +10,7 @@ Teaching a machine to detect these found patterns automatically in rigorous cond
 is where the `tsqsim` shows its true potential.
 
 ## Background
-[Time Series Analysis](https://en.wikipedia.org/wiki/Time_series) deals with finding patterns in Time Series data, 
+[Time Series Analysis (TSA)](https://en.wikipedia.org/wiki/Time_series) deals with finding patterns in Time Series data, 
 which can be just anything that changes across time and depends on values from the previous discrete time points. 
 The patterns can be used to build a model of the data, that can be in turn used to predict future data points 
 up to a certain confidence, which decreases gradually, as the requested prediction horizon expands.
