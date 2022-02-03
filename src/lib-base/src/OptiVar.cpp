@@ -48,7 +48,7 @@ OptiVarF::OptiVarF(const IDataProvider & period, const EnjoLib::Str & varId, boo
 
 float OptiVarF::GetVal() const
 {
-    if (gcfgMan.cfgOpti->GetOptimizer() == OptiType::OPTI_TYPE_NONE)
+    if (gcfgMan.cfgOpti->IsOperationType(OptiType::OPTI_TYPE_NONE))
     {
         return valDefault;
     }
@@ -64,7 +64,7 @@ void OptiVarF::SetVal(float val)
 
 const float & OptiVarF::GetValRef() const
 {
-    if (gcfgMan.cfgOpti->GetOptimizer() == OptiType::OPTI_TYPE_NONE)
+    if (gcfgMan.cfgOpti->IsOperationType(OptiType::OPTI_TYPE_NONE))
     {
         return valDefault;
     }

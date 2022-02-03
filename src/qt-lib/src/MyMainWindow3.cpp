@@ -226,12 +226,7 @@ void MyMainWindow::Reload(const Monster & monst, int mode, int relPeriod, int re
     ConfigTF2 & confTF2 = *gcfgMan.cfgTF2;
     const ConfigOpti & confOpti = *gcfgMan.cfgOpti;
 
-    if (confOpti.OPTIMIZER == 1)
-        gcfg.OPTI_USE = false;
-    else if (confOpti.OPTIMIZER == 2)
-        gcfg.OPTI_USE = true;
-    else if (confOpti.OPTIMIZER == 0)
-        gcfg.OPTI_USE = false;
+    gcfg.OPTI_USE = confOpti.GetOperationType() == OptiType::OPTI_TYPE_USE;
 
     if (mode == 3 || m_training)
     {

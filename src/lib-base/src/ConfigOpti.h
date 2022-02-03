@@ -30,10 +30,12 @@ class ConfigOpti : public ConfigBase
         bool IsSearchGrid() const;
         bool IsSearchRandom() const;
         bool IsXValid() const;
-        OptiType GetOptimizer() const;
-        OptiMethod GetOptimizerMethod() const;
-        OptiGoalType GetOptimizerGoalType() const;
-        
+        bool IsOptimizing() const;
+        bool IsOperationType(const OptiType  & operType) const;
+        OptiType GetOperationType() const;
+        OptiMethod GetMethod() const;
+        OptiGoalType GetGoalType() const;
+
         void SetOptimizer(const OptiType & optiType);
         void SetOptimizerMethod(const OptiMethod & optiMethod);
         void SetOptimizerGoal(const OptiGoalType & optiGoal);
@@ -46,7 +48,6 @@ class ConfigOpti : public ConfigBase
         bool OPTI_RANDOM_EARLY_STOP = false;
         bool OPTI_USE_RELEASE = true;
         bool OPTI_GLOBAL = false;
-        //bool OPTI_CROSS_VALID = false; /// TODO: Remove - already done via OptiType
         bool OPTI_LAST = false;
         bool OPTI_SERVER_DENSE = false;
         bool OPTI_XVAL_EXTENDABLE = false;

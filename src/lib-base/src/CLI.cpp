@@ -24,7 +24,7 @@ EnjoLib::Result<CLIResult> CLI::GetConfigs(int argc, char ** argv) const
     const char * OPT_SYMBOL = "sym";
     const char * OPT_PERIOD  = "per";
     const char * OPT_LAGS  = "lags";
-    const char * OPT_PER_SEASONAL  = "per-easonal";
+    const char * OPT_PER_SEASONAL  = "per-seasonal";
 
 
     EnjoLib::ProgramOptionsState popState;

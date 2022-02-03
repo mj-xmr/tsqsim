@@ -42,7 +42,7 @@ OptimizerPred::OptimizerPred(const PredictorType & type, const ISymbol & sym, co
     const TSInput tsin(m_period, *gcfgMan.cfgTS.get());
     CorPtr<IPredictor> fun = m_fact.Create(period, m_type);
     InitFromOptimizable(*fun, period);
-    
+
     m_len = fun->Len();
 }
 OptimizerPred::~OptimizerPred(){}
@@ -63,7 +63,7 @@ void OptimizerPred::Consume(const EnjoLib::VecD & data)
     const EnjoLib::Str & idd = m_period.GetSymbolPeriodId();
 
     //const OptiGoalType type = OptiGoalType::SHARPE;
-    //const OptiGoalType type = gcfgMan.cfgOpti->GetOptimizerGoalType();
+    //const OptiGoalType type = gcfgMan.cfgOpti->GetGoalType();
     //const CorPtr<IOptiGoal> pgoal = OptiGoalFactory::Create(type);
     //const IOptiGoal & igoal = *pgoal;
 
@@ -71,12 +71,12 @@ void OptimizerPred::Consume(const EnjoLib::VecD & data)
     float goal = 0;
 
     //CorPtr<IPosition> pos = IPosition::Create(m_period.GetSymbolName());
-    switch (gcfgMan.cfgOpti->GetOptimizerMethod())
+    switch (gcfgMan.cfgOpti->GetMethod())
     {
         case OptiMethod::OPTI_METHOD_BISECTION:
         {
             OptiSubjectPred osub(m_sym, m_period, m_fact, m_type, GetOptiFloat(), m_startEndFrame, data);
-            
+
             //Result<VecD> res = OptiMultiNelderMead().Run(*osub, 0.1, 10, 10);
             Result<VecD> res = OptiMultiBinSearch().Run(osub, 3, 100); /// TODO: Make multithreaded
             if (not res.isSuccess)
@@ -97,17 +97,17 @@ void OptimizerPred::Consume(const EnjoLib::VecD & data)
         case OptiMethod::OPTI_METHOD_MONTECARLO:
         case OptiMethod::OPTI_METHOD_GRID:
         {
-            
+
             CorPtr<ISimulatorTS> psim = TSUtil().GetSimPred(m_period, data, m_startEndFrame);
 
             goal = psim->GetScorePred();
-            
+
 
             if (IsGoalReached(goal))
             {
                 CorPtr<IPredictor> fun = m_fact.Create(m_period, m_type);
                 fun->UpdateOptiVars(data); // Just needs a carrier TODO: Remove in future as is not abstract enough
-            
+
                 //LOG << "Goal reached = " << goal << Nl;
                 OnGoalReached(fun.get());
                 if (gcfgMan.cfgOpti->OPTI_VERBOSE)
@@ -161,7 +161,7 @@ void OptimizerPred::PrintStats() const
 
 void OptimizerPred::PrintStatsSummary() const
 {
-    if (gcfgMan.cfgOpti->GetOptimizerMethod() == OptiMethod::OPTI_METHOD_MONTECARLO)
+    if (gcfgMan.cfgOpti->GetMethod() == OptiMethod::OPTI_METHOD_MONTECARLO)
     {
         PlotVariance();
     }

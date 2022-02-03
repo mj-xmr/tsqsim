@@ -16,6 +16,7 @@
 #include <ConfigOpti.h>
 #include <ConfigGlob.h>
 #include "ISymbol.h"
+#include "OptiType.h"
 #include <SymbolFactoryAbstract.h>
 #include <StrategyFactoryAbstract.h>
 
@@ -85,13 +86,7 @@ void Monster::Reload(const EnjoLib::Str & symName, const EnjoLib::Str & periodNa
 
     ConfigTF2 & confTF2 = *gcfgMan.cfgTF2;
     const ConfigOpti & confOpti = *gcfgMan.cfgOpti;
-
-    if (confOpti.OPTIMIZER == 1)
-        gcfg.OPTI_USE = false;
-    else if (confOpti.OPTIMIZER == 2)
-        gcfg.OPTI_USE = true;
-    else if (confOpti.OPTIMIZER == 0)
-        gcfg.OPTI_USE = false;
+    gcfg.OPTI_USE = confOpti.IsOperationType(OptiType::OPTI_TYPE_USE);
 
     if (mode == 0)
     {
