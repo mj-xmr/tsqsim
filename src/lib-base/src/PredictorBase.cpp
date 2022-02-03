@@ -7,7 +7,7 @@
 PredictorBase::PredictorBase(const IDataProvider & dat, const EnjoLib::Str & lagName)
 : m_dat(dat)
 , m_optiFloats(new OptiVarVec())
-, m_lagMain(dat, "LAG_" + lagName, true, 10, 1, 70, 1)
+, m_lagMain(dat, "LAG_" + lagName, true, 10, 1, 150, 1)
 {
     AddOptiVar(m_lagMain);
 }

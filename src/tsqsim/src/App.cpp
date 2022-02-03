@@ -61,7 +61,7 @@ void App::Run(const CLIResult & cliResultCmdLine) const
         CorPtr<ISymbol> symbol = IMainTester::Create(symFact, &confTF2, &confSym)->GetSymbol(confSym.symbol, periods);
         const IPeriod & per = symbol->GetPeriod(periods.at(0));
 
-        switch (confOpti.GetOptimizer())
+        switch (confOpti.GetOperationType())
         {
         case OptiType::OPTI_TYPE_FIND:
             {
