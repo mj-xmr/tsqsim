@@ -54,6 +54,7 @@ class ConfigTF2 : public ConfigBase
         bool SINGLE_THREADED_ALL = false;
         bool STATS_SUMMARY = false;
         bool CAP_CORREL_ADJ = false;
+        bool CAP_CORREL_ADJ_WINDOW = false;
         //bool NO_AT_ACCESS = false;
         long int SPREAD_MUL_FILTER = 0;
 
