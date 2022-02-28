@@ -3,6 +3,8 @@
 
 #include <Util/Pair.hpp>
 #include <Util/VecD.hpp>
+#include <Util/CoutBuf.hpp>
+#include <Statistical/Assertions.hpp>
 #include <Template/AlgoSTDThin.hpp>
 using namespace EnjoLib;
 
@@ -44,22 +46,19 @@ double Logic::Sub(double a, double b, const State & st)
     return ret;
 }
 
-bool Logic::In(double a, double b, double c)
-{
-    if (a > c)
-        AlgoSTDThin().Swap(a, c);
-    return (a < b && b <= c);
-}
-
 void Logic::Swp(double & a, double & b, const State & st)
 {
     if (not st.bullish)
+    {
+        //LOGL << "Swapping " << a << " " << b << Nl;
         AlgoSTDThin().Swap(a, b);
+    }
+    //LOGL << "Swp" << a << " " << b << Nl;
 }
-
 
 bool Logic::VecEqual(const EnjoLib::VecD & data1, const EnjoLib::VecD & data2, double eps)
 {
+    /// TODO: epsMust be a percentage! then upstream
     if (data1.size() != data2.size())
     {
         return false;
@@ -76,6 +75,7 @@ bool Logic::VecEqual(const EnjoLib::VecD & data1, const EnjoLib::VecD & data2, d
 
 bool Logic::DoublesEqual(const double data1, const double data2, double eps)
 {
+    /// TODO: epsMust be a percentage! then upstream
     if (data1 == data2)
     {
         return true;
@@ -84,7 +84,7 @@ bool Logic::DoublesEqual(const double data1, const double data2, double eps)
     vec.Add(data1);
     vec.Add(data2);
     const double mean = vec.Mean();
-    if (not Logic::In(mean - eps, mean, mean + eps))
+    if (not EnjoLib::Assertions::In(mean - eps, mean, mean + eps))
     {
         return false;
     }

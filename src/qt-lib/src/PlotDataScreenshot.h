@@ -3,6 +3,10 @@
 
 #include "PlotDataBase.h"
 
+#include <Template/Array.hpp>
+
+#include <QtCore/QVector>
+
 class Candle;
 class IPeriod;
 
@@ -13,7 +17,7 @@ class PlotDataScreenshot : public PlotDataBase
         virtual ~PlotDataScreenshot();
 
         double GetRelative0() const override {return 0;};
-        const std::vector<QCPFinancialData> & GetFinancial() const override { return financial; };
+        const EnjoLib::Array<QCPFinancialData> & GetFinancial() const override { return financial; };
         const QVector<QString> & GetDatesStr() const override { return datesStr; };
         const QVector<double> & GetTicks() const override { return ticks; };
         const QVector<double> & GetTime() const override { return time; };
@@ -22,7 +26,7 @@ class PlotDataScreenshot : public PlotDataBase
     protected:
     private:
 
-        std::vector<QCPFinancialData> financial;
+        EnjoLib::Array<QCPFinancialData> financial;
         QVector<QString> datesStr;
         QVector<double> ticks;
 

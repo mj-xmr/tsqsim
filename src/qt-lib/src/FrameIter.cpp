@@ -10,8 +10,10 @@
 //#include "StopLossController.h"
 #include "IBufferCandles.h"
 //#include <ISimulatorStd.h>
+#include "ISimulator.h"
 //#include "IPosition.h"
 #include "StateFactory.h"
+#include <Template/Array.hpp>
 #include <Template/CorradePointer.h>
 
 #include <Ios/Osstream.hpp>
@@ -48,9 +50,12 @@ void FrameIter::OnFrameReact(MyMainWindow * win, int i) const
     const State stBull = *StateFactory().Create(BUY, j);
     const State stBear = *StateFactory().Create(SELL, j);
 
+    const QString symPerName = Util::FormatSymPer(win->GetSymbol(), win->GetPeriod().GetName().str());
+
     if (j >= win->GetStrategy().Len())
     {
         win->GetQCP()->replot();
+        win->setWindowTitle(symPerName + "; " + "Strategy too short");
         return; // Strategy would crash
     }
 
@@ -63,18 +68,19 @@ void FrameIter::OnFrameReact(MyMainWindow * win, int i) const
 
     //cout << "Now = " << d.datesStr[i].toUtf8().constData() << endl;
 
-    QString symPerName = Util::FormatSymPer(win->GetSymbol(), win->GetPeriod().GetName().str());
+
     win->setWindowTitle(symPerName + "; " + oss.str().c_str());
     // Print candle
     PrintCandle(win->GetStrategy(), j);
     //if (m_strategy->IsSignal(*StateFactory().Create(BUY, st.i)) || m_strategy->IsSignal(*StateFactory().Create(SELL, st.i))) {PrintCandle(m_strategy.get(), st.i);}
 #ifdef DEBUG
     /// TODO: Reenable
-    //win->m_mons.m_simulator->Iter(st.i, &dir); // For a single direction debugging
+    win->m_mons.m_simulatorGeneric->Iter(st.i, &dir); // For a single direction debugging
     //m_simulator->Iter(st.i); // For a bigger picture debugging (SL and TP)
 #else
     /// TODO: Reenable
     // win->m_mons.m_simulator->Iter(j); // For a bigger picture debugging (SL and TP)
+    win->m_mons.m_simulatorGeneric->Iter(j);
 #endif
 
     //PatRounding patRounding(m_symbol->GetPeriod(m_periodName));
@@ -117,9 +123,9 @@ void FrameIter::OnFrame(MyMainWindow * win) const
 
 
     if (win->m_dirRight)
-        win->m_candlesticks->addData(d.GetFinancial()[i]);
+        win->m_candlesticks->addData(d.GetFinancial().at(i));
     else
-        win->m_candlesticks->removeData(d.GetFinancial()[i].key);
+        win->m_candlesticks->removeData(d.GetFinancial().at(i).key);
 
 
     OnFrameReact(win, i);

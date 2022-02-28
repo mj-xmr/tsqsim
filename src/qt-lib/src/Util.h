@@ -3,7 +3,7 @@
 
 #include "typesVec.h"
 #include <Util/VecF.hpp>
-#include <Template/Array.hpp>
+#include <Template/ArrayFwd.hpp>
 #include <QVector>
 #include <QDate>
 #include <QTime>
@@ -51,7 +51,9 @@ class Util
         //static std::vector<QCPGraph *> AddMAVec(QCustomPlot *customPlot, const PlotDataBase & d, const std::vector<const BufferUpdateable *> & bufs);
         static std::vector<QCPGraph *> AddMAVec(QCustomPlot *p, const PlotDataBase & d, const EnjoLib::Array<EnjoLib::VecF> & bufs);
         static QCPItemLine * AddVLine(double x, double y1, double y2, QCustomPlot *customPlot, const QColor & color);
+        static QCPGraph * AddVLineTech(double x, QCustomPlot *customPlot, QCPAxisRect *techRect, const QColor & color);
         static QVector<QCPItemLine *> AddVLines(const QVector<double> & x, double y1, double y2, QCustomPlot *customPlot, const QColor & color);
+        static QVector<QCPGraph *> AddVLinesTech(const QVector<double> & x, QCustomPlot *customPlot, QCPAxisRect *techRect, const QColor & color);
         static QCPItemLine * AddLine(const QVector<double> & time, const QVector<double> & data, QCustomPlot *customPlot, const QColor & color);
         static QCPItemLine * AddLine(QCustomPlot *p, const QVector<double> & timeRev, int idxPrev, float valPrev, int idxCurr, float valCurr, bool isPredicting, const char * colPast, const char * colFuture, int penWidth = 1);
         static std::vector<QCPAbstractItem *> AddCurve(QCustomPlot *p, const QVector<double> & timeRev, const EnjoLib::Array<XY> & data, int predictAhead, const char * colPast, const char * colFuture, bool straightLine = false, int penWidth = 1);
@@ -66,8 +68,7 @@ class Util
         static QString FormatSymPer(const ISymbol & sym, EnjoLib::Str periodName);
         static QString FormatSymPer(EnjoLib::Str symName, EnjoLib::Str periodName);
         static EnjoLib::Str GetIndexes(const PlotDataBase & d, int i, bool lineBreak = false);
-        
-        static void HandleException(std::exception & ex);
+
 
     protected:
     private:

@@ -22,6 +22,9 @@ class SimulatorTS : public ISimulatorTS
     public:
         SimulatorTS(const TSInput & tsin, const ITSFun & fun);
         virtual ~SimulatorTS();
+
+        ISimulator * CloneRaw() const override;
+
         void Run() override;
         //void Collect() override;
         void RunRaw(const StartEnd & startEndFrame = StartEnd()) override;
@@ -31,8 +34,8 @@ class SimulatorTS : public ISimulatorTS
         float GetScoreStationarity() const override;
         void SetSilent() override;
         void PrintOpti() const override;
-        //void ReinitOptiVars(const EnjoLib::IIterable<OptiVarF *> & opti) override; 
-        void ReinitOptiVars(const EnjoLib::VecD & optiVars) override; 
+        //void ReinitOptiVars(const EnjoLib::IIterable<OptiVarF *> & opti) override;
+        void ReinitOptiVars(const EnjoLib::VecD & optiVars) override;
 
         using Inp = EnjoLib::Tuple<const IDataProvider *, const ITSFun *, int>;
         static TSRes IterBet(const Inp & ele);

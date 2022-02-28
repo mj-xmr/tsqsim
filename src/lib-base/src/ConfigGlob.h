@@ -27,6 +27,7 @@ public:
     float MAX_DD_MAX = 0.1;
     float MAX_DD_MAX_TOTAL = 0.1;
     float MAX_CAP_USAGE = 0.75;
+    float MAX_LOSS_LIVE_PERCENT = 0;
     int BROKER_LEVERAGE = 20;
     int MAX_MA_PERIOD_DIST;
     int MAX_MA_REP_PULLBACKS;
@@ -59,8 +60,6 @@ public:
     bool SIMUL_ACCU_SCREENSHOTS = true;
     bool SIMUL_SCREENSHOTS = true;
     bool SIMUL_VERBOSE = false;
-
-    bool OPTI_USE = true; /// TODO: Ditch? YES! ASAP!
 
     bool SIGNALS_MINATURES = true;
     bool SIGNALS_PYTHON = false;

@@ -19,7 +19,7 @@ PredictorSMAMA::~PredictorSMAMA(){}
 EnjoLib::VecD PredictorSMAMA::PredictVec(const EnjoLib::VecD & data) const
 {
     const int numSamplesSma = m_lagMine.GetVal(); //
-    const int numSamplesMA  = GetLag1().GetVal();  // ParQ
+    const int numSamplesMA  = GetLag1().GetVal(); // ParQ
     const PredictorUtil util;
     const EnjoLib::VecD & predSma = util.SimpleMA(numSamplesSma, data);
     const EnjoLib::VecD & errors = util.GetErrorsCorrected(predSma, data);

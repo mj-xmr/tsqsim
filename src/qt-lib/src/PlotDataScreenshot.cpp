@@ -30,7 +30,7 @@ PlotDataScreenshot::PlotDataScreenshot(const IPeriod & period)
         {
             const double fake = Util::ToNoWeekendSeconds(time[0], i, period);
             fakedTime[i] = fake;
-            financial[i].key = fake;
+            financial.atw(i).key = fake;
         }
         timeOrig = time;
         time = fakedTime;

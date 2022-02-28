@@ -8,6 +8,7 @@ using namespace std;
 
 ConfigTF2::ConfigTF2(){}
 const char * ConfigTF2::OPT_TRAIN = "train";
+const char * ConfigTF2::OPT_TRADE= "trade";
 const char * ConfigTF2::OPT_SIM_TYPE = "sim-type";
 const char * ConfigTF2::OPT_FILTER_PRICE = "filter-price";
 
@@ -19,6 +20,7 @@ EnjoLib::Str ConfigTF2::GetFileNameProt() const
 void ConfigTF2::FromOptsNumeric(const OptionsNumeric & optsNum)
 {
     UpdateVarIfConfigured(optsNum, TRAIN,        OPT_TRAIN);
+    UpdateVarIfConfigured(optsNum, TRADE,        OPT_TRADE);
     UpdateVarIfConfigured(optsNum, MT_SIM_TYPE,  OPT_SIM_TYPE);
     UpdateVarIfConfigured(optsNum, FILTER_PRICE, OPT_FILTER_PRICE);
 }

@@ -1,5 +1,7 @@
 #include "MatplotACF.h"
 #include "ConfigDirs.h"
+#include "ConfigMan.h"
+#include "ConfigTS.h"
 
 #include <Ios/Osstream.hpp>
 #include <Ios/Ofstream.hpp>
@@ -14,6 +16,12 @@ using namespace EnjoLib;
 
 MatplotACF::MatplotACF(){}
 MatplotACF::~MatplotACF(){}
+
+void MatplotACF::Plot(const EnjoLib::VecD & dat, const EnjoLib::Str & title) const
+{
+    const ConfigTS & cfgTS = *gcfgMan.cfgTS;
+    Plot(dat, cfgTS.PLOT_LAGS_NUM, cfgTS.PLOT_PERIOD_NUM, title);
+}
 
 void MatplotACF::Plot(const EnjoLib::VecD & dat, int lags, int periodSeasonal, const EnjoLib::Str & title) const
 {

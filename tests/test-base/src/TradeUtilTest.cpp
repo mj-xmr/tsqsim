@@ -20,15 +20,15 @@ const static string dateUSA = "12.22.2016 00:41";
 static EnjoLib::Str GenCorrelTable()
 {
     EnjoLib::Osstream oss;
-    oss << "EURGBP-GBPCHF-h1 = -0.942323\n";
-    oss << "EURGBP-GBPJPY-h1 = -0.864064\n";
-    oss << "NZDJPY-XAGUSD-h1 = -0.734708\n";
-    oss << "EURJPY-GBPJPY-h1 = 0.719746\n";
-    oss << "XAGUSD-XAUUSD-h1 = 0.834838\n";
-    oss << "GBPJPY-GBPUSD-h1 = 0.900402\n";
-    oss << "GBPCHF-GBPJPY-h1 = 0.939397\n";
-    oss << "GBPCHF-GBPUSD-h1 = 0.962308\n";
-    oss << "BCOUSD-WTIUSD-h1 = 0.981633\n";
+    oss << "EURGBP-GBPCHF-h1 = -0.942323,51\n";
+    oss << "EURGBP-GBPJPY-h1 = -0.864064,51\n";
+    oss << "NZDJPY-XAGUSD-h1 = -0.734708,51\n";
+    oss << "EURJPY-GBPJPY-h1 = 0.719746,51\n";
+    oss << "XAGUSD-XAUUSD-h1 = 0.834838,51\n";
+    oss << "GBPJPY-GBPUSD-h1 = 0.900402,51\n";
+    oss << "GBPCHF-GBPJPY-h1 = 0.939397,51\n";
+    oss << "GBPCHF-GBPUSD-h1 = 0.962308,51\n";
+    oss << "BCOUSD-WTIUSD-h1 = 0.981633,51\n";
     return oss.str();
 }
 

@@ -22,6 +22,8 @@
 #include "LabelQTSignal.h"
 #include "LabelsUtil.h"
 #include "Util.h"
+#include "UtilBare.h"
+//#include "Open.h"
 //#include "RegressionStationarity.h"
 //#include "NovelityFactory.h"
 //#include "BetIter.h"
@@ -146,7 +148,7 @@ void MyMainWindow::RegressionPlot(bool opti)
     }
     catch (exception & ex)
     {
-        Util::HandleException(ex);
+        UtilBare::HandleException(ex);
     }
 }
 
@@ -332,6 +334,10 @@ const IPeriod & MyMainWindow::GetPeriod() const
 {
     return m_mons.m_symbol->GetPeriod(m_mons.m_periodName);
 }
+const IDataProvider & MyMainWindow::GetDataProvider() const
+{
+    return GetPeriod();
+}
 const IStrategy & MyMainWindow::GetStrategy() const
 {
     return *m_mons.m_strategy;
@@ -339,6 +345,14 @@ const IStrategy & MyMainWindow::GetStrategy() const
 const ISymbol & MyMainWindow::GetSymbol() const
 {
     return *m_mons.m_symbol;
+}
+
+void MyMainWindow::OpenMarket(int i, double yy, bool buy)
+{
+    const double y = GetQCP()->yAxis->pixelToCoord(yy);
+
+    //Open open;
+    //open.Run(GetDataProvider(), i, y, buy);
 }
 
 void MyMainWindow::mouseMove(QMouseEvent *event)

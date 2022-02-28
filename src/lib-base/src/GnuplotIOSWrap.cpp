@@ -4,6 +4,7 @@
 
 #include <Math/GeneralMath.hpp>
 #include <Ios/Osstream.hpp>
+#include <Template/Array.hpp>
 
 #include <STD/Tuple.hpp>
 
@@ -29,7 +30,7 @@ void GnuplotIOSWrap::Add1d(const EnjoLib::VecD & data)
 }
 
 ///SetupXY()
-void GnuplotIOSWrap::Add2d(const std::vector<EnjoLib::Pair<double, double>> & data)
+void GnuplotIOSWrap::Add2d(const EnjoLib::Array<EnjoLib::Pair<double, double>> & data)
 {
     std::vector<std::tuple<double, double>> dataTuple;
     for (const auto & par : data)
@@ -97,7 +98,7 @@ void GnuplotPlotTerminal1d(const EnjoLib::VecD & data, const EnjoLib::Str & desc
     plot.Add1d(data);
 }
 
-void GnuplotPlotTerminal2d(const std::vector<EnjoLib::Pair<double, double>> & data, const EnjoLib::Str & descr, float scaleX, float scaleY)
+void GnuplotPlotTerminal2d(const EnjoLib::Array<EnjoLib::Pair<double, double>> & data, const EnjoLib::Str & descr, float scaleX, float scaleY)
 {
     if (not descr.empty())
     {
@@ -113,7 +114,7 @@ void GnuplotPlotTerminal2d(const std::vector<EnjoLib::Pair<double, double>> & da
     plot.Add2d(data);
 }
 
-void GnuplotPlotTerminal1dSubplots(const std::vector<const EnjoLib::VecD *> & data, const EnjoLib::Str & descr, float scaleX, float scaleY)
+void GnuplotPlotTerminal1dSubplots(const EnjoLib::Array<const EnjoLib::VecD *> & data, const EnjoLib::Str & descr, float scaleX, float scaleY)
 {
     for (size_t i = 0; i < data.size(); ++i)
     {

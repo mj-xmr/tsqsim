@@ -43,7 +43,8 @@ void ConfigSym::RegisterAndReadInts(EnjoLib::Istream & f)
     RegisterAndReadInt (f, dates.monthStart, 1);
     RegisterAndReadInt (f, dates.monthEnd, 2);
     RegisterAndReadInt (f, strat, 0);
-    RegisterAndReadInt (f, DATA_SOURCE, 1); /// TODO: express with a converted enum
+    RegisterAndReadInt (f, DATA_SOURCE, 0); /// TODO: express with a converted enum
+    ///RegisterAndReadInt (f, DATA_SOURCE, 1); /// TODO: express with a converted enum
 }
 void ConfigSym::RegisterAndReadFloats(EnjoLib::Istream & f)
 {

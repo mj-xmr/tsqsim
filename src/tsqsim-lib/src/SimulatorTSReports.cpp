@@ -7,6 +7,7 @@
 #include "Logic.h"
 
 #include <Statistical/Statistical.hpp>
+#include <Template/Array.hpp>
 #include <Util/CoutBuf.hpp>
 #include <Util/ToolsMixed.hpp>
 
@@ -27,7 +28,7 @@ EnjoLib::VecD SimulatorTSReports::PrepPredsPlot(const EnjoLib::VecD & orig, cons
     return Statistical().CumSum(diff);
 }
 
-void SimulatorTSReports::PrintReportSingleThreaded(const IDataProvider & per, const ConfigTS & cfgTS, const EnjoLib::VecD & data, const EnjoLib::Str & descr, const STDFWD::vector<const EnjoLib::VecD *> & plots) const
+void SimulatorTSReports::PrintReportSingleThreaded(const IDataProvider & per, const ConfigTS & cfgTS, const EnjoLib::VecD & data, const EnjoLib::Str & descr, const EnjoLib::Array<const EnjoLib::VecD *> & plots) const
 {
     const float scaleX = 1.00;
     const float scaleY = 0.6;
@@ -54,4 +55,4 @@ void SimulatorTSReports::PrintOpti(const VecD & predsPlot) const
     //ToolsMixed().SystemCallWarn("clear", __PRETTY_FUNCTION__);
     GnuplotPlotTerminal1d(predsPlot, descr, 1, 1.1);
 }
-    
+

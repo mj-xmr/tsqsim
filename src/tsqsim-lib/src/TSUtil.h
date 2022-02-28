@@ -19,6 +19,7 @@ class TSUtil
         virtual ~TSUtil();
 
         CorPtr<ISimulatorTS> GetSim(const IPeriod & per, const StartEnd & startEndFrame = StartEnd()) const;
+        CorPtr<ISimulatorTS> GetSimDontRun(const IPeriod & per, const StartEnd & startEndFrame = StartEnd()) const;
         CorPtr<ISimulatorTS> GetSim(const IPeriod & per, const ITSFun & tsFun, const StartEnd & startEndFrame = StartEnd()) const;
         CorPtr<ISimulatorTS> GetSimPred(const IPeriod & per, const EnjoLib::VecD & opti, const StartEnd & startEndFrame = StartEnd()) const;
 

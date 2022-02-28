@@ -256,7 +256,7 @@ EnjoLib::Pair<int, int> TradeUtil::GetYearMonthMax(const EnjoLib::Str & symbolNa
     }
     for (const Str & file : files)
     {
-        //cout << file << endl;
+        LOGL << dirBase << "/" << file << Endl;
         if (file.str().find("-2") == string::npos) { // Expecting a year
             continue;
         }
@@ -315,12 +315,12 @@ VecStr TradeUtil::GetAllSymbolsFromTxtDirRaw() const
 
 VecStr TradeUtil::GetAllSymbolsFromCorrelsFile(float minCorrel) const
 {
-    Ifstream ifile(ConfigDirs().DIR_DATA + ConfigDirs().FILE_CORREL_LIST.str());
+    Ifstream ifile(ConfigDirs().DIR_DATA + ConfigDirs().FILE_CORREL_LIST);
     return GetAllSymbolsFromCorrelsFile(minCorrel, ifile);
 }
 std::vector<EnjoLib::Pair<EnjoLib::Str, EnjoLib::Str>> TradeUtil::GetPairsSymbolsFromCorrelsFile(float minCorrel) const
 {
-    Ifstream ifile(ConfigDirs().DIR_DATA + ConfigDirs().FILE_CORREL_LIST.str());
+    Ifstream ifile(ConfigDirs().DIR_DATA + ConfigDirs().FILE_CORREL_LIST);
     return GetPairsSymbolsFromCorrelsFile(minCorrel, ifile);
 }
 VecStr TradeUtil::GetAllSymbolsFromStatsFile(float minSharpe) const
@@ -347,7 +347,7 @@ VecStr TradeUtil::GetAllSymbolsFromCorrelsFile(float minCorrel, EnjoLib::Istream
     {
         const auto symSymCorr = ParseSymbolsCorrelLine(line);
         const float correl = Get<2>(symSymCorr);
-        if (correl < minCorrel) // Filter out poor correlations
+        if (GMat().Fabs(correl) < minCorrel) // Filter out poor correlations
             continue;
         const EnjoLib::Str sym1 = Get<0>(symSymCorr);
         const EnjoLib::Str sym2 = Get<1>(symSymCorr);
@@ -361,7 +361,7 @@ VecStr TradeUtil::GetAllSymbolsFromCorrelsFile(float minCorrel, EnjoLib::Istream
     return ret;
 }
 
-EnjoLib::Tuple<EnjoLib::Str, EnjoLib::Str, float> TradeUtil::ParseSymbolsCorrelLine(const Str & line) const
+EnjoLib::Tuple<EnjoLib::Str, EnjoLib::Str, float, int> TradeUtil::ParseSymbolsCorrelLine(const Str & line) const
 {
     Tokenizer tok;
     CharManipulations cms;
@@ -369,15 +369,21 @@ EnjoLib::Tuple<EnjoLib::Str, EnjoLib::Str, float> TradeUtil::ParseSymbolsCorrelL
     const VecStr mainTok = tok.Tokenize(line, '=');
     const Str left  = cms.Trim(mainTok.at(0));
     const Str right = cms.Trim(mainTok.at(1));
-    const float correl = cms.ToDouble(right);
+
     const VecStr symbolsAndPeriod = tok.Tokenize(left, '-');
+    const VecStr correlAndConvergence = tok.Tokenize(right, ',');
+
     const Str sym1 = symbolsAndPeriod.at(0);
     const Str sym2 = symbolsAndPeriod.at(1);
 
-    EnjoLib::Tuple<EnjoLib::Str, EnjoLib::Str, float> ret;
+    const float correl = cms.ToDouble(correlAndConvergence.at(0));
+    const int converged = cms.ToInt(correlAndConvergence.at(1));
+
+    EnjoLib::Tuple<EnjoLib::Str, EnjoLib::Str, float, int> ret;
     Get<0>(ret) = sym1;
     Get<1>(ret) = sym2;
     Get<2>(ret) = correl;
+    Get<3>(ret) = converged;
     return ret;
 }
 

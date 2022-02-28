@@ -3,7 +3,7 @@
 
 #include "XYPairDir.h"
 #include <3rdParty/stdfwd.hh>
-#include <Template/Array.hpp>
+#include <Template/ArrayFwd.hpp>
 #include <Util/Pair.hpp>
 class ISignal;
 class IHasXYPair;

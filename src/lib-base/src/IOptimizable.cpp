@@ -5,6 +5,7 @@
 #include "ConfigOpti.h"
 
 #include <Util/CoutBuf.hpp>
+#include <Template/Array.hpp>
 #include <Statistical/Assertions.hpp>
 
 using namespace EnjoLib;

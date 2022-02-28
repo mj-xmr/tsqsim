@@ -2,7 +2,7 @@
 #define IHASXY_H
 
 #include <3rdParty/stdfwd.hh>
-#include <Template/Array.hpp>
+#include <Template/ArrayFwd.hpp>
 
 class XY;
 class State;

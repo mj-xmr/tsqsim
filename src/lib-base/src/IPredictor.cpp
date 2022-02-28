@@ -1,5 +1,8 @@
 #include "IPredictor.h"
 #include "BufferDouble.h"
+#include "Logic.h"
+
+#include <Statistical/Assertions.hpp>
 
 using namespace EnjoLib;
 
@@ -39,7 +42,7 @@ EnjoLib::VecD IPredictor::Predict(const EnjoLib::VecD & data) const
     for (size_t i = 0; i < data.size(); ++i)
     {
         input.Add(data.at(i));
-        
+
         if (i < GetLags())
         {
             ret.Add(IPredictor::ERROR);
@@ -58,4 +61,20 @@ EnjoLib::VecD IPredictor::PredictVec(const EnjoLib::VecD & data)  const
 {
     //return EnjoLib::VecD();
     return Predict(data);
+}
+
+EnjoLib::VecD IPredictor::AssertNoLookaheadBiasGetVec(const EnjoLib::VecD & data) const
+{
+    // Assertion, checking if just some of the returned values are the same as predAlgo.Predict(data);
+    const EnjoLib::VecD & predVec = this->PredictVec(data);
+    AssertNoLookaheadBias(data, predVec);
+    return predVec;
+}
+
+void IPredictor::AssertNoLookaheadBias(const EnjoLib::VecD & data, const EnjoLib::VecD & predVec) const
+{
+    const BufferDouble buf(data);
+    const double predLast = this->PredictNext(buf);
+    /// TODO: eps must be a percentage!
+    Assertions::IsTrue (Logic::DoublesEqual(predLast,  predVec.Last(), 0.01),       "DoublesEqual(predLast,  predVec)");
 }

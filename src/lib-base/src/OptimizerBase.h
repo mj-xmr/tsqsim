@@ -8,7 +8,7 @@
 //#include <Math/MaxMinFindF.hpp>
 #include <Util/ProgressMonitHigh.hpp>
 #include <Util/Pimpl.hpp>
-#include <Template/Array.hpp>
+#include <Template/ArrayFwd.hpp>
 
 class IOptimizable;
 class IPeriod;

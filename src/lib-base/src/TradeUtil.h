@@ -54,7 +54,7 @@ class TradeUtil
 
         STDFWD::vector<EnjoLib::Pair<EnjoLib::Str, EnjoLib::Str>> GetPairsSymbolsFromCorrelsFile(float minCorrel) const;
         STDFWD::vector<EnjoLib::Pair<EnjoLib::Str, EnjoLib::Str>> GetPairsSymbolsFromCorrelsFile(float minCorrel, EnjoLib::Istream & is) const;
-        EnjoLib::Tuple<EnjoLib::Str, EnjoLib::Str, float> ParseSymbolsCorrelLine(const EnjoLib::Str & line) const;
+        EnjoLib::Tuple<EnjoLib::Str, EnjoLib::Str, float, int> ParseSymbolsCorrelLine(const EnjoLib::Str & line) const;
 
         STDFWD::vector<EnjoLib::Pair<EnjoLib::Str, EnjoLib::Str>> GetPairsSymbolsFromStatsFile(float minSharpe) const;
         STDFWD::vector<EnjoLib::Pair<EnjoLib::Str, EnjoLib::Str>> GetPairsSymbolsFromStatsFile(float minSharpe, EnjoLib::Istream & is) const;

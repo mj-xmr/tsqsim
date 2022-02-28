@@ -15,8 +15,7 @@
 #include <Ios/Osstream.hpp>
 #include <Ios/Sstream.hpp>
 #include <Ios/Ifstream.hpp>
-
-#include <STD/Iostream.hpp>
+#include <Ios/Cout.hpp>
 
 using namespace std;
 using namespace EnjoLib;
@@ -92,6 +91,7 @@ void TicksProviderBinary::Archive(const EnjoLib::Str & symbol, const Ticks & t) 
 
 void TicksProviderBinary::ArchiveTickMonth(const EnjoLib::Str & symbol, const Ticks & ticks, bool isEndl) const
 {
+    Cout out;
     Osstream ossFileName;
     const Tick & tick = ticks.GetTicks3().at(ticks.GetTicks3().size() - 1);
     ossFileName << symbol << "-" << int(tick.year) << "-" << int(tick.month);
@@ -104,24 +104,24 @@ void TicksProviderBinary::ArchiveTickMonth(const EnjoLib::Str & symbol, const Ti
         /// TODO: Similar in EnjoLib::ProgressMonitHigh
 
         for (int i = 0; i < m_prevStringSize; ++i)
-            cout << '\b'; // Move back
+            out << '\b'; // Move back
         for (int i = 0; i < m_prevStringSize; ++i)
-            cout << ' ';  // Erase by filling with spaces
+            out << ' ';  // Erase by filling with spaces
         for (int i = 0; i < m_prevStringSize; ++i)
-            cout << '\b'; // Move back again for the next printout
+            out << '\b'; // Move back again for the next printout
     }
-    cout << oss.str();
+    out << oss.str();
     if (isEndl)
     {
-        cout << endl;
+        out << Endl;
     }
     else
     {
-       cout << flush;
+       out.Flush();
     }
     m_prevStringSize = oss.str().size();
 
-    SerializationSpec().ArchiveZipped(tfx.binZipFile.str(), ticks);
+    SerializationSpec().ArchiveZipped(tfx.binZipFile, ticks);
 }
 
 CorPtr<ITicks> TicksProviderBinary::RestoreZipped(const EnjoLib::Str & serializedFileName) const
@@ -139,7 +139,8 @@ CorPtr<ITicks> TicksProviderBinary::RestoreZipped(const EnjoLib::Str & serialize
 
 CorPtr<ITicks> TicksProviderBinary::Restore(const EnjoLib::Str & serializedFileName) const
 {
-    cout << "Restoring '" << serializedFileName << "'" << endl;
+    Cout out;
+    out << "Restoring '" << serializedFileName << "'" << Endl;
     // ... some time later restore the class instance to its orginal state
     const Ticks & t2 = SerializationSpec().Restore(serializedFileName);
     return CorPtr<ITicks>(new Ticks(t2));;
@@ -180,7 +181,8 @@ CorPtr<ITicks> TicksProviderBinary::StoreOrRestore(const EnjoLib::Str & symbol, 
 
 CorPtr<ITicks> TicksProviderBinary::UnzipTxt(const EnjoLib::Str & symbol, const EnjoLib::Str & fileName, const EnjoLib::Str & txtFileName) const
 {
-    cout << symbol << ": Unzipping file '" << txtFileName << "'" << endl;
+    Cout out;
+    out << symbol << ": Unzipping file '" << txtFileName << "'" << Endl;
     Sstream sstream;
     EnjoLibBoost::Zipping().UnzipFile(txtFileName, sstream);
     const auto & ticks = ReadFile(fileName, sstream);
@@ -190,16 +192,17 @@ CorPtr<ITicks> TicksProviderBinary::UnzipTxt(const EnjoLib::Str & symbol, const 
 
 Ticks TicksProviderBinary::ReadFile(const EnjoLib::Str & symbolName, EnjoLib::Istream & is) const
 {
+    Cout out;
     /// TODO: Memory hog. Read line by line. Use Tokenizer().WorkOnLines with filtering
-    cout << symbolName << ": Reading file ... ";
+    out << symbolName << ": Reading file ... ";
     //size_t sz = FileUtils().GetNumLinesFile(is);
     const VecStr & lines = Tokenizer().GetLines(is, true);
-    cout << symbolName << ": " << lines.size() << " lines.\n";
-    cout << symbolName << ": Tokenizing..." << endl;
+    out << symbolName << ": " << lines.size() << " lines.\n";
+    out << symbolName << ": Tokenizing..." << Endl;
     //Ticks t(is, sz);
     const VecStr & linesConv = Convert(lines);
     Ticks t(symbolName, linesConv);
-    cout << symbolName << ": Filtering" << endl;
+    out << symbolName << ": Filtering" << Endl;
 
     //t = t.FromYear(2010);
     //t = t.FromMonth(8);

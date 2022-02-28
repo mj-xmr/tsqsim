@@ -1,5 +1,5 @@
 #include "Monster.h"
-#include "Util.h"
+#include "UtilBare.h"
 #include "LabelQT.h"
 #include "PlotDataScreenshot.h"
 #include <BufferType.h>
@@ -13,12 +13,16 @@
 #include <ConfigSym.h>
 #include <ConfigTF2.h>
 #include <ConfigQT.h>
+#include "ConfigQTPlot.h"
 #include <ConfigOpti.h>
 #include <ConfigGlob.h>
 #include "ISymbol.h"
 #include "OptiType.h"
+#include "Buffer.h"
 #include <SymbolFactoryAbstract.h>
 #include <StrategyFactoryAbstract.h>
+#include <SimulatorFactoryAbstract.h>
+#include "DataSrcType.h"
 
 //#include <StrategyFactory.h>
 //#include <StrategyFactorySymbols.h>
@@ -37,6 +41,7 @@
 #include <Util/FileUtils.hpp>
 #include <Util/CoutBuf.hpp>
 #include <Util/Timer.hpp>
+#include <Template/Array.hpp>
 #include <Template/UniquePtr.hpp>
 
 
@@ -54,10 +59,16 @@ Monster:: Monster(const EnjoLib::Str & screenShotOutDir, const EnjoLib::Str & sc
 {
 }
 
+void Monster::InitVirt()
+{
+
+}
+
 void Monster::Reload(const EnjoLib::Str & symName, const EnjoLib::Str & periodName, const StrategyType & stratType,
                      int mode, int relPeriod, int relShift, int relSymbol)
 {
     ELO
+    //gcfgMan.Read(); WRONG
     //m_symFact = UniquePtr<SymbolFactoryAbstract>(new SymbolFactory());
     m_mainTester = UniquePtr<IMainTester>(IMainTester::Create(*m_symFact, gcfgMan.cfgTF2.get(), gcfgMan.cfgSym.get()).release());
 
@@ -86,7 +97,7 @@ void Monster::Reload(const EnjoLib::Str & symName, const EnjoLib::Str & periodNa
 
     ConfigTF2 & confTF2 = *gcfgMan.cfgTF2;
     const ConfigOpti & confOpti = *gcfgMan.cfgOpti;
-    gcfg.OPTI_USE = confOpti.IsOperationType(OptiType::OPTI_TYPE_USE);
+    //gcfg.OPTI_USE = confOpti.IsOperationType(OptiType::OPTI_TYPE_USE);
 
     if (mode == 0)
     {
@@ -125,7 +136,10 @@ void Monster::Reload(const EnjoLib::Str & symName, const EnjoLib::Str & periodNa
             const IStrategy & strat = *m_strategy;
 
             LOG << "Simulators " << timer.GetElapsedSeconds() << Endl;
-            /// TODO: Reenable
+            m_simFact->strat = m_strategy.get();
+            m_simulatorGeneric = SharedPtr<ISimulator>(m_simFact->Create().release());
+            //m_simulatorGeneric = SharedPtr<ISimulator>(m_simulatorGeneric->CloneRaw());
+            /// TODO: Reenable, but rather through generic simulator
             //m_simulator    = EnjoLib::SharedPtr<ISimulatorStd>(SimulatorFactory().CreateStandard(strat, 0, confTF2.TRAIN, gcfg.MIN_SCORE).release());
             //m_simulatorBet = EnjoLib::SharedPtr<ISimulatorBet>(SimulatorBetFactory().CreateBet(period).release());
              //= EnjoLib::UniquePtr<SimulatorBet>(new SimulatorBet(period));
@@ -158,7 +172,7 @@ void Monster::Reload(const EnjoLib::Str & symName, const EnjoLib::Str & periodNa
         catch (exception & ex)
         {
             //exit(1);
-            Util::HandleException(ex);
+            UtilBare::HandleException(ex);
         }
 
         //const StatsMedianSplit statMedSplit;
@@ -168,24 +182,23 @@ void Monster::Reload(const EnjoLib::Str & symName, const EnjoLib::Str & periodNa
     m_isValid = true;
 }
 
+/// Has to be done before setting up QT, else it would lead to QT init failures.
 void Monster::InitBufs(const IPeriod & per) const
 {
-    ConfigQT confQT;
-    confQT.Read();
+    const ConfigQT & confQT = *gcfgMan.cfgQT;
+    const ConfigQTPlot & confQTPlot = *gcfgMan.cfgQTPlot;
 
-    /// TODO: Restore
-    /*
-    for (int bufId : {confQT.buf1, confQT.buf2, confQT.buf3})
+    if (per.HasBufs())
     {
-        per.GetBuf(BufferType(bufId));
+        for (int bufId : {confQT.buf1, confQT.buf2, confQT.buf3})
+        {
+            per.GetBuf(BufferType(bufId));
+        }
+        per.GetBufVec(BufferVecType(confQT.bufRainbow));
     }
-    per.GetBufVec(BufferVecType(confQT.bufRainbow));
-    */
 }
 
 /*
-    ConfigQT confQT;
-    confQT.Read();
     {
         vector<BufferType> techs;
         techs.push_back(EnjoLib::MakePair(BufferType(confQT.buf1), QPen(Qt::blue)));
@@ -253,13 +266,35 @@ bool Monster::IsValid() const
     return m_isValid;
 }
 
+void Monster::SetFactories(const Monster & mons)
+{
+    SetFactories(mons.m_symFact, mons.m_stratFact, mons.m_simFact);
+    m_simulTxt = mons.m_simulTxt;
+    m_smallTxt = mons.m_smallTxt;
+}
+
+void Monster::SetFactories(  SymbolFactoryAbstract * pSymFact,
+                            StrategyFactoryAbstract * pStratFact,
+                            SimulatorFactoryAbstract  * pSimFact
+                                                          )
+{
+    m_symFact = pSymFact;
+    m_stratFact = pStratFact;
+    m_simFact = pSimFact;
+}
+
+/*
 void Monster::SetSymFactory(SymbolFactoryAbstract * pSymFact)
 {
     //m_symFact = UniquePtr<SymbolFactoryAbstract>(new SymbolFactory());
-    m_symFact = UniquePtr<SymbolFactoryAbstract>(pSymFact);
+    //m_symFact = UniquePtr<SymbolFactoryAbstract>(pSymFact);
+    //m_symFact = SharedPtr<SymbolFactoryAbstract>(pSymFact);
+    m_symFact = pSymFact;
 }
 
 void Monster::SetStratFactory(StrategyFactoryAbstract * pStratFact)
 {
-    m_stratFact = UniquePtr<StrategyFactoryAbstract>(pStratFact);
+    //m_stratFact = UniquePtr<StrategyFactoryAbstract>(pStratFact);
+    m_stratFact = pStratFact;
 }
+*/

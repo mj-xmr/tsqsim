@@ -9,7 +9,7 @@ class IDataProvider;
 class OptiVarF
 {
     public:
-        OptiVarF(const IDataProvider & period, const EnjoLib::Str & pvarId, bool fp, float  valDefault, float  valMin, float  valMax, float  step, bool multiplyStep = false);
+        OptiVarF(const IDataProvider & period, const EnjoLib::Str & pvarId, bool fp, float valDefault, float valMin, float valMax, float step, bool multiplyStep = false);
         OptiVarF(const IDataProvider & period, const EnjoLib::Str & pvarId, bool fp, const EnjoLib::VecF & valDefaultMinMaxStep, bool multiplyStep = false);
         virtual ~OptiVarF();
 

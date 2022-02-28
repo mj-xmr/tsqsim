@@ -12,8 +12,8 @@ class SimulatorTSFactoryImpl : public SimulatorFactoryAbstract
     public:
         SimulatorTSFactoryImpl(const TSInput & tsin, const ITSFun & fun);
         virtual ~SimulatorTSFactoryImpl();
-        
-        CorPtr<ISimulator> Create() const override;
+
+        CorPtr<ISimulator> Create(const EnjoLib::Str & params) const override;
 
     protected:
 

@@ -2,7 +2,7 @@
 #define IHASXYPAIR_H
 
 #include <3rdParty/stdfwd.hh>
-#include <Template/Array.hpp>
+#include <Template/ArrayFwd.hpp>
 #include <Util/Pair.hpp>
 class XYPairDir;
 class State;
