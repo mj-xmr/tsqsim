@@ -9,6 +9,8 @@ file( GLOB SRCS src/*.cpp */*.h */*.hpp)
 add_executable(${PROJECT_NAME} ${SRCS})
 add_test(${PROJECT_NAME} ${PROJECT_NAME})
 enjoSetupTarget(${PROJECT_NAME})
+tsqSetupSymlinks(${PROJECT_NAME})
+tsqSetupDirStatic(${PROJECT_NAME})
 target_link_libraries(${PROJECT_NAME} qt-lib test-common) # TODO: propagate test-common to other tests
 
 # Make sure the compiler can find include files for our Hello library
