@@ -2,8 +2,8 @@
 #define STATSUTIL_H
 
 #include <Util/VecD.hpp>
+#include <Util/VecF.hpp>
 #include <Util/Pair.hpp>
-#include <STD/Vector.hpp>
 
 class StatsUtil
 {
@@ -11,12 +11,6 @@ class StatsUtil
         StatsUtil();
         virtual ~StatsUtil();
 
-        struct Distrib
-        {
-            std::vector<EnjoLib::Pair<double, double>> data;
-            bool IsValid() const;
-        };
-        Distrib GetDistrib(const EnjoLib::VecD & data, int numBins = 30) const; /// TODO: Upstream
 
     protected:
 

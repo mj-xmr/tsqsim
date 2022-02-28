@@ -3,7 +3,7 @@
 
 #include <XYd.h>
 #include <Template/CacheRAMBase.hpp>
-#include <Template/Array.hpp>
+#include <Template/ArrayFwd.hpp>
 #include <Util/Pair.hpp>
 
 class IDataProvider;
@@ -22,7 +22,7 @@ class EstimUtil
         EnjoLib::Array<XYd> GetEMA(int sooner, int later) const;
 
         const IDataProvider & m_dat;
-        
+
         mutable EnjoLib::CacheRAMBasePtr<EnjoLib::Pair<int, int>, EnjoLib::Array<XYd>> m_cache;
 };
 

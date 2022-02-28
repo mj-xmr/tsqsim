@@ -2,6 +2,7 @@
 <wxsmith>
 	<object class="wxDialog" name="DialogTS">
 		<title>Time Series Analysis</title>
+		<pos>420,-1</pos>
 		<object class="wxBoxSizer" variable="BoxSizer1" member="no">
 			<orient>wxVERTICAL</orient>
 			<object class="sizeritem">

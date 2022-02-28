@@ -26,6 +26,7 @@
 #include <Util/Tuple.hpp>
 #include <Util/ThreadWrap.hpp>
 #include <Statistical/Assertions.hpp>
+#include <Template/Array.hpp>
 
 #include <STD/VectorCpp.hpp>
 
@@ -40,6 +41,11 @@ SimulatorTS:: SimulatorTS(const TSInput & tsin, const ITSFun & fun)
 , m_cfgTS(tsin.m_cfgTS)
 , m_ppred(PredictorFactory().Create(m_per, m_cfgTS.GetPredType()))
 {
+}
+
+ISimulator * SimulatorTS::CloneRaw() const
+{
+    return new SimulatorTS(m_tsin, m_fun);
 }
 
 void SimulatorTS::Run()
@@ -179,12 +185,7 @@ EnjoLib::VecD SimulatorTS::PredCommon(const IPredictor & predAlgo, const EnjoLib
 {
     if (m_cfgTS.USE_VECTOR_PRED)
     {
-        const EnjoLib::VecD & predVec = predAlgo.PredictVec(data);
-
-        // Assertion, checking if just some of the returned values are the same as predAlgo.Predict(data);
-        BufferDouble buf(data);
-        const double predLast = predAlgo.PredictNext(buf);
-        Assertions::IsTrue (Logic::DoublesEqual(predLast,  predVec.Last(), 0.01),       "DoublesEqual(predLast,  predVec)");
+        const EnjoLib::VecD & predVec = predAlgo.AssertNoLookaheadBiasGetVec(data);
         return predVec;
     }
     else

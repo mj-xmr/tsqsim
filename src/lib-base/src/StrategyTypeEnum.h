@@ -7,8 +7,10 @@ namespace StrategyFactory
     {
         STRA_CACHE_FILL,
         STRA_DUMMY,
+        STRA_LIVE,
         STRA_TESTING,
 
+        STRA_SEASONAL,
         STRA_WEEKEND,
         STRA_WEEKEND2,
         STRA_REG_FAST,

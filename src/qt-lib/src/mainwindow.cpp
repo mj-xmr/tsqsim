@@ -73,10 +73,8 @@ void MainWindow::setupWindow()
     //setGeometry(400, 250, 800, 600);
     setGeometry(Geom::xDebug, 0, Geom::wDebug, Geom::hNorm);
 #else
-    bool wideScreen = false;
-    //wideScreen = true;
     int y = Geom::y;
-    int h = wideScreen ? Geom::hWide : Geom::hNorm;
+    int h = Geom::wideScreen ? Geom::hWide : Geom::hNorm;
 
     if (confQT.BIG_SCREEN)
         setGeometry(Geom::xBig,   y, Geom::wBig,   h); // 16:9

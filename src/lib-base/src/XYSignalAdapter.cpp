@@ -4,6 +4,7 @@
 #include "SignalBase.h"
 #include "IHasXYPair.h"
 #include <Template/CorradePointer.h>
+#include <Template/Array.hpp>
 #include <STD/VectorCpp.hpp>
 
 XYSignalAdapter::XYSignalAdapter(){}

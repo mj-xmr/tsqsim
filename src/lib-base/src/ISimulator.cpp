@@ -1,4 +1,6 @@
 #include "ISimulator.h"
+
+#include <Statistical/Assertions.hpp>
 #include <Util/Str.hpp>
 #include <Util/CoutBuf.hpp>
 
@@ -6,12 +8,10 @@ using namespace std;
 
 ISimulator::ISimulator()
 {
-    //ctor
 }
 
 ISimulator::~ISimulator()
 {
-    //dtor
 }
 
 EnjoLib::Str ISimulator::ModelToStr() const
@@ -20,6 +20,13 @@ EnjoLib::Str ISimulator::ModelToStr() const
     return "";
 }
 
+/*
+ISimulator * ISimulator::CloneRaw() const
+{
+    EnjoLib::Assertions::Throw("Unimplemented", "ISimulator::CloneRaw()");
+    return nullptr;
+}
+*/
 
 ISimulatorBet::ISimulatorBet()
 {

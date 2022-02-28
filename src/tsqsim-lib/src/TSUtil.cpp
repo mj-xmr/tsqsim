@@ -27,6 +27,20 @@ CorPtr<ISimulatorTS> TSUtil::GetSim(const IPeriod & per, const StartEnd & startE
     return CorPtr<ISimulatorTS>(sim.release());
 }
 
+CorPtr<ISimulatorTS> TSUtil::GetSimDontRun(const IPeriod & per, const StartEnd & startEndFrame) const
+{
+    const SimulatorTSFactory simFact;
+    const TSFunFactory tsFunFact;
+
+    const ConfigTS & confTS   = *gcfgMan.cfgTS.get();
+    const TSFunType tsFunType = TSFunType::XFORM; /// TODO: make user's choice
+    const TSInput tsin(per, confTS);
+
+    CorPtr<ITSFun> fun = tsFunFact.Create(tsin, tsFunType);
+    CorPtr<ISimulatorTS> sim = simFact.CreateTS(tsin, *fun);
+    return CorPtr<ISimulatorTS>(sim.release());
+}
+
 CorPtr<ISimulatorTS> TSUtil::GetSim(const IPeriod & per, const ITSFun & tsFun, const StartEnd & startEndFrame) const
 {
     const SimulatorTSFactory simFact;

@@ -13,8 +13,7 @@ SimulatorTSFactoryImpl::~SimulatorTSFactoryImpl()
     //dtor
 }
 
-
-CorPtr<ISimulator> SimulatorTSFactoryImpl::Create() const
+CorPtr<ISimulator> SimulatorTSFactoryImpl::Create(const EnjoLib::Str & params) const
 {
-    return  CorPtr<ISimulatorTS> (new SimulatorTS(m_tsin, m_fun));
+    return  CorPtr<ISimulator> (new SimulatorTS(m_tsin, m_fun));
 }

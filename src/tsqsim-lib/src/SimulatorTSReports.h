@@ -2,6 +2,7 @@
 #define SIMULATORTSREPORTS_HPP
 
 #include <Util/VecD.hpp>
+#include <Template/ArrayFwd.hpp>
 
 class ConfigTS;
 class IDataProvider;
@@ -14,8 +15,8 @@ class SimulatorTSReports
 
         EnjoLib::VecD PrepPredsPlot(const EnjoLib::VecD & orig, const EnjoLib::VecD & predBaseline, const EnjoLib::VecD & pred) const;
         void PrintReportSingleThreaded(const IDataProvider & per, const ConfigTS & cfgTS, const EnjoLib::VecD & data, const EnjoLib::Str & descr,
-                                       const STDFWD::vector<const EnjoLib::VecD *> & plots) const;
-                                       
+                                       const EnjoLib::Array<const EnjoLib::VecD *> & plots) const;
+
         void PrintOpti(const EnjoLib::VecD & predsPlot) const;
 
     protected:

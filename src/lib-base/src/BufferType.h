@@ -78,6 +78,7 @@ enum BufferTypeEnum
     BUF_SSA_OSCI,
     BUF_TIME_DIFF,
     BUF_SPREADS,
+    BUF_SPREADS_BULL,
     BUF_NONE,
 };
 

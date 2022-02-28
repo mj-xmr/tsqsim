@@ -3,6 +3,7 @@
 #include <Math/GeneralMath.hpp>
 #include <Util/PimplCopier.hpp>
 #include <Util/PimplDeleter.hpp>
+#include <Template/Array.hpp>
 
 #include <STD/VectorCpp.hpp>
 

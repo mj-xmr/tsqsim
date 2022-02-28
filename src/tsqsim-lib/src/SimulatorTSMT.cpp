@@ -13,13 +13,14 @@
 
 #include <Util/CoutBuf.hpp>
 #include <Util/Tuple.hpp>
+#include <Template/Array.hpp>
 #include <Template/LoopThreadedTpl.hpp>
 
 #include <STD/VectorCpp.hpp>
 
 using namespace EnjoLib;
 
-void SimulatorTSMT::PrintExperimental(const TSInput & tsin, const EnjoLib::VecD & data, const EnjoLib::Str & descr, const STDFWD::vector<const EnjoLib::VecD *> & plots)
+void SimulatorTSMT::PrintExperimental(const TSInput & tsin, const EnjoLib::VecD & data, const EnjoLib::Str & descr, const EnjoLib::Array<const EnjoLib::VecD *> & plots)
 {
     DataOCHL ohlc(tsin.m_per.GetCandles().GetDataIter());
     const float scaleX = 1.00;

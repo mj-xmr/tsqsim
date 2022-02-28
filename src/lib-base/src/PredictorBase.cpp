@@ -1,6 +1,7 @@
 #include "PredictorBase.h"
 #include "OptiVarVec.h"
 #include "IDataProvider.h"
+#include <Template/Array.hpp>
 
 #include <STD/VectorCpp.hpp>
 

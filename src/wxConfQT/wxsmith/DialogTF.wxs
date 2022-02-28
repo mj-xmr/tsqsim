@@ -2,7 +2,7 @@
 <wxsmith>
 	<object class="wxDialog" name="DialogTF">
 		<title>TF2</title>
-		<pos>220,-1</pos>
+		<pos>250,-1</pos>
 		<id_arg>0</id_arg>
 		<object class="wxBoxSizer" variable="m_sizerTop" member="yes">
 			<orient>wxVERTICAL</orient>

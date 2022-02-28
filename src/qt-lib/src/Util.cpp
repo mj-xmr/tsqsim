@@ -152,6 +152,33 @@ QVector<QCPItemLine *> Util::AddVLines(const QVector<double> & xx, double y1, do
     return ret;
 }
 
+QVector<QCPGraph *> Util::AddVLinesTech(const QVector<double> & xx, QCustomPlot *p, QCPAxisRect *techRect, const QColor & color)
+{
+    QVector<QCPGraph *> ret;
+    for (double x : xx)
+    {
+        ret += Util::AddVLineTech(x, p, techRect, color);
+    }
+    return ret;
+}
+
+QCPGraph * Util::AddVLineTech(double x, QCustomPlot *p, QCPAxisRect *techRect, const QColor & color)
+{
+    QCPGraph *newCurve = new QCPGraph(techRect->axis(QCPAxis::atBottom), techRect->axis(QCPAxis::atLeft));
+    newCurve->setPen(QPen(color));
+    newCurve->setAntialiased(false);
+    //pel.SetPenGrey(m_dark, m_techLineCursor);
+    //p->addPlottable(newCurve); // Removes everything else
+    if (newCurve)
+    {
+        //newCurve->clearData();
+        newCurve->addData(x, 0);
+        newCurve->addData(x, 100);
+    }
+    return newCurve;
+
+}
+
 QCPItemLine * Util::AddLine(const QVector<double> & time, const QVector<double> & data, QCustomPlot *customPlot, const QColor & color)
 {
     if (time.empty() || data.empty())
@@ -332,15 +359,4 @@ EnjoLib::Str Util::GetIndexes(const PlotDataBase & d, int i, bool lineBreak)
     EnjoLib::Osstream oss;
     oss << "(" << i << (lineBreak ? "\n" : ", ") << "-" << d.GetSz() - i << ")";
     return oss.str();
-}
-
-void Util::HandleException(std::exception & ex)
-{
-    qDebug() << EnjoLib::StrColour::GenErr("\n\nEXCEPTION!\n").c_str();
-    qDebug() << EnjoLib::StrColour::GenErr(ex.what()).c_str();
-    QMessageBox msgBox;
-    msgBox.setWindowTitle("EXCEPTION!");
-    msgBox.setText(ex.what());
-    msgBox.exec();
-    throw EnjoLib::ExceptRuntimeError(ex.what());
 }

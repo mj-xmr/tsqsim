@@ -7,6 +7,7 @@
 #include "IBufferCandles.h"
 #include "BufferType.h"
 #include "Buffer.h"
+#include <Template/Array.hpp>
 #include <Template/AlgoSTDThin.hpp>
 #include <Template/CacheRAMBare.hpp>
 #include <STD/VectorCpp.hpp>
@@ -47,7 +48,7 @@ Array<XYd> EstimUtil::GetPrice(int sooner, int later) const
     {
         return m_cache->Get(key);
     }
-    
+
     std::vector<XYd> ret;
     ret.reserve(abs(sooner - later));
     //const CandleCalc cc;

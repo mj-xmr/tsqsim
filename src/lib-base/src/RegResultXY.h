@@ -7,7 +7,7 @@
 #include "RegressionRes.h"
 #include "XY.h"
 #include <Util/Pimpl.hpp>
-#include <Template/Array.hpp>
+#include <Template/ArrayFwd.hpp>
 
 class RegResultXY
 {

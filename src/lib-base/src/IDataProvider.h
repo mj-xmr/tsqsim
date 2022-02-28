@@ -23,6 +23,7 @@ class IDataProvider
         virtual DataOCHL GetDataDate(DateInt dateStart, int n) const = 0;
         virtual DataTech GetTechDate(DateInt dateStart, int n) const = 0;
 
+        virtual bool HasBufs() const { return false; };
         virtual Buffer GetBuf(const BufferType & type) const = 0;
         virtual BufferBool GetBufBool(const BufferTypeBool & type) const = 0;
         virtual const IBufferCandles & GetCandles() const = 0;

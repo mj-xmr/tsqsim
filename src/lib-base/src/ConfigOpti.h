@@ -31,7 +31,7 @@ class ConfigOpti : public ConfigBase
         bool IsSearchRandom() const;
         bool IsXValid() const;
         bool IsOptimizing() const;
-        bool IsOperationType(const OptiType  & operType) const;
+        bool IsOperationType(const OptiType & operType) const;
         OptiType GetOperationType() const;
         OptiMethod GetMethod() const;
         OptiGoalType GetGoalType() const;

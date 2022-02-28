@@ -20,9 +20,9 @@ class PredictorStats
     public:
         PredictorStats();
         virtual ~PredictorStats();
-        
-        PredictorStatsRes GenPoints(const EnjoLib::VecD & orig, const EnjoLib::VecD & predBaseline, const EnjoLib::VecD & pred) const;
-        EnjoLib::Str GenRepNext(const EnjoLib::VecD & orig, const EnjoLib::VecD & predBaseline, const EnjoLib::VecD & pred) const;
+
+        PredictorStatsRes GenPoints(const EnjoLib::VecD & orig, const EnjoLib::VecD & predBaseline, const EnjoLib::VecD & pred, int offset = 0) const;
+        EnjoLib::Str GenRepNext(const EnjoLib::VecD & orig, const EnjoLib::VecD & predBaseline, const EnjoLib::VecD & pred, int offset = 0) const;
         EnjoLib::Str GenRepNext(const PredictorStatsRes & points) const;
 
     protected:

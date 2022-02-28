@@ -28,6 +28,7 @@ enum BufferVecTypeEnum
     BUF_VEC_GARCH,
     BUF_VEC_ZZ_DIFFS,
     BUF_VEC_STATION,
+    BUF_VEC_STATION_PRED,
 
     BUF_VEC_NONE
 };

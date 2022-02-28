@@ -14,6 +14,7 @@
 #include "TradeUtil.h"
 #include "StatsUtil.h"
 
+#include <Statistical/Distrib.hpp>
 #include <Statistical/Formatters.hpp>
 #include <Statistical/Statistical.hpp>
 #include <Math/MultiDimIter/MultiDimIterTpl.hpp>
@@ -26,6 +27,7 @@
 #include <Util/CoutBuf.hpp>
 #include <Util/Except.hpp>
 #include <Ios/IoManip.hpp>
+#include <Template/Array.hpp>
 
 #include <STD/VectorCpp.hpp>
 
@@ -202,10 +204,7 @@ void OptimizerBase::AddGoal(float goal)
 
     if (m_goals.size() > 1)
     {
-        const Statistical stat;
-        const double median = stat.Median(m_goals);
-        const double stdDev = stat.StandardDeviation(m_goals);
-        const double stdDevPerc = stdDev / median * 100;
+        const double stdDevPerc = Statistical().GetRelatStdDev(m_goals, 100);
         m_goalsMod.Add(stdDevPerc);
     }
 }
@@ -224,7 +223,7 @@ void OptimizerBase::OnGoalReached(IOptimizable * optiCarrier)
 {
     GetOptiFloatResult().clear();
     Osstream ostr;
-    ostr << "OnGoalReached: ";
+    ostr << "OnGoalReached: " << GetGoalMax() << ", \tpars = ";
     for (OptiVarF * v : optiCarrier->GetOptiFloat().Vec())
     {
         ostr << v->GetVal() << " ";
@@ -254,7 +253,7 @@ void OptimizerBase::PlotVariance() const
     GnuplotPlotTerminal1d(m_goalsMod.Diffs().Smooth(GetSmoothing()), "Variance changes (low values mean that no better solution can be found):", scaleX, scaleY);
     LOG << "Best  │  " << fmt.VecLabel() << "  │\n";
     LOG << fmt.FormatVar(m_goalMax) << " " << fmt.FormatVec(m_goals) << Endl;
-    const StatsUtil::Distrib & distrib = StatsUtil().GetDistrib(m_goals);
+    const DistribData & distrib = Distrib().GetDistrib(m_goals);
     if (distrib.IsValid())
     {
         GnuplotPlotTerminal2d(distrib.data, "Distribution of solutions (median must be > -1):", scaleX, scaleY);

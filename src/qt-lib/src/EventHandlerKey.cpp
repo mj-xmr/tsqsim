@@ -3,8 +3,9 @@
 #include "MyMainWindow.h"
 #include "Monster.h"
 #include "FrameIter.h"
-
-
+#if 0
+#include "Open.h"
+#endif // 0
 
 
 EventHandlerKey::EventHandlerKey(){}
@@ -26,6 +27,21 @@ void EventHandlerKey::keyPressEvent(MyMainWindow * win, QKeyEvent *event) const
     case Qt::Key_Control:
         win->Reload(mon, false);
         break;
+    #if 0
+    case Qt::Key_F2:
+        win->OpenMarket(win->m_i, win->m_y, true);
+        break;
+    case Qt::Key_F3:
+        win->OpenMarket(win->m_i, win->m_y, false);
+        break;
+    case Qt::Key_F5:
+        Open().Refresh(win->GetDataProvider());
+        win->Reload(mon, false);
+        break;
+    case Qt::Key_F6:
+        Open().RefreshAll();
+        break;
+    #endif
     case Qt::Key_C:
         win->m_i = win->m_iMouse;
         FrameIter().OnFrame(win);

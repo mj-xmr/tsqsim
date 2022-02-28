@@ -51,7 +51,7 @@ DialogOpti::DialogOpti(wxWindow* parent,wxWindowID id,const wxPoint& pos,const w
 
 	Create(parent, id, _T("Opti"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("id"));
 	SetClientSize(wxDefaultSize);
-	Move(wxPoint(375,-1));
+	Move(wxPoint(420,-1));
 	m_sizerTop = new wxBoxSizer(wxVERTICAL);
 	BoxSizer2 = new wxBoxSizer(wxVERTICAL);
 	m_choiceOpti = new MyChoiceEnum(this, ID_CHOICE1, wxDefaultPosition, wxDefaultSize, 0, 0, 0, wxDefaultValidator, _T("ID_CHOICE1"));

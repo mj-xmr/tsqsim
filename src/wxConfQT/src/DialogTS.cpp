@@ -53,6 +53,7 @@ DialogTS::DialogTS(wxWindow* parent,wxWindowID id)
 	wxStaticBoxSizer* StaticBoxSizer6;
 
 	Create(parent, id, _T("Time Series Analysis"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("id"));
+	Move(wxPoint(420,-1));
 	BoxSizer1 = new wxBoxSizer(wxVERTICAL);
 	m_sizerBools = new wxBoxSizer(wxVERTICAL);
 	StaticBoxSizer1 = new wxStaticBoxSizer(wxVERTICAL, this, _T("Script data xform"));

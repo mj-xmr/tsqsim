@@ -10,7 +10,8 @@ class MatplotACF
         MatplotACF();
         virtual ~MatplotACF();
 
-        void Plot(const EnjoLib::VecD & line, int lags, int periodSeasonal, const EnjoLib::Str & title = "") const;
+        void Plot(const EnjoLib::VecD & dat, int lags, int periodSeasonal, const EnjoLib::Str & title = "") const;
+        void Plot(const EnjoLib::VecD & dat, const EnjoLib::Str & title = "") const;
 
     protected:
 

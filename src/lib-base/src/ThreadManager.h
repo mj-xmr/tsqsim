@@ -2,7 +2,7 @@
 #define THREADMANAGER_H
 
 #include <STD/Vector.hpp>
-//#include <Template/Array.hpp>
+//#include <Template/ArrayFwd.hpp>
 #include <thread>
 
 class ThreadManager

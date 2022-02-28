@@ -1,5 +1,7 @@
 #include "DataDates.h"
 
+#include <Ios/Osstream.hpp>
+
 DataDates::DataDates()
 {
     yearStart   = 2016;
@@ -11,6 +13,13 @@ DataDates::DataDates()
 void DataDates::Set0()
 {
     yearStart = yearEnd = monthStart = monthEnd = 0;
+}
+
+EnjoLib::Str DataDates::ToStr() const
+{
+    EnjoLib::Osstream oss;
+    oss << yearStart << "-" << monthStart << " " << yearEnd << "-" << monthEnd;
+    return oss.str();
 }
 
 void DataDates::SetStart(int year, int month)

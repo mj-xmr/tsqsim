@@ -10,16 +10,19 @@
 //#include "PlotSRGroup.h"
 //#include "PlotStdDev.h"
 //#include "PlotRegression.h"
-//#include "TxtSimulator.h"
-//#include "TxtSmall.h"
+#include "TxtSimulatorBase.h"
+#include "TxtSmallBase.h"
 //#include "BetColorMap.h"
 #include "PlotElements.h"
 
 #include <IPeriod.h>
 //#include <IStrategy.h>
 #include <ConfigGlob.h>
+#include <ConfigMan.h>
 #include <ConfigQT.h>
 #include <ConfigQTPlot.h>
+#include <ConfigSym.h>
+#include "DataSrcType.h"
 #include "Util.h"
 
 #include "PlotDataBase.h"
@@ -36,10 +39,9 @@
 using namespace std;
 using namespace EnjoLib;
 
-void MyMainWindow::setupVisualsBig(QCustomPlot * p, const IPeriod & period, const IStrategy & strat, const PlotData & d)
+void MyMainWindow::setupVisualsBig(QCustomPlot * p, const IPeriod & period, const IStrategy & strat, const PlotDataBase & d)
 {
-    ConfigQTPlot confPlot;
-    confPlot.Read();
+    const ConfigQTPlot & confPlot = *gcfgMan.cfgQTPlot;
     //m_simulator->SetupPending();
 
     //TxtFractals(p, period, d);
@@ -48,15 +50,19 @@ void MyMainWindow::setupVisualsBig(QCustomPlot * p, const IPeriod & period, cons
         //const IStrategy & strat = *(m_strategy.get());
         if (confPlot.SIGNAL_TRADE)
         {
-            /// TODO: Restore
-            //TxtSmall().SignalScore(p, period, strat, BUY, d);
-            //TxtSmall().SignalScore(p, period, strat, SELL, d);
+            if (m_mons.m_smallTxt)
+            {
+                m_mons.m_smallTxt->SignalScore(p, period, strat, BUY, d);
+                m_mons.m_smallTxt->SignalScore(p, period, strat, SELL, d);
+            }
         }
 
         //cout << "Simulator" << endl;
         //TxtSmall().Pinbars(p, period, strat, d);
-        /// TODO: Restore
-        //TxtSimulator().Txt(p, period, strat, d);
+        if (m_mons.m_simulTxt) // Upon reload, it becomes null.
+        {
+            m_mons.m_simulTxt->Txt(p, period, strat, d);
+        }
         //cout << "SimulatorEnded" << endl;
 
         if (confPlot.BET)
@@ -111,7 +117,7 @@ void MyMainWindow::setupVisualsBig(QCustomPlot * p, const IPeriod & period, cons
     /// TODO: Restore
     //m_slBull = Util::AddMA(d.GetTime(), d.slBull, p, colSLBull);
     //m_slBear = Util::AddMA(d.GetTime(), d.slBear, p, colSLBear);
-    m_txtPrice = Util::AddText(p, "");
+    //m_txtPrice = Util::AddText(p, ""); /// repeated
 
     if (confPlot.SL)
     {
@@ -134,16 +140,16 @@ void MyMainWindow::setupVisualsBig(QCustomPlot * p, const IPeriod & period, cons
     if (confPlot.SIGNAL_TRADE)
     {
         /// TODO: Restore
-        /*
-        Util::AddMA(d.GetTime(), d.sigStartBuy,  p, "darkgreen");
-        Util::AddMA(d.GetTime(), d.sigStartSell, p, "fuchsia");
+        //Util::AddMA(d.GetTime(), d.sigStartBuy,  p, "darkgreen");
+        //Util::AddMA(d.GetTime(), d.sigStartSell, p, "fuchsia");
 #ifndef DEBUG
-        TxtSmall().SpecialSignalText(p, period, strat, d);
-
-        TxtSmall().SpecialSignalPred(p, period, strat, BUY, d);
-        TxtSmall().SpecialSignalPred(p, period, strat, SELL, d);
+        if (m_mons.m_smallTxt)
+        {
+            m_mons.m_smallTxt->SpecialSignalText(p, period, strat, d);
+            m_mons.m_smallTxt->SpecialSignalPred(p, period, strat, BUY, d);
+            m_mons.m_smallTxt->SpecialSignalPred(p, period, strat, SELL, d);
+        }
 #endif
-        */
     }
 
     /// TODO: Restore
@@ -171,20 +177,21 @@ void MyMainWindow::setupVisualsBig(QCustomPlot * p, const IPeriod & period, cons
 
 void MyMainWindow::setupVisuals(QCustomPlot * p, const IPeriod & period, const IStrategy & strat, const ISimulatorTS & simTS, const PlotDataBase & d, double binSize)
 {
-    ConfigQTPlot confPlot;
-    confPlot.Read();
+    gcfgMan.Read();
+    const ConfigQTPlot & confPlot = *gcfgMan.cfgQTPlot;
+    m_txtPrice = Util::AddText(p, "");
     m_dark = confPlot.DARK;
+
+    PlotElements pel;
     if (m_dark)
     {
         p->setBackground(QBrush("black"));
-        const int gridIntens = 50;
-        const QPen gridPen(QColor(gridIntens, gridIntens, gridIntens));
+        const QPen & gridPen = pel.GetDarkGridPen();
         p->yAxis->grid()->setPen(gridPen);
         p->xAxis->grid()->setPen(gridPen);
         //p->xAxis->setTickLabelColor(QColor(gridIntens, gridIntens, gridIntens));
     }
 
-    PlotElements pel;
     {
         if (confPlot.DAY_WEEK)
             pel.SetupDayWeekend(m_i, p, period, d, m_dark);
@@ -204,6 +211,7 @@ void MyMainWindow::setupVisuals(QCustomPlot * p, const IPeriod & period, const I
 
             //Util::AddMA(p, d, BUF_MA_AVG, "Pink");
         }
+        if (gcfgMan.cfgSym->GetDataSrc() == DataSrcType::MONERO)
         {
             pel.SetupReconstruction(p, simTS, d);
         }
@@ -238,7 +246,7 @@ void MyMainWindow::setupVisuals(QCustomPlot * p, const IPeriod & period, const I
     // Indicator plot
     if (confPlot.TECHS)
     {
-        m_techRect = SetupTechs(p, strat, simTS, d);
+        m_techRect = SetupTechs(p, strat, simTS, d, m_dark);
         m_techRect->setMarginGroup(QCP::msLeft|QCP::msRight, group);
     }
 }
@@ -272,8 +280,9 @@ void MyMainWindow::setupBaustelle(QCustomPlot *p, const IPeriod & period, const 
         const PlotData * dBig = nullptr;
         if (dBig)
         {
-            setupVisualsBig(p, period, strat, *dBig);
+            //setupVisualsBig(p, period, strat, *dBig);
         }
+              setupVisualsBig(p, period, strat, d); /// TODO: Temp
 
         p->rescaleAxes();
         //p->setBackground(Qt::black);

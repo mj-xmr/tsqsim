@@ -6,11 +6,10 @@
 #include "IBufferCandles.h"
 
 #include <Util/StackTrace.hpp>
-#include <STD/VectorCpp.hpp>
-
+#include <Template/Array.hpp>
 #include <Math/GeneralMath.hpp>
 
-
+#include <STD/VectorCpp.hpp>
 
 using namespace std;
 

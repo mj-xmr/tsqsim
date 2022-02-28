@@ -71,7 +71,7 @@ DialogTF::DialogTF(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
 	wxBoxSizer* m_sizerMain;
 
 	Create(parent, wxID_ANY, _T("TF2"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("wxID_ANY"));
-	Move(wxPoint(220,-1));
+	Move(wxPoint(250,-1));
 	m_sizerTop = new wxBoxSizer(wxVERTICAL);
 	m_sizerMain = new wxBoxSizer(wxVERTICAL);
 	m_choiceSim = new MyChoiceEnum(this, ID_CHOICE5, wxDefaultPosition, wxDefaultSize, 0, 0, 0, wxDefaultValidator, _T("ID_CHOICE5"));

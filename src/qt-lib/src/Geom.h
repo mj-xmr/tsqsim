@@ -9,6 +9,7 @@ class Geom
         virtual ~Geom();
 
         const static int w, hWide, hNorm, y, xBig, wBig, xDebug, wDebug;
+        const static bool wideScreen;
         /// TODO: add more
 
     protected:

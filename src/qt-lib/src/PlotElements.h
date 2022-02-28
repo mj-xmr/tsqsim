@@ -20,10 +20,17 @@ class PlotElements
         PlotElements(){}
         virtual ~PlotElements(){}
 
+        struct WeekendData
+        {
+            QVector<double> timeDay, timeWeek, timeNFP;
+        };
+
         QCPFinancial * SetupCandles(unsigned mi, QCustomPlot * p, const PlotDataBase & d, const ConfigQTPlot & confPlot, double binSize, bool dark);
         void ConfigureCandlesticks(QCPFinancial *candlesticks, bool dark);
+        WeekendData GetDayWeekend(unsigned mi, const PlotDataBase & d) const;
         void SetupDayWeekend(unsigned mi, QCustomPlot * p, const IDataProvider & period, const PlotDataBase & d, bool dark);
-        void SetupTechs(QCustomPlot * p, const IStrategy & strat, QCPAxisRect *techRect, const PlotDataBase & d);
+        void SetupDayWeekendTech(unsigned mi, QCustomPlot * p, QCPAxisRect *techRect, const PlotDataBase & d, bool dark);
+        void SetupTechs(unsigned mi, QCustomPlot * p, const IStrategy & strat, QCPAxisRect *techRect, const PlotDataBase & d, bool dark);
         void SetupTechsXform(QCustomPlot * p, const ISimulatorTS & simTS, QCPAxisRect *techRect, const PlotDataBase & d);
         QCPGraph * SetupTSLine(QCustomPlot * p, QCPAxisRect *techRect, const PlotDataBase & d, const ISimulatorTS & simTS, const PredictorOutputType & type, const QPen & pen, const char * name);
         void SetupReconstruction(QCustomPlot * p, const ISimulatorTS & simTS, const PlotDataBase & d);
@@ -32,6 +39,7 @@ class PlotElements
         void HandleWeekendData(QCPAxis * axis, const PlotDataBase & d, bool hide);
         template<class QCClass>
         void SetPenGrey(bool isDark, QCClass * item) const;
+        QPen GetDarkGridPen() const;
     protected:
 
     private:

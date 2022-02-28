@@ -23,6 +23,7 @@ class SimulatorBet;
 class SymbolFactoryAbstract;
 class MainTester;
 class ISimulatorTS;
+class IDataProvider;
 
 class MyMainWindow : public MainWindow
 {
@@ -33,7 +34,7 @@ class MyMainWindow : public MainWindow
         void Reload(const Monster & monst, int mode = 0, int relPeriod = 0, int relShift = 0, int relSymbol = 0);
         void setupBaustelle(QCustomPlot * customPlot, const IPeriod & period, const IStrategy & strat, const ISimulatorTS & simTS, const PlotDataBase & d);
         void setupVisuals(QCustomPlot * customPlot, const IPeriod & period, const IStrategy & strat, const ISimulatorTS & simTS, const PlotDataBase & d, double binSize);
-        void setupVisualsBig(QCustomPlot * p, const IPeriod & period, const IStrategy & strat, const PlotData & d);
+        void setupVisualsBig(QCustomPlot * p, const IPeriod & period, const IStrategy & strat, const PlotDataBase & d);
 
         void SetLabelStart(int i);
         void SetLabelEnd(int i);
@@ -57,11 +58,13 @@ class MyMainWindow : public MainWindow
         void StopTimer();
         QCustomPlot * GetQCP();
         const PlotDataBase & GetData() const;
+        const IDataProvider & GetDataProvider() const;
         const IPeriod & GetPeriod() const;
         const ISymbol & GetSymbol() const;
         const IStrategy & GetStrategy() const;
         void SetDark(bool dark) { m_dark = dark; }
         int CalcIdxMon(int i) const;
+        void OpenMarket(int i, double y, bool buy);
 
 
         unsigned m_i = 0;
@@ -92,7 +95,7 @@ class MyMainWindow : public MainWindow
         void keyPressEvent(QKeyEvent *event);
         void timerEvent(QTimerEvent *event);
     private:
-        QCPAxisRect * SetupTechs(QCustomPlot * p, const IStrategy & strat, const ISimulatorTS & simTS, const PlotDataBase & d);
+        QCPAxisRect * SetupTechs(QCustomPlot * p, const IStrategy & strat, const ISimulatorTS & simTS, const PlotDataBase & d, bool dark);
         void HandleScreenshot(ConfigSym * pconf);
         int HandleRelativeParUpdate(int relPar, int * relMember);
         Corrade::Containers::Pointer<ISymbol> LoadSymbolFromFile() const;
