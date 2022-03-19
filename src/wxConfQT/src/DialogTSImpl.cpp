@@ -48,6 +48,7 @@ void DialogTS::ReadSelections()
         pmap->FromCheckToVariable();
     m_confTS.m_scriptPathTxt    = m_txtScriptPath->   GetValue().c_str().AsChar();
     m_confTS.m_scriptPathTxtR   = m_txtScriptPathR->  GetValue().c_str().AsChar();
+    m_confTS.m_scriptPathTxtPy  = m_txtScriptPathPy-> GetValue().c_str().AsChar();
     m_confTS.m_scriptPathTxtGen = m_txtScriptPathGen->GetValue().c_str().AsChar();
 }
 
@@ -59,6 +60,7 @@ void DialogTS::RestoreConf()
     wxUtil().AutoGenCheckBox(this, m_confTS, m_sizerBools, &m_mapCheckbox, (wxObjectEventFunction)&DialogTS::OnTS);
     m_txtScriptPath   ->SetValue(m_confTS.m_scriptPathTxt.   c_str());
     m_txtScriptPathR  ->SetValue(m_confTS.m_scriptPathTxtR.  c_str());
+    m_txtScriptPathPy ->SetValue(m_confTS.m_scriptPathTxtPy. c_str());
     m_txtScriptPathGen->SetValue(m_confTS.m_scriptPathTxtGen.c_str());
 
     for (IMapControl * pmap : m_maps)
@@ -74,9 +76,20 @@ void DialogTS::Onm_butScriptTextClick(wxCommandEvent& event)
 void DialogTS::Onm_butScriptTextOpenClick(wxCommandEvent& event)
 {
     const wxString file_name = m_txtScriptPath->GetValue();
-    EnjoLib::UtilWx::ExecuteDefaultEditorOnFile(file_name, ".txt");
+    wxUtil().ExecuteDefaultEditorOnTextFile(file_name);
 }
 
+void DialogTS::Onm_butScriptTextPyClick(wxCommandEvent& event)
+{
+    EnjoLib::UtilWx::FindFileFillTxt(this, m_txtScriptPathPy);
+    OnTS(event);
+}
+
+void DialogTS::Onm_butScriptTextOpenPyClick(wxCommandEvent& event)
+{
+    const wxString file_name = m_txtScriptPathPy->GetValue();
+    wxUtil().ExecuteDefaultEditorOnTextFile(file_name);
+}
 
 void DialogTS::Onm_butScriptTextRClick(wxCommandEvent& event)
 {
@@ -87,7 +100,7 @@ void DialogTS::Onm_butScriptTextRClick(wxCommandEvent& event)
 void DialogTS::Onm_butScriptTextOpenRClick(wxCommandEvent& event)
 {
     const wxString file_name = m_txtScriptPathR->GetValue();
-    EnjoLib::UtilWx::ExecuteDefaultEditorOnFile(file_name, ".txt");
+    wxUtil().ExecuteDefaultEditorOnTextFile(file_name);
 }
 
 void DialogTS::Onm_butScriptTextGenClick(wxCommandEvent& event)
@@ -99,5 +112,5 @@ void DialogTS::Onm_butScriptTextGenClick(wxCommandEvent& event)
 void DialogTS::Onm_butScriptTextOpenGenClick(wxCommandEvent& event)
 {
     const wxString file_name = m_txtScriptPathGen->GetValue();
-    EnjoLib::UtilWx::ExecuteDefaultEditorOnFile(file_name, ".txt");
+    wxUtil().ExecuteDefaultEditorOnTextFile(file_name);
 }

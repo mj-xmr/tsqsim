@@ -47,7 +47,7 @@ def plotPACF(data, lags, title):
     plt.show()
 
 def plotSeasonalDecomposition(data, period, title, model='constant'):
-    result = seasonal_decompose(data, model=model, period=period)
+    result = seasonal_decompose(list(reversed(data)), model=model, period=period)
     num_plots = 4
     fig, axs = plt.subplots(num_plots)
     #fig.suptitle('Vertically stacked subplots')
@@ -73,6 +73,7 @@ def plotSeasonalDecomposition(data, period, title, model='constant'):
     #fig.show()
     #plt.plot(result.seasonal)
     #plt.plot(result.trend)
+    axs[0].set_title("Seasonal decompo. (" + str(period) + ") " + title)
     
     plt.show()
 

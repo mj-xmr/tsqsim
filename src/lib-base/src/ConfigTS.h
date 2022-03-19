@@ -31,10 +31,12 @@ class ConfigTS : public ConfigBase
 
         static const char * DEFAULT_SCRIPT_FILE_NAME;
         static const char * DEFAULT_SCRIPT_FILE_NAME_R;
+        static const char * DEFAULT_SCRIPT_FILE_NAME_PY;
         static const char * DEFAULT_SCRIPT_FILE_NAME_GEN;
 
         EnjoLib::Str m_scriptPathTxt;
         EnjoLib::Str m_scriptPathTxtR;
+        EnjoLib::Str m_scriptPathTxtPy;
         EnjoLib::Str m_scriptPathTxtGen;
         bool crashOnRecoverableErrors = false;
         bool PLOT_SERIES = true;

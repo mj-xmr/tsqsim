@@ -4,7 +4,9 @@
 #include "TradeUtil.h"
 #include "IConfig.h"
 
+#include <UtilWx.hpp>
 #include <Autogen/AutoGenCheckBox.hpp>
+
 #include <Ios/Osstream.hpp>
 
 EnjoLib::Result<std::string> wxUtil::MonthYearValidator(wxChoice * yearStart, wxChoice * yearEnd, wxChoice * monthStart, wxChoice * monthEnd) const
@@ -102,4 +104,9 @@ void wxUtil::AutoGenCheckBox(wxWindow * dialog, const IConfig & cfg, wxBoxSizer 
     const EnjoLib::VecT<EnjoLib::Str> & boolsToolt  = cfg.GetBoolsToolTip();
 
     EnjoLib::AutoGenCheckBox::Gen(dialog, bools, boolsDescr, boolsToolt, sizer, mapCheckbox, fun);
+}
+
+bool wxUtil::ExecuteDefaultEditorOnTextFile(const wxString & filePath)
+{
+    return EnjoLib::UtilWx::ExecuteDefaultEditorOnFile(filePath, ".txt");
 }

@@ -11,8 +11,9 @@
 using namespace std;
 using namespace EnjoLib;
 
-const char * ConfigTS::DEFAULT_SCRIPT_FILE_NAME   = "ts-xform-script.txt";
-const char * ConfigTS::DEFAULT_SCRIPT_FILE_NAME_R = "r-custom.R";
+const char * ConfigTS::DEFAULT_SCRIPT_FILE_NAME     = "ts-xform-script.txt";
+const char * ConfigTS::DEFAULT_SCRIPT_FILE_NAME_R   = "r-custom.R";
+const char * ConfigTS::DEFAULT_SCRIPT_FILE_NAME_PY  = "py_statsmodels.py";
 const char * ConfigTS::DEFAULT_SCRIPT_FILE_NAME_GEN = "data-generation.txt";
 
 
@@ -58,6 +59,7 @@ void ConfigTS::RegisterAndReadStrs(EnjoLib::Istream & f)
     RegisterAndReadStr(f, m_scriptPathTxt,      dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME);
     RegisterAndReadStr(f, m_scriptPathTxtR,     dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME_R);
     RegisterAndReadStr(f, m_scriptPathTxtGen,   dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME_GEN);
+    RegisterAndReadStr(f, m_scriptPathTxtPy,    dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME_PY);
 }
 
 PredictorType ConfigTS::GetPredType() const

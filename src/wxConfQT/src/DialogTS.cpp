@@ -19,6 +19,9 @@
 const long DialogTS::ID_TEXTCTRL1 = wxNewId();
 const long DialogTS::ID_BUTTON1 = wxNewId();
 const long DialogTS::ID_BUTTON2 = wxNewId();
+const long DialogTS::ID_TEXTCTRL4 = wxNewId();
+const long DialogTS::ID_BUTTON7 = wxNewId();
+const long DialogTS::ID_BUTTON8 = wxNewId();
 const long DialogTS::ID_TEXTCTRL2 = wxNewId();
 const long DialogTS::ID_BUTTON3 = wxNewId();
 const long DialogTS::ID_BUTTON4 = wxNewId();
@@ -45,12 +48,14 @@ DialogTS::DialogTS(wxWindow* parent,wxWindowID id)
 	wxBoxSizer* BoxSizer3;
 	wxBoxSizer* BoxSizer4;
 	wxBoxSizer* BoxSizer5;
+	wxBoxSizer* BoxSizer6;
 	wxStaticBoxSizer* StaticBoxSizer1;
 	wxStaticBoxSizer* StaticBoxSizer2;
 	wxStaticBoxSizer* StaticBoxSizer3;
 	wxStaticBoxSizer* StaticBoxSizer4;
 	wxStaticBoxSizer* StaticBoxSizer5;
 	wxStaticBoxSizer* StaticBoxSizer6;
+	wxStaticBoxSizer* StaticBoxSizer7;
 
 	Create(parent, id, _T("Time Series Analysis"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("id"));
 	Move(wxPoint(420,-1));
@@ -67,6 +72,16 @@ DialogTS::DialogTS(wxWindow* parent,wxWindowID id)
 	BoxSizer4->Add(m_butScriptTextOpen, 0, wxALL, 5);
 	StaticBoxSizer1->Add(BoxSizer4, 0, wxALL|wxEXPAND, 5);
 	m_sizerBools->Add(StaticBoxSizer1, 0, wxALL|wxEXPAND, 5);
+	StaticBoxSizer7 = new wxStaticBoxSizer(wxVERTICAL, this, _T("Script Py Custom"));
+	BoxSizer6 = new wxBoxSizer(wxHORIZONTAL);
+	m_txtScriptPathPy = new wxTextCtrl(this, ID_TEXTCTRL4, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL4"));
+	BoxSizer6->Add(m_txtScriptPathPy, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	m_butScriptTextPy = new wxButton(this, ID_BUTTON7, _T("Find"), wxDefaultPosition, wxSize(50,-1), 0, wxDefaultValidator, _T("ID_BUTTON7"));
+	BoxSizer6->Add(m_butScriptTextPy, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	m_butScriptTextOpenPy = new wxButton(this, ID_BUTTON8, _T("Open"), wxDefaultPosition, wxSize(50,-1), 0, wxDefaultValidator, _T("ID_BUTTON8"));
+	BoxSizer6->Add(m_butScriptTextOpenPy, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	StaticBoxSizer7->Add(BoxSizer6, 1, wxALL|wxEXPAND, 5);
+	m_sizerBools->Add(StaticBoxSizer7, 0, wxALL|wxEXPAND, 5);
 	StaticBoxSizer4 = new wxStaticBoxSizer(wxVERTICAL, this, _T("Script R Custom"));
 	BoxSizer5 = new wxBoxSizer(wxHORIZONTAL);
 	m_txtScriptPathR = new wxTextCtrl(this, ID_TEXTCTRL2, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL2"));
@@ -100,7 +115,7 @@ DialogTS::DialogTS(wxWindow* parent,wxWindowID id)
 	m_chkTechs->SetValue(true);
 	m_chkTechs->Hide();
 	m_sizerBools->Add(m_chkTechs, 0, wxEXPAND, 5);
-	StaticBoxSizer6 = new wxStaticBoxSizer(wxHORIZONTAL, this, _T("Lags ACF/PACF + Seasonal Period"));
+	StaticBoxSizer6 = new wxStaticBoxSizer(wxHORIZONTAL, this, _T("Lags ACF/PACF       Seasonal Period"));
 	m_spinLagACF = new wxSpinCtrl(this, ID_SPINCTRL1, _T("30"), wxDefaultPosition, wxSize(110,-1), 0, 1, 100, 30, _T("ID_SPINCTRL1"));
 	m_spinLagACF->SetValue(_T("30"));
 	m_spinLagACF->SetToolTip(_T("Lag ACF/PACF"));
@@ -123,6 +138,8 @@ DialogTS::DialogTS(wxWindow* parent,wxWindowID id)
 
 	Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DialogTS::Onm_butScriptTextClick);
 	Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DialogTS::Onm_butScriptTextOpenClick);
+	Connect(ID_BUTTON7,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DialogTS::Onm_butScriptTextPyClick);
+	Connect(ID_BUTTON8,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DialogTS::Onm_butScriptTextOpenPyClick);
 	Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DialogTS::Onm_butScriptTextRClick);
 	Connect(ID_BUTTON4,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DialogTS::Onm_butScriptTextOpenRClick);
 	Connect(ID_BUTTON5,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&DialogTS::Onm_butScriptTextGenClick);
