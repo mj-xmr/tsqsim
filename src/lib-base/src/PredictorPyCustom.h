@@ -1,27 +1,25 @@
-#ifndef PREDICTORRBASELINE_H
-#define PREDICTORRBASELINE_H
+#ifndef PREDICTORPYCUSTOM_H
+#define PREDICTORPYCUSTOM_H
 
 #include <PredictorBase.h>
 
 
-class PredictorRBaseline : public PredictorBase
+class PredictorPyCustom : public PredictorBase
 {
     public:
-        PredictorRBaseline(const IDataProvider & dat);
-        virtual ~PredictorRBaseline();
-
+        PredictorPyCustom(const IDataProvider & dat);
+        virtual ~PredictorPyCustom();
+        
         EnjoLib::VecD PredictVec(const EnjoLib::VecD & data) const override;
         double PredictNext(const BufferDouble & datExpanding) const override;
         unsigned GetLags() const override;
         
-        static const char * SCRIPT_NAME;
-        //static const char * FUNCTION_NAME;
-        
         bool IsCustomScript() const override;
 
     protected:
+        EnjoLib::VecD ExePython(const EnjoLib::VecD & data, bool movingWindow = true) const;
 
     private:
 };
 
-#endif // PREDICTORRBASELINE_H
+#endif // PREDICTORPYCUSTOM_H

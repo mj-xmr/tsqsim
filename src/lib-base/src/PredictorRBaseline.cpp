@@ -14,6 +14,12 @@ PredictorRBaseline::~PredictorRBaseline()
 {
 }
 
+
+bool PredictorRBaseline::IsCustomScript() const
+{
+    return true;
+}
+
 EnjoLib::VecD PredictorRBaseline::PredictVec(const EnjoLib::VecD & data) const
 {
     // Invoke a function in R

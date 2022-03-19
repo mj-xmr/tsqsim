@@ -196,6 +196,7 @@ EnjoLib::VecD SimulatorTS::PredCommon(const IPredictor & predAlgo, const EnjoLib
     if (m_cfgTS.USE_VECTOR_PRED)
     {
         const EnjoLib::VecD & predVec = predAlgo.AssertNoLookaheadBiasGetVec(data);
+        //const EnjoLib::VecD & predVec = predAlgo.PredictVec(data); // Dangerous
         return predVec;
     }
     else

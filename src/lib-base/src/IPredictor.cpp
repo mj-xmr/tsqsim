@@ -78,3 +78,8 @@ void IPredictor::AssertNoLookaheadBias(const EnjoLib::VecD & data, const EnjoLib
     /// TODO: eps must be a percentage!
     Assertions::IsTrue (Logic::DoublesEqual(predLast,  predVec.Last(), 0.01),       "DoublesEqual(predLast,  predVec)");
 }
+
+bool IPredictor::IsCustomScript() const
+{
+    return false;
+}

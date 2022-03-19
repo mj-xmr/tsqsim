@@ -22,6 +22,7 @@ class wxUtil
         void InitChoice(wxChoice* choice, int start, int end) const;
         void FromChoiceToLongInt(const wxChoice* choice, long int * out) const;
         void AutoGenCheckBox(wxWindow * dialog, const IConfig & cfg, wxBoxSizer * sizer, MapCheckbox * mapCheckbox, wxObjectEventFunction fun) const;
+        bool ExecuteDefaultEditorOnTextFile(const wxString & filePath);
 
     protected:
 
