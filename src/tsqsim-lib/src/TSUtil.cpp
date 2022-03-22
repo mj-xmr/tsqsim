@@ -4,9 +4,15 @@
 #include "TSFunFactory.h"
 #include "TSInput.h"
 #include "SimulatorTSFactory.h"
+#include "PredictorType.h"
+#include "MatplotLine.h"
 
 #include "ConfigMan.h"
 #include "ConfigTS.h"
+#include "ConfigSym.h"
+
+#include <Util/CoutBuf.hpp>
+#include <Util/TimerChrono.hpp>
 
 TSUtil::TSUtil(){}
 TSUtil::~TSUtil(){}
@@ -24,6 +30,30 @@ CorPtr<ISimulatorTS> TSUtil::GetSim(const IPeriod & per, const StartEnd & startE
     CorPtr<ITSFun> fun = tsFunFact.Create(tsin, tsFunType);
     CorPtr<ISimulatorTS> sim = simFact.CreateTS(tsin, *fun);
     sim->RunRaw(startEndFrame);
+    return CorPtr<ISimulatorTS>(sim.release());
+}
+
+CorPtr<ISimulatorTS> TSUtil::GetSimBenchmark(const IPeriod & per, const PredictorType & predType, const EnjoLib::Str & scriptName, const StartEnd & startEndFrame) const
+{
+    const SimulatorTSFactory simFact;
+    const TSFunFactory tsFunFact;
+
+    ConfigTS & confTS   = *gcfgMan.cfgTS.get();
+    const TSFunType tsFunType = TSFunType::TXT; /// TODO: make user's choice
+    confTS.SetPredType(predType);
+    confTS.SetScriptNamePy(scriptName);
+    const TSInput tsin(per, confTS);
+
+    CorPtr<ITSFun> fun = tsFunFact.Create(tsin, tsFunType);
+    CorPtr<ISimulatorTS> sim = simFact.CreateTS(tsin, *fun);
+    const EnjoLib::TimerChrono timer;
+    sim->RunRaw(startEndFrame);
+    const double seconds = timer.ToNowMilliseconds() / 1000.0;
+    
+    ELO
+    LOG << "Benchmarked " << (scriptName.size() ? scriptName : "Native C++") << EnjoLib::Nl;
+    LOG << "Time taken = " << seconds << "s\n";
+    
     return CorPtr<ISimulatorTS>(sim.release());
 }
 

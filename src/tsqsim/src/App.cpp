@@ -72,15 +72,39 @@ void App::Run(const CLIResult & cliResultCmdLine) const
         case OptiType::OPTI_TYPE_NONE:
         case OptiType::OPTI_TYPE_USE:
             {
-                CorPtr<ISimulatorTS> sim = TSUtil().GetSim(per);
-                if (confTS.PLOT_PYTHON)
+                if (confTS.BENCHMARK)
                 {
-                    PlotPython(confSym, confTS, *sim);
+                    CorPtr<ISimulatorTS> sim;
+                    sim = TSUtil().GetSimBenchmark(per, PredictorType::PRED_PY_CUSTOM, "py_statsmodels.py");
+                    if (confTS.PLOT_PYTHON)
+                    {
+                        PlotPython(confSym, confTS, *sim);
+                    }
+                    sim = TSUtil().GetSimBenchmark(per, PredictorType::PRED_PY_CUSTOM, "py_darts.py");
+                    if (confTS.PLOT_PYTHON)
+                    {
+                        PlotPython(confSym, confTS, *sim);
+                    }
+                    sim = TSUtil().GetSimBenchmark(per, PredictorType::PRED_AR);
+                    if (confTS.PLOT_PYTHON)
+                    {
+                        PlotPython(confSym, confTS, *sim);
+                    }
+                    LOGL << "Benchmark complete\n";
                 }
-                if (confTS.PLOT_PYTHON_ACF)
+                else
                 {
-                    PlotPythonACF(confSym, confTS, *sim);
+                    CorPtr<ISimulatorTS> sim = TSUtil().GetSim(per);
+                    if (confTS.PLOT_PYTHON)
+                    {
+                        PlotPython(confSym, confTS, *sim);
+                    }
+                    if (confTS.PLOT_PYTHON_ACF)
+                    {
+                        PlotPythonACF(confSym, confTS, *sim);
+                    }
                 }
+
             }
         break;
         case OptiType::OPTI_TYPE_XVALID:
