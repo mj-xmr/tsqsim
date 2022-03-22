@@ -150,13 +150,13 @@ def benchmark(args):
     os.chdir(DIR_BIN)
 
     cmd = get_exports_cmd()
-    cmd += '&& ./tsqsim --bencmhark'
+    cmd += '&& ./tsqsim --benchmark'
 
     if platform.system() == 'Windows':
         #subprocess.run("ls ../..", shell=True, check=True)
         shutil.move('../../data', '.') # TODO: Ugly
         shutil.move('../../../src/tsqsim-lib/static', '.') # TODO: Even uglier
-        cmd = "tsqsim.exe --bencmhark"
+        cmd = "tsqsim.exe --benchmark"
 
     proc = subprocess.run(cmd, shell=True, check=True)
 

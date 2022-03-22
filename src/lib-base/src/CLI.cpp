@@ -25,6 +25,7 @@ EnjoLib::Result<CLIResult> CLI::GetConfigs(int argc, char ** argv) const
     const char * OPT_PERIOD  = "per";
     const char * OPT_LAGS  = "lags";
     const char * OPT_PER_SEASONAL  = "per-seasonal";
+    const char * OPT_BENCHMARK  = "benchmark";
 
 
     EnjoLib::ProgramOptionsState popState;
@@ -38,6 +39,8 @@ EnjoLib::Result<CLIResult> CLI::GetConfigs(int argc, char ** argv) const
 
     popState.AddInt(OPT_LAGS,           ConfigTS::DESCR_PLOT_LAGS_NUM);
     popState.AddInt(OPT_PER_SEASONAL,   ConfigTS::DESCR_PLOT_PERIOD_NUM);
+    
+    popState.AddBool(OPT_BENCHMARK,     ConfigTS::DESCR_BENCHMARK);
 
 
     popState.ReadArgs(argc, argv);
@@ -80,6 +83,8 @@ EnjoLib::Result<CLIResult> CLI::GetConfigs(int argc, char ** argv) const
 
     confTS.PLOT_LAGS_NUM        = pops.GetIntFromMap(OPT_LAGS);
     confTS.PLOT_PERIOD_NUM      = pops.GetIntFromMap(OPT_PER_SEASONAL);
+    
+    confTS.BENCHMARK            = pops.GetBoolFromMap(OPT_BENCHMARK);
 
     //auto pluginName = pops.GetStrFromMap (OPT_PLUGIN);
 

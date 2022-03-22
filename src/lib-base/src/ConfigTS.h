@@ -46,6 +46,7 @@ class ConfigTS : public ConfigBase
         bool MT_REPORT = false;
         bool MT_XFORM = false;
         bool USE_VECTOR_PRED = false;
+        bool BENCHMARK = false; constexpr static const char * DESCR_BENCHMARK = "Benchmark the simulator against other frameworks";
 
         long int PRED_TYPE = 0;
         long int PRICE_TYPE = 0;
