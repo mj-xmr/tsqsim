@@ -41,6 +41,8 @@ void ConfigTS::RegisterAndReadBools(EnjoLib::Istream & f)
     RegisterAndReadBool(f, MT_XFORM,                 1, "MT xform",         "Perform the transformations in a multithreaded way (still unstable)");
     RegisterAndReadBool(f, MT_REPORT,                0, "MT report",        "Generate report in multithreaded way (still unstable)");
     RegisterAndReadBool(f, USE_VECTOR_PRED,          1, "Opti vec pred",    "Use optimized vectored prediction");
+    RegisterAndReadBool(f, BENCHMARK,                0, "Benchmark",    DESCR_BENCHMARK);
+    
 }
 
 void ConfigTS::RegisterAndReadInts(EnjoLib::Istream & f)
