@@ -79,6 +79,11 @@ TEST(Pred_all_zero_cond)
             LOGL << "Ignoring: " << typeStr.at(iType) << Nl;
             continue;
         }
+        if (type != PredictorType::PRED_AR)
+        {
+            LOGL << "TODO: REMOVE ME. Ignoring: " << typeStr.at(iType) << Nl;
+            continue;  /// TODO: Remove me
+        }
         CorPtr<ISymbol> sym = SymbolFactoryClean().Create("Ordered");
         OrderedSeries oser(*sym);
         //oser.FeedVals(vecTrue); // Not needed
