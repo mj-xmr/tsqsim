@@ -52,8 +52,8 @@ class ConfigTS : public ConfigBase
         bool USE_VECTOR_PRED = false;
         bool BENCHMARK = false; constexpr static const char * DESCR_BENCHMARK = "Benchmark the simulator against other frameworks";
 
-        long int PRED_TYPE = -1;
-        long int PRICE_TYPE = -1;
+        long int PRED_TYPE = 0;
+        long int PRICE_TYPE = 0;
         long int PLOT_LAGS_NUM = 30; constexpr static const char * DESCR_PLOT_LAGS_NUM = "Number of lags for ACF/PACF plot";
         long int PLOT_PERIOD_NUM = 30; constexpr static const char * DESCR_PLOT_PERIOD_NUM = "Seasonal period for seasonal decomposition plot";
 

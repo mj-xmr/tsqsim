@@ -7,6 +7,9 @@ dta = pd.DataFrame(dat)
 
 lagggg = lag
 
+def backline():        
+    print('\r', end='')                     # use '\r' to go back
+
 def moving_window(pred_function):
     end = len(dat)
     #strt = int(len(dat)/4)
@@ -16,7 +19,8 @@ def moving_window(pred_function):
         strt = end
     lst = [0] * strt
     for start in range(strt, len(dat)):
-        print(start, "/", end)
+        print(start, "/", end, end='')
+        backline()
         expanding = dat[:start]
         dtaExp = pd.DataFrame(expanding)
         pred_vec = pred_function(dtaExp, lagggg)
