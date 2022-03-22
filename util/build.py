@@ -39,6 +39,7 @@ def get_parser():
     parser.add_argument('-w', '--no-wx',     default=False, action='store_true', help="don't build WX apps (default: OFF)")
     parser.add_argument('-t', '--no-tests',  default=False, action='store_true', help="don't build Tests (default: OFF)")
     parser.add_argument('-r', '--run-demo',  default=False, action='store_true', help="run demo (default: OFF)")
+    parser.add_argument('-b', '--benchmark', default=False, action='store_true', help="benchmark (default: OFF)")
     parser.add_argument('-c', '--compiler',  default="", help='compiler ({}; default: autodetect)'.format('/'.join(COMPILERS)))
     parser.add_argument('-j', '--proc',      default=NPROC, type=int, help="number of cores to use (default: all)")
     parser.add_argument('-m', '--make',      default="make", help="'make' program (for ex.: ninja; default: make)")
@@ -132,6 +133,34 @@ def build(args):
     #print(cmd)
 def run_demo(args):
     os.chdir(DIR_BIN)
+    cmd = get_exports_cmd()
+    cmd += '&& ./tsqsim --help'
+    cmd += '&& ./tsqsim'
+
+    if platform.system() == 'Windows':
+        #subprocess.run("ls ../..", shell=True, check=True)
+        shutil.move('../../data', '.') # TODO: Ugly
+        shutil.move('../../../src/tsqsim-lib/static', '.') # TODO: Even uglier
+        cmd = "tsqsim.exe --help && tsqsim.exe"
+
+    proc = subprocess.run(cmd, shell=True, check=True)
+    proc = subprocess.run(cmd, shell=True, check=True) # Run again to test the deserialization
+
+def benchmark(args):
+    os.chdir(DIR_BIN)
+
+    cmd = get_exports_cmd()
+    cmd += '&& ./tsqsim --bencmhark'
+
+    if platform.system() == 'Windows':
+        #subprocess.run("ls ../..", shell=True, check=True)
+        shutil.move('../../data', '.') # TODO: Ugly
+        shutil.move('../../../src/tsqsim-lib/static', '.') # TODO: Even uglier
+        cmd = "tsqsim.exe --bencmhark"
+
+    proc = subprocess.run(cmd, shell=True, check=True)
+
+def get_exports_cmd():
     exports_r = ""
     if platform.system() == 'Linux':
         exports_r = "&& export R_HOME=/usr/lib/R && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib"
@@ -145,22 +174,15 @@ def run_demo(args):
     cmd = ""
     cmd += ' export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:lib' # TODO: Solve in CMake?
     cmd += exports_r
-    cmd += '&& ./tsqsim --help'
-    cmd += '&& ./tsqsim'
 
-    if platform.system() == 'Windows':
-        #subprocess.run("ls ../..", shell=True, check=True)
-        shutil.move('../../data', '.') # TODO: Ugly
-        shutil.move('../../../src/tsqsim-lib/static', '.') # TODO: Even uglier
-        cmd = "tsqsim.exe --help && tsqsim.exe"
-
-    proc = subprocess.run(cmd, shell=True, check=True)
-    proc = subprocess.run(cmd, shell=True, check=True) # Run again to test the deserialization
+    return cmd
 
 def main(args):
     build(args)
     if args.run_demo:
         run_demo(args)
+    if args.benchmark:
+        benchmark(args)
 
 if __name__ == "__main__":
     parser = get_parser()
