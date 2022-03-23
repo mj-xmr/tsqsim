@@ -73,6 +73,9 @@ def get_r_path(search_dir = '.'):
 
 def build(args):
     print("Args = ", args)
+    if args.benchmark:
+        print("Enforcing LTO for the benchmark.")
+        args.lto = True
     if args.lto and args.shared:
         print("Enforcing a static build for the LTO to make sense.")
         args.shared = False
