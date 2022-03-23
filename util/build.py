@@ -170,6 +170,7 @@ def get_exports_cmd():
         if os.path.isdir(dir_osx11):
             dir_framework = dir_osx11
         exports_r = "&& export R_HOME={} && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib".format(dir_framework)
+        exports_r = "" # TODO: No R for now
     
     cmd = ""
     cmd += ' export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:lib' # TODO: Solve in CMake?

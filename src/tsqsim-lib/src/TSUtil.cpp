@@ -51,8 +51,8 @@ CorPtr<ISimulatorTS> TSUtil::GetSimBenchmark(const IPeriod & per, const Predicto
     const double seconds = timer.ToNowMilliseconds() / 1000.0;
     
     ELO
-    LOG << "Benchmarked " << (scriptName.size() ? scriptName : "Native C++") << EnjoLib::Nl;
-    LOG << "Time taken = " << seconds << "s\n";
+    LOG << "Benchmarked '" << (scriptName.size() ? scriptName : "Native C++") << "'\t";
+    LOG << "Time taken = " << seconds << "s\n\n";
     
     return CorPtr<ISimulatorTS>(sim.release());
 }
