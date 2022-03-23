@@ -48,8 +48,8 @@ void ConfigTS::RegisterAndReadBools(EnjoLib::Istream & f)
 
 void ConfigTS::RegisterAndReadInts(EnjoLib::Istream & f)
 {
-    RegisterAndReadInt (f, PRED_TYPE, static_cast<long int>(PriceType::HIGH));
-    RegisterAndReadInt (f, PRICE_TYPE, 0);
+    RegisterAndReadInt (f, PRED_TYPE, 0);
+    RegisterAndReadInt (f, PRICE_TYPE, static_cast<long int>(PriceType::HIGH));
     RegisterAndReadInt (f, PLOT_LAGS_NUM, 30);
     RegisterAndReadInt (f, PLOT_PERIOD_NUM, 30);
 }
