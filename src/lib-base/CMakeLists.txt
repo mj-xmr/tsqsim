@@ -9,7 +9,7 @@ find_package(R)
 file( GLOB SRCS src/*.cpp */*.h */*.hpp)
 
 if (R_FOUND)
-	option(WITH_FEATURE_R 	"Use R" ON)
+	option(WITH_FEATURE_R 	"Use R" OFF) # TODO: Revert me. APPLE workaround
 else()
 	option(WITH_FEATURE_R 	"Use R" OFF)
 endif()
