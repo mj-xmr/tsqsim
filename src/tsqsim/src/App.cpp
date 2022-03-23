@@ -80,10 +80,10 @@ void App::Run(const CLIResult & cliResultCmdLine) const
                     {
                         PlotPython(confSym, confTS, *sim);
                     }
-                    sim = TSUtil().GetSimBenchmark(per, PredictorType::PRED_PY_CUSTOM, "py_darts.py");
+                    //sim = TSUtil().GetSimBenchmark(per, PredictorType::PRED_PY_CUSTOM, "py_darts.py");
                     if (confTS.PLOT_PYTHON)
                     {
-                        PlotPython(confSym, confTS, *sim);
+                       // PlotPython(confSym, confTS, *sim);
                     }
                     sim = TSUtil().GetSimBenchmark(per, PredictorType::PRED_AR);
                     if (confTS.PLOT_PYTHON)

@@ -40,6 +40,7 @@ def get_parser():
     parser.add_argument('-t', '--no-tests',  default=False, action='store_true', help="don't build Tests (default: OFF)")
     parser.add_argument('-r', '--run-demo',  default=False, action='store_true', help="run demo (default: OFF)")
     parser.add_argument('-b', '--benchmark', default=False, action='store_true', help="benchmark (default: OFF)")
+    parser.add_argument('-o', '--plot',      default=False, action='store_true', help="plot in Python (default: OFF)")
     parser.add_argument('-c', '--compiler',  default="", help='compiler ({}; default: autodetect)'.format('/'.join(COMPILERS)))
     parser.add_argument('-j', '--proc',      default=NPROC, type=int, help="number of cores to use (default: all)")
     parser.add_argument('-m', '--make',      default="make", help="'make' program (for ex.: ninja; default: make)")
@@ -138,13 +139,13 @@ def run_demo(args):
     os.chdir(DIR_BIN)
     cmd = get_exports_cmd()
     cmd += '&& ./tsqsim --help'
-    cmd += '&& ./tsqsim'
+    cmd += '&& ./tsqsim ' + get_cmdline(args)
 
     if platform.system() == 'Windows':
         #subprocess.run("ls ../..", shell=True, check=True)
         shutil.move('../../data', '.') # TODO: Ugly
         shutil.move('../../../src/tsqsim-lib/static', '.') # TODO: Even uglier
-        cmd = "tsqsim.exe --help && tsqsim.exe"
+        cmd = "tsqsim.exe --help && tsqsim.exe " + get_cmdline(args)
 
     proc = subprocess.run(cmd, shell=True, check=True)
     proc = subprocess.run(cmd, shell=True, check=True) # Run again to test the deserialization
@@ -153,13 +154,13 @@ def benchmark(args):
     os.chdir(DIR_BIN)
 
     cmd = get_exports_cmd()
-    cmd += '&& ./tsqsim --benchmark'
+    cmd += '&& ./tsqsim --benchmark ' + get_cmdline(args)
 
     if platform.system() == 'Windows':
         #subprocess.run("ls ../..", shell=True, check=True)
         shutil.move('../../data', '.') # TODO: Ugly
         shutil.move('../../../src/tsqsim-lib/static', '.') # TODO: Even uglier
-        cmd = "tsqsim.exe --benchmark"
+        cmd = "tsqsim.exe --benchmark " + get_cmdline(args)
 
     proc = subprocess.run(cmd, shell=True, check=True)
 
@@ -179,6 +180,11 @@ def get_exports_cmd():
     cmd += exports_r
 
     return cmd
+
+def get_cmdline(args):
+    if args.plot:
+        return " --plot"
+    return ""
 
 def main(args):
     build(args)
