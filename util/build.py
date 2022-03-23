@@ -194,7 +194,6 @@ def benchmark(args):
     proc = subprocess.run(cmd, shell=True, check=True)
 
 def get_exports_cmd():
-        exports_r = "" # TODO: No R for now
 
     cmd = ""
     cmd += ' export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:lib' # TODO: Solve in CMake?
