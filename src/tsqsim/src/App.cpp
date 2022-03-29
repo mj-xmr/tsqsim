@@ -93,6 +93,7 @@ void App::Run(const CLIResult & cliResultCmdLine) const
                 {
                     Benchmark(per, confSym, confTS, PredictorType::PRED_PY_CUSTOM, "py_statsmodels.py");
                     Benchmark(per, confSym, confTS, PredictorType::PRED_PY_CUSTOM, "py_darts.py");
+                    Benchmark(per, confSym, confTS, PredictorType::PRED_PY_CUSTOM, "py_cuml.py");
                     Benchmark(per, confSym, confTS, PredictorType::PRED_AR);
                     LOGL << "Benchmark complete\n";
                 }
