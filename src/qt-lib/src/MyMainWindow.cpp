@@ -140,7 +140,7 @@ void MyMainWindow::RegressionPlot(bool opti)
         const PlotDataBase & d = *m_mons.m_d;
 
         //LOGL << "Reg Start End = " << reg.past << ", " << reg.future << Endl;
-        //LOGL << "Reg diff = " << abs(reg.past - reg.future) - gcfg.REGRESS_MIN_SAMPLES << Endl;
+        //LOGL << "Reg diff = " << GMat().(reg.past - reg.future) - gcfg.REGRESS_MIN_SAMPLES << Endl;
         for (QCPAbstractItem * line : m_regressLineUser) {LOGL << ""; ui->customPlot->removeItem(line);} m_regressLineUser.clear();
         /// TODO: Restore
         //m_regressLineUser = RegressionPrepare().Prep(ui->customPlot, per, m_mons.m_strategy.get(), d, opti, m_mons.reg);
