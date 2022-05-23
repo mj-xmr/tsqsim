@@ -53,6 +53,7 @@ class SimulatorTS : public ISimulatorTS
         EnjoLib::VecD GetMA(int period = 100) const;
         EnjoLib::VecD GetMA2Diff(const EnjoLib::VecD & maa, int period = 100) const;
         void OutputVariable(const EnjoLib::VecD & var, const EnjoLib::Str & name) const;
+        void OutputVariable(double var, const EnjoLib::Str & name) const;
 
     protected:
         bool IsVerbose() const;

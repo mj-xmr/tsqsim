@@ -382,6 +382,7 @@ EnjoLib::VecD SimulatorTS::GetMA2Diff(const EnjoLib::VecD & maa, int period) con
         const Str name = "hashrate_bonus_ma";
         LOGL << name << " = " << chgFin << Nl;
         OutputVariable(ret, name);
+        OutputVariable(chgFin, name + "_single");
     }
     else
     {
@@ -396,6 +397,15 @@ void SimulatorTS::OutputVariable(const EnjoLib::VecD & var, const EnjoLib::Str &
     {
         EnjoLib::Ofstream outFile(m_cfgTS.m_outDir + "/" + name + ".dat");
         outFile << var.Print() << Nl;
+    }
+}
+
+void SimulatorTS::OutputVariable(double var, const EnjoLib::Str & name) const
+{
+    if (m_cfgTS.m_outDir.size())
+    {
+        EnjoLib::Ofstream outFile(m_cfgTS.m_outDir + "/" + name + ".dat");
+        outFile << var << Nl;
     }
 }
 
