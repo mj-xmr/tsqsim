@@ -10,7 +10,7 @@ using namespace EnjoLib;
 
 PredictorSMAMA::PredictorSMAMA(const IDataProvider & dat)
 : PredictorBase(dat, "SMAMA_MA")
-, m_lagMine(dat, "LAG_SMAMA", true, 10, 1, 50, 1)
+, m_lagMine(dat, "LAG_SMAMA", true, 10, 1, 150, 1)
 {
     AddOptiVar(m_lagMine);
 }
@@ -24,7 +24,7 @@ EnjoLib::VecD PredictorSMAMA::PredictVec(const EnjoLib::VecD & data) const
     const EnjoLib::VecD & predSma = util.SimpleMA(numSamplesSma, data);
     const EnjoLib::VecD & errors = util.GetErrorsCorrected(predSma, data);
     const EnjoLib::VecD & predMA = util.Regression(numSamplesMA, errors);
-    const EnjoLib::VecD & SMAMA = predSma + predMA;
+    const EnjoLib::VecD & SMAMA = predSma;// + predMA;
 
     return SMAMA;
 }

@@ -10,6 +10,7 @@
 #include "TicksProviderGenerated.h"
 #include "TicksProviderAdaptive.h"
 #include "TicksProviderAdaptiveFake.h"
+#include "TicksProviderTxtAdHoc.h"
 
 TickProviderFactory::TickProviderFactory(){}
 TickProviderFactory::~TickProviderFactory(){}
@@ -28,6 +29,8 @@ CorPtr<ITicksProvider> TickProviderFactory::Create(TickProviderType type) const
         return CorPtr<ITicksProvider>(new TicksProviderXMRFake());
     case TickProviderType::XMR:
         return CorPtr<ITicksProvider>(new TicksProviderAdaptive());
+    case TickProviderType::DATA_FILE:
+        return CorPtr<ITicksProvider>(new TicksProviderTxtAdHoc());    
     case TickProviderType::ADAPTIVE:
         return CorPtr<ITicksProvider>(new TicksProviderAdaptive());
     case TickProviderType::ADAPTIVE_FAKE:

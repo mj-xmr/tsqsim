@@ -203,7 +203,17 @@ void PlotElements::SetupTechsVec(QCustomPlot * p, const IStrategy & strat, QCPAx
 
 void PlotElements::SetupTechsXform(QCustomPlot * p, const ISimulatorTS & simTS, QCPAxisRect *techRect, const PlotDataBase & d)
 {
-    SetupTSLine(p, techRect, d, simTS, PredictorOutputType::SERIES,     QPen(Qt::blue),   "Series");
+    const ConfigQTPlot & confPlot = *gcfgMan.cfgQTPlot;
+    if (confPlot.MA)
+    {
+        Util::AddMA(d.GetTime(), Util::stdVectToQVectF(simTS.GetOutputSeries(PredictorOutputType::MA).Data()),               p, Qt::green);
+    }
+    
+    SetupTSLine(p, techRect, d, simTS, PredictorOutputType::SEASONAL,     QPen(Qt::green),  "Seasonal");
+    SetupTSLine(p, techRect, d, simTS, PredictorOutputType::MA2DIFF,     QPen(Qt::green),  "MA2diff");
+    SetupTSLine(p, techRect, d, simTS, PredictorOutputType::MA2DIFF_NO_SEASONAL,  QPen(Qt::blue),  "MA2diff");
+    
+    //SetupTSLine(p, techRect, d, simTS, PredictorOutputType::SERIES,     QPen(Qt::blue),   "Series");
     //SetupTSLine(p, techRect, d, simTS, PredictorOutputType::PREDICTION, QPen(Qt::green),  "Prediction");
     //SetupTSLine(p, techRect, d, simTS, PredictorOutputType::BASELINE,   QPen(Qt::gray),   "Baseline");
 }
@@ -226,6 +236,10 @@ QCPGraph * PlotElements::SetupTSLine(QCustomPlot * p, QCPAxisRect *techRect, con
     newCurve->setPen(pen);
     const VecD & tsdata = simTS.GetOutputSeries(type);
     SetupTechLine(p, d, Util::stdVectToQVectF(tsdata.Data()), newCurve);
+    QCPItemText * txt = new QCPItemText(p);
+    txt->setText(name);
+    txt->position->setCoords(10, 10);
+    txt->setPen(pen);
     return newCurve;
 }
 

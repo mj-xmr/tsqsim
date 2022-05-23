@@ -1,4 +1,5 @@
 #include "DataDates.h"
+#include "TimeUtil.h"
 
 #include <Ios/Osstream.hpp>
 
@@ -15,6 +16,13 @@ void DataDates::Set0()
     yearStart = yearEnd = monthStart = monthEnd = 0;
 }
 
+void DataDates::SetNoEnd()
+{
+    const TimeUtil tut;
+    monthEnd = tut.GetCurrentMonth();
+    yearEnd = tut.GetCurrentYear();
+}
+    
 EnjoLib::Str DataDates::ToStr() const
 {
     EnjoLib::Osstream oss;
