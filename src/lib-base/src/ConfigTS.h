@@ -36,6 +36,8 @@ class ConfigTS : public ConfigBase
         EnjoLib::Str m_scriptPathTxt;
         EnjoLib::Str m_scriptPathTxtR;
         EnjoLib::Str m_scriptPathTxtGen;
+        EnjoLib::Str m_outDir;
+        
         bool crashOnRecoverableErrors = false;
         bool PLOT_SERIES = true;
         bool PLOT_BASELINE = true;

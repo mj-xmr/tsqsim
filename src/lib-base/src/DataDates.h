@@ -10,6 +10,7 @@ class DataDates
         virtual ~DataDates() {}
 
         void Set0();
+        void SetNoEnd();
         void SetStart(int year, int month);
         void SetEnd(int year, int month);
         void UpdateIfNot0(const DataDates & other);

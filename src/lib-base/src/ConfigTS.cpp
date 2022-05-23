@@ -58,6 +58,7 @@ void ConfigTS::RegisterAndReadStrs(EnjoLib::Istream & f)
     RegisterAndReadStr(f, m_scriptPathTxt,      dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME);
     RegisterAndReadStr(f, m_scriptPathTxtR,     dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME_R);
     RegisterAndReadStr(f, m_scriptPathTxtGen,   dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME_GEN);
+    //RegisterAndReadStr(f, m_outDir,   "");
 }
 
 PredictorType ConfigTS::GetPredType() const
@@ -81,6 +82,8 @@ void ConfigTS::SetPriceType(const PriceType & type)
 
 void ConfigTS::UpdateFromOther(const ConfigTS & cfgTSCmdLine)
 {
+    if (cfgTSCmdLine.m_outDir.size()) m_outDir = cfgTSCmdLine.m_outDir;
+    
     if (cfgTSCmdLine.PLOT_LAGS_NUM > 0)
     {
         PLOT_LAGS_NUM = cfgTSCmdLine.PLOT_LAGS_NUM;

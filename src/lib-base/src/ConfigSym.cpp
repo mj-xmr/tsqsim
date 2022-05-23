@@ -60,6 +60,7 @@ void ConfigSym::UpdateFromOther(const ConfigSym & cfgSymCmdLine)
     dates.UpdateIfNot0(cfgSymCmdLine.dates);
     if (cfgSymCmdLine.symbol.size()) symbol = cfgSymCmdLine.symbol;
     if (cfgSymCmdLine.period.size()) period = cfgSymCmdLine.period;
+    if (cfgSymCmdLine.dataFile.size()) dataFile = cfgSymCmdLine.dataFile;
 }
 
 /*

@@ -49,6 +49,10 @@ class SimulatorTS : public ISimulatorTS
         EnjoLib::VecD Pred(const PredictorType & type) const;
         EnjoLib::VecD PredAlgo(const IPredictor & pred) const;
         EnjoLib::VecD PredCommon(const IPredictor & predAlgo, const EnjoLib::VecD & data) const;
+        EnjoLib::VecD GetSeasonal(int period = 24, int averages = 26) const;
+        EnjoLib::VecD GetMA(int period = 100) const;
+        EnjoLib::VecD GetMA2Diff(const EnjoLib::VecD & maa, int period = 100) const;
+        void OutputVariable(const EnjoLib::VecD & var, const EnjoLib::Str & name) const;
 
     protected:
         bool IsVerbose() const;
@@ -78,6 +82,10 @@ class SimulatorTS : public ISimulatorTS
         EnjoLib::VecD m_reconstrPred;
         EnjoLib::VecD m_reconstrPredBase;
         EnjoLib::VecD m_predsPlot;
+        EnjoLib::VecD m_seasonal;
+        EnjoLib::VecD m_ma;
+        EnjoLib::VecD m_ma2Diff;
+        EnjoLib::VecD m_ma2DiffNoSeasonal;
 
         CorPtr<IPredictor> m_ppred;
 

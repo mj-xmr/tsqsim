@@ -61,6 +61,9 @@ PredictorStatsRes PredictorStats::GenPoints(const EnjoLib::VecD & orig, const En
     res.rmsBase2Truth  = stat.RMSTwo(predBaseline,  orig); /// TODO: different readouts with diffs and without
     res.rmsPred2Base   = stat.RMSTwo(predCorrected, predBaseline);
     res.rmsPred2Truth  = stat.RMSTwo(predCorrected, orig);
+    //res.rmsBase2Truth  = (predBaseline - orig).Mean(); /// TODO: different readouts with diffs and without
+    //res.rmsPred2Base   = (predCorrected - predBaseline).Mean();
+    //res.rmsPred2Truth  = (predCorrected - orig).Mean();
 
     if (res.rmsBase2Truth != 0)
     {
