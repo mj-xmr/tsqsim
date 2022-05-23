@@ -395,7 +395,7 @@ void SimulatorTS::OutputVariable(const EnjoLib::VecD & var, const EnjoLib::Str &
     if (m_cfgTS.m_outDir.size())
     {
         EnjoLib::Ofstream outFile(m_cfgTS.m_outDir + "/" + name + ".dat");
-        outFile << var.PrintPython(name.c_str()) << Nl;
+        outFile << var.Print() << Nl;
     }
 }
 
