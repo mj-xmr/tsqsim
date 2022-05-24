@@ -13,9 +13,9 @@
 //#endif
 
 #ifdef WIN32
-    #define LOCALTIME localtime_s
+    #define LOCALTIME(time, localTime) localtime_s(localTime, time)
 #else
-    #define LOCALTIME localtime_r
+    #define LOCALTIME(time, localTime) localtime_r(time, localTime)
 #endif
     
 TimeUtil::TimeUtil(){}
