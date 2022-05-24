@@ -8,10 +8,16 @@
 #include <chrono>
 #include <ctime>
 
-#if defined(_MSC_VER)
-#   define localtime_r(T,Tm) (localtime_s(Tm,T) ? NULL : Tm)
-#endif
+//#if defined(_MSC_VER)
+//#   define localtime_r(T,Tm) (localtime_s(Tm,T) ? NULL : Tm)
+//#endif
 
+#ifdef WIN32
+    #define LOCALTIME localtime_s
+#else
+    #define LOCALTIME localtime_r
+#endif
+    
 TimeUtil::TimeUtil(){}
 TimeUtil::~TimeUtil(){}
 
@@ -34,7 +40,7 @@ int TimeUtil::GetCurrentTimeComponent(const char fmt) const
 {
     std::time_t t = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     std::tm ltime;
-    localtime_r(&t, &ltime);
+    LOCALTIME(&t, &ltime);
     EnjoLib::Osstream oss;
     const EnjoLib::Str fmtStr = EnjoLib::Str("%") + fmt;
     oss.OStr() << std::put_time(&ltime, fmtStr.c_str());
