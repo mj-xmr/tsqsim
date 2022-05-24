@@ -36,6 +36,7 @@ def get_parser():
     parser.add_argument('-p', '--pch',       default=False, action='store_true', help="build pch   (Dev case; default: OFF)")
     parser.add_argument('-u', '--unity',     default=False, action='store_true', help="build unity (CI case;  default: OFF)")
     parser.add_argument('-q', '--build-qt',  default=False, action='store_true', help="build QT apps (default: OFF)")
+    parser.add_argument('--build-r',         default=False, action='store_true', help="build R support (default: OFF)")
     parser.add_argument('-w', '--no-wx',     default=False, action='store_true', help="don't build WX apps (default: OFF)")
     parser.add_argument('-t', '--no-tests',  default=False, action='store_true', help="don't build Tests (default: OFF)")
     parser.add_argument('-r', '--run-demo',  default=False, action='store_true', help="run demo (default: OFF)")
@@ -109,6 +110,7 @@ def build(args):
     cmd += NL + '-DBUILD_WX={}'   .format(OFF if args.no_wx    else ON ) # Optional
     cmd += NL + '-DBUILD_TESTS={}'.format(OFF if args.no_tests else ON ) # Optional
     cmd += NL + '-DBUILD_BOOST={}'.format(ON) # Required
+    cmd += NL + '-DWITH_FEATURE_R={}'.format(ON if args.build_r else OFF) # TODO: Disabled for now
     if args.compiler:
         cmd += NL + '-DCMAKE_C_COMPILER="{}"'.format(cccompiler) 
         cmd += NL + '-DCMAKE_CXX_COMPILER="{}"'.format(cpcompiler)
