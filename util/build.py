@@ -38,6 +38,7 @@ def get_parser():
     parser.add_argument('-q', '--build-qt',  default=False, action='store_true', help="build QT apps (default: OFF)")
     parser.add_argument('--build-r',         default=False, action='store_true', help="build R support (default: OFF)")
     parser.add_argument('-w', '--no-wx',     default=False, action='store_true', help="don't build WX apps (default: OFF)")
+    parser.add_argument('-i', '--no-install',default=False, action='store_true', help="don't install (default: OFF)")
     parser.add_argument('-t', '--no-tests',  default=False, action='store_true', help="don't build Tests (default: OFF)")
     parser.add_argument('-r', '--run-demo',  default=False, action='store_true', help="run demo (default: OFF)")
     parser.add_argument('-c', '--compiler',  default="", help='compiler ({}; default: autodetect)'.format('/'.join(COMPILERS)))
@@ -120,10 +121,13 @@ def build(args):
     if platform.system() == 'Windows':
         cmd += NL + '&&' +  make + proc
         subprocess.run(cmd, shell=True, check=True)
-        subprocess.run(make + " install", shell=True, check=True)
+        if not args.no_install:
+            subprocess.run(make + " install", shell=True, check=True)
         subprocess.run(ctest, shell=True, check=True)   
     else:
-        cmd += NL + '&&' +  make + proc + '||' + make + '&&' + make + proc_local + 'install'
+        cmd += NL + '&&' +  make + proc + '||' + make
+        if not args.no_install:
+            cmd += '&&' + make + proc_local + 'install'
         cmd += NL + '&& (' + ctest + proc_local + '||' + ctest + ')'
 
         print('Build command:\n')
