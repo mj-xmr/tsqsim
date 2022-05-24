@@ -8,6 +8,10 @@
 #include <chrono>
 #include <ctime>
 
+#if defined(_MSC_VER)
+#   define localtime_r(T,Tm) (localtime_s(Tm,T) ? NULL : Tm)
+#endif
+
 TimeUtil::TimeUtil(){}
 TimeUtil::~TimeUtil(){}
 
