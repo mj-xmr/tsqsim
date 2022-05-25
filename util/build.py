@@ -42,6 +42,7 @@ def get_parser():
     parser.add_argument('-t', '--no-tests',  default=False, action='store_true', help="don't build Tests (default: OFF)")
     parser.add_argument('-r', '--run-demo',  default=False, action='store_true', help="run demo (default: OFF)")
     parser.add_argument('-c', '--compiler',  default="", help='compiler ({}; default: autodetect)'.format('/'.join(COMPILERS)))
+    parser.add_argument('-o', '--options',   default="", help='additional options in format "OPT1=ON OPT2=OFF" (default: none)')
     parser.add_argument('-j', '--proc',      default=NPROC, type=int, help="number of cores to use (default: all)")
     parser.add_argument('-m', '--make',      default="make", help="'make' program (for ex.: ninja; default: make)")
     parser.add_argument('-g', '--generator', default=GENERATOR, help='Generator of project files (default: "{}")'.format(GENERATOR))
@@ -117,6 +118,8 @@ def build(args):
         cmd += NL + '-DCMAKE_CXX_COMPILER="{}"'.format(cpcompiler)
         if platform.system() == 'Windows':
             cmd += NL + '-DCMAKE_MAKE_PROGRAM="{}"'.format(make.strip())
+    if args.options:
+        cmd += NL + '-D' + ' -D'.join(args.options.split())
             
     if platform.system() == 'Windows':
         cmd += NL + '&&' +  make + proc
