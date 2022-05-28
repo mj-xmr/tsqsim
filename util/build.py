@@ -149,6 +149,8 @@ def run_demo(args):
         #dir_osx11 = '/usr/local/Cellar/r/4.1.2/lib/R'
         #if os.path.isdir(dir_osx11):
         #    dir_framework = dir_osx11
+        if not os.path.isdir(dir_framework):
+            raise IOError("The R Framework's dir: {} wasn't found".format(dir_framework))
         exports_r = "&& export R_HOME={} && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib".format(dir_framework)
     
     cmd = ""
