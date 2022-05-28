@@ -58,9 +58,9 @@ def get_r_path(search_dir = '.'):
         exports_r = "&& export R_HOME=/usr/lib/R && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib"
     elif platform.system() == 'Darwin':
         dir_framework = '/Library/Frameworks/R.framework/Resources'
-        #dir_osx11 = '/usr/local/Cellar/r/4.1.2/lib/R'
-        #if os.path.isdir(dir_osx11):
-        #    dir_framework = dir_osx11
+        dir_osx11 = '/usr/local/Cellar/r/4.1.2/lib/R'
+        if os.path.isdir(dir_osx11):
+            dir_framework = dir_osx11
         if not os.path.isdir(dir_framework):
             raise IOError("The R Framework's dir: {} wasn't found".format(dir_framework))
         exports_r = "&& export R_HOME={} && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib".format(dir_framework)
