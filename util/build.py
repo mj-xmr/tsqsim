@@ -50,9 +50,9 @@ def get_parser():
     # TODO: select clang or mingw, if gcc is not available
     return parser
 
-def get_r_path():
+def get_r_path(search_dir = '.'):
     prev_dir = os.getcwd()
-    os.chdir(DIR_BIN)
+    os.chdir(search_dir)
     exports_r = ""
     if platform.system() == 'Linux':
         exports_r = "&& export R_HOME=/usr/lib/R && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib"
@@ -158,7 +158,7 @@ def build(args):
 
     #print(cmd)
 def run_demo(args):
-    exports_r = get_r_path()
+    exports_r = get_r_path(DIR_BIN)
     os.chdir(DIR_BIN)
 
     cmd = ""
