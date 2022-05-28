@@ -70,8 +70,6 @@ def get_r_path(search_dir = '.'):
 
 def build(args):
     print("Args = ", args)
-    exports_r = get_r_path()
-    print("Exports R = " + exports_r)
     if args.lto and args.shared:
         print("Enforcing a static build for the LTO to make sense.")
         args.shared = False
