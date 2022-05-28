@@ -62,9 +62,9 @@ jobs:
     - name: build & install the unmanaged dependencies
       run: util/deps-build.sh
     - name: build
-      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} --unity --build-qt
+      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} --unity --build-qt --build-r
     - name: run demo
-      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} --unity --build-qt --run-demo
+      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} --unity --build-qt --build-r --run-demo
 # It doesn't make sense for now, since we're not linking Boost statically yet.
 #    - uses: actions/upload-artifact@v2
 #      if: ${{ matrix.compiler == 'gcc' && matrix.linkage == '--lto' }}
@@ -111,9 +111,9 @@ jobs:
     - name: build & install the unmanaged dependencies
       run: util/deps-build.sh
     - name: build
-      run: ./ci-default --unity --lto
+      run: ./ci-default --unity --lto --build-r
     - name: run demo
-      run: ./ci-default --unity --lto --run-demo
+      run: ./ci-default --unity --lto --build-r --run-demo
     - uses: actions/upload-artifact@v2
       with:
         name: tsqsim-${{ matrix.os }}
