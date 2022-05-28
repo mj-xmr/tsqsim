@@ -50,6 +50,24 @@ def get_parser():
     # TODO: select clang or mingw, if gcc is not available
     return parser
 
+def get_r_path():
+    prev_dir = os.getcwd()
+    os.chdir(DIR_BIN)
+    exports_r = ""
+    if platform.system() == 'Linux':
+        exports_r = "&& export R_HOME=/usr/lib/R && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib"
+    elif platform.system() == 'Darwin':
+        dir_framework = '/Library/Frameworks/R.framework/Resources'
+        #dir_osx11 = '/usr/local/Cellar/r/4.1.2/lib/R'
+        #if os.path.isdir(dir_osx11):
+        #    dir_framework = dir_osx11
+        if not os.path.isdir(dir_framework):
+            raise IOError("The R Framework's dir: {} wasn't found".format(dir_framework))
+        exports_r = "&& export R_HOME={} && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib".format(dir_framework)
+    os.chdir(prev_dir)
+
+    return exports_r
+
 def build(args):
     print("Args = ", args)
     if args.lto and args.shared:
@@ -140,19 +158,9 @@ def build(args):
 
     #print(cmd)
 def run_demo(args):
+    exports_r = get_r_path()
     os.chdir(DIR_BIN)
-    exports_r = ""
-    if platform.system() == 'Linux':
-        exports_r = "&& export R_HOME=/usr/lib/R && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib"
-    elif platform.system() == 'Darwin':
-        dir_framework = '/Library/Frameworks/R.framework/Resources'
-        #dir_osx11 = '/usr/local/Cellar/r/4.1.2/lib/R'
-        #if os.path.isdir(dir_osx11):
-        #    dir_framework = dir_osx11
-        if not os.path.isdir(dir_framework):
-            raise IOError("The R Framework's dir: {} wasn't found".format(dir_framework))
-        exports_r = "&& export R_HOME={} && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib".format(dir_framework)
-    
+
     cmd = ""
     cmd += ' export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:lib' # TODO: Solve in CMake?
     cmd += exports_r
