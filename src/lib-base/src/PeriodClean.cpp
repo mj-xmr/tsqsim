@@ -37,7 +37,7 @@ struct PeriodClean::Impl
     Impl()
     : m_bufCan(m_candles)
     {
-        
+
     }
     EnjoLib::VectorViewable<MaPeriods> m_maPeriods;
     VecCanView m_candles;
@@ -288,23 +288,24 @@ float PeriodClean::GetLeverage() const
 const EnjoLib::Array<EnjoLib::VecF> & PeriodClean::GetBufVec(const BufferVecType & type) const
 {
     EnjoLib::Osstream oss;
-    oss << "Not handled buffer type: " << (int)type.GetType() << Nl;
+    oss << "PeriodClean::GetBufVec(): Not handled buffer type: " << (int)type.GetType() << Nl;
     throw EnjoLib::ExceptRuntimeError(oss.str());
 }
 
 Buffer PeriodClean::GetBuf(const BufferType & type) const
 {
-    return Buffer(EnjoLib::VecF(Len()), "PeriodClean::GetBuf");
+    /// TODO: Use HasBufs()?
+    //return Buffer(EnjoLib::VecF(Len()), "PeriodClean::GetBuf");
     EnjoLib::Osstream oss;
-    oss << "Not handled buffer type: " << (int)type.GetType() << Nl;
+    oss << "PeriodClean::GetBuf(): Not handled buffer type: " << (int)type.GetType() << Nl;
     throw EnjoLib::ExceptRuntimeError(oss.str());
 }
 
 BufferBool PeriodClean::GetBufBool(const BufferTypeBool & type) const
 {
-    return VecB(Len());
+    //return VecB(Len());
     EnjoLib::Osstream oss;
-    oss << "Not handled bool buffer type: " << (int)type.type << Nl;
+    oss << "PeriodClean::GetBufBool(): Not handled bool buffer type: " << (int)type.type << Nl;
     throw EnjoLib::ExceptRuntimeError(oss.str());
 }
 
@@ -358,9 +359,9 @@ EnjoLib::Str PeriodClean::GetName() const
     return TradeUtil().MinutesToPeriodName(GetNumTicks());
 }
 
-const SRVisibleData & PeriodClean::GetSRVisible(Direction dir) const 
-{ 
-    throw EnjoLib::ExceptNotImpl(); 
+const SRVisibleData & PeriodClean::GetSRVisible(Direction dir) const
+{
+    throw EnjoLib::ExceptNotImpl();
 }
 
 EnjoLib::View<MaPeriods> PeriodClean::GetMaUsedPeriods() const { return GetImpl().m_maPeriods; };

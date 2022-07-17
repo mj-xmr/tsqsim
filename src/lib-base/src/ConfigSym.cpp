@@ -43,6 +43,7 @@ void ConfigSym::RegisterAndReadInts(EnjoLib::Istream & f)
     RegisterAndReadInt (f, dates.monthStart, 1);
     RegisterAndReadInt (f, dates.monthEnd, 2);
     RegisterAndReadInt (f, strat, 0);
+    //RegisterAndReadInt (f, DATA_SOURCE, 0); /// TODO: express with a converted enum
     RegisterAndReadInt (f, DATA_SOURCE, 1); /// TODO: express with a converted enum
 }
 void ConfigSym::RegisterAndReadFloats(EnjoLib::Istream & f)
@@ -59,6 +60,7 @@ void ConfigSym::UpdateFromOther(const ConfigSym & cfgSymCmdLine)
     dates.UpdateIfNot0(cfgSymCmdLine.dates);
     if (cfgSymCmdLine.symbol.size()) symbol = cfgSymCmdLine.symbol;
     if (cfgSymCmdLine.period.size()) period = cfgSymCmdLine.period;
+    if (cfgSymCmdLine.dataFile.size()) dataFile = cfgSymCmdLine.dataFile;
 }
 
 /*
@@ -160,7 +162,7 @@ EnjoLib::Str ConfigSym::GetDateFromToStr(bool lineBreak) const
     EnjoLib::Osstream oss;
     oss << dates.yearStart << "." << cma.MakeLeadingZeroes(dates.monthStart, 2);
     oss << (lineBreak ? "\n" : " - " );
-    oss << dates.yearEnd   << "." << cma.MakeLeadingZeroes(dates.monthEnd, 2) << Nl;
+    oss << dates.yearEnd   << "." << cma.MakeLeadingZeroes(dates.monthEnd, 2);
     return oss.str();
 }
 

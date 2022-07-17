@@ -10,6 +10,7 @@
 #include <Util/CoutBuf.hpp>
 #include <Util/StrColour.hpp>
 #include <Util/Except.hpp>
+#include <Template/Array.hpp>
 
 #include <STD/VectorCpp.hpp>
 

@@ -1,7 +1,7 @@
 #ifndef DIALOGTS_H
 #define DIALOGTS_H
 
-//#include <Maps/MapSpin.hpp>
+#include <Maps/MapSpin.hpp>
 #include <Maps/MapCheckbox.hpp>
 #include <Maps/MapChoiceEnum.hpp>
 #include <MyChoiceEnum.h>
@@ -18,6 +18,8 @@
 	//*)
 #endif
 //(*Headers(DialogTS)
+class wxSpinCtrl;
+class wxSpinEvent;
 //*)
 #include <ConfigTS.h>
 
@@ -43,6 +45,8 @@ class DialogTS : public wxDialog
 		wxButton* m_butScriptTextOpenR;
 		wxButton* m_butScriptTextR;
 		wxCheckBox* m_chkTechs;
+		wxSpinCtrl* m_spinLagACF;
+		wxSpinCtrl* m_spinPeriodSeasonal;
 		wxTextCtrl* m_txtScriptPath;
 		wxTextCtrl* m_txtScriptPathGen;
 		wxTextCtrl* m_txtScriptPathR;
@@ -65,6 +69,8 @@ class DialogTS : public wxDialog
 		static const long ID_CHOICE1;
 		static const long ID_CHOICE2;
 		static const long ID_CHECKBOX12;
+		static const long ID_SPINCTRL1;
+		static const long ID_SPINCTRL2;
 		//*)
 
 	private:
@@ -80,10 +86,11 @@ class DialogTS : public wxDialog
 		void Onm_butScriptTextOpenRClick(wxCommandEvent& event);
 		void Onm_butScriptTextOpenGenClick(wxCommandEvent& event);
 		void Onm_butScriptTextGenClick(wxCommandEvent& event);
+		void Onm_spinChange(wxSpinEvent& event);
 		//*)
-        MapCheckbox m_mapCheckbox;
-        MapChoiceEnum m_mapChoice;
-		//MapSpin     m_mapSpin;
+        MapCheckbox     m_mapCheckbox;
+        MapChoiceEnum   m_mapChoice;
+		MapSpin         m_mapSpin;
 		std::vector<IMapControl *> m_maps;
 
 

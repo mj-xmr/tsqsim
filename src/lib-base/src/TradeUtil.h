@@ -54,7 +54,7 @@ class TradeUtil
 
         STDFWD::vector<EnjoLib::Pair<EnjoLib::Str, EnjoLib::Str>> GetPairsSymbolsFromCorrelsFile(float minCorrel) const;
         STDFWD::vector<EnjoLib::Pair<EnjoLib::Str, EnjoLib::Str>> GetPairsSymbolsFromCorrelsFile(float minCorrel, EnjoLib::Istream & is) const;
-        EnjoLib::Tuple<EnjoLib::Str, EnjoLib::Str, float> ParseSymbolsCorrelLine(const EnjoLib::Str & line) const;
+        EnjoLib::Tuple<EnjoLib::Str, EnjoLib::Str, float, int> ParseSymbolsCorrelLine(const EnjoLib::Str & line) const;
 
         STDFWD::vector<EnjoLib::Pair<EnjoLib::Str, EnjoLib::Str>> GetPairsSymbolsFromStatsFile(float minSharpe) const;
         STDFWD::vector<EnjoLib::Pair<EnjoLib::Str, EnjoLib::Str>> GetPairsSymbolsFromStatsFile(float minSharpe, EnjoLib::Istream & is) const;
@@ -70,6 +70,9 @@ class TradeUtil
         EnjoLib::Str GetOutputDir(const IDataProvider & strat) const;
         EnjoLib::Str GetOutputDir(const EnjoLib::Str & fullIdOfSymbolsPeriods) const;
         EnjoLib::Str GetOutputDirAccum() const;
+
+        EnjoLib::Str GetLineFXfromSeries(DateInt dateTime, const EnjoLib::Str & txnumbStr) const;
+
 
         const static EnjoLib::Str SYMBOL_TEST_PREFIX;
 

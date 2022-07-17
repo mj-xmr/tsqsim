@@ -3,8 +3,10 @@
 #include "MyMainWindow.h"
 #include "ui_mainwindow.h"
 //#include "TrainerHandler.h"
-//#include "Screenshot.h"
-//#include "ScreenshotsScaleUp.h"
+#ifdef WX_FULL
+    //#include "Screenshot.h"
+    #include "ScreenshotsScaleUp.h"
+#endif // WX_FULL
 //#include <StrategyFactorySymbols.h>
 #include <StrategyFactoryName.h>
 //#include <StrategyFactory.h>
@@ -16,11 +18,13 @@
 #include "ISymbol.h"
 #include "StatsMedianSplit.h"
 #include "Util.h"
+#include "UtilBare.h"
 #include "PlotDataBase.h"
 #include "IPeriod.h"
 #include "IStrategy.h"
 #include "TSUtil.h"
 #include "ISimulatorTS.h"
+#include "DataSrcType.h"
 
 #include <ConfigMan.h>
 #include <ConfigSym.h>
@@ -95,15 +99,23 @@ void MyMainWindow::Reload(const Monster & monst, int mode, int relPeriod, int re
     if ((0 < mode && mode < 3) || (mode  == 4))
     {
         /// TODO: Restore
-        //Screenshot().Handle(this, confTF2, pconf, mode,
-        //                    monst.m_screenShotSymbol, monst.m_screenShotPeriod, monst.m_screenShotOutDir);
+
+        #ifdef WX_FULL
+            //Screenshot().Handle(this, confTF2, pconf, mode, monst.m_screenShotSymbol, monst.m_screenShotPeriod, monst.m_screenShotOutDir);
+            //throw 1;
+        #endif
+
     }
     else
     if ((5 <= mode && mode <= 6))
     {
+        #ifdef WX_FULL
+            LOGL << "Screenshot\t";
+
         /// TODO: Restore
-        //ScreenshotsScaleUp().Handle(this, mode, monst.m_screenShotSymbol, monst.m_screenShotPeriod,
-        //                            monst.m_screenShotOutDir, monst.m_dataInputFileName);
+        ScreenshotsScaleUp().Handle(this, mode, monst.m_screenShotSymbol, monst.m_screenShotPeriod, monst.m_screenShotOutDir, monst.m_dataInputFileName);
+        throw 1;
+        #endif // WX_FULL
     }
     if (mode == 0)
     {
@@ -136,7 +148,7 @@ void MyMainWindow::Reload(const Monster & monst, int mode, int relPeriod, int re
                 }
             catch (exception & ex)
             {
-                Util::HandleException(ex);
+                UtilBare::HandleException(ex);
             }
         }
         if (m_relShift != 0)
@@ -152,10 +164,17 @@ void MyMainWindow::Reload(const Monster & monst, int mode, int relPeriod, int re
         try
         {
             const QString & symPerName = Util::FormatSymPer(symName, periodName);
-            m_mons = monst;
-            /// TODO: Restore the original factories
-            m_mons.SetStratFactory(new StrategyFactoryDummy());
-            m_mons.SetSymFactory  (new SymbolFactoryClean());
+            if (not m_mons.IsValid())
+            {
+                m_mons = monst;
+            }
+            else
+            {
+                // TODO: This could be somewhat smarter
+                const Monster monstTmp = m_mons;
+                m_mons = monst;
+                m_mons.SetFactories(monstTmp);
+            }
             if (not m_mons.IsValid())
             {
                 setWindowTitle("Loading ... " + symPerName);
@@ -177,8 +196,12 @@ void MyMainWindow::Reload(const Monster & monst, int mode, int relPeriod, int re
             const IStrategy & strat = *m_mons.m_strategy;
             const Str & stratName = StrategyFactoryName().Create(strat.GetType());
             LOG << "Run sim TS" << Endl;
-            CorPtr<ISimulatorTS> simTS = TSUtil().GetSim(period);
-
+            CorPtr<ISimulatorTS> simTS = TSUtil().GetSimDontRun(period);
+            if (gcfgMan.cfgSym->GetDataSrc() != DataSrcType::FOREX_TESTER)
+            {
+                // TODO: Protection against missing transformation script
+                simTS = TSUtil().GetSim(period);
+            }
             LOG << "Setup baustelle" << Endl;
             setupBaustelle(GetQCP(), period, strat, *simTS, *m_mons.m_d);
             setWindowTitle(symPerName + ": " + stratName.c_str());
@@ -193,7 +216,7 @@ void MyMainWindow::Reload(const Monster & monst, int mode, int relPeriod, int re
         catch (exception & ex)
         {
             //exit(1);
-            Util::HandleException(ex);
+            UtilBare::HandleException(ex);
         }
 
 
@@ -226,12 +249,7 @@ void MyMainWindow::Reload(const Monster & monst, int mode, int relPeriod, int re
     ConfigTF2 & confTF2 = *gcfgMan.cfgTF2;
     const ConfigOpti & confOpti = *gcfgMan.cfgOpti;
 
-    if (confOpti.OPTIMIZER == 1)
-        gcfg.OPTI_USE = false;
-    else if (confOpti.OPTIMIZER == 2)
-        gcfg.OPTI_USE = true;
-    else if (confOpti.OPTIMIZER == 0)
-        gcfg.OPTI_USE = false;
+    gcfg.OPTI_USE = confOpti.GetOperationType() == OptiType::OPTI_TYPE_USE;
 
     if (mode == 3 || m_training)
     {

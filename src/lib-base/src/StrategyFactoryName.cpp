@@ -17,7 +17,8 @@ EnjoLib::Str StrategyFactoryName::Create(const StrategyType & type) const
         case StrategyFactory::Type::STRA_DTW_BEAR:              name = "DynS";        break;
         case StrategyFactory::Type::STRA_MARKET:                name = "Market";      break;
 
-        case StrategyFactory::Type::STRA_GARCH_NOVEL:     name = "Garch";     break;
+        case StrategyFactory::Type::STRA_SEASONAL:              name = "Season";     break;
+        case StrategyFactory::Type::STRA_GARCH_NOVEL:           name = "Garch";     break;
         case StrategyFactory::Type::STRA_STATION:               name = "Stat";        break;
         case StrategyFactory::Type::STRA_STATION_BULL:          name = "StatB";       break;
         case StrategyFactory::Type::STRA_STATION_BEAR:          name = "StatS";       break;
@@ -79,6 +80,7 @@ EnjoLib::Str StrategyFactoryName::Create(const StrategyType & type) const
         case StrategyFactory::Type::STRA_CACHE_FILL:    name = "Cache";       break;
         case StrategyFactory::Type::STRA_DUMMY:         name = "Dummy";       break;
         case StrategyFactory::Type::STRA_TESTING:       name = "Testing";     break;
+        case StrategyFactory::Type::STRA_LIVE:          name = "Live";     break;
         case StrategyFactory::Type::STRA_LAST:          name = "Last";     break;
     }
     if (name.empty())

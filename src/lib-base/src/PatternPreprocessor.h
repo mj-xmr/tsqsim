@@ -5,7 +5,7 @@
 #include "XY.h"
 
 #include <Systems/Point.hpp>
-#include <Template/Array.hpp>
+#include <Template/ArrayFwd.hpp>
 #include <3rdParty/stdfwd.hh>
 
 

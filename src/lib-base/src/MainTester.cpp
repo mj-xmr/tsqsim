@@ -46,18 +46,25 @@ MainTester::MainTester(const SymbolFactoryAbstract & symFact, const ConfigTF2 * 
 {
     if (confSym)
     {
-        const DataSrcType type = confSym->GetDataSrc();
-        switch (type)
+        if (not confSym->dataFile.empty())
         {
-        case DataSrcType::FOREX_TESTER:
-            m_tickProvType = TickProviderType::ARCHIVER;
-            break;
-        case DataSrcType::MONERO:
-            m_tickProvType = TickProviderType::XMR;
-            break;
-        case DataSrcType::GENERATED:
-            m_tickProvType = TickProviderType::GENERATED;
-            break;
+            m_tickProvType = TickProviderType::DATA_FILE;
+        }
+        else
+        {
+            const DataSrcType type = confSym->GetDataSrc();
+            switch (type)
+            {
+            case DataSrcType::FOREX_TESTER:
+                m_tickProvType = TickProviderType::ARCHIVER;
+                break;
+            case DataSrcType::MONERO:
+                m_tickProvType = TickProviderType::XMR;
+                break;
+            case DataSrcType::GENERATED:
+                m_tickProvType = TickProviderType::GENERATED;
+                break;
+            }
         }
     }
 }

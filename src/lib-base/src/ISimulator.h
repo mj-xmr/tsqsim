@@ -2,6 +2,7 @@
 #define ISIMULATOR_H
 
 #include "StartEnd.h"
+#include "Direction.h"
 #include <Util/VecD.hpp>
 #include <Template/IIterable.hpp>
 #include <3rdParty/stdfwd.hh>
@@ -19,10 +20,12 @@ class ISimulator
         ISimulator();
         virtual ~ISimulator();
 
+        virtual ISimulator * CloneRaw() const = 0; /// TODO: Make pure virtual
         virtual void Run() = 0;
         virtual void RunRaw(const StartEnd & startEndFrame = StartEnd()) {}
         /// Used to close all open positions in optimization
         virtual void Finalize(){}
+        virtual void Iter(int i, const Direction * dir = nullptr) {}
         //virtual void ReinitOptiVars(const EnjoLib::IIterable<OptiVarF *> & opti){}
         virtual void ReinitOptiVars(const EnjoLib::VecD & optiVars){}
 
@@ -30,7 +33,7 @@ class ISimulator
         void SetMatplotMT(MatplotSimResultsMT * mpMT) { m_mpMT = mpMT; }
         void SetSimulObserver(ISimulObserver * observer) { m_observer = observer; }
         void SetSvm(SvmWrapperProb * svm) { m_svm = svm; }
-        
+
         virtual EnjoLib::Str ModelToStr() const;
 
     protected:

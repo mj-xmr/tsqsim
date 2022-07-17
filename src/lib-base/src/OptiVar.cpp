@@ -48,7 +48,7 @@ OptiVarF::OptiVarF(const IDataProvider & period, const EnjoLib::Str & varId, boo
 
 float OptiVarF::GetVal() const
 {
-    if (gcfgMan.cfgOpti->GetOptimizer() == OptiType::OPTI_TYPE_NONE)
+    if (gcfgMan.cfgOpti->IsOperationType(OptiType::OPTI_TYPE_NONE))
     {
         return valDefault;
     }
@@ -64,7 +64,7 @@ void OptiVarF::SetVal(float val)
 
 const float & OptiVarF::GetValRef() const
 {
-    if (gcfgMan.cfgOpti->GetOptimizer() == OptiType::OPTI_TYPE_NONE)
+    if (gcfgMan.cfgOpti->IsOperationType(OptiType::OPTI_TYPE_NONE))
     {
         return valDefault;
     }
@@ -89,7 +89,7 @@ void OptiVarF::Init()
     const EnjoLib::Str baseDir = ou.GetVarBaseDir(release);
     if (not fu.DirExists(baseDir))
         throw EnjoLib::ExceptRuntimeError(STRACE_THROW("Not found dir = " + baseDir));
-    if (gcfg.OPTI_USE)
+    if (gcfgMan.cfgOpti->IsOperationType(OptiType::OPTI_TYPE_USE))
     {
         const EnjoLib::Str & pathVar = ou.GetVarPath(*m_per, varId, release);
         if (fu.FileExists(pathVar))

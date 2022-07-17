@@ -1,13 +1,17 @@
 #ifndef PLOTDATABASE_H
 #define PLOTDATABASE_H
 
-
 #include <Direction.h>
-#include "Fractal.h"
-#include <SRFinal.h>
+#include <Template/ArrayFwd.hpp>
+#include <Template/CorradePointer.h>
+#include <3rdParty/stdfwd.hh>
 
+template <class T> class QVector;
+class QString;
 class IDataProvider;
+class IPeriod;
 class BufferType;
+class QCPFinancialData;
 
 class PlotDataBase
 {
@@ -15,7 +19,9 @@ class PlotDataBase
         PlotDataBase(const IDataProvider & period);
         virtual ~PlotDataBase();
 
-        unsigned GetSz() const { return GetFinancial().size(); }
+        static CorPtr<PlotDataBase> CreateScreenshot(const IPeriod & period);
+
+        unsigned GetSz() const;
         int CalcIdx(int i) const;
 
 
@@ -24,7 +30,7 @@ class PlotDataBase
         QVector<double> GetBuf(const BufferType & type) const;
 
         virtual double GetRelative0() const = 0;
-        virtual const std::vector<QCPFinancialData> & GetFinancial() const = 0;
+        virtual const EnjoLib::Array<QCPFinancialData> & GetFinancial() const = 0;
         virtual const QVector<QString> & GetDatesStr() const = 0;
         virtual const QVector<double> & GetTicks() const = 0;
         virtual const QVector<double> & GetTime() const = 0;

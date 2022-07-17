@@ -22,6 +22,10 @@
 #include "TSUtil.h"
 #include "OptiHigh.h"
 #include "SimulatorTSFactoryImpl.h"
+#include "MatplotLine.h"
+#include "MatplotACF.h"
+#include "PredictorOutputType.h"
+#include "CLIResult.h"
 
 #include <Ios/Cin.hpp>
 #include <Util/Trim.hpp>
@@ -33,19 +37,20 @@ using namespace EnjoLib;
 
 App::App(){}
 
-void App::Run(const ConfigSym & confSymCmdLine) const
+void App::Run(const CLIResult & cliResultCmdLine) const
 {
     const ConfigTF  & confTF    = *gcfgMan.cfgTF.get();
     do
     {
         gcfgMan.Read();
 
-        //const ConfigTS & confTS     = *gcfgMan.cfgTS.get();
+        ConfigTS & confTS     = *gcfgMan.cfgTS.get();
         const ConfigTF2 & confTF2   = *gcfgMan.cfgTF2.get();
         const ConfigOpti & confOpti = *gcfgMan.cfgOpti.get();
         ConfigSym & confSym         = *gcfgMan.cfgSym.get();
 
-        confSym.UpdateFromOther(confSymCmdLine);
+        confSym.UpdateFromOther(cliResultCmdLine.m_confSym);
+        confTS.UpdateFromOther(cliResultCmdLine.m_confTS);
 
         VecStr symbols = {confSym.symbol};
         VecStr periods = {confSym.period};
@@ -56,7 +61,7 @@ void App::Run(const ConfigSym & confSymCmdLine) const
         CorPtr<ISymbol> symbol = IMainTester::Create(symFact, &confTF2, &confSym)->GetSymbol(confSym.symbol, periods);
         const IPeriod & per = symbol->GetPeriod(periods.at(0));
 
-        switch (confOpti.GetOptimizer())
+        switch (confOpti.GetOperationType())
         {
         case OptiType::OPTI_TYPE_FIND:
             {
@@ -68,13 +73,21 @@ void App::Run(const ConfigSym & confSymCmdLine) const
         case OptiType::OPTI_TYPE_USE:
             {
                 CorPtr<ISimulatorTS> sim = TSUtil().GetSim(per);
+                if (confTS.PLOT_PYTHON)
+                {
+                    PlotPython(confSym, confTS, *sim);
+                }
+                if (confTS.PLOT_PYTHON_ACF)
+                {
+                    PlotPythonACF(confSym, confTS, *sim);
+                }
             }
         break;
         case OptiType::OPTI_TYPE_XVALID:
                 XValid(*symbol, per);
         break;
         }
-        {LOGL << confSym.GetDateFromToStr(false);}
+        {LOGL << confSym.GetDateFromToStr(false) << Nl;}
 
         if (confTF.REPEAT)
         {
@@ -102,20 +115,20 @@ void App::XValid(const ISymbol & sym, const IPeriod & per) const
     const ConfigTS & confTS   = *gcfgMan.cfgTS.get(); /// TODO: Allow override via console
     const PredictorFactory predFact;
     const PredictorType predType = confTS.GetPredType();
-    
+
     const TSInput tsin(per, confTS);
-    
+
      CorPtr<ITSFun> fun = tsFunFact.Create(tsin, tsFunType);
-    
+
     OptimizerPred optiPred(predType, sym, per, predFact);
     const SimulatorTSFactory simFact;
     CorPtr<ISimulatorTS> sim = simFact.CreateTS(tsin, *fun);
     fun->SetSilent();
     sim->SetSilent();
     SimulatorTSFactoryImpl simFactImpl(tsin, *fun);
-            
+
     OptiHigh().WalkForwardOptiIndiv(sym, per, 1, 1, optiPred, *sim, simFactImpl);
-    
+
     sim->PrintOpti();
 }
 
@@ -132,4 +145,36 @@ void App::Optim(const ISymbol & sym, const IPeriod & per) const
     const PredictorType predType = confTS.GetPredType();
     OptimizerPred optiPred(predType, sym, per, predFact);
     optiPred();
+}
+
+void App::PlotPython(const ConfigSym & confSym, const ConfigTS & confTS, const ISimulatorTS & sim) const
+{
+    {LOGL << "Plot Python\n"; }
+
+    MatplotLine plot;
+    plot.AddLine(sim.GetOutputSeries(PredictorOutputType::RECONSTRUCTION),               "Signal", "Blue");
+    if (confTS.PLOT_BASELINE)
+    {
+        plot.AddLine(sim.GetOutputSeries(PredictorOutputType::RECONSTRUCTION_PRED_BASELINE), "Prediction baseline", "Gray");
+    }
+    plot.AddLine(sim.GetOutputSeries(PredictorOutputType::RECONSTRUCTION_PRED),          "Prediction modeled", "Green");
+
+    const Str title = GetTitle(confSym);
+    plot.Plot(title);
+}
+
+void App::PlotPythonACF(const ConfigSym & confSym, const ConfigTS & confTS, const ISimulatorTS & sim) const
+{
+    {LOGL << "Plot Python ACF\n"; }
+
+    const int lags = confTS.PLOT_LAGS_NUM;
+    const int per  = confTS.PLOT_PERIOD_NUM;
+    const MatplotACF plot;
+    const Str title = ": " + GetTitle(confSym);
+    plot.Plot(sim.GetOutputSeries(PredictorOutputType::SERIES), lags, per, title);
+}
+
+Str App::GetTitle(const ConfigSym & confSym) const
+{
+    return confSym.symbol + " " + confSym.period + " " + confSym.GetDateFromToStr(false);
 }

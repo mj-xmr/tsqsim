@@ -20,8 +20,11 @@ class SimulatorBet;
 class ISimulatorBet;
 class SymbolFactoryAbstract;
 class StrategyFactoryAbstract;
+class SimulatorFactoryAbstract;
 class StrategyType;
 class IMainTester;
+class TxtSimulatorBase;
+class TxtSmallBase;
 
 class Monster
 {
@@ -31,8 +34,16 @@ class Monster
                 const EnjoLib::Str & screenShotPeriod, const EnjoLib::Str & dataInputFileName);
         virtual ~Monster();
 
-        void SetSymFactory(SymbolFactoryAbstract * pSymFact);
-        void SetStratFactory(StrategyFactoryAbstract * pStratFact);
+        /// TODO: Code smell
+        void SetFactories(  SymbolFactoryAbstract * pSymFact,
+                            StrategyFactoryAbstract * pStratFact,
+                            SimulatorFactoryAbstract  * pSimFact
+                                                          );
+
+        void SetFactories(const Monster & mons);
+
+        virtual void InitVirt();
+
 
         void Reload(const EnjoLib::Str & symName, const EnjoLib::Str & periodName, const StrategyType & stratType,
                     int mode = 0, int relPeriod = 0, int relShift = 0, int relSymbol = 0);
@@ -48,14 +59,19 @@ class Monster
 
         EnjoLib::SharedPtr<ISymbol> m_symbol;
         EnjoLib::SharedPtr<PlotDataBase> m_d;
+        EnjoLib::SharedPtr<TxtSimulatorBase> m_simulTxt;
+        EnjoLib::SharedPtr<TxtSmallBase> m_smallTxt;
         EnjoLib::SharedPtr<IStrategy> m_strategy;
         EnjoLib::SharedPtr<LabelQT> m_labelQT;
-        EnjoLib::SharedPtr<SymbolFactoryAbstract> m_symFact;
-        EnjoLib::SharedPtr<StrategyFactoryAbstract> m_stratFact;
-        EnjoLib::SharedPtr<IMainTester> m_mainTester;
 
-        EnjoLib::SharedPtr<ISimulatorStd> m_simulator;
-        EnjoLib::SharedPtr<ISimulatorBet> m_simulatorBet;
+        SymbolFactoryAbstract * m_symFact = nullptr;
+        StrategyFactoryAbstract * m_stratFact = nullptr;
+        SimulatorFactoryAbstract * m_simFact = nullptr;
+
+        EnjoLib::SharedPtr<IMainTester> m_mainTester;
+        EnjoLib::SharedPtr<ISimulator> m_simulatorGeneric;
+        //EnjoLib::SharedPtr<ISimulatorStd> m_simulator;
+        //EnjoLib::SharedPtr<ISimulatorBet> m_simulatorBet;
 
         double m_percentBars = 100;
         long int m_barNum = 0;

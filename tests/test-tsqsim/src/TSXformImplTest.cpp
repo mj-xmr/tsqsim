@@ -154,7 +154,7 @@ TEST(Conv_inv_low_level_1_iter)
                 // has to be skipped 4 now, because it uses 2 data elements
                 break;        // This is how you'd make exceptions
             }
-            
+
         default:
             {
                 TestXformIteration(inp, xform.release(), verbose);
@@ -288,7 +288,7 @@ static VecD TestXformArrayManPred(const IDataProvider & dat, const VecD & vecTru
     for (int i = 0; i < lags; ++i)
     {
         /// TODO: unify the expectation
-        //vecExpected.Add(IPredictor::ERROR);
+        //vecExpected.Add(IPredictor::ERROR); /// TODO: This is correct!
         vecExpected.Add(reconstructed.at(i)); // For now: accept what was returned until the lags end
         ///vecExpected.Add(vecTrue.at(i)); // sus, but seems to work
     }

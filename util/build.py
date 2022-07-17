@@ -36,15 +36,37 @@ def get_parser():
     parser.add_argument('-p', '--pch',       default=False, action='store_true', help="build pch   (Dev case; default: OFF)")
     parser.add_argument('-u', '--unity',     default=False, action='store_true', help="build unity (CI case;  default: OFF)")
     parser.add_argument('-q', '--build-qt',  default=False, action='store_true', help="build QT apps (default: OFF)")
+    parser.add_argument('--build-r',         default=False, action='store_true', help="build R support (default: OFF)")
     parser.add_argument('-w', '--no-wx',     default=False, action='store_true', help="don't build WX apps (default: OFF)")
+    parser.add_argument('-i', '--no-install',default=False, action='store_true', help="don't install (default: OFF)")
+    parser.add_argument('-t', '--no-tests',  default=False, action='store_true', help="don't build Tests (default: OFF)")
     parser.add_argument('-r', '--run-demo',  default=False, action='store_true', help="run demo (default: OFF)")
     parser.add_argument('-c', '--compiler',  default="", help='compiler ({}; default: autodetect)'.format('/'.join(COMPILERS)))
+    parser.add_argument('-o', '--options',   default="", help='additional options in format "OPT1=ON OPT2=OFF" (default: none)')
     parser.add_argument('-j', '--proc',      default=NPROC, type=int, help="number of cores to use (default: all)")
     parser.add_argument('-m', '--make',      default="make", help="'make' program (for ex.: ninja; default: make)")
     parser.add_argument('-g', '--generator', default=GENERATOR, help='Generator of project files (default: "{}")'.format(GENERATOR))
     parser.add_argument('-a', '--path',      default=".",   help="Run path")
     # TODO: select clang or mingw, if gcc is not available
     return parser
+
+def get_r_path(search_dir = '.'):
+    prev_dir = os.getcwd()
+    os.chdir(search_dir)
+    exports_r = ""
+    if platform.system() == 'Linux':
+        exports_r = "&& export R_HOME=/usr/lib/R && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib"
+    elif platform.system() == 'Darwin':
+        dir_framework = '/Library/Frameworks/R.framework/Resources'
+        dir_osx11 = '/usr/local/Cellar/r/4.2.0/lib/R'
+        if os.path.isdir(dir_osx11):
+            dir_framework = dir_osx11
+        if not os.path.isdir(dir_framework):
+            raise IOError("The R Framework's dir: {} wasn't found".format(dir_framework))
+        exports_r = "&& export R_HOME={} && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib".format(dir_framework)
+    os.chdir(prev_dir)
+
+    return exports_r
 
 def build(args):
     print("Args = ", args)
@@ -104,22 +126,29 @@ def build(args):
     cmd += NL + '-DUSE_DEBUG={}'  .format(ON  if args.debug  else OFF)
     cmd += NL + '-DUSE_UNITY={}'  .format(ON  if args.unity  else OFF)
     cmd += NL + '-DUSE_PCH={}'    .format(ON  if args.pch    else OFF)
-    cmd += NL + '-DBUILD_WX={}'   .format(OFF if args.no_wx    else ON ) # Optional
     cmd += NL + '-DBUILD_QT={}'   .format(ON  if args.build_qt else OFF) # Optional
+    cmd += NL + '-DBUILD_WX={}'   .format(OFF if args.no_wx    else ON ) # Optional
+    cmd += NL + '-DBUILD_TESTS={}'.format(OFF if args.no_tests else ON ) # Optional
     cmd += NL + '-DBUILD_BOOST={}'.format(ON) # Required
+    cmd += NL + '-DWITH_FEATURE_R={}'.format(ON if args.build_r else OFF) # TODO: Disabled for now
     if args.compiler:
         cmd += NL + '-DCMAKE_C_COMPILER="{}"'.format(cccompiler) 
         cmd += NL + '-DCMAKE_CXX_COMPILER="{}"'.format(cpcompiler)
         if platform.system() == 'Windows':
             cmd += NL + '-DCMAKE_MAKE_PROGRAM="{}"'.format(make.strip())
+    if args.options:
+        cmd += NL + '-D' + ' -D'.join(args.options.split())
             
     if platform.system() == 'Windows':
         cmd += NL + '&&' +  make + proc
         subprocess.run(cmd, shell=True, check=True)
-        subprocess.run(make + " install", shell=True, check=True)
+        if not args.no_install:
+            subprocess.run(make + " install", shell=True, check=True)
         subprocess.run(ctest, shell=True, check=True)   
     else:
-        cmd += NL + '&&' +  make + proc + '||' + make + '&&' + make + proc_local + 'install'
+        cmd += NL + '&&' +  make + proc + '||' + make
+        if not args.no_install:
+            cmd += '&&' + make + proc_local + 'install'
         cmd += NL + '&& (' + ctest + proc_local + '||' + ctest + ')'
 
         print('Build command:\n')
@@ -129,17 +158,9 @@ def build(args):
 
     #print(cmd)
 def run_demo(args):
+    exports_r = get_r_path(DIR_BIN)
     os.chdir(DIR_BIN)
-    exports_r = ""
-    if platform.system() == 'Linux':
-        exports_r = "&& export R_HOME=/usr/lib/R && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib"
-    elif platform.system() == 'Darwin':
-        dir_framework = '/Library/Frameworks/R.framework/Resources'
-        dir_osx11 = '/usr/local/Cellar/r/4.1.2/lib/R'
-        if os.path.isdir(dir_osx11):
-            dir_framework = dir_osx11
-        exports_r = "&& export R_HOME={} && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib".format(dir_framework)
-    
+
     cmd = ""
     cmd += ' export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:lib' # TODO: Solve in CMake?
     cmd += exports_r

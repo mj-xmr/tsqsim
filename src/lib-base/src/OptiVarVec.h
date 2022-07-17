@@ -4,7 +4,7 @@
 #include "OptiVar.h"
 #include <Util/Pimpl.hpp>
 #include <Template/Iters2.hpp>
-#include <Template/Array.hpp>
+#include <Template/ArrayFwd.hpp>
 
 class OptiVarVec
 {
@@ -15,7 +15,7 @@ class OptiVarVec
 
         void Add(OptiVarF * var);
         void Reinit(EnjoLib::Array<OptiVarF *> & vopti);
-        
+
         int size() const;
 
         //OptiVarVecInternal vec;

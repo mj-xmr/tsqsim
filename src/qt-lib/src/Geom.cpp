@@ -8,6 +8,7 @@ const int Geom::xBig = 250;
 const int Geom::wBig = 1670;
 const int Geom::xDebug = 620;
 const int Geom::wDebug = 1300;
+const bool Geom::wideScreen = false;
 
 Geom::Geom(){}
 Geom::~Geom(){}

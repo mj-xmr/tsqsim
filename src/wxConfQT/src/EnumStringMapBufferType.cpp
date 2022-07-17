@@ -12,9 +12,10 @@ EnumStringMapBufferType::EnumStringMapBufferType()
             case BufferTypeEnum::BUF_TEST:                  Add(type, "Test"); break;
             case BufferTypeEnum::BUF_STRAT:                 Add(type, "Strat"); break;
             case BufferTypeEnum::BUF_TIME_DIFF:             Add(type, "T Diff"); break;
-            
+
             case BufferTypeEnum::BUF_SSA_OSCI:              Add(type, "Ssa osc"); break;
-            case BufferTypeEnum::BUF_SPREADS:               Add(type, "Spreads"); break;
+            case BufferTypeEnum::BUF_SPREADS:               Add(type, "SpreadsS"); break;
+            case BufferTypeEnum::BUF_SPREADS_BULL:          Add(type, "SpreadsB"); break;
             case BufferTypeEnum::BUF_STATION:               Add(type, "Station"); break;
             case BufferTypeEnum::BUF_REG_VOTE:              Add(type, "RegVote"); break;
             case BufferTypeEnum::BUF_MA_SUPER_FAST:         Add(type, "MA SFast"); break;
@@ -49,7 +50,7 @@ EnumStringMapBufferType::EnumStringMapBufferType()
             case BufferTypeEnum::BUF_MA_HIST_STD_UP:          Add(type, "mas hi std u"); break;
             case BufferTypeEnum::BUF_MA_HIST_STD_DOWN:        Add(type, "mas hi std d"); break;
             case BufferTypeEnum::BUF_MA_AVG:                Add(type, "mas avg"); break;
-            
+
             case BufferTypeEnum::BUF_TREND_ZZ_MA_CROSS:     Add(type, "Tr zz ma"); break;
             case BufferTypeEnum::BUF_MARKET_REGIME:         Add(type, "Regim"); break;
             case BufferTypeEnum::BUF_TREND_MA:              Add(type, "Tr MA"); break;

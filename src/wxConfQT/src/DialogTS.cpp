@@ -12,6 +12,7 @@
 	//*)
 #endif
 //(*InternalHeaders(DialogTS)
+#include <wx/spinctrl.h>
 //*)
 
 //(*IdInit(DialogTS)
@@ -27,6 +28,8 @@ const long DialogTS::ID_BUTTON6 = wxNewId();
 const long DialogTS::ID_CHOICE1 = wxNewId();
 const long DialogTS::ID_CHOICE2 = wxNewId();
 const long DialogTS::ID_CHECKBOX12 = wxNewId();
+const long DialogTS::ID_SPINCTRL1 = wxNewId();
+const long DialogTS::ID_SPINCTRL2 = wxNewId();
 //*)
 
 BEGIN_EVENT_TABLE(DialogTS,wxDialog)
@@ -47,8 +50,10 @@ DialogTS::DialogTS(wxWindow* parent,wxWindowID id)
 	wxStaticBoxSizer* StaticBoxSizer3;
 	wxStaticBoxSizer* StaticBoxSizer4;
 	wxStaticBoxSizer* StaticBoxSizer5;
+	wxStaticBoxSizer* StaticBoxSizer6;
 
 	Create(parent, id, _T("Time Series Analysis"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("id"));
+	Move(wxPoint(420,-1));
 	BoxSizer1 = new wxBoxSizer(wxVERTICAL);
 	m_sizerBools = new wxBoxSizer(wxVERTICAL);
 	StaticBoxSizer1 = new wxStaticBoxSizer(wxVERTICAL, this, _T("Script data xform"));
@@ -95,6 +100,16 @@ DialogTS::DialogTS(wxWindow* parent,wxWindowID id)
 	m_chkTechs->SetValue(true);
 	m_chkTechs->Hide();
 	m_sizerBools->Add(m_chkTechs, 0, wxEXPAND, 5);
+	StaticBoxSizer6 = new wxStaticBoxSizer(wxHORIZONTAL, this, _T("Lags ACF/PACF + Seasonal Period"));
+	m_spinLagACF = new wxSpinCtrl(this, ID_SPINCTRL1, _T("30"), wxDefaultPosition, wxSize(110,-1), 0, 1, 100, 30, _T("ID_SPINCTRL1"));
+	m_spinLagACF->SetValue(_T("30"));
+	m_spinLagACF->SetToolTip(_T("Lag ACF/PACF"));
+	StaticBoxSizer6->Add(m_spinLagACF, 0, wxALL|wxEXPAND, 5);
+	m_spinPeriodSeasonal = new wxSpinCtrl(this, ID_SPINCTRL2, _T("30"), wxDefaultPosition, wxSize(110,-1), 0, 1, 100, 30, _T("ID_SPINCTRL2"));
+	m_spinPeriodSeasonal->SetValue(_T("30"));
+	m_spinPeriodSeasonal->SetToolTip(_T("Seasonal period"));
+	StaticBoxSizer6->Add(m_spinPeriodSeasonal, 0, wxALL|wxEXPAND, 5);
+	m_sizerBools->Add(StaticBoxSizer6, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer1->Add(m_sizerBools, 0, wxEXPAND, 5);
 	BoxSizer3 = new wxBoxSizer(wxVERTICAL);
 	Button1 = new wxButton(this, wxID_CANCEL, _T("Cancel"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("wxID_CANCEL"));
@@ -115,6 +130,8 @@ DialogTS::DialogTS(wxWindow* parent,wxWindowID id)
 	Connect(ID_CHOICE1,wxEVT_COMMAND_CHOICE_SELECTED,(wxObjectEventFunction)&DialogTS::OnTS);
 	Connect(ID_CHOICE2,wxEVT_COMMAND_CHOICE_SELECTED,(wxObjectEventFunction)&DialogTS::OnTS);
 	Connect(ID_CHECKBOX12,wxEVT_COMMAND_CHECKBOX_CLICKED,(wxObjectEventFunction)&DialogTS::OnTS);
+	Connect(ID_SPINCTRL1,wxEVT_COMMAND_SPINCTRL_UPDATED,(wxObjectEventFunction)&DialogTS::Onm_spinChange);
+	Connect(ID_SPINCTRL2,wxEVT_COMMAND_SPINCTRL_UPDATED,(wxObjectEventFunction)&DialogTS::Onm_spinChange);
 	//*)
 
 	try {

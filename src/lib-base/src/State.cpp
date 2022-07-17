@@ -3,7 +3,7 @@
 #include <Util/Except.hpp>
 #include <Util/Pair.hpp>
 
-#include <STD/Iostream.hpp>
+#include <STD/Ostream.hpp>
 
 using namespace std;
 //using namespace EnjoLib;
@@ -16,7 +16,7 @@ State::State(Direction bullish, int ii)
     //, m_can(Corrade::Containers::Pointer<Candle>(new Candle()))
     //, m_tick(Corrade::Containers::Pointer<Candle>(new Candle()))
     {}
-    
+
 /*
 State::State(const State & state)
 {

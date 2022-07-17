@@ -3,17 +3,19 @@ Time Series Quick Simulator - able to perform time series analysis
 and to setup validation experiments.
 With its somewhat limited plotting capabilities, 
 but highly optimized run time speed, the simulator serves more as a stress-tester 
-of your models, challenging their robustness. 
+of your models, challenging their robustness, rather than a pattern discovery tool. 
 The assumption is that some preliminary research has already been done, 
 using scripting languages like `Python`, `R` or `Weka`, where patterns are easy to eyball. 
-Teaching a machine to detect these patterns automatically in rigorous conditions 
+Teaching a machine to detect these found patterns automatically in rigorous conditions 
 is where the `tsqsim` shows its true potential.
 
 ## Background
-[Time Series Analysis](https://en.wikipedia.org/wiki/Time_series) deals with finding patterns in Time Series data, 
+[Time Series Analysis (TSA)](https://en.wikipedia.org/wiki/Time_series) deals with finding patterns in Time Series data, 
 which can be just anything that changes across time and depends on values from the previous discrete time points. 
 The patterns can be used to build a model of the data, that can be in turn used to predict future data points 
 up to a certain confidence, which decreases gradually, as the requested prediction horizon expands.
+
+In order to understand better what the project does, or the TSA in general, I recommend watching [this playlist](https://www.youtube.com/watch?v=ZoJ2OctrFLA&list=PLvcbYUQ5t0UHOLnBzl46_Q6QKtFgfMGc3).
 
 ## The dangers of modeling
 As with just every model for every single task, it's much easier to optimize a model to work great for the data known at the moment of optimization (_in-sample_), 
@@ -27,31 +29,43 @@ The combination of these two methods serves as the ultimate stress-test method.
 Remember, that the _observed history_ is just the single story line out of many possibilities, that could have happened. 
 What we observe is simply something that just happened to agree to collapse into one story line, 
 based on the probabilities attached to the set of interacting events in question, including those with low probability but impact so high, 
-that it can break the (almost) agreed story line.
+that they can break the (almost) agreed story line.
 If something dramatic could have happened, but was avoided only because of sheer luck, it will happen in future in an altered constellation, given enough time. 
 You'd best be ready by fortifying your model (through simulation) against these dramatic events and their alterations. 
-Please refer to [_"Fooled by Randomness"_](https://en.wikipedia.org/wiki/Fooled_by_Randomness) by Nassim Nicholas Taleb for more details.
+Please refer to [_"Fooled by Randomness"_](https://en.wikipedia.org/wiki/Fooled_by_Randomness) by Nassim Nicholas Taleb if you are interested in learning such concepts.
 
 # Requirements
+- The console simulator should be compilable and run fast enough on almost any OS, where a POSIX C++ compiler is available. 
+- About 4 GB of RAM is expected for the initial data serialization step, although this shall be cut by half in near future.
+- Depending on the granuality of your data, the according data storage space is needed for the textual (CSV) input, as well as for the serialized binary data. Both types of data are stored compressed though and are being decompressed on the fly into memory, as they are needed.
+
 Supported Operating Systems and features:
 
-| OS \ Feature  | CI | gcc | clang | UT | WX | QT | R  |
-| ------------- | -- | --- | ----- | -- | -- | -- | -- |
-| Debian stable |    | ✓   | ✓     |  ✓ | ✓  |    | ✓  |
-| Debian buster |    | ✓   | ✓     |  ✓ | ✓  | ✓  | ✓  |
-| Ubuntu 21.04  |    | ✓   | ✓     |  ✓ | ✓  |    | ✓  |
-| Ubuntu 20.04  | ✓  | ✓   | ✓     |  ✓ | ✓  | ✓  | ✓  |
-| Mac OSX 11    | ✓  |     | ✓     |  ✓ | ✓  |    | ✓  |
-| Mac OSX 10.15 | ✓  |     | ✓     |  ✓ | ✓  |    |    |
-| Windows       | ✓  | ✓   |       |  ✓ |    |    |    |
+| OS \ Feature  | CI | gcc | clang | UT | wx | Qt | Py | R  |
+| ------------- | -- | --- | ----- | -- | -- | -- | -- | -- |
+| Debian stable |    | ✓   | ✓     |  ✓ | ✓  |    | ✓  | ✓  |
+| Debian buster |    | ✓   | ✓     |  ✓ | ✓  | ✓  | ✓  | ✓  |
+| Ubuntu 21.04  |    | ✓   | ✓     |  ✓ | ✓  |    | ✓  | ✓  |
+| Ubuntu 20.04  | ✓  | ✓   | ✓     |  ✓ | ✓  | ✓  | ✓  | ✓  |
+| Mac OSX 11    | ✓  |     | ✓     |  ✓ | ✓  |    | ✓  | ✓  |
+| Mac OSX 10.15 | ✓  |     | ✓     |  ✓ | ✓  |    | ✓  |    |
+| Windows       | ✓  | ✓   |       |  ✓ |    |    | ✓  |    |
 
 Glossary:
 - CI = [Continuous Integration](https://github.com/mj-xmr/tsqsim/actions)
 - gcc & clang = C/C++ compilers
-- UT = Unit Tests
-- WX = wxWidgets configuration application
-- QT = QT application (data viewer)
-- R = bindings to R statistical framework
+- UT = [Unit Tests](https://en.wikipedia.org/wiki/Unit_testing)
+- wx = [wxWidgets](https://www.wxwidgets.org/)-based configuration application
+- Qt = [Qt](https://en.wikipedia.org/wiki/Qt_(software)) application (data viewer)
+- Py = [Python](https://en.wikipedia.org/wiki/Python_(programming_language)) alternative to the QT app
+- R = bindings to the ["R" statistical framework](https://www.r-project.org/)
+
+Optional components:
+- UT
+- wx
+- Qt
+- Py
+- R
 
 # Quickstart
 In case these instructions become outdated, please refer to the steps of the [CI](.github/workflows/build.yml).
@@ -173,8 +187,34 @@ Thus the priorities of the development are skewed towards delivering results to 
 
 ![image](https://user-images.githubusercontent.com/63722585/144647510-51028542-a4a7-497c-9bc1-053daf7af947.png)
 
+## Python-based QT app's alternative
+- Upper window: The interactive QT data viewer
+- Lower window: A very portable Python alternative, useful where QT is unavailable
+
+![image](https://user-images.githubusercontent.com/63722585/151012558-2751868a-de4d-4a97-bac6-fc599b336d7a.png)
+
+## Python-based (Partial) AutoCorrelation Function (ACF & PACF) plots
+
+ACF of the original series:
+
+![image](https://user-images.githubusercontent.com/63722585/151013189-43f1f028-32ff-4f8c-a8e1-ff9f69bd409d.png)
+
+ACF of the first difference of the series, exhibiting a statistically significant inverse correlation at lag 1:
+
+![image](https://user-images.githubusercontent.com/63722585/151015304-b90e07c0-a2ec-448a-8a18-61ada8687b79.png)
+
+... and so does the Partial AutoCorrelation Function (PACF):
+
+![image](https://user-images.githubusercontent.com/63722585/151221354-f233f937-cbe0-443c-840c-2be77376f24e.png)
+
+Seasonal decomposition of the daily bars exhibits a strong seasonal pattern over the week:
+
+![image](https://user-images.githubusercontent.com/63722585/151616487-d26419cd-89db-462a-946a-0eedc4a4e7c9.png)
+
+
+
 ## wx Configurator
-![image](https://user-images.githubusercontent.com/63722585/147835250-e381ff4e-0665-44de-b384-03810a9fbfb1.png)
+![image](https://user-images.githubusercontent.com/63722585/151012395-0b984207-cfa3-468d-81ca-d2da10132091.png)
 
 
 ## Console simulator

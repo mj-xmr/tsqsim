@@ -8,6 +8,7 @@ using namespace std;
 
 ConfigTF2::ConfigTF2(){}
 const char * ConfigTF2::OPT_TRAIN = "train";
+const char * ConfigTF2::OPT_TRADE= "trade";
 const char * ConfigTF2::OPT_SIM_TYPE = "sim-type";
 const char * ConfigTF2::OPT_FILTER_PRICE = "filter-price";
 
@@ -19,6 +20,7 @@ EnjoLib::Str ConfigTF2::GetFileNameProt() const
 void ConfigTF2::FromOptsNumeric(const OptionsNumeric & optsNum)
 {
     UpdateVarIfConfigured(optsNum, TRAIN,        OPT_TRAIN);
+    UpdateVarIfConfigured(optsNum, TRADE,        OPT_TRADE);
     UpdateVarIfConfigured(optsNum, MT_SIM_TYPE,  OPT_SIM_TYPE);
     UpdateVarIfConfigured(optsNum, FILTER_PRICE, OPT_FILTER_PRICE);
 }
@@ -26,6 +28,11 @@ void ConfigTF2::FromOptsNumeric(const OptionsNumeric & optsNum)
 void ConfigTF2::RegisterAndReadBools(EnjoLib::Istream & f)
 {
     RegisterAndReadBool(f, CUSTOM_DATE, true,           "CUSTOM_DATE");
+    RegisterAndReadBool(f, SINGLE_THREADED_ALL, false,  "Single threaded");
+    RegisterAndReadBool(f, EXPERIMENTAL, false,         "EXPERIMENTAL");
+#ifdef WX_FULL
+    RegisterAndReadBool(f, RANDOM_BARS, false,          "RANDOM_BARS");
+    RegisterAndReadBool(f, FILTER_PRICE, false,         "FILTER_BARS");
     RegisterAndReadBool(f, NETWORKED, false,            "NETWORKED");
     RegisterAndReadBool(f, NETWORKED_CV, false,         "NETWORKED_CV");
     RegisterAndReadBool(f, MT_SIM_UPDATE_TECH, false,   "MT_SIM_UPDATE_TECH");
@@ -38,15 +45,13 @@ void ConfigTF2::RegisterAndReadBools(EnjoLib::Istream & f)
     RegisterAndReadBool(f, CORREL_CALC, false,          "CORREL_CALC");
     RegisterAndReadBool(f, CORREL_USE, false,           "CORREL_USE");
     RegisterAndReadBool(f, CORREL_ADAPT, false,         "CORREL_ADAPT");
-    RegisterAndReadBool(f, EXPERIMENTAL, false,         "EXPERIMENTAL");
     RegisterAndReadBool(f, POTENTIAL_PROFIT, false,     "POTENTIAL_PROFIT");
     RegisterAndReadBool(f, PLOT_COUMPOUNDED, false,     "PLOT_COUMPOUNDED");
-    RegisterAndReadBool(f, RANDOM_BARS, false,          "RANDOM_BARS");
-    RegisterAndReadBool(f, FILTER_PRICE, false,         "FILTER_PRICE");
-    RegisterAndReadBool(f, SINGLE_THREADED_ALL, false,  "Single threaded");
     RegisterAndReadBool(f, STATS_SUMMARY, false,        "Stats summary");
-    RegisterAndReadBool(f, CAP_CORREL_ADJ, false,       "Adj. cap. correl.");
-    
+    RegisterAndReadBool(f, CAP_CORREL_ADJ, false,       "Adj. cap. corr.");
+    RegisterAndReadBool(f, CAP_CORREL_ADJ_WINDOW, false,"Adj. cap. corr. win.");
+#endif // WX_FULL
+
     //RegisterAndReadBool(f, NO_AT_ACCESS, false);
 }
 

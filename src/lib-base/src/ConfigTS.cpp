@@ -35,6 +35,8 @@ void ConfigTS::RegisterAndReadBools(EnjoLib::Istream & f)
     RegisterAndReadBool(f, crashOnRecoverableErrors, 0, "Crash on err",     "Crash on recoverable errors");
     RegisterAndReadBool(f, PLOT_SERIES,              1, "Plot series",      "Plot output series after evaluation");
     RegisterAndReadBool(f, PLOT_BASELINE,            1, "Plot baseline",    "Plot baseline prediction in QT app");
+    RegisterAndReadBool(f, PLOT_PYTHON,              0, "Plot with Python", "Plot the series in Python backend");
+    RegisterAndReadBool(f, PLOT_PYTHON_ACF,          0, "Plot ACF with Python", "Plot the Auto Correlation Function in Python backend");
     RegisterAndReadBool(f, MT_XFORM,                 1, "MT xform",         "Perform the transformations in a multithreaded way (still unstable)");
     RegisterAndReadBool(f, MT_REPORT,                0, "MT report",        "Generate report in multithreaded way (still unstable)");
     RegisterAndReadBool(f, USE_VECTOR_PRED,          1, "Opti vec pred",    "Use optimized vectored prediction");
@@ -44,6 +46,8 @@ void ConfigTS::RegisterAndReadInts(EnjoLib::Istream & f)
 {
     RegisterAndReadInt (f, PRED_TYPE, 0);
     RegisterAndReadInt (f, PRICE_TYPE, 0);
+    RegisterAndReadInt (f, PLOT_LAGS_NUM, 30);
+    RegisterAndReadInt (f, PLOT_PERIOD_NUM, 30);
 }
 void ConfigTS::RegisterAndReadFloats(EnjoLib::Istream & f)
 {
@@ -54,6 +58,7 @@ void ConfigTS::RegisterAndReadStrs(EnjoLib::Istream & f)
     RegisterAndReadStr(f, m_scriptPathTxt,      dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME);
     RegisterAndReadStr(f, m_scriptPathTxtR,     dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME_R);
     RegisterAndReadStr(f, m_scriptPathTxtGen,   dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME_GEN);
+    //RegisterAndReadStr(f, m_outDir,   "");
 }
 
 PredictorType ConfigTS::GetPredType() const
@@ -73,4 +78,18 @@ PriceType ConfigTS::GetPriceType() const
 void ConfigTS::SetPriceType(const PriceType & type)
 {
     PRICE_TYPE = static_cast<long int>(type);
+}
+
+void ConfigTS::UpdateFromOther(const ConfigTS & cfgTSCmdLine)
+{
+    if (cfgTSCmdLine.m_outDir.size()) m_outDir = cfgTSCmdLine.m_outDir;
+    
+    if (cfgTSCmdLine.PLOT_LAGS_NUM > 0)
+    {
+        PLOT_LAGS_NUM = cfgTSCmdLine.PLOT_LAGS_NUM;
+    }
+    if (cfgTSCmdLine.PLOT_PERIOD_NUM > 0)
+    {
+        PLOT_PERIOD_NUM = cfgTSCmdLine.PLOT_PERIOD_NUM;
+    }
 }

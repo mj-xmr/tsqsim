@@ -6,6 +6,8 @@
 #include "Logic.h"
 #include <Math/GeneralMath.hpp>
 #include <Util/VecOpThin.hpp>
+#include <Template/Array.hpp>
+#include <Statistical/Assertions.hpp>
 
 #include <STD/VectorCpp.hpp>
 
@@ -23,7 +25,7 @@ RegressionPoints::~RegressionPoints(){}
 float RegressionPoints::GetPoints() const
 {
     float error = 0;
-    const std::vector<EnjoLib::Pair<double, double>> & data = GetDistrib();
+    const Array<EnjoLib::Pair<double, double>> & data = GetDistrib();
     for (unsigned i = 0; i < data.size(); ++i)
     {
         const double x = data.at(i).first;
@@ -108,7 +110,7 @@ float RegressionPoints::GetRange() const
         const float val2 = m_vValCurr.at(i-2);
         const float val1 = m_vValCurr.at(i-1);
         const float val0 = m_vValCurr.at(i);
-        bool extremeReached = not Logic::In(val2, val1, val0);
+        bool extremeReached = not EnjoLib::Assertions::In(val2, val1, val0);
         if (extremeReached)
         {
             const float range = EnjoLib::GeneralMath().Fabs(val1 - start);
@@ -128,7 +130,7 @@ void RegressionPoints::Finish()
         m_distributionOut.atw(i) = m_distributionIn.at(i) * mul;
 }
 
-std::vector<EnjoLib::Pair<double, double>> RegressionPoints::GetDistrib() const
+EnjoLib::Array<EnjoLib::Pair<double, double>> RegressionPoints::GetDistrib() const
 {
     std::vector<EnjoLib::Pair<double, double>> data;
     for (unsigned i = 0; i < m_distributionOut.size(); ++i)
@@ -144,7 +146,7 @@ std::vector<EnjoLib::Pair<double, double>> RegressionPoints::GetDistrib() const
 // Wykrywac wszystkie mody powyzej 0.35
 float RegressionPoints::GetMedian() const
 {
-    const std::vector<EnjoLib::Pair<double, double>> & distrib = GetDistrib();
+    const EnjoLib::Array<EnjoLib::Pair<double, double>> & distrib = GetDistrib();
     double maxArg = -1;
     double maxVal = -1;
     for (int i = 0; i < int(distrib.size()); ++i)
@@ -161,10 +163,11 @@ float RegressionPoints::GetMedian() const
     return maxArg;
 }
 
+/// TODO: Upstream ?
 float RegressionPoints::GetDistribDiff(const RegressionPoints & other) const
 {
-    const std::vector<EnjoLib::Pair<double, double>> & distrib1 = GetDistrib();
-    const std::vector<EnjoLib::Pair<double, double>> & distrib2 = other.GetDistrib();
+    const EnjoLib::Array<EnjoLib::Pair<double, double>> & distrib1 = GetDistrib();
+    const EnjoLib::Array<EnjoLib::Pair<double, double>> & distrib2 = other.GetDistrib();
 
     double sum = 0;
 

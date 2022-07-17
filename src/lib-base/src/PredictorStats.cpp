@@ -5,6 +5,7 @@
 #include <Ios/Osstream.hpp>
 #include <Ios/IoManip.hpp>
 #include <Math/GeneralMath.hpp>
+#include <Util/CoutBuf.hpp>
 #include <Util/ToolsMixed.hpp>
 #include <Statistical/Statistical.hpp>
 
@@ -13,15 +14,15 @@ using namespace EnjoLib;
 PredictorStats::PredictorStats(){}
 PredictorStats::~PredictorStats(){}
 
-EnjoLib::Str PredictorStats::GenRepNext(const EnjoLib::VecD & orig, const EnjoLib::VecD & predBaseline, const EnjoLib::VecD & pred) const
+EnjoLib::Str PredictorStats::GenRepNext(const EnjoLib::VecD & orig, const EnjoLib::VecD & predBaseline, const EnjoLib::VecD & pred, int offset) const
 {
-    const PredictorStatsRes & res = GenPoints(orig, predBaseline, pred);
+    const PredictorStatsRes & res = GenPoints(orig, predBaseline, pred, offset);
     return GenRepNext(res);
 }
 
 EnjoLib::Str PredictorStats::GenRepNext(const PredictorStatsRes & res) const
 {
-    
+
     Osstream oss;
     oss << IoManip::SetPrecision(oss, 3);
     oss << "Prediction scores:";
@@ -33,15 +34,37 @@ EnjoLib::Str PredictorStats::GenRepNext(const PredictorStatsRes & res) const
     return oss.str();
 }
 
-PredictorStatsRes PredictorStats::GenPoints(const EnjoLib::VecD & orig, const EnjoLib::VecD & predBaseline, const EnjoLib::VecD & pred) const
+PredictorStatsRes PredictorStats::GenPoints(const EnjoLib::VecD & orig, const EnjoLib::VecD & predBaseline, const EnjoLib::VecD & pred, int offset) const
 {
     const Statistical stat;
     PredictorStatsRes res{};
-    
-    res.rmsBase2Truth  = stat.RMSTwo(predBaseline, orig); /// TODO: different readouts with diffs and without
-    res.rmsPred2Base   = stat.RMSTwo(pred, predBaseline);
-    res.rmsPred2Truth  = stat.RMSTwo(pred, orig);
-    
+
+    EnjoLib::VecD predCorrected;
+    //LOGL << "Offset " << offset << Nl;
+    if (offset > 0)
+    {
+        predCorrected = pred;
+        for (int i = 0; i < offset; ++i)
+        {
+            LOGL << "PredictorStats Correcting " << i+1 << Nl;
+            predCorrected.pop_back();
+            predCorrected.push_front(0);
+            //predCorrected.pop_front();
+            //predCorrected.push_back(0);
+        }
+    }
+    else
+    {
+        predCorrected = pred;
+    }
+
+    res.rmsBase2Truth  = stat.RMSTwo(predBaseline,  orig); /// TODO: different readouts with diffs and without
+    res.rmsPred2Base   = stat.RMSTwo(predCorrected, predBaseline);
+    res.rmsPred2Truth  = stat.RMSTwo(predCorrected, orig);
+    //res.rmsBase2Truth  = (predBaseline - orig).Mean(); /// TODO: different readouts with diffs and without
+    //res.rmsPred2Base   = (predCorrected - predBaseline).Mean();
+    //res.rmsPred2Truth  = (predCorrected - orig).Mean();
+
     if (res.rmsBase2Truth != 0)
     {
         res.ratioPred2Base = res.rmsPred2Truth / res.rmsBase2Truth;

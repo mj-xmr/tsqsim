@@ -18,11 +18,22 @@ PlotDataBase::PlotDataBase(const IDataProvider & period)
 , m_period(period)
 {}
 
+#include "PlotDataScreenshot.h"
+CorPtr<PlotDataBase> PlotDataBase::CreateScreenshot(const IPeriod & period)
+{
+    return CorPtr<PlotDataBase>(new PlotDataScreenshot(period));
+}
+
 PlotDataBase::~PlotDataBase(){}
 
 int PlotDataBase::CalcIdx(int i) const
 {
     return Util::CalcIdx(i, GetSz());
+}
+
+unsigned PlotDataBase::GetSz() const
+{
+     return GetFinancial().size();
 }
 
 QVector<double> PlotDataBase::GetBuf(const BufferType & type) const

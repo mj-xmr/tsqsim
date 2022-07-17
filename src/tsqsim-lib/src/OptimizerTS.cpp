@@ -53,7 +53,7 @@ void OptimizerTS::Consume(const EnjoLib::VecD & data)
     const EnjoLib::Str & idd = m_period.GetSymbolPeriodId();
 
     //const OptiGoalType type = OptiGoalType::SHARPE;
-    //const OptiGoalType type = gcfgMan.cfgOpti->GetOptimizerGoalType();
+    //const OptiGoalType type = gcfgMan.cfgOpti->GetGoalType();
     //const CorPtr<IOptiGoal> pgoal = OptiGoalFactory::Create(type);
     //const IOptiGoal & igoal = *pgoal;
 
@@ -61,7 +61,7 @@ void OptimizerTS::Consume(const EnjoLib::VecD & data)
     float goal = 0;
 
     //CorPtr<IPosition> pos = IPosition::Create(m_period.GetSymbolName());
-    switch (gcfgMan.cfgOpti->GetOptimizerMethod())
+    switch (gcfgMan.cfgOpti->GetMethod())
     {
         case OptiMethod::OPTI_METHOD_BISECTION:
         {

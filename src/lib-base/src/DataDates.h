@@ -1,6 +1,7 @@
 #ifndef DATADATES_H
 #define DATADATES_H
 
+#include <Util/Str.hpp>
 
 class DataDates
 {
@@ -9,10 +10,13 @@ class DataDates
         virtual ~DataDates() {}
 
         void Set0();
+        void SetNoEnd();
         void SetStart(int year, int month);
         void SetEnd(int year, int month);
         void UpdateIfNot0(const DataDates & other);
         static void UpdateVarIfNot0(const long int src, long int * var);
+        
+        EnjoLib::Str ToStr() const;
 
         long int yearStart;
         long int yearEnd;

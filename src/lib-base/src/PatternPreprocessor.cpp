@@ -1,4 +1,5 @@
 #include "PatternPreprocessor.h"
+#include <Template/Array.hpp>
 #include <STD/VectorCpp.hpp>
 
 using namespace EnjoLib;

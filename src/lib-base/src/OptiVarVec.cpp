@@ -2,6 +2,8 @@
 
 #include <Util/PimplCopier.hpp>
 #include <Util/PimplDeleter.hpp>
+#include <Template/Array.hpp>
+
 #include <STD/VectorCpp.hpp>
 
 #include <initializer_list>
@@ -22,12 +24,12 @@ OptiVarVec::~OptiVarVec(){}
 OptiVarVec::OptiVarVec()
 : m_impl(new Impl())
 {
-    
+
 }
 
 OptiVarVec::OptiVarVec(const std::initializer_list<OptiVarF *> & invec)
 : m_impl(new Impl(invec))
-{    
+{
 }
 
 void OptiVarVec::Add(OptiVarF * var)

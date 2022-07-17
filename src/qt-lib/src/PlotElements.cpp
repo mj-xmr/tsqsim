@@ -59,9 +59,9 @@ void PlotElements::ConfigureCandlesticks(QCPFinancial *candlesticks, bool dark)
     candlesticks->setPenNegative(QPen(QColor(colWick, colWick, colWick, alphaWick)));
 }
 
-void PlotElements::SetupDayWeekend(unsigned mi, QCustomPlot * p, const IDataProvider & period, const PlotDataBase & d, bool dark)
+PlotElements::WeekendData PlotElements::GetDayWeekend(unsigned mi, const PlotDataBase & d) const
 {
-    QVector<double> timeDay, timeWeek, timeNFP;
+    WeekendData wdat;
     for (unsigned i = 1; i < mi && i < d.GetSz() - 1; ++i)
     {
         const QCPFinancialData & finCurr = d.GetFinancial().at(i);
@@ -76,30 +76,39 @@ void PlotElements::SetupDayWeekend(unsigned mi, QCustomPlot * p, const IDataProv
         const QTime & timeCurr = qtimeCurr.time();
         const QTime & timePrev = qtimePrev.time();
         if (dateCurr.dayOfWeek() < datePrev.dayOfWeek())
-            timeWeek += finCurr.key;
+            wdat.timeWeek += finCurr.key;
         if (timeCurr.hour() < timePrev.hour())
         {
-            timeDay += finCurr.key;
+            wdat.timeDay += finCurr.key;
             if (dateCurr.dayOfWeek() == 5 && dateCurr.day() < 7)
             {
-                timeNFP += finCurr.key;
+                wdat.timeNFP += finCurr.key;
             }
         }
-
     }
+    return wdat;
+}
+
+void PlotElements::SetupDayWeekend(unsigned mi, QCustomPlot * p, const IDataProvider & period, const PlotDataBase & d, bool dark)
+{
     if (period.GetName() != "d")
     {
+        const WeekendData & wdat = GetDayWeekend(mi, d);
         // Vertical weekend lines
-        Util::AddVLines(timeDay,    QCPRange::minRange, QCPRange::maxRange, p, dark ? "DarkGrey" : "LightGrey"); // Day
-        Util::AddVLines(timeNFP,    QCPRange::minRange, QCPRange::maxRange, p, dark ? "Blue" : "Blue");          // NFP
-        Util::AddVLines(timeWeek,   QCPRange::minRange, QCPRange::maxRange, p, dark ? "Green" : "Black");        // Weekend
+        Util::AddVLines(wdat.timeDay,    QCPRange::minRange, QCPRange::maxRange, p, dark ? "DarkGrey" : "LightGrey"); // Day
+        Util::AddVLines(wdat.timeNFP,    QCPRange::minRange, QCPRange::maxRange, p, dark ? "Blue" : "Blue");          // NFP
+        Util::AddVLines(wdat.timeWeek,   QCPRange::minRange, QCPRange::maxRange, p, dark ? "Green" : "Black");        // Weekend
     }
 }
 
-void PlotElements::SetupTechs(QCustomPlot * p, const IStrategy & strat, QCPAxisRect *techRect, const PlotDataBase & d)
+void PlotElements::SetupTechs(unsigned mi, QCustomPlot * p, const IStrategy & strat, QCPAxisRect *techRect, const PlotDataBase & d, bool dark)
 {
-    ConfigQT confQT;
-    confQT.Read();
+    if (not strat.GetPeriod().HasBufs())
+    {
+        return;
+    }
+    const ConfigQTPlot & confPlot = *gcfgMan.cfgQTPlot;
+    const ConfigQT & confQT = *gcfgMan.cfgQT;
     {
         // Buf Vec
         const auto & bufs = strat.GetPeriod().GetBufVec(BufferVecType(confQT.bufRainbow));
@@ -122,10 +131,52 @@ void PlotElements::SetupTechs(QCustomPlot * p, const IStrategy & strat, QCPAxisR
 
         SetupTechsVec(p, strat, techRect, d, techs);
     }
+    if (dark)
+    {
+        const QPen & gridPen = GetDarkGridPen();
+        techRect->axis(QCPAxis::atBottom)->grid()->setPen(gridPen);
+        techRect->axis(QCPAxis::atLeft)  ->grid()->setPen(gridPen);
+        //p->xAxis->setTickLabelColor(QColor(gridIntens, gridIntens, gridIntens));
+    }
+    if (confPlot.DAY_WEEK)
+    {
+        SetupDayWeekendTech(mi, p, techRect, d, dark);
+    }
+}
+
+QPen PlotElements::GetDarkGridPen() const
+{
+    const int gridIntens = 50;
+    const QPen gridPen(QColor(gridIntens, gridIntens, gridIntens));
+    return gridPen;
+}
+
+void PlotElements::SetupDayWeekendTech(unsigned mi, QCustomPlot * p, QCPAxisRect *techRect, const PlotDataBase & d, bool dark)
+{
+        /// TODO: Implement this somehow
+        const WeekendData & wdat = GetDayWeekend(mi, d);
+        /*
+        Util::AddVLines(wdat.timeDay,    QCPRange::minRange, QCPRange::maxRange, p, dark ? "DarkGrey" : "LightGrey"); // Day
+        if (period.GetName() != "d")
+        {
+            const WeekendData & wdat = GetDayWeekend(mi, d);
+            // Vertical weekend lines
+            Util::AddVLines(wdat.timeDay,    QCPRange::minRange, QCPRange::maxRange, p, dark ? "DarkGrey" : "LightGrey"); // Day
+            Util::AddVLines(wdat.timeNFP,    QCPRange::minRange, QCPRange::maxRange, p, dark ? "Blue" : "Blue");          // NFP
+            Util::AddVLines(wdat.timeWeek,   QCPRange::minRange, QCPRange::maxRange, p, dark ? "Green" : "Black");        // Weekend
+        }
+        */
+        Util::AddVLinesTech(wdat.timeDay,    p, techRect, dark ? "DarkGrey" : "LightGrey"); // Day
+        Util::AddVLinesTech(wdat.timeNFP,    p, techRect, dark ? "Blue" : "Blue");          // NFP
+        Util::AddVLinesTech(wdat.timeWeek,   p, techRect, dark ? "Green" : "Black");        // Weekend
 }
 
 void PlotElements::SetupTechsVec(QCustomPlot * p, const IStrategy & strat, QCPAxisRect *techRect, const PlotDataBase & d, const vector<EnjoLib::Pair<BufferType, QPen>> & techs)
 {
+    if (not strat.GetPeriod().HasBufs())
+    {
+        return;
+    }
     //BufferType tech1 = BUF_STOCH_K;
 
     p->setAutoAddPlottableToLegend(false);
@@ -152,7 +203,17 @@ void PlotElements::SetupTechsVec(QCustomPlot * p, const IStrategy & strat, QCPAx
 
 void PlotElements::SetupTechsXform(QCustomPlot * p, const ISimulatorTS & simTS, QCPAxisRect *techRect, const PlotDataBase & d)
 {
-    SetupTSLine(p, techRect, d, simTS, PredictorOutputType::SERIES,     QPen(Qt::blue),   "Series");
+    const ConfigQTPlot & confPlot = *gcfgMan.cfgQTPlot;
+    if (confPlot.MA)
+    {
+        Util::AddMA(d.GetTime(), Util::stdVectToQVectF(simTS.GetOutputSeries(PredictorOutputType::MA).Data()),               p, Qt::green);
+    }
+    
+    SetupTSLine(p, techRect, d, simTS, PredictorOutputType::SEASONAL,     QPen(Qt::green),  "Seasonal");
+    SetupTSLine(p, techRect, d, simTS, PredictorOutputType::MA2DIFF,     QPen(Qt::green),  "MA2diff");
+    SetupTSLine(p, techRect, d, simTS, PredictorOutputType::MA2DIFF_NO_SEASONAL,  QPen(Qt::blue),  "MA2diff");
+    
+    //SetupTSLine(p, techRect, d, simTS, PredictorOutputType::SERIES,     QPen(Qt::blue),   "Series");
     //SetupTSLine(p, techRect, d, simTS, PredictorOutputType::PREDICTION, QPen(Qt::green),  "Prediction");
     //SetupTSLine(p, techRect, d, simTS, PredictorOutputType::BASELINE,   QPen(Qt::gray),   "Baseline");
 }
@@ -175,6 +236,10 @@ QCPGraph * PlotElements::SetupTSLine(QCustomPlot * p, QCPAxisRect *techRect, con
     newCurve->setPen(pen);
     const VecD & tsdata = simTS.GetOutputSeries(type);
     SetupTechLine(p, d, Util::stdVectToQVectF(tsdata.Data()), newCurve);
+    QCPItemText * txt = new QCPItemText(p);
+    txt->setText(name);
+    txt->position->setCoords(10, 10);
+    txt->setPen(pen);
     return newCurve;
 }
 

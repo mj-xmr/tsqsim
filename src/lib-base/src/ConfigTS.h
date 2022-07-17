@@ -26,6 +26,8 @@ class ConfigTS : public ConfigBase
         PriceType GetPriceType() const;
         void SetPriceType(const PriceType & type);
 
+        void UpdateFromOther(const ConfigTS & cfgTSCmdLine);
+
 
         static const char * DEFAULT_SCRIPT_FILE_NAME;
         static const char * DEFAULT_SCRIPT_FILE_NAME_R;
@@ -34,15 +36,21 @@ class ConfigTS : public ConfigBase
         EnjoLib::Str m_scriptPathTxt;
         EnjoLib::Str m_scriptPathTxtR;
         EnjoLib::Str m_scriptPathTxtGen;
+        EnjoLib::Str m_outDir;
+        
         bool crashOnRecoverableErrors = false;
         bool PLOT_SERIES = true;
         bool PLOT_BASELINE = true;
+        bool PLOT_PYTHON = false;
+        bool PLOT_PYTHON_ACF = false;
         bool MT_REPORT = false;
         bool MT_XFORM = false;
         bool USE_VECTOR_PRED = false;
 
         long int PRED_TYPE = 0;
         long int PRICE_TYPE = 0;
+        long int PLOT_LAGS_NUM = 30; constexpr static const char * DESCR_PLOT_LAGS_NUM = "Number of lags for ACF/PACF plot";
+        long int PLOT_PERIOD_NUM = 30; constexpr static const char * DESCR_PLOT_PERIOD_NUM = "Seasonal period for seasonal decomposition plot";
 
     protected:
         EnjoLib::Str GetFileNameProt() const override;

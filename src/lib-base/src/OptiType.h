@@ -4,8 +4,8 @@
 enum class OptiType
 {
     OPTI_TYPE_NONE,
-    OPTI_TYPE_FIND,
     OPTI_TYPE_USE,
+    OPTI_TYPE_FIND,
     OPTI_TYPE_XVALID
 };
 

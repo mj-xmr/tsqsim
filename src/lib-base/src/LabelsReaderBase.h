@@ -4,7 +4,7 @@
 //#include <vector>
 #include "typesStr.h"
 #include <Template/SafePtr.hpp>
-#include <Template/Array.hpp>
+#include <Template/ArrayFwd.hpp>
 #include <Util/Pair.hpp>
 #include <3rdParty/stdfwd.hh>
 
@@ -25,8 +25,8 @@ class LabelsReaderBase
         VecStr GetFileContents() const;
 
         EnjoLib::Str m_filePath;
-        
-        
+
+
 
         static const char delim = '|';
     private:

@@ -58,6 +58,7 @@ EnjoLib::Array<StrategyType> ConfigGlob::GetStrategiesTested() const
 
 ConfigGlob::ConfigGlob()
 {
+    MAX_LOSS_LIVE_PERCENT = 1.4;
     //PLOT_GNUPLOT = false;
     MIN_SCORE = 0.01;
     MAX_LOSS_PERCENT = 2;

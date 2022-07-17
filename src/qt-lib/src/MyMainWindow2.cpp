@@ -28,14 +28,14 @@ Corrade::Containers::Pointer<ISymbol> MyMainWindow::LoadSymbolFromFile() const
     return psym;
 }
 
-QCPAxisRect * MyMainWindow::SetupTechs(QCustomPlot * p, const IStrategy & strat, const ISimulatorTS & simTS, const PlotDataBase & d)
+QCPAxisRect * MyMainWindow::SetupTechs(QCustomPlot * p, const IStrategy & strat, const ISimulatorTS & simTS, const PlotDataBase & d, bool dark)
 {
     PlotElements pel;
     QCPAxisRect * techRect = pel.SetupGetIndicatorRect(p, d);
     switch (gcfgMan.cfgSym->GetDataSrc())
     {
     case DataSrcType::FOREX_TESTER:
-        pel.SetupTechs(p, strat, techRect, d);
+        pel.SetupTechs(m_i, p, strat, techRect, d, dark);
         break;
     case DataSrcType::MONERO:
         pel.SetupTechsXform(p, simTS, techRect, d);

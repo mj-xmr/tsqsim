@@ -30,6 +30,7 @@
 #include "CLIResult.h"
 #include <StrategyFactoryDummy.h>
 #include <SymbolFactoryClean.h>
+#include <SimulatorFactoryTSImpl.h>
 #include <ConfigMan.h>
 #include <ConfigQT.h>
 #include <ConfigSym.h>
@@ -77,7 +78,7 @@ int main(int argc, char *argv[])
     ConfigSym * pconf = gcfgMan.cfgSym.get();
     pconf->UpdateFromOther(result.value.m_confSym);
     pconf->Write(); // Propagates the CLI choices
-     
+
     //const ConfigTF2 & confTF2 = *gcfgMan.cfgTF2;
     //const ConfigOpti & confOpti = *gcfgMan.cfgOpti;
     try
@@ -97,8 +98,12 @@ int main(int argc, char *argv[])
 
 
     Monster mon(screenShotOutDir, screenShotSymbol, screenShotPeriod, dataInputFileName);
-    mon.SetStratFactory(new StrategyFactoryDummy());
-    mon.SetSymFactory  (new SymbolFactoryClean());
+    SafePtr<StrategyFactoryAbstract> factStrat(new StrategyFactoryDummy());
+    SafePtr<SymbolFactoryAbstract> factSym(new SymbolFactoryClean());
+    SafePtr<SimulatorFactoryAbstract> factSim(new SimulatorFactoryTSImpl());
+    mon.SetFactories(factSym.get()
+    , factStrat.get()
+    , factSim.get());
     mon.Reload(symName, periodName, stratType, mode);
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     QApplication::setGraphicsSystem("raster");

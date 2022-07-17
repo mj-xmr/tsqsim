@@ -4,8 +4,9 @@
 #include <Util/CharManipulations.hpp>
 #include <Util/StackTrace.hpp>
 #include <Util/FileUtils.hpp>
-#include <STD/VectorCpp.hpp>
+#include <Template/Array.hpp>
 
+#include <STD/VectorCpp.hpp>
 
 using namespace std;
 using namespace EnjoLib;
@@ -17,7 +18,7 @@ struct LabelsReaderBaseImpl
     LabelsReaderBaseImpl(const EnjoLib::Str & filePath)
     : m_fileContents(Tokenizer().GetLines(filePath))
     {
-        
+
     }
     VecStr m_fileContents;
 };

@@ -3,6 +3,7 @@
 
 #include "typesVec.h"
 #include <Template/VecT.hpp>
+#include <Template/ArrayFwd.hpp>
 #include <Util/Pair.hpp>
 
 
@@ -27,7 +28,7 @@ class RegressionPoints
 
     private:
         double GetNormalDistrib(double x) const;
-        STDFWD::vector<EnjoLib::Pair<double, double>> GetDistrib() const;
+        EnjoLib::Array<EnjoLib::Pair<double, double>> GetDistrib() const;
 
         static const int m_numBins;
 
