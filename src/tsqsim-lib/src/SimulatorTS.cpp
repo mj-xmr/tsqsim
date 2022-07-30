@@ -243,7 +243,7 @@ std::vector<TSRes> SimulatorTS::GetReconstruction(const ITSFun * fun, const Enjo
     std::vector<TSRes> ret;
     const VecD & reconstr = fun->ReconstructVec(input, lostMat);
     //LOGL << "Reconstr = " << reconstr.Print() << Nl;
-    for (int i = 0; i < reconstr.size(); ++i)
+    for (size_t i = 0; i < reconstr.size(); ++i)
     {
         TSRes res;
         res.val = reconstr.at(i);
@@ -363,7 +363,7 @@ EnjoLib::VecD SimulatorTS::GetMA2Diff(const EnjoLib::VecD & maa, int period) con
     MaxMinFindD mmf;
     const DataOCHL & data = m_per.GetDataFull();
     bool isValid = false;
-    for (int i = 0; i < data.Size(); ++i)
+    for (size_t i = 0; i < data.Size(); ++i)
     {
         const double val = data.closes.at(i) - maa.at(i);
         if (i > period)

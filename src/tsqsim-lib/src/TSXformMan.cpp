@@ -66,7 +66,7 @@ VecD TSXformMan::ReconstructVec(const EnjoLib::VecD & input, const EnjoLib::Matr
     }
 
     double valPrev = 0;
-    for (int j = 0; j < input.size(); ++j)
+    for (size_t j = 0; j < input.size(); ++j)
     {
     double val = input.at(j);
     const VecD & valLostVec = lost.at(j);
