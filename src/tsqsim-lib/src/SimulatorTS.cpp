@@ -324,21 +324,25 @@ void SimulatorTS::PrintExperimental() const
         SimulatorTSReports().PrintReportSingleThreaded(m_per, m_cfgTS, m_dataMan.converted, descr, plots);
     }
     ELO
+
+    //LOG << ToolsMixed().GetPercentToAscii(m_predsPlot, 0, m_predsPlot.Max()) << Nl;
+
     const PredictorStats statsPred;
     const PredictorStatsRes & predPoints = statsPred.GenPoints(m_original, m_predsBaseline, m_preds);
     LOG << statsPred.GenRepNext(predPoints) << Nl;
+
 }
 
 EnjoLib::VecD SimulatorTS::GetSeasonal(int period, int averages) const
 {
     Seasonal seasonal(m_per, averages);
-    
+
     const EnjoLib::VecD & ret = seasonal.Run(m_original);
-    
+
     const Str name = "seasonal";
     LOGL << name << " = " << ret.Last() << Nl;
     OutputVariable(ret, name);
-        
+
     return ret;
 }
 
@@ -347,16 +351,16 @@ EnjoLib::VecD SimulatorTS::GetMA(int period) const
     //EnjoLib::VecD ret;
     const bool ema = false;
     const DataOCHL & data = m_per.GetDataFull();
-    
+
     //EnjoLib::VecD ret = PredictorUtil().Regression(period, data.closes);
     EnjoLib::VecD ret = PredictorUtil().SimpleMA(period, data.closes);
     const EnjoLib::Statistical stat;
     return stat.ReplaceLeadingZeroes(ret);
-    
+
     return ret;
 }
 
-EnjoLib::VecD SimulatorTS::GetMA2Diff(const EnjoLib::VecD & maa, int period) const
+EnjoLib::VecD SimulatorTS::GetMA2Diff(const EnjoLib::VecD & maa, size_t period) const
 {
     EnjoLib::VecD ret;
     GMat gmat;
@@ -426,7 +430,7 @@ const EnjoLib::VecD & SimulatorTS::GetOutputSeries(const PredictorOutputType & t
     case PredictorOutputType::MA2DIFF:
         return m_ma2Diff;
     case PredictorOutputType::MA2DIFF_NO_SEASONAL:
-        return m_ma2DiffNoSeasonal;    
+        return m_ma2DiffNoSeasonal;
     case PredictorOutputType::RECONSTRUCTION:
         return m_reconstr;
     case PredictorOutputType::RECONSTRUCTION_PRED:

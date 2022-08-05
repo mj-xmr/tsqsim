@@ -73,6 +73,7 @@ def plotSeasonalDecomposition(data, period, title, model='constant'):
     #fig.show()
     #plt.plot(result.seasonal)
     #plt.plot(result.trend)
+    axs[0].set_title("Seasonal decompo. (" + str(period) + ") " + title)
     
     plt.show()
 

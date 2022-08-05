@@ -51,7 +51,7 @@ class SimulatorTS : public ISimulatorTS
         EnjoLib::VecD PredCommon(const IPredictor & predAlgo, const EnjoLib::VecD & data) const;
         EnjoLib::VecD GetSeasonal(int period = 24, int averages = 26) const;
         EnjoLib::VecD GetMA(int period = 100) const;
-        EnjoLib::VecD GetMA2Diff(const EnjoLib::VecD & maa, int period = 100) const;
+        EnjoLib::VecD GetMA2Diff(const EnjoLib::VecD & maa, size_t period = 100) const;
         void OutputVariable(const EnjoLib::VecD & var, const EnjoLib::Str & name) const;
         void OutputVariable(double var, const EnjoLib::Str & name) const;
 
