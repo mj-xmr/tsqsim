@@ -33,7 +33,7 @@ def get_parser():
     parser.add_argument('-s', '--shared',    default=False, action='store_true', help="build shared libraries (default: OFF)")
     parser.add_argument('-l', '--lto',       default=False, action='store_true', help="link time optimization (Release case; default: OFF)")
     parser.add_argument('-f', '--ffp',       default=False, action='store_true', help="faster, but less precise floating point (default: OFF)")
-    parser.add_argument('-n', '--native'     default=False, action='store_true', help="native build (default: OFF)")
+    parser.add_argument('-n', '--native',    default=False, action='store_true', help="native build (default: OFF)")
     parser.add_argument('-d', '--debug',     default=False, action='store_true', help="build debug (default: OFF)")
     parser.add_argument('-p', '--pch',       default=False, action='store_true', help="build pch   (Dev case; default: OFF)")
     parser.add_argument('-u', '--unity',     default=False, action='store_true', help="build unity (CI case;  default: OFF)")
