@@ -28,7 +28,7 @@ class RegressionPoints
 
     private:
         double GetNormalDistrib(double x) const;
-        EnjoLib::Array<EnjoLib::Pair<double, double>> GetDistrib() const;
+        EnjoLib::Array<EnjoLib::Pair<EnjoLib::FP, EnjoLib::FP>> GetDistrib() const;
 
         static const int m_numBins;
 

@@ -25,7 +25,7 @@ RegressionPoints::~RegressionPoints(){}
 float RegressionPoints::GetPoints() const
 {
     float error = 0;
-    const Array<EnjoLib::Pair<double, double>> & data = GetDistrib();
+    const Array<EnjoLib::Pair<EnjoLib::FP, EnjoLib::FP>> & data = GetDistrib();
     for (unsigned i = 0; i < data.size(); ++i)
     {
         const double x = data.at(i).first;
@@ -130,14 +130,14 @@ void RegressionPoints::Finish()
         m_distributionOut.atw(i) = m_distributionIn.at(i) * mul;
 }
 
-EnjoLib::Array<EnjoLib::Pair<double, double>> RegressionPoints::GetDistrib() const
+EnjoLib::Array<EnjoLib::Pair<EnjoLib::FP, EnjoLib::FP>> RegressionPoints::GetDistrib() const
 {
-    std::vector<EnjoLib::Pair<double, double>> data;
+    std::vector<EnjoLib::Pair<EnjoLib::FP, EnjoLib::FP>> data;
     for (unsigned i = 0; i < m_distributionOut.size(); ++i)
     {
         double moved = i - (m_numBins / 2.0 - 1);
         double scaleFactor = 2.5 / m_numBins;
-        double scaledX = moved * scaleFactor;
+        EnjoLib::FP scaledX = moved * scaleFactor;
         data.push_back(EnjoLib::MakePair(scaledX, m_distributionOut.at(i)));
     }
     return data;
@@ -146,7 +146,7 @@ EnjoLib::Array<EnjoLib::Pair<double, double>> RegressionPoints::GetDistrib() con
 // Wykrywac wszystkie mody powyzej 0.35
 float RegressionPoints::GetMedian() const
 {
-    const EnjoLib::Array<EnjoLib::Pair<double, double>> & distrib = GetDistrib();
+    const EnjoLib::Array<EnjoLib::Pair<EnjoLib::FP, EnjoLib::FP>> & distrib = GetDistrib();
     double maxArg = -1;
     double maxVal = -1;
     for (int i = 0; i < int(distrib.size()); ++i)
@@ -166,8 +166,8 @@ float RegressionPoints::GetMedian() const
 /// TODO: Upstream ?
 float RegressionPoints::GetDistribDiff(const RegressionPoints & other) const
 {
-    const EnjoLib::Array<EnjoLib::Pair<double, double>> & distrib1 = GetDistrib();
-    const EnjoLib::Array<EnjoLib::Pair<double, double>> & distrib2 = other.GetDistrib();
+    const EnjoLib::Array<EnjoLib::Pair<EnjoLib::FP, EnjoLib::FP>> & distrib1 = GetDistrib();
+    const EnjoLib::Array<EnjoLib::Pair<EnjoLib::FP, EnjoLib::FP>> & distrib2 = other.GetDistrib();
 
     double sum = 0;
 

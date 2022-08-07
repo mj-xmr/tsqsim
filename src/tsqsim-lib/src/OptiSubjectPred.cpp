@@ -39,7 +39,7 @@ OptiSubjectPred::~OptiSubjectPred()
     //dtor
 }
 
-double OptiSubjectPred::Get(const double * inp, int n)
+EnjoLib::FP OptiSubjectPred::Get(const EnjoLib::FP * inp, int n)
 {
     CorPtr<IPredictor> fun = m_fact.Create(m_period, m_type);
     IPredictor & strat = *(fun.get());
