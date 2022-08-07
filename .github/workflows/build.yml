@@ -28,6 +28,7 @@ jobs:
       matrix:
         os: [ubuntu-latest] #, ubuntu-18.04] # TODO: Consider(!) supporting the previous version.
         compiler: [gcc, clang]
+        options: ["", "--ffp"]
         linkage: ["", "--shared", "--lto"]
     steps:
     - uses: actions/checkout@v1
@@ -38,8 +39,8 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.ccache
-        key:          ccache03-${{ runner.os }}-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.linkage }}-build-${{ github.sha }}
-        restore-keys: ccache03-${{ runner.os }}-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.linkage }}-build-
+        key:          ccache03-${{ runner.os }}-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.linkage }}-${{ matrix.options }}-build-${{ github.sha }}
+        restore-keys: ccache03-${{ runner.os }}-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.linkage }}-${{ matrix.options }}-build-
     # Less volatile cache
     - name: data cache
       uses: actions/cache@v2
@@ -62,9 +63,9 @@ jobs:
     - name: build & install the unmanaged dependencies
       run: util/deps-build.sh
     - name: build
-      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} --unity --build-qt --build-r
+      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} ${{ matrix.options }} --unity --build-qt --build-r
     - name: run demo
-      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} --unity --build-qt --build-r --run-demo
+      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} ${{ matrix.options }} --unity --build-qt --build-r --run-demo
 # It doesn't make sense for now, since we're not linking Boost statically yet.
 #    - uses: actions/upload-artifact@v2
 #      if: ${{ matrix.compiler == 'gcc' && matrix.linkage == '--lto' }}

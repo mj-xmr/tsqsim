@@ -32,6 +32,7 @@ def get_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('-s', '--shared',    default=False, action='store_true', help="build shared libraries (default: OFF)")
     parser.add_argument('-l', '--lto',       default=False, action='store_true', help="link time optimization (Release case; default: OFF)")
+    parser.add_argument('-f', '--ffp',       default=False, action='store_true', help="faster, but less precise floating point (default: OFF)")
     parser.add_argument('-d', '--debug',     default=False, action='store_true', help="build debug (default: OFF)")
     parser.add_argument('-p', '--pch',       default=False, action='store_true', help="build pch   (Dev case; default: OFF)")
     parser.add_argument('-u', '--unity',     default=False, action='store_true', help="build unity (CI case;  default: OFF)")
@@ -126,6 +127,7 @@ def build(args):
     cmd += NL + '-DUSE_DEBUG={}'  .format(ON  if args.debug  else OFF)
     cmd += NL + '-DUSE_UNITY={}'  .format(ON  if args.unity  else OFF)
     cmd += NL + '-DUSE_PCH={}'    .format(ON  if args.pch    else OFF)
+    cmd += NL + '-DUSE_FLOATING_POINT_LOW_PRECISION={}'.format(ON if args.ffp else OFF)
     cmd += NL + '-DBUILD_QT={}'   .format(ON  if args.build_qt else OFF) # Optional
     cmd += NL + '-DBUILD_WX={}'   .format(OFF if args.no_wx    else ON ) # Optional
     cmd += NL + '-DBUILD_TESTS={}'.format(OFF if args.no_tests else ON ) # Optional
