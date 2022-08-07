@@ -9,6 +9,7 @@
 #endif //USE_R
 
 #include <cstring>
+#include <STD/Vector.hpp>
 
 RWrapper::RWrapper()
 {
