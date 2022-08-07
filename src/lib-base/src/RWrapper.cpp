@@ -25,14 +25,14 @@ EnjoLib::VecD RWrapper::R_predictVec(const EnjoLib::VecD & vec)
 {
     EnjoLib::VecD retVec;   
 #ifdef USE_R
-    const double * a = vec.data();
+    const EnjoLib::FP * a = vec.data();
     const int alen = vec.size();
     const char * functionName = "predict";
 
     // Allocate an R vector and copy the C array into it.
     SEXP arg;
     PROTECT(arg = allocVector(REALSXP, alen));
-    std::memcpy(REAL(arg), a, alen * sizeof(double));
+    std::memcpy(REAL(arg), a, alen * sizeof(EnjoLib::FP));
 
     // Setup a call to the R function
     SEXP add1_call;
@@ -45,7 +45,7 @@ EnjoLib::VecD RWrapper::R_predictVec(const EnjoLib::VecD & vec)
     if (!errorOccurred)
     {
         printf("R returned: ");
-        double *val = REAL(ret);
+        EnjoLib::FP *val = REAL(ret);
         for (int i = 0; i < LENGTH(ret); i++)
         {
             printf("%0.1f, ", val[i]);
