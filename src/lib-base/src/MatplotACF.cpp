@@ -43,7 +43,7 @@ void MatplotACF::Plot(const EnjoLib::VecD & dat, int lags, int periodSeasonal, c
             ofs << line << Nl;
         }
         VecD reversed = dat;
-        AlgoSTDIVec<double>().Reverse(&reversed);
+        AlgoSTDIVec<FP>().Reverse(&reversed);
         //ofs << dat.PrintPython("dat") << Nl;
         ofs << reversed.PrintPython("dat") << Nl;
         ofs <<  "plotACF(dat, " << lags << ", '" << title << "')" << Nl;

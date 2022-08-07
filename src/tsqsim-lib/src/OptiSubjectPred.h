@@ -22,7 +22,7 @@ class OptiSubjectPred : public IOptiSubject
         
         double GetGoal() const;
         
-        double Get(const double * in, int n) override;
+        EnjoLib::FP Get(const EnjoLib::FP * in, int n) override;
         EnjoLib::VecD GetStart() const override;
         EnjoLib::VecD GetStep() const override;
         EnjoLib::Array<EnjoLib::OptiMultiSubject::Bounds> GetBounds() const override;

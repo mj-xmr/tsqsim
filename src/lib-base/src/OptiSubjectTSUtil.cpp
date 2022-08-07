@@ -20,7 +20,7 @@ OptiSubjectTSUtil::~OptiSubjectTSUtil()
 {
 }
 
-double OptiSubjectTSUtil::UpdateOptiGetPenality(const double * inp, int n, const EnjoLib::VecD & iterData, IOptimizable * opti) const
+double OptiSubjectTSUtil::UpdateOptiGetPenality(const EnjoLib::FP * inp, int n, const EnjoLib::VecD & iterData, IOptimizable * opti) const
 {
     EnjoLib::Array<OptiVarF *> vopti = opti->GetOptiFloat().Vec();
     //OptiVarF * varReal = FindVarCurrent(strat, iVar);
