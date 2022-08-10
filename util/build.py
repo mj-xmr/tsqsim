@@ -44,7 +44,7 @@ def get_parser():
     parser.add_argument('-t', '--no-tests',  default=False, action='store_true', help="don't build Tests (default: OFF)")
     parser.add_argument('-r', '--run-demo',  default=False, action='store_true', help="run demo (default: OFF)")
     parser.add_argument('-b', '--benchmark', default=False, action='store_true', help="benchmark (default: OFF)")
-    parser.add_argument('-o', '--plot',      default=False, action='store_true', help="plot in Python (default: OFF)")
+    parser.add_argument(      '--plot',      default=False, action='store_true', help="plot in Python (default: OFF)")
     parser.add_argument('-c', '--compiler',  default="", help='compiler ({}; default: autodetect)'.format('/'.join(COMPILERS)))
     parser.add_argument('-o', '--options',   default="", help='additional options in format "OPT1=ON OPT2=OFF" (default: none)')
     parser.add_argument('-j', '--proc',      default=NPROC, type=int, help="number of cores to use (default: all)")
@@ -170,10 +170,10 @@ def build(args):
 def run_demo(args):
     exports_r = get_r_path(DIR_BIN)
     os.chdir(DIR_BIN)
-    cmd = get_exports_cmd()
+    cmd = get_exports_cmd(exports_r)
     cmd += '&& ./tsqsim --help'
     cmd += '&& ./tsqsim ' + get_cmdline(args)
-
+    
     if platform.system() == 'Windows':
         #subprocess.run("ls ../..", shell=True, check=True)
         shutil.move('../../data', '.') # TODO: Ugly
@@ -184,9 +184,10 @@ def run_demo(args):
     proc = subprocess.run(cmd, shell=True, check=True) # Run again to test the deserialization
 
 def benchmark(args):
+    exports_r = get_r_path(DIR_BIN)
     os.chdir(DIR_BIN)
 
-    cmd = get_exports_cmd()
+    cmd = get_exports_cmd(exports_r)
     cmd += '&& ./tsqsim --benchmark ' + get_cmdline(args)
 
     if platform.system() == 'Windows':
@@ -197,7 +198,7 @@ def benchmark(args):
 
     proc = subprocess.run(cmd, shell=True, check=True)
 
-def get_exports_cmd():
+def get_exports_cmd(exports_r):
 
     cmd = ""
     cmd += ' export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:lib' # TODO: Solve in CMake?
