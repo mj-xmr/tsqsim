@@ -83,6 +83,7 @@ endmacro()
 #endif()
 if (USE_DEBUG)
 	set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "" FORCE)
+	set(USE_OPTI_O3 OFF)
 endif()
 
 if (USE_OPTI_O3)
