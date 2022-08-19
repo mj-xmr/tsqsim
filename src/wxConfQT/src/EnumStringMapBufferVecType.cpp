@@ -1,4 +1,5 @@
 #include "EnumStringMapBufferVecType.h"
+#include <Util/Str.hpp>
 #include <BufferVecType.h>
 
 EnumStringMapBufferVecType::EnumStringMapBufferVecType()

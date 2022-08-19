@@ -38,6 +38,7 @@ void ConfigTF2::RegisterAndReadBools(EnjoLib::Istream & f)
     RegisterAndReadBool(f, MT_SIM_UPDATE_TECH, false,   "MT_SIM_UPDATE_TECH");
     RegisterAndReadBool(f, SIM_USE_TICKS, false,        "SIM_USE_TICKS");
     RegisterAndReadBool(f, TRAIN, false,                "TRAIN");
+    RegisterAndReadBool(f, TRADE, false,                OPT_TRADE);
     RegisterAndReadBool(f, FULL_DATA, false,            "FULL_DATA");
     RegisterAndReadBool(f, PYTHON_SERVER, false,        "PYTHON_SERVER");
     RegisterAndReadBool(f, BLACKLIST, true,             "BLACKLIST");

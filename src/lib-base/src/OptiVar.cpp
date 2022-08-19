@@ -12,6 +12,7 @@
 #include <Ios/Ifstream.hpp>
 #include <Math/RandomMath.hpp>
 #include <Util/Str.hpp>
+#include <Util/VecF.hpp>
 #include <Util/Except.hpp>
 #include <Util/FileUtils.hpp>
 #include <Util/StackTrace.hpp>

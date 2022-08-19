@@ -6,7 +6,7 @@ namespace EnjoLib
     class VecD;
 }
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 class NetReaderCommon
 {

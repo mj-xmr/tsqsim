@@ -2,10 +2,12 @@
 #include "IBufferCandles.h"
 #include "Candle.h"
 #include "IPeriod.h"
-#include <STD/VectorCpp.hpp>
 
+#include <Util/Str.hpp>
 #include <Util/CoutBuf.hpp>
 #include <Math/GeneralMath.hpp>
+
+#include <STD/VectorCpp.hpp>
 
 using namespace std;
 using namespace EnjoLib;

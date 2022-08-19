@@ -1,7 +1,7 @@
 #ifndef URTWRAP_H
 #define URTWRAP_H
 
-#include <Util/VecD.hpp>
+#include <Util/VecFwd.hpp>
 #include <Template/CorradePointerFwd.h>
 
 class IURTAlgo

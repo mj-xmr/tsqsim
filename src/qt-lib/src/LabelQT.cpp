@@ -1,5 +1,6 @@
 #include "LabelQT.h"
 #include <Ios/Osstream.hpp>
+#include <Util/Str.hpp>
 #include <IPeriod.h>
 
 LabelQT::LabelQT(const IPeriod & period)

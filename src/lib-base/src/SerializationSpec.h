@@ -3,7 +3,7 @@
 
 //#include <EnjoLibBoost/Serialization.hpp> // just for testing
 //template < typename Ticks > class Serialization; // Forward declaration of template
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 class Ticks;
 class HmmStates;
 class SerializationSpec// : public Serialization<Ticks>

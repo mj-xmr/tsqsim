@@ -5,6 +5,7 @@
 #include "ITicks.h"
 #include "TicksProviderFactory.h"
 
+#include <Util/Str.hpp>
 #include <Template/SafePtr.hpp>
 #include <Template/UniquePtrVecFwd.hpp>
 

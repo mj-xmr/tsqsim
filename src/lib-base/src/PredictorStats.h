@@ -1,8 +1,8 @@
 #ifndef PREDICTORSTATS_H
 #define PREDICTORSTATS_H
 
-#include <Util/Str.hpp>
-#include <Util/VecD.hpp>
+#include <Util/StrFwd.hpp>
+#include <Util/VecFwd.hpp>
 
 class ITSFun;
 

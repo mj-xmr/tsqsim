@@ -10,6 +10,7 @@
 #include "Buffer.h"
 #include "BufferVecType.h"
 #include "BufferVecUpdateable.h"
+#include <Util/VecF.hpp>
 #include <Math/GeneralMath.hpp>
 #include <Statistical/EigenFactoryAbstract.hpp>
 

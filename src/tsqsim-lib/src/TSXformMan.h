@@ -4,7 +4,7 @@
 #include "ITSXform.h"
 #include "PriceType.h"
 #include <Template/CorradePointer.h>
-#include <Statistical/Matrix.hpp>
+#include <Statistical/MatrixFwd.hpp>
 #include <Util/VecStr.hpp>
 
 #include <STD/Vector.hpp>

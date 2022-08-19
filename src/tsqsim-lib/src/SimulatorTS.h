@@ -5,7 +5,7 @@
 #include "TSXformDataMan.h"
 #include <Util/VecD.hpp>
 #include <Util/Tuple.hpp>
-#include <Statistical/Matrix.hpp>
+#include <Statistical/MatrixFwd.hpp>
 #include <Template/CorradePointer.h>
 
 class ISimulatorAccum;

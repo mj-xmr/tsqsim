@@ -1,11 +1,10 @@
 #ifndef REGRESSION_H
 #define REGRESSION_H
 
-#include <Statistical/RegressionAbstract.hpp>
 #include "RegressionRes.h"
 
-#include <Util/VecD.hpp>
-
+#include <Statistical/RegressionAbstract.hpp>
+#include <Util/VecFwd.hpp>
 #include <Util/Pair.hpp>
 
 namespace EnjoLib {

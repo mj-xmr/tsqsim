@@ -1,7 +1,7 @@
 #ifndef OPTIHIGH_H
 #define OPTIHIGH_H
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 class ISymbol;
 class IPeriod;

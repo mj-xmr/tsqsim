@@ -1,7 +1,7 @@
 #ifndef CLI_H
 #define CLI_H
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 #include <Util/Result.hpp>
 
 struct CLIResult;

@@ -5,7 +5,7 @@
 //#include <Util/Bool3State.hpp>
 #include <Template/VecT.hpp>
 #include <Template/ArrayFwd.hpp>
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 #include <Util/Pair.hpp>
 #include "Direction.h"
 #include <3rdParty/stdfwd.hh>

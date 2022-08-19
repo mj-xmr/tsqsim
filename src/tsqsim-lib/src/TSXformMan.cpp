@@ -4,11 +4,13 @@
 #include "TSXformFactory.h"
 #include "TSXformRes.h"
 
+#include <Util/Str.hpp>
 #include <Util/CoutBuf.hpp>
 #include <Util/Tokenizer.hpp>
 #include <Math/MaxMinFindF.hpp>
 //#include <Util/CharManipulations.hpp>
 #include <Template/CorradePointer.h>
+#include <Statistical/Matrix.hpp>
 #include <Statistical/Assertions.hpp>
 
 using namespace EnjoLib;

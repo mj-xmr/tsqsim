@@ -2,7 +2,7 @@
 #define IDATAPROVIDER_H
 
 #include "types.h"
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 class DataOCHL;
 class DataTech;

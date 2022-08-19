@@ -3,7 +3,7 @@
 
 #include "types.h"
 #include "Direction.h"
-#include <Util/VecF.hpp>
+#include <Util/VecFwd.hpp>
 #include <Util/VecStr.hpp>
 #include <Util/Pair.hpp>
 #include <Util/Tuple.hpp>

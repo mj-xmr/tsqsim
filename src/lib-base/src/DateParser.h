@@ -1,7 +1,7 @@
 #ifndef DATEPARSER_H
 #define DATEPARSER_H
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 class DateParser
 {

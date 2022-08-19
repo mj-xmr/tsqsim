@@ -1,5 +1,6 @@
 #include "EnumStringMapDataSrc.h"
 
+#include <Util/Str.hpp>
 #include "DataSrcType.h"
 
 EnumStringMapDataSrc::EnumStringMapDataSrc()

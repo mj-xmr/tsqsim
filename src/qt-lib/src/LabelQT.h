@@ -3,7 +3,7 @@
 
 #include <types.h>
 #include <Label.h>
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 class IPeriod;
 

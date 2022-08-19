@@ -5,6 +5,7 @@
 #include "SymbolFactoryClean.h"
 #include "TicksProviderFactory.h"
 
+#include <Util/Str.hpp>
 #include <Template/CorradePointer.h>
 #include <UnitTest++/UnitTest++.h>
 

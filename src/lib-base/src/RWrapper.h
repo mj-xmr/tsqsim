@@ -2,7 +2,7 @@
 #define RWRAPPER_H
 
 #include <Util/VecD.hpp>
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 class RWrapper
 {

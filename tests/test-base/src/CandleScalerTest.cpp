@@ -1,8 +1,10 @@
 #include "pch_test.h"
 
-#include <UnitTest++/UnitTest++.h>
+#include <Util/VecF.hpp>
 #include <Template/VectorViewable.hpp>
 #include <CandleScaler.h>
+
+#include <UnitTest++/UnitTest++.h>
 
 using namespace std;
 using namespace EnjoLib;

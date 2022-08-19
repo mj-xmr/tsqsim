@@ -3,7 +3,7 @@
 
 #include "ISimulator.h"
 
-#include <Util/VecD.hpp>
+#include <Util/VecFwd.hpp>
 
 enum class PredictorOutputType;
 

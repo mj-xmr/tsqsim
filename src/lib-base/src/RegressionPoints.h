@@ -5,6 +5,7 @@
 #include <Template/VecT.hpp>
 #include <Template/ArrayFwd.hpp>
 #include <Util/Pair.hpp>
+#include <Util/VecF.hpp>
 
 
 class IDataProvider;

@@ -3,6 +3,8 @@
 #include "StrategyType.h"
 #include "StrategyTypeEnum.h"
 
+#include <Util/Str.hpp>
+
 using namespace StrategyFactory;
 
 EnumStringMapStrat::EnumStringMapStrat()

@@ -1,7 +1,7 @@
 #ifndef IESTIMATOR_H
 #define IESTIMATOR_H
 
-#include <Util/VecD.hpp>
+#include <Util/VecFwd.hpp>
 
 class IEstimator
 {

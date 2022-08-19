@@ -60,6 +60,7 @@ void SimulatorTS::Run()
 
 void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
 {
+    LOGL << "SimulatorTS::RunRaw()\n";
     //const int idxStart  = m_per.Len() - m_fun.Len();
     int idxStart  = 0;
     int idxFinish = m_per.Len();

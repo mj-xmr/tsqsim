@@ -2,7 +2,7 @@
 #define OPTIVARTPL_H
 
 #include <Util/Str.hpp>
-#include <Util/VecF.hpp>
+#include <Util/VecFwd.hpp>
 
 class IDataProvider;
 

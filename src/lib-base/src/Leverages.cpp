@@ -1,6 +1,7 @@
 #include "pch_base.h"
 
 #include "Leverages.h"
+#include <Util/Str.hpp>
 #include <Template/CacheRAMBare.hpp>
 
 using namespace std;

@@ -1,6 +1,7 @@
 #include "TimeUtil.h"
 
 #include <Ios/Osstream.hpp>
+#include <Util/Str.hpp>
 #include <Util/CharManipulations.hpp>
 
 #include <ostream>

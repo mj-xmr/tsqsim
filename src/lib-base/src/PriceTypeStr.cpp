@@ -1,6 +1,8 @@
 #include "PriceTypeStr.h"
 #include "PriceType.h"
 
+#include <Util/Str.hpp>
+
 PriceTypeStr::PriceTypeStr()
 {
     for (int i = 0; i <= int(PriceType::TYPICAL); ++i)

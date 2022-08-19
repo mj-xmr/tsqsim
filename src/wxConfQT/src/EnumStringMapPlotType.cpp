@@ -1,4 +1,5 @@
 #include "EnumStringMapPlotType.h"
+#include <Util/Str.hpp>
 #include <PlotType.h>
 
 EnumStringMapPlotType::EnumStringMapPlotType()

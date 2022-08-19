@@ -1,4 +1,5 @@
 #include "EnumStringMapBufferType.h"
+#include <Util/Str.hpp>
 #include <BufferType.h>
 
 EnumStringMapBufferType::EnumStringMapBufferType()

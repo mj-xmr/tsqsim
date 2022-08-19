@@ -2,7 +2,7 @@
 #define ISYBMOL_H
 
 #include <3rdParty/stdfwd.hh>
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 #include <Template/ArrayFwd.hpp>
 
 class IPeriod;

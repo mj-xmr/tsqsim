@@ -2,7 +2,7 @@
 #define TSXFORMFACTORY_H
 
 #include "ITSXform.h"
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 #include <Util/VecStr.hpp>
 #include <Template/CorradePointer.h>
 

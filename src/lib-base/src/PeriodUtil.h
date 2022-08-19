@@ -3,7 +3,7 @@
 
 #include <Template/CorradePointerFwd.h>
 #include "typesStr.h"
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 class IDataProvider;
 class SymbolFactoryAbstract;

@@ -1,9 +1,11 @@
 #include "pch_test.h"
-#include <UnitTest++/UnitTest++.h>
 
 #include <StrategyFactoryName.h>
 #include "StrategyType.h"
 #include "StrategyTypeEnum.h"
+#include <Util/Str.hpp>
+
+#include <UnitTest++/UnitTest++.h>
 
 static StrategyFactoryName sfn;
 
