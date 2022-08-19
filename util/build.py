@@ -64,9 +64,8 @@ def get_r_path(search_dir = '.'):
         if os.path.isdir(dir_osx11):
             dir_framework = dir_osx11
         if not os.path.isdir(dir_framework):
-            if not args.build_r:
-                return exports_r # Don't panic, if R wasn't selected            
-            raise IOError("The R Framework's dir: {} wasn't found".format(dir_framework))
+            if args.build_r: # Don't panic, if R wasn't selected
+                raise IOError("The R Framework's dir: {} wasn't found".format(dir_framework))
         exports_r = "&& export R_HOME={} && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib".format(dir_framework)
     os.chdir(prev_dir)
 
