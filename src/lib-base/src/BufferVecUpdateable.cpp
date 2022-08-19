@@ -1,5 +1,6 @@
 #include "BufferVecUpdateable.h"
-#include "Util/StackTrace.hpp"
+#include <Util/VecF.hpp>
+#include <Util/StackTrace.hpp>
 #include <Util/PimplDeleter.hpp>
 
 #include <typeinfo>
@@ -26,7 +27,7 @@ void BufferVecUpdateable::Calculate(const DataOCHL & data, const IDataProvider &
     }
     catch (std::exception & ex)
     {
-        throw EnjoLib::ExceptRuntimeError(m_name +": Calculate Caught:\n" + ex.what());
+        throw EnjoLib::ExceptRuntimeError(m_name.str() +": Calculate Caught:\n" + ex.what());
     }
 }
 

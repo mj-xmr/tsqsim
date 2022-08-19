@@ -3,8 +3,8 @@
 
 #include "OptionsNumeric.h"
 #include <Template/CorradePointer.h>
-#include <Util/Str.hpp>
-#include <Util/VecF.hpp>
+#include <Util/StrFwd.hpp>
+#include <Util/VecFwd.hpp>
 #include <Util/Pimpl.hpp>
 
 class ConfigTF;

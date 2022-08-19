@@ -1,8 +1,7 @@
 #ifndef STATSUTIL_H
 #define STATSUTIL_H
 
-#include <Util/VecD.hpp>
-#include <Util/VecF.hpp>
+#include <Util/VecFwd.hpp>
 #include <Util/Pair.hpp>
 
 class StatsUtil

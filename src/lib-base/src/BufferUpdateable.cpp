@@ -19,7 +19,7 @@ void BufferUpdateable::Calculate(const DataOCHL & data)
     }
     catch (std::exception & ex)
     {
-        throw EnjoLib::ExceptRuntimeError(m_name +": Calculate Caught:\n" + ex.what());
+        throw EnjoLib::ExceptRuntimeError(m_name.str() + ": Calculate Caught:\n" + ex.what());
     }
 }
 

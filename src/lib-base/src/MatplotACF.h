@@ -2,7 +2,7 @@
 #define MATPLOTACF_H
 
 #include <Util/Str.hpp>
-#include <Util/VecD.hpp>
+#include <Util/VecFwd.hpp>
 
 class MatplotACF
 {

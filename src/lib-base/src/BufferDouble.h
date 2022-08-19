@@ -2,7 +2,7 @@
 #define BUFFERDOUBLE_H
 
 #include "typesVec.h"
-#include <Util/VecD.hpp>
+#include <Util/VecFwd.hpp>
 #include <Util/StrConst.hpp>
 
 class BufferDouble

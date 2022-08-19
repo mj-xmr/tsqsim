@@ -2,6 +2,7 @@
 
 #include "typesVec.h"
 #include "OptiVar.h"
+#include <Util/VecF.hpp>
 #include <Util/CoutBuf.hpp>
 
 #include <UnitTest++/UnitTest++.h>

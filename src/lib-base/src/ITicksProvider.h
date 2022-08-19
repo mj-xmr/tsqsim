@@ -1,7 +1,7 @@
 #ifndef ITICKSPROVIDER_H
 #define ITICKSPROVIDER_H
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 #include <Template/CorradePointer.h>
 
 class ITicks;

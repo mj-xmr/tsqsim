@@ -4,7 +4,7 @@
 //#include "Buffer.h"
 #include "ITaAlgoVec.h"
 #include <Template/SafePtr.hpp>
-#include <Util/Str.hpp>
+#include <Util/StrConst.hpp>
 #include <Util/Pimpl.hpp>
 
 class BufferVecUpdateable
@@ -21,7 +21,7 @@ class BufferVecUpdateable
 
     private:
         EnjoLib::SafePtr<const ITaAlgoVec> m_algo;
-        EnjoLib::Str m_name;
+        EnjoLib::StrConst m_name;
         
         PIMPL
 };

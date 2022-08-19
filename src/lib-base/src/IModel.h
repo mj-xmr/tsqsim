@@ -2,10 +2,8 @@
 #define IMODEL_H
 
 #include <State.h>
-#include <Statistical/Matrix.hpp>
-#include <Statistical/EigenAbstract.hpp>
-#include <Statistical/EigenFactoryAbstract.hpp>
-#include <Util/Str.hpp>
+#include <Statistical/StatFwd.hpp>
+#include <Util/StrFwd.hpp>
 #include <Template/CorradePointer.h>
 //#include <Template/CorradePointerFwd.h>
 #include <3rdParty/stdfwd.hh>

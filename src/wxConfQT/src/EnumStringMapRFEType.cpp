@@ -1,4 +1,5 @@
 #include "EnumStringMapRFEType.hpp"
+#include <Util/Str.hpp>
 #include "RFEType.h"
 
 EnumStringMapRFEType::~EnumStringMapRFEType(){}

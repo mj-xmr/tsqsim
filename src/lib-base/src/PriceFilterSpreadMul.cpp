@@ -5,10 +5,11 @@
 #include "CandleCalc.h"
 #include "PriceFilterConfig.h"
 
-#include <Math/MaxMinFind.hpp>
-#include <STD/VectorCpp.hpp>
-
+#include <Util/Str.hpp>
 #include <Util/CoutBuf.hpp>
+#include <Math/MaxMinFind.hpp>
+
+#include <STD/VectorCpp.hpp>
 //#include <STD/Algorithm.hpp>
 
 using namespace std;

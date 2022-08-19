@@ -4,8 +4,8 @@
 #include "types.h"
 //#include <vector>
 
-#include <Util/VecD.hpp>
-#include <Util/Str.hpp>
+#include <Util/VecFwd.hpp>
+#include <Util/StrFwd.hpp>
 #include <Template/IIterableFwd.hpp>
 
 //template<class T> class OptiVarF;

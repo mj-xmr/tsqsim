@@ -1,7 +1,7 @@
 #ifndef DATADATES_H
 #define DATADATES_H
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 class DataDates
 {

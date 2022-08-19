@@ -1,7 +1,7 @@
 #ifndef IPARAMS1_H
 #define IPARAMS1_H
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 class ISimulatorAccum;
 class ISymbol;

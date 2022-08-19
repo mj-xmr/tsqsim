@@ -8,6 +8,7 @@
 //#include <Math/MaxMinFindF.hpp>
 #include <Util/ProgressMonitHigh.hpp>
 #include <Util/Pimpl.hpp>
+#include <Util/VecD.hpp>
 #include <Template/ArrayFwd.hpp>
 
 class IOptimizable;

@@ -1,7 +1,7 @@
 #ifndef SCREENSHOTSSCALEUP_H
 #define SCREENSHOTSSCALEUP_H
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 #include <3rdParty/stdfwd.hh>
 
 class MyMainWindow;

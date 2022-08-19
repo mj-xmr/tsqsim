@@ -1,7 +1,7 @@
 #ifndef LEVERAGES_H
 #define LEVERAGES_H
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 #include <Template/CacheRAMBase.hpp>
 
 class Leverages

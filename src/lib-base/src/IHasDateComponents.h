@@ -1,7 +1,7 @@
 #ifndef IHASDATECOMPONENTS_H
 #define IHASDATECOMPONENTS_H
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 class IHasDateComponents
 {

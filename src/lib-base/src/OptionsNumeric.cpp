@@ -1,4 +1,5 @@
 #include "OptionsNumeric.h"
+#include <Util/Str.hpp>
 
 #include <STD/Map.hpp>
 

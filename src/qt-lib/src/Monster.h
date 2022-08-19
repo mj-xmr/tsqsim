@@ -2,6 +2,7 @@
 #define MONSTER_HPP
 
 #include "RegressionPars.h"
+#include <Util/Str.hpp>
 #include <Template/SharedPtr.hpp>
 #include <3rdParty/stdfwd.hh>
 

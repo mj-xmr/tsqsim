@@ -1,7 +1,7 @@
 #ifndef SPREADSDYNAMIC_H
 #define SPREADSDYNAMIC_H
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 #include <Util/Pimpl.hpp>
 
 class SpreadsDynamic

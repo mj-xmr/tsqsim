@@ -4,6 +4,7 @@
 #include "Candle.h"
 #include "typesVec.h"
 
+#include <Util/VecF.hpp>
 #include <Util/CoutBuf.hpp>
 #include <Statistical/Matrix.hpp>
 #include <Statistical/Statistical.hpp>

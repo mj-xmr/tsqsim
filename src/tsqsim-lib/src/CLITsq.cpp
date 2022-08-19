@@ -2,6 +2,7 @@
 #include "TSXformTypeString.h"
 
 #include <Ios/Osstream.hpp>
+#include <Util/Str.hpp>
 #include <Template/Array.hpp>
 
 using namespace EnjoLib;

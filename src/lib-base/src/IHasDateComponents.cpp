@@ -1,5 +1,6 @@
 #include "IHasDateComponents.h"
 
+#include <Util/Str.hpp>
 #include <Ios/Osstream.hpp>
 #include <Ios/IoManip.hpp>
 

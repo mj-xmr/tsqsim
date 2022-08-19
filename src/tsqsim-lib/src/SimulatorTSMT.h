@@ -3,7 +3,7 @@
 
 #include "typesVec.h"
 #include "SimulatorTS.h"
-#include <Util/VecD.hpp>
+#include <Util/VecFwd.hpp>
 #include <Template/ArrayFwd.hpp>
 
 class TSInput;

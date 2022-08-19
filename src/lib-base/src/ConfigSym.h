@@ -6,7 +6,7 @@ class StrategyType;
 enum class DataSrcType;
 #include "DataDates.h"
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 class ConfigSym : public ConfigBase
 {

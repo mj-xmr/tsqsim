@@ -4,6 +4,7 @@
 #include "ConfigMan.h"
 #include "ConfigOpti.h"
 
+#include <Util/VecD.hpp>
 #include <Util/CoutBuf.hpp>
 #include <Template/Array.hpp>
 #include <Statistical/Assertions.hpp>

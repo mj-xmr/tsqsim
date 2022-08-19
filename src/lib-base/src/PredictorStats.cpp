@@ -5,6 +5,7 @@
 #include <Ios/Osstream.hpp>
 #include <Ios/IoManip.hpp>
 #include <Math/GeneralMath.hpp>
+#include <Util/Str.hpp>
 #include <Util/CoutBuf.hpp>
 #include <Visual/AsciiMisc.hpp>
 #include <Statistical/Statistical.hpp>

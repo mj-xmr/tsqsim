@@ -11,6 +11,7 @@
 #include "Candle.h"
 #include "BufferCandles.h"
 #include <Util/Pimpl.hpp>
+#include <Util/Str.hpp>
 
 #include <Template/CacheRAMBase.hpp>
 

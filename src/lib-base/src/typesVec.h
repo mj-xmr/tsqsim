@@ -11,7 +11,7 @@ namespace EnjoLib
 }
 
 #include <Util/VecD.hpp>
-#include <Util/VecF.hpp>
+#include <Util/VecFwd.hpp>
 #include <Template/VecT.hpp>
 #include <Template/VectorViewableFwd.hpp>
 #include <Template/IIterableFwd.hpp>

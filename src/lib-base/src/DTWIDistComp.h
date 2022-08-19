@@ -2,7 +2,7 @@
 #define DTWIDISTCOMP_H
 
 #include <Template/CorradePointerFwd.h>
-#include <Util/VecD.hpp>
+#include <Util/VecFwd.hpp>
 
 enum class DTWDistType;
 

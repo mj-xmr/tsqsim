@@ -5,7 +5,7 @@ class IDataProvider;
 
 #include <Template/VecT.hpp>
 #include <Util/VecD.hpp>
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 class StatsMedianSplit
 {

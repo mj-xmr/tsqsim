@@ -2,7 +2,7 @@
 #define BUFFER_H
 
 //#include "typesVec.h"
-#include <Util/VecF.hpp>
+#include <Util/VecFwd.hpp>
 #include <Util/StrConst.hpp>
 
 class State;

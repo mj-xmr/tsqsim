@@ -1,7 +1,7 @@
 #ifndef LABELSUTIL_H
 #define LABELSUTIL_H
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 class IPeriod;
 class IStrategy;

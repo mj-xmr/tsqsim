@@ -1,7 +1,7 @@
 #ifndef STARTEND_H
 #define STARTEND_H
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 class IStrategy;
 class IDataProvider;

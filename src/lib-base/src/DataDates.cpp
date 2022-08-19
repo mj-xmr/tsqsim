@@ -1,6 +1,7 @@
 #include "DataDates.h"
 #include "TimeUtil.h"
 
+#include <Util/Str.hpp>
 #include <Ios/Osstream.hpp>
 
 DataDates::DataDates()

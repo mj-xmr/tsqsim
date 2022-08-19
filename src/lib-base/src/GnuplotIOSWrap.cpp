@@ -1,10 +1,11 @@
 #include "GnuplotIOSWrap.h"
 
-#include <EnjoLibBoost/gnuplot-iostream.h>
-
+#include <Util/Str.hpp>
 #include <Math/GeneralMath.hpp>
 #include <Ios/Osstream.hpp>
 #include <Template/Array.hpp>
+
+#include <EnjoLibBoost/gnuplot-iostream.h>
 
 #include <STD/Tuple.hpp>
 

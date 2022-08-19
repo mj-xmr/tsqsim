@@ -4,7 +4,7 @@
 #include "ConfigBase.h"
 
 #include <Template/CacheRAMBase.hpp>
-#include <Util/VecF.hpp>
+#include <Util/VecFwd.hpp>
 
 class ConfigTxt : public ConfigBase
 {

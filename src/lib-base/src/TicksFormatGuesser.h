@@ -2,7 +2,7 @@
 #define TICKSFORMATGUESSER_H
 
 #include "TicksFormat.h"
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 #include "typesStr.h"
 
 class TicksFormatGuesser

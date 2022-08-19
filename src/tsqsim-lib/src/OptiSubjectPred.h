@@ -4,6 +4,8 @@
 #include "IOptiSubject.h"
 #include "StartEnd.h"
 
+#include <Util/VecD.hpp>
+
 #include <STD/Vector.hpp>
 
 class ISymbol;

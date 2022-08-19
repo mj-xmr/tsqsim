@@ -4,6 +4,7 @@
 #include "TicksFormatGuesser.h"
 #include "TicksProviderFake.h"
 
+#include <Util/Str.hpp>
 #include <Util/CoutBuf.hpp>
 #include <Template/CorradePointer.h>
 #include <UnitTest++/UnitTest++.h>

@@ -2,7 +2,7 @@
 #define INTERESTMAN_H
 
 #include <Template/CacheRAMBase.hpp>
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 #include "Interest.h"
 
 class InterestMan

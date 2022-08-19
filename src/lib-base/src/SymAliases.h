@@ -1,7 +1,7 @@
 #ifndef SYMALIASES_H
 #define SYMALIASES_H
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 #include <Util/Pimpl.hpp>
 
 class SymAliases

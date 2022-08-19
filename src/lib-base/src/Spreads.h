@@ -2,7 +2,7 @@
 #define SPREADS_H
 
 #include <3rdParty/stdfwd.hh>
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 #include <Util/Pimpl.hpp>
 
 class Spreads

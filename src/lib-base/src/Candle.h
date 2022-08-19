@@ -5,7 +5,7 @@
 #include "IHasDateComponents.h"
 #include "Direction.h"
 #include "PriceData.h"
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 #include <3rdParty/stdfwd.hh>
 

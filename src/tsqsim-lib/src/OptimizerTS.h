@@ -6,8 +6,8 @@
 //#include "SimulatorCalcsDistrib.h"
 #include "TSFunType.h"
 
-#include <Util/Str.hpp>
-#include <Util/VecD.hpp>
+#include <Util/StrFwd.hpp>
+#include <Util/VecFwd.hpp>
 class ISymbol;
 class IOptimizable;
 class IPeriod;
