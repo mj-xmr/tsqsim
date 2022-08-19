@@ -148,9 +148,9 @@ jobs:
     - name: build & install the unmanaged dependencies
       run: util/deps-build.sh
     - name: build
-      run: ./ci-default --unity --lto --build-r
+      run: ./ci-default --unity --lto
     - name: run demo
-      run: ./ci-default --unity --lto --build-r --run-demo
+      run: ./ci-default --unity --lto --run-demo
     - uses: actions/upload-artifact@v2
       with:
         name: tsqsim-${{ matrix.os }}
