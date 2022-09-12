@@ -27,6 +27,7 @@ OFF='OFF'
 ON='ON'
 #NL=' \ \n'
 NL=' '
+MAC_QT_LIBPATH=' export PATH="/usr/local/opt/qt@5/bin:$PATH;"'
 
 def get_parser():
     parser = argparse.ArgumentParser()
@@ -121,7 +122,7 @@ def build(args):
         make = " mingw32-make "
         args.compiler = cccompiler
 
-    cmd = prefix + ' export PATH="/usr/local/opt/qt@5/bin:$PATH";' + ' cmake  -S {} -B .'.format(path)
+    cmd = prefix + MAC_QT_LIBPATH + ' cmake  -S {} -B .'.format(path)
     if args.generator:
         cmd += NL + '-G "{}"'.format(args.generator)
     cmd += NL + '-DUSE_STATIC={}' .format(OFF if args.shared else ON)
@@ -168,8 +169,8 @@ def run_demo(args):
     os.chdir(DIR_BIN)
 
     cmd = ""
-    cmd += ' export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:lib' # TODO: Solve in CMake?
-    cmd += ' export PATH="/usr/local/opt/qt@5/bin:$PATH"'
+    cmd += ' export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:lib; ' # TODO: Solve in CMake?
+    cmd += MAC_QT_LIBPATH
     cmd += exports_r
     cmd += '&& ./tsqsim --help'
     cmd += '&& ./tsqsim'
