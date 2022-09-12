@@ -49,6 +49,8 @@ jobs:
         restore-keys: data-${{ hashFiles('build/data/data/txt/**/*') }}
     - name: prepare environment
       run: util/prep-env.sh
+    - name: install dependencies
+      run: util/deps-pull.sh
     - name: build & install the unmanaged dependencies
       run: util/deps-build.sh
     - name: build
