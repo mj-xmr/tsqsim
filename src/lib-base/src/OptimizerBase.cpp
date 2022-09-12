@@ -6,7 +6,7 @@
 #include "OptiVar.h"
 #include "OptiVarVec.h"
 #include "IOptiSubject.h"
-#include "IOptiGoal.h"
+//#include "IOptiGoal.h"
 //#include "ProfitsCalc.h"
 //#include "GnuplotMan.h"
 #include "ConfigOpti.h"
