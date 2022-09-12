@@ -27,7 +27,7 @@ OFF='OFF'
 ON='ON'
 #NL=' \ \n'
 NL=' '
-MAC_QT_LIBPATH=' export PATH="/usr/local/opt/qt@5/bin:$PATH;"'
+MAC_QT_LIBPATH=' export PATH="/usr/local/opt/qt@5/bin:$PATH"; '
 
 def get_parser():
     parser = argparse.ArgumentParser()
