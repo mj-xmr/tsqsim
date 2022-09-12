@@ -101,7 +101,7 @@ static const uint qt_meta_data_QCPScatterStyle[] = {
 };
 
 const QMetaObject QCPScatterStyle::staticMetaObject = {
-    { 0, qt_meta_stringdata_QCPScatterStyle.data,
+    { nullptr, qt_meta_stringdata_QCPScatterStyle.data,
       qt_meta_data_QCPScatterStyle,  0, 0, 0}
 };
 
@@ -1046,7 +1046,7 @@ static const uint qt_meta_data_QCPLineEnding[] = {
 };
 
 const QMetaObject QCPLineEnding::staticMetaObject = {
-    { 0, qt_meta_stringdata_QCPLineEnding.data,
+    { nullptr, qt_meta_stringdata_QCPLineEnding.data,
       qt_meta_data_QCPLineEnding,  0, 0, 0}
 };
 
@@ -2921,7 +2921,7 @@ static const uint qt_meta_data_QCPColorGradient[] = {
 };
 
 const QMetaObject QCPColorGradient::staticMetaObject = {
-    { 0, qt_meta_stringdata_QCPColorGradient.data,
+    { nullptr, qt_meta_stringdata_QCPColorGradient.data,
       qt_meta_data_QCPColorGradient,  0, 0, 0}
 };
 
@@ -4044,7 +4044,7 @@ static const QMetaObject * const qt_meta_extradata_QCPColorScale[] = {
 
 const QMetaObject QCPColorScale::staticMetaObject = {
     { &QCPLayoutElement::staticMetaObject, qt_meta_stringdata_QCPColorScale.data,
-      qt_meta_data_QCPColorScale,  qt_static_metacall, qt_meta_extradata_QCPColorScale, 0}
+      qt_meta_data_QCPColorScale,  qt_static_metacall, reinterpret_cast<const QMetaObject::SuperData*>(qt_meta_extradata_QCPColorScale), 0}
 };
 
 
@@ -5016,7 +5016,7 @@ static const QMetaObject * const qt_meta_extradata_QCPColorMap[] = {
 
 const QMetaObject QCPColorMap::staticMetaObject = {
     { &QCPAbstractPlottable::staticMetaObject, qt_meta_stringdata_QCPColorMap.data,
-      qt_meta_data_QCPColorMap,  qt_static_metacall, qt_meta_extradata_QCPColorMap, 0}
+      qt_meta_data_QCPColorMap,  qt_static_metacall, reinterpret_cast<const QMetaObject::SuperData*>(qt_meta_extradata_QCPColorMap), 0}
 };
 
 
