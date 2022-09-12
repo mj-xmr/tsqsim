@@ -121,7 +121,7 @@ def build(args):
         make = " mingw32-make "
         args.compiler = cccompiler
 
-    cmd = prefix + ' export PATH="/usr/local/opt/qt@5/bin:$PATH"' + ' cmake  -S {} -B .'.format(path)
+    cmd = prefix + ' export PATH="/usr/local/opt/qt@5/bin:$PATH";' + ' cmake  -S {} -B .'.format(path)
     if args.generator:
         cmd += NL + '-G "{}"'.format(args.generator)
     cmd += NL + '-DUSE_STATIC={}' .format(OFF if args.shared else ON)
