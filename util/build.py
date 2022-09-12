@@ -169,8 +169,6 @@ def run_demo(args):
 
     cmd = ""
     cmd += ' export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:lib' # TODO: Solve in CMake?
-    if platform.system() == 'Darwin':
-        cmd += ' export PATH=/usr/local/opt/qt5/bin:$PATH'
     cmd += exports_r
     cmd += '&& ./tsqsim --help'
     cmd += '&& ./tsqsim'
