@@ -207,4 +207,4 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include_directories("~/devel/lib/tree/include")
 link_directories("~/devel/lib/tree/lib")
-
+link_directories("/usr/local/lib") # For MAC & qcustomplot

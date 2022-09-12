@@ -2,6 +2,7 @@
 # The extension is already found. Any number of sources could be listed here.
 cmake_minimum_required(VERSION 3.5.1)
 project(qt-lib)
+
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 SET(CMAKE_INSTALL_RPATH "lib")
 
@@ -11,6 +12,7 @@ file( GLOB SRCS src/*.cpp */*.hpp */*.h)
 add_library(${PROJECT_NAME} ${LINK_TYPE} ${SRCS})
 
 enjoSetupTarget(${PROJECT_NAME})
+
 
 target_link_libraries(${PROJECT_NAME} lib-base tsqsim-lib Qt5::Core Qt5::Widgets qcustomplot)
 
