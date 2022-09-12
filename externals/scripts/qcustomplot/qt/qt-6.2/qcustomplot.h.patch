@@ -1,0 +1,24 @@
+--- qcustomplot.h	2022-09-12 11:11:47.529080388 +0200
++++ qcustomplot.new.h	2022-09-12 11:06:28.586582930 +0200
+@@ -156,10 +156,7 @@
+   
+   It provides QMetaObject-based reflection of its enums and flags via \a QCP::staticMetaObject.
+ */
+-#ifndef Q_MOC_RUN
+ namespace QCP {
+-#else
+-class QCP { // when in moc-run, make it look like a class, so we get Q_GADGET, Q_ENUMS/Q_FLAGS features in namespace
+   Q_GADGET
+   Q_ENUMS(ExportPen)
+   Q_ENUMS(ResolutionUnit)
+@@ -174,9 +171,7 @@
+   Q_FLAGS(Interactions)
+   Q_ENUMS(SelectionRectMode)
+   Q_ENUMS(SelectionType)
+-public:
+-#endif
+-
++}
+ /*!
+   Defines the different units in which the image resolution can be specified in the export
+   functions.
