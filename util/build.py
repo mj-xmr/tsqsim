@@ -121,8 +121,10 @@ def build(args):
         cpcompiler=MINGW_PREFIX + "-g++"
         make = " mingw32-make "
         args.compiler = cccompiler
+    elif platform.system() == 'Darwin':
+        prefix += MAC_QT_LIBPATH + ";"
 
-    cmd = prefix + MAC_QT_LIBPATH + '; cmake  -S {} -B .'.format(path)
+    cmd = prefix + ' cmake  -S {} -B .'.format(path)
     if args.generator:
         cmd += NL + '-G "{}"'.format(args.generator)
     cmd += NL + '-DUSE_STATIC={}' .format(OFF if args.shared else ON)
