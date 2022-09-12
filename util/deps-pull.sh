@@ -13,7 +13,7 @@ if [ "$(uname)" == "Darwin" ]; then
 	# Expose R_HOME path:
 	# TODO:
 	#Rscript src/tsqsim-lib/static/scripts/r-path.R
-	HOMEBREW_NO_AUTO_UPDATE=1 brew install qt
+	HOMEBREW_NO_AUTO_UPDATE=1 brew install ccache qt
 elif [ "$(uname)" == "Linux" ]; then
 	sudo apt update; sudo apt -y install build-essential cmake ccache gnuplot libeigen3-dev libunittest++-dev libgsl-dev libboost-system-dev libboost-filesystem-dev libboost-iostreams-dev libboost-serialization-dev libboost-program-options-dev libboost-date-time-dev libboost-atomic-dev libwxgtk3.0-gtk3-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools r-base-dev python3-statsmodels  #  libssl-dev
 else
