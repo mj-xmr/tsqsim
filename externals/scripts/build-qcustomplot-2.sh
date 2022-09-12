@@ -44,7 +44,7 @@ mv qcustomplot-source/* .
 
 #Patch!
 #patch < "$DIR"/qcustomplot/slow-drag-1.3.2/qcustomplot.cpp.patch
-#patch < "$DIR"/qcustomplot/qt/qt-6.2/qcustomplot.h.patch
+patch < "$DIR"/qcustomplot/qt/qt-6.2/qcustomplot.h.patch
 
 pushd qcustomplot-sharedlib/sharedlib-compilation
 
