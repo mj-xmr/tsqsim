@@ -8,7 +8,7 @@ if [ "$(uname)" == "Darwin" ]; then
 	fi
 	#HOMEBREW_NO_AUTO_UPDATE=1 brew install qt5
 	#brew link -v qt5 --force
-	HOMEBREW_NO_AUTO_UPDATE=1 brew install boost ccache gnuplot eigen gsl unittest-cpp wxwidgets r # openssl zmq
+	HOMEBREW_NO_AUTO_UPDATE=1 brew install boost ccache gnuplot eigen gsl unittest-cpp wxwidgets r qt # openssl zmq
 	# TODO: install qt instead of qt5, after moving to latest QCustomPlot. Then the "--prefix" and "link" aren't needed.
 	# Expose R_HOME path:
 	# TODO:

@@ -5,12 +5,13 @@ echo "Building dependencies"
 if [ "$(uname)" == "Linux" ]; then
 	externals/scripts/build-qcustomplot.sh
 	externals/scripts/build-qcustomplot-2.sh
-fi
+#fi
 #elif [ "$(uname)" == "MinGw" ]; then
 #	echo "TODO: install deps"	
 #else
-#elif [ "$(uname)" == "Dawrin" ]; then
-
+elif [ "$(uname)" == "Dawrin" ]; then
+	externals/scripts/build-qcustomplot-2.sh
+fi
 # Other dependencies here...
 
 
