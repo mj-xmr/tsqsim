@@ -27,7 +27,7 @@ OFF='OFF'
 ON='ON'
 #NL=' \ \n'
 NL=' '
-MAC_QT_LIBPATH=' export PATH="/usr/local/opt/qt@5/bin:$PATH"; '
+MAC_QT_LIBPATH=' export PATH="/usr/local/opt/qt@5/bin:$PATH" '
 
 def get_parser():
     parser = argparse.ArgumentParser()
@@ -122,7 +122,7 @@ def build(args):
         make = " mingw32-make "
         args.compiler = cccompiler
 
-    cmd = prefix + MAC_QT_LIBPATH + ' cmake  -S {} -B .'.format(path)
+    cmd = prefix + MAC_QT_LIBPATH + '; cmake  -S {} -B .'.format(path)
     if args.generator:
         cmd += NL + '-G "{}"'.format(args.generator)
     cmd += NL + '-DUSE_STATIC={}' .format(OFF if args.shared else ON)
