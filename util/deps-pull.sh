@@ -6,9 +6,8 @@ if [ "$(uname)" == "Darwin" ]; then
 	else 
 		xcode-select --install
 	fi
-	#HOMEBREW_NO_AUTO_UPDATE=1 brew install qt5
-	#brew link -v qt5 --force
-	HOMEBREW_NO_AUTO_UPDATE=1 brew install boost ccache gnuplot eigen gsl unittest-cpp wxwidgets r # openssl zmq
+	HOMEBREW_NO_AUTO_UPDATE=1 brew install boost ccache gnuplot eigen gsl unittest-cpp wxwidgets r qt5 # openssl zmq
+	brew link -v qt5 --force
 	# TODO: install qt instead of qt5, after moving to latest QCustomPlot. Then the "--prefix" and "link" aren't needed.
 	# Expose R_HOME path:
 	# TODO:
