@@ -6,12 +6,9 @@ if [[ "$OSTYPE" == linux* ]]; then
 	echo "$OSTYPE"
 	externals/scripts/build-qcustomplot.sh
 	externals/scripts/build-qcustomplot-2.sh
-#fi
-#elif [ "$(uname)" == "MinGw" ]; then
-#	echo "TODO: install deps"	
-#else
 elif [[ "$OSTYPE" == darwin* ]]; then
 	echo "$OSTYPE"
+	externals/scripts/build-qcustomplot.sh
 	externals/scripts/build-qcustomplot-2.sh
 # Other dependencies here...
 elif [[ "$OSTYPE" == cygwin* ]]; then
@@ -30,3 +27,8 @@ else
         # Unknown.
 fi
 
+
+#fi
+#elif [ "$(uname)" == "MinGw" ]; then
+#	echo "TODO: install deps"	
+#else
