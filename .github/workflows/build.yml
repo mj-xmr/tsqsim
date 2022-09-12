@@ -86,7 +86,7 @@ jobs:
 #      max-parallel: 1 # Single threaded for now, because the jobs overwrite each other's data/bin/* files?
       matrix:
         os: [ubuntu-latest] #, ubuntu-18.04] # TODO: Consider(!) supporting the previous version.
-        compiler: [gcc, clang]
+        compiler: [clang] # gcc, 
         options: ["", "--ffp"]
     steps:
     - uses: actions/checkout@v1
