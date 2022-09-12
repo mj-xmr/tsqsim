@@ -63,9 +63,9 @@ jobs:
     - name: build & install the unmanaged dependencies
       run: util/deps-build.sh
     - name: build
-      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} ${{ matrix.options }} --unity --build-qt --build-r
+      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} ${{ matrix.options }} --unity --build-r
     - name: run demo
-      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} ${{ matrix.options }} --unity --build-qt --build-r --run-demo
+      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} ${{ matrix.options }} --unity --build-r --run-demo
 # It doesn't make sense for now, since we're not linking Boost statically yet.
 #    - uses: actions/upload-artifact@v2
 #      if: ${{ matrix.compiler == 'gcc' && matrix.linkage == '--lto' }}
@@ -108,9 +108,9 @@ jobs:
     - name: build & install the unmanaged dependencies
       run: util/deps-build.sh
     - name: build
-      run: ./ci-default --compiler ${{ matrix.compiler }} --lto -j 1 ${{ matrix.options }} --native --unity --build-qt --build-r
+      run: ./ci-default --compiler ${{ matrix.compiler }} --lto -j 1 ${{ matrix.options }} --native --unity --build-r
     - name: run demo
-      run: ./ci-default --compiler ${{ matrix.compiler }} --lto -j 1 ${{ matrix.options }} --native --unity --build-qt --build-r --run-demo
+      run: ./ci-default --compiler ${{ matrix.compiler }} --lto -j 1 ${{ matrix.options }} --native --unity --build-r --run-demo
       
   build-macos:
     runs-on: ${{ matrix.os }}
@@ -198,9 +198,9 @@ jobs:
     - name: build & install the unmanaged dependencies
       run: util/deps-build.sh
     - name: build
-      run: ./ci-default --unity
+      run: ./ci-default --no-qt --unity
     - name: run demo
-      run: ./ci-default --unity --run-demo       
+      run: ./ci-default --no-qt --unity --run-demo       
 # TODO: Make a separate package from GNUPLOT variable
     - name: prep minimal
       run: |

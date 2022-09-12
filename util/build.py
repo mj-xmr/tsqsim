@@ -37,8 +37,8 @@ def get_parser():
     parser.add_argument('-d', '--debug',     default=False, action='store_true', help="build debug (default: OFF)")
     parser.add_argument('-p', '--pch',       default=False, action='store_true', help="build pch   (Dev case; default: OFF)")
     parser.add_argument('-u', '--unity',     default=False, action='store_true', help="build unity (CI case;  default: OFF)")
-    parser.add_argument('-q', '--build-qt',  default=False, action='store_true', help="build QT apps (default: OFF)")
     parser.add_argument('--build-r',         default=False, action='store_true', help="build R support (default: OFF)")
+    parser.add_argument('-q', '--no-qt',     default=False, action='store_true', help="build QT apps (default: OFF)")
     parser.add_argument('-w', '--no-wx',     default=False, action='store_true', help="don't build WX apps (default: OFF)")
     parser.add_argument('-i', '--no-install',default=False, action='store_true', help="don't install (default: OFF)")
     parser.add_argument('-t', '--no-tests',  default=False, action='store_true', help="don't build Tests (default: OFF)")
@@ -132,7 +132,7 @@ def build(args):
     cmd += NL + '-DUSE_FLOATING_POINT_LOW_PRECISION={}'.format(ON if args.ffp else OFF)
     cmd += NL + '-DUSE_OPTI_NATIVE={}' .format(ON  if args.native else OFF)
     cmd += NL + '-DUSE_OPTI_GENERIC={}'.format(OFF if args.native else ON)
-    cmd += NL + '-DBUILD_QT={}'   .format(ON  if args.build_qt else OFF) # Optional
+    cmd += NL + '-DBUILD_QT={}'   .format(OFF if args.no_qt    else ON ) # Optional
     cmd += NL + '-DBUILD_WX={}'   .format(OFF if args.no_wx    else ON ) # Optional
     cmd += NL + '-DBUILD_TESTS={}'.format(OFF if args.no_tests else ON ) # Optional
     cmd += NL + '-DBUILD_BOOST={}'.format(ON) # Required
