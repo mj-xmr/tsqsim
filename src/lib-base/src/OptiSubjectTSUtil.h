@@ -12,7 +12,7 @@ class OptiSubjectTSUtil
         OptiSubjectTSUtil();
         virtual ~OptiSubjectTSUtil();
         
-        double UpdateOptiGetPenality(const double * in, int n, const EnjoLib::VecD & iterData, IOptimizable * opti) const;
+        double UpdateOptiGetPenality(const EnjoLib::FP * in, int n, const EnjoLib::VecD & iterData, IOptimizable * opti) const;
         
         EnjoLib::VecD GetStartProt(const STDFWD::vector<OptiVarF> & optiVec) const;
         EnjoLib::VecD GetStepProt(const STDFWD::vector<OptiVarF> & optiVec) const;

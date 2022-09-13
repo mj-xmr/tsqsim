@@ -1,6 +1,7 @@
 #include "TicksProviderAdaptiveFake.h"
 
 #include "TicksProviderFake.h"
+#include "ITicks.h"
 
 TicksProviderAdaptiveFake::TicksProviderAdaptiveFake(){}
 TicksProviderAdaptiveFake::~TicksProviderAdaptiveFake(){}

@@ -9,6 +9,7 @@ enum class TickProviderType
     ARCHIVER,
     SMALL,
     XMR,
+    DATA_FILE,
     GENERATED,
     XMR_FAKE,
     ADAPTIVE_FAKE,

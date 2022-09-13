@@ -256,7 +256,10 @@ void OptimizerBase::PlotVariance() const
     const DistribData & distrib = Distrib().GetDistrib(m_goals);
     if (distrib.IsValid())
     {
+        ELO
         GnuplotPlotTerminal2d(distrib.data, "Distribution of solutions (median must be > -1):", scaleX, scaleY);
+        LOG << "Plotting line prototype" << Nl;
+        LOG << Distrib().PlotLine(distrib, false) << Nl;
     }
     //cout << "Changes abs = " << chg.sumAbsolute << " rel = " << chg.sumRelative << endl;
 }

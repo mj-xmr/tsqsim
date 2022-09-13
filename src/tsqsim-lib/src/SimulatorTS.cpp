@@ -16,16 +16,21 @@
 #include "PredictorType.h"
 #include "PredictorFactory.h"
 #include "PredictorOutputType.h"
+#include "PredictorUtil.h"
 #include "BufferDouble.h"
 #include "Logic.h"
+#include "Seasonal.h"
 
+#include <Ios/Ofstream.hpp>
 #include <Math/GeneralMath.hpp>
+#include <Math/MaxMinFindD.hpp>
 #include <Util/VecOpThin.hpp>
 #include <Util/CoutBuf.hpp>
 #include <Util/Except.hpp>
 #include <Util/Tuple.hpp>
 #include <Util/ThreadWrap.hpp>
 #include <Statistical/Assertions.hpp>
+#include <Statistical/Statistical.hpp>
 #include <Template/Array.hpp>
 
 #include <STD/VectorCpp.hpp>
@@ -100,6 +105,11 @@ void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
             //LOGL << "\nPredn";
         }
         m_preds         = PredAlgo(*m_ppred);
+        m_seasonal      = GetSeasonal();
+        const int perMa = 110;
+        m_ma            = GetMA(perMa);
+        m_ma2Diff       = GetMA2Diff(m_ma, perMa);
+        m_ma2DiffNoSeasonal = m_ma2Diff - m_seasonal;
 
         //{LOGL << "Sizes rets = " << m_rets.size() << ", true = " << m_predsTrue.size() << ", base = " << m_predsBaseline.size() << ", pred = " << m_preds.size() << Nl;}
 
@@ -234,7 +244,7 @@ std::vector<TSRes> SimulatorTS::GetReconstruction(const ITSFun * fun, const Enjo
     std::vector<TSRes> ret;
     const VecD & reconstr = fun->ReconstructVec(input, lostMat);
     //LOGL << "Reconstr = " << reconstr.Print() << Nl;
-    for (int i = 0; i < reconstr.size(); ++i)
+    for (size_t i = 0; i < reconstr.size(); ++i)
     {
         TSRes res;
         res.val = reconstr.at(i);
@@ -315,9 +325,93 @@ void SimulatorTS::PrintExperimental() const
         SimulatorTSReports().PrintReportSingleThreaded(m_per, m_cfgTS, m_dataMan.converted, descr, plots);
     }
     ELO
+
+    //LOG << ToolsMixed().GetPercentToAscii(m_predsPlot, 0, m_predsPlot.Max()) << Nl;
+
     const PredictorStats statsPred;
     const PredictorStatsRes & predPoints = statsPred.GenPoints(m_original, m_predsBaseline, m_preds);
     LOG << statsPred.GenRepNext(predPoints) << Nl;
+
+}
+
+EnjoLib::VecD SimulatorTS::GetSeasonal(int period, int averages) const
+{
+    Seasonal seasonal(m_per, averages);
+
+    const EnjoLib::VecD & ret = seasonal.Run(m_original);
+
+    const Str name = "seasonal";
+    LOGL << name << " = " << ret.Last() << Nl;
+    OutputVariable(ret, name);
+
+    return ret;
+}
+
+EnjoLib::VecD SimulatorTS::GetMA(int period) const
+{
+    //EnjoLib::VecD ret;
+    const bool ema = false;
+    const DataOCHL & data = m_per.GetDataFull();
+
+    //EnjoLib::VecD ret = PredictorUtil().Regression(period, data.closes);
+    EnjoLib::VecD ret = PredictorUtil().SimpleMA(period, data.closes);
+    const EnjoLib::Statistical stat;
+    return stat.ReplaceLeadingZeroes(ret);
+
+    return ret;
+}
+
+EnjoLib::VecD SimulatorTS::GetMA2Diff(const EnjoLib::VecD & maa, size_t period) const
+{
+    EnjoLib::VecD ret;
+    GMat gmat;
+    MaxMinFindD mmf;
+    const DataOCHL & data = m_per.GetDataFull();
+    bool isValid = false;
+    for (size_t i = 0; i < data.Size(); ++i)
+    {
+        const double val = data.closes.at(i) - maa.at(i);
+        if (i > period)
+        {
+            mmf.UpdateMaxMin(val);
+            isValid = true;
+        }
+        ret.Add(val);
+    }
+    if (isValid)
+    {
+        const double diff = mmf.GetMax() - mmf.GetMin();
+        //const double chgLast = gmat.AbsoluteChange(data.closes.Last(), maa.Last());
+        const double chgFin = -(ret.Last() / diff * 2);
+        //LOGL << "Data 2 ma = " << diff << ", " << chgFin << Nl;
+        const Str name = "hashrate_bonus_ma";
+        LOGL << name << " = " << chgFin << Nl;
+        OutputVariable(ret, name);
+        OutputVariable(chgFin, name + "_single");
+    }
+    else
+    {
+        LOGL << "Hashrate bonus = invalid. Not enough data points. Needed: " << period << ", available: " << data.Size() << Nl;
+    }
+    return ret;
+}
+
+void SimulatorTS::OutputVariable(const EnjoLib::VecD & var, const EnjoLib::Str & name) const
+{
+    if (m_cfgTS.m_outDir.size())
+    {
+        EnjoLib::Ofstream outFile(m_cfgTS.m_outDir + "/" + name + ".dat");
+        outFile << var.Print() << Nl;
+    }
+}
+
+void SimulatorTS::OutputVariable(double var, const EnjoLib::Str & name) const
+{
+    if (m_cfgTS.m_outDir.size())
+    {
+        EnjoLib::Ofstream outFile(m_cfgTS.m_outDir + "/" + name + ".dat");
+        outFile << var << Nl;
+    }
 }
 
 const EnjoLib::VecD & SimulatorTS::GetOutputSeries(const PredictorOutputType & type) const
@@ -325,11 +419,19 @@ const EnjoLib::VecD & SimulatorTS::GetOutputSeries(const PredictorOutputType & t
     switch  (type)
     {
     case PredictorOutputType::SERIES:
-       return m_dataMan.converted;
+        return m_dataMan.converted;
     case PredictorOutputType::PREDICTION:
         return m_preds;
     case PredictorOutputType::BASELINE:
         return m_predsBaseline;
+    case PredictorOutputType::SEASONAL:
+        return m_seasonal;
+    case PredictorOutputType::MA:
+        return m_ma;
+    case PredictorOutputType::MA2DIFF:
+        return m_ma2Diff;
+    case PredictorOutputType::MA2DIFF_NO_SEASONAL:
+        return m_ma2DiffNoSeasonal;
     case PredictorOutputType::RECONSTRUCTION:
         return m_reconstr;
     case PredictorOutputType::RECONSTRUCTION_PRED:

@@ -44,7 +44,7 @@ class ConfigSym : public ConfigBase
         DataDates dates;
         long int percentBars = 100;
         long int barNum = 0;
-        EnjoLib::Str symbol, period;
+        EnjoLib::Str symbol, period, dataFile;
 
     protected:
         EnjoLib::Str GetFileNameProt() const override;

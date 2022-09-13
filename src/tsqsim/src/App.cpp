@@ -165,7 +165,7 @@ void App::Optim(const ISymbol & sym, const IPeriod & per) const
 {
     {LOGL << "Optim\n"; }
     const TSFunFactory tsFunFact;
-    const TSFunType tsFunType = TSFunType::TXT; /// TODO: make user's choice
+    //const TSFunType tsFunType = TSFunType::TXT; /// TODO: make user's choice
 
     //OptimizerTS optiTS(tsFunType, sym, per, tsFunFact); /// TODO: Opti goal: stationarity statistics
     //optiTS();

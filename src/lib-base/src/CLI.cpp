@@ -20,9 +20,11 @@ EnjoLib::Result<CLIResult> CLI::GetConfigs(int argc, char ** argv) const
     const char * OPT_MIN_YEAR  = "min-year";
     const char * OPT_MAX_MONTH = "max-month";
     const char * OPT_MAX_YEAR  = "max-year";
-    //const char * OPT_LATEST_DATE = "latest-date";
+    const char * OPT_LATEST_DATE = "latest-date";
     const char * OPT_SYMBOL = "sym";
     const char * OPT_PERIOD  = "per";
+    const char * OPT_DATA_FILE  = "data";
+    const char * OPT_OUT_DIR   = "out";
     const char * OPT_LAGS  = "lags";
     const char * OPT_PER_SEASONAL  = "per-seasonal";
     const char * OPT_BENCHMARK  = "benchmark";
@@ -35,9 +37,12 @@ EnjoLib::Result<CLIResult> CLI::GetConfigs(int argc, char ** argv) const
     popState.AddInt(OPT_MIN_YEAR,   "Start year");
     popState.AddInt(OPT_MAX_MONTH,  "End month");
     popState.AddInt(OPT_MAX_YEAR,   "End year");
+    popState.AddBool(OPT_LATEST_DATE, "Select latest date");
     popState.AddStr(OPT_SYMBOL,     "Symbol name");
     popState.AddStr(OPT_PERIOD,     "Period name");
-
+    popState.AddStr(OPT_DATA_FILE,  "Data file");
+    popState.AddStr(OPT_OUT_DIR,    "Output directory");
+    
     popState.AddInt(OPT_LAGS,           ConfigTS::DESCR_PLOT_LAGS_NUM);
     popState.AddInt(OPT_PER_SEASONAL,   ConfigTS::DESCR_PLOT_PERIOD_NUM);
     
@@ -80,12 +85,17 @@ EnjoLib::Result<CLIResult> CLI::GetConfigs(int argc, char ** argv) const
     confSym.dates.yearStart  	= pops.GetIntFromMap(OPT_MIN_YEAR);
     confSym.dates.monthEnd   	= pops.GetIntFromMap(OPT_MAX_MONTH);
     confSym.dates.yearEnd    	= pops.GetIntFromMap(OPT_MAX_YEAR);
+    if (pops.GetBoolFromMap(OPT_LATEST_DATE))
+    {
+        confSym.dates.SetNoEnd();
+    }
     confSym.symbol     		    = pops.GetStrFromMap(OPT_SYMBOL);
     confSym.period     		    = pops.GetStrFromMap(OPT_PERIOD);
+    confSym.dataFile  		    = pops.GetStrFromMap(OPT_DATA_FILE);
 
     confTS.PLOT_LAGS_NUM        = pops.GetIntFromMap(OPT_LAGS);
     confTS.PLOT_PERIOD_NUM      = pops.GetIntFromMap(OPT_PER_SEASONAL);
-    
+    confTS.m_outDir             = pops.GetStrFromMap(OPT_OUT_DIR);
     confTS.BENCHMARK            = pops.GetBoolFromMap(OPT_BENCHMARK);
     confTS.PLOT_PYTHON          = pops.GetBoolFromMap(OPT_PLOT);
 

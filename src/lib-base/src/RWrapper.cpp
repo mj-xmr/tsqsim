@@ -9,6 +9,7 @@
 #endif //USE_R
 
 #include <cstring>
+#include <STD/VectorCpp.hpp>
 
 RWrapper::RWrapper()
 {
@@ -21,8 +22,9 @@ RWrapper::~RWrapper()
 /**
  * Wrapper for R function predict, defined in func.R.
  */
-EnjoLib::VecD RWrapper::R_predictVec(const EnjoLib::VecD & vec)
+EnjoLib::VecD RWrapper::R_predictVec(const EnjoLib::VecD & vecd)
 {
+    const std::vector<double> vec = vecd.ToVecDouble();
     EnjoLib::VecD retVec;   
 #ifdef USE_R
     const double * a = vec.data();

@@ -77,7 +77,7 @@ StatsMedianSplit::Results StatsMedianSplit::CalcResults(const EnjoLib::VecD & ve
     const Statistical stat;
     const VecD & vecNoZeros = stat.RemoveLeadingZeroes(vecWZeros);
 
-    const vector<vector<double>> & dataSplit = VecOp().Split(vecNoZeros.Data(), numRanges);
+    const vector<vector<EnjoLib::FP>> & dataSplit = VecOp().Split(vecNoZeros.Data(), numRanges);
 
     std::future<double> fut;
     if (m_multiThreaded)

@@ -6,7 +6,7 @@
 #include <Ios/IoManip.hpp>
 #include <Math/GeneralMath.hpp>
 #include <Util/CoutBuf.hpp>
-#include <Util/ToolsMixed.hpp>
+#include <Visual/AsciiMisc.hpp>
 #include <Statistical/Statistical.hpp>
 
 using namespace EnjoLib;
@@ -30,7 +30,7 @@ EnjoLib::Str PredictorStats::GenRepNext(const PredictorStatsRes & res) const
     oss << "\nRMS Pred 2 True\t = "  << res.rmsPred2Truth << " -> ";
     oss << (res.rmsPred2Truth >= res.rmsBase2Truth ? ":( not better" : "^_^ Better!") << " than the baseline.";
     //oss << "\nRMS Pred 2 Base\t = " << rmsPred2Base;
-    oss << "\nRatio Pred2Base\t = " << res.ratioPred2Base << " " << ToolsMixed().GenBars10(res.points) << Nl;
+    oss << "\nRatio Pred2Base\t = " << res.ratioPred2Base << " " << AsciiMisc().GenBars10(res.points) << Nl;
     return oss.str();
 }
 
@@ -61,6 +61,9 @@ PredictorStatsRes PredictorStats::GenPoints(const EnjoLib::VecD & orig, const En
     res.rmsBase2Truth  = stat.RMSTwo(predBaseline,  orig); /// TODO: different readouts with diffs and without
     res.rmsPred2Base   = stat.RMSTwo(predCorrected, predBaseline);
     res.rmsPred2Truth  = stat.RMSTwo(predCorrected, orig);
+    //res.rmsBase2Truth  = (predBaseline - orig).Mean(); /// TODO: different readouts with diffs and without
+    //res.rmsPred2Base   = (predCorrected - predBaseline).Mean();
+    //res.rmsPred2Truth  = (predCorrected - orig).Mean();
 
     if (res.rmsBase2Truth != 0)
     {

@@ -12,8 +12,8 @@ class BufferDouble
         virtual ~BufferDouble();
 
         // From BufferTpl
-        double operator[](unsigned i) const;
-        double operator[](const State & st) const;
+        EnjoLib::FP operator[](unsigned i) const;
+        EnjoLib::FP operator[](const State & st) const;
         EnjoLib::VecD GetBefore(unsigned iUntil, unsigned num) const;
         EnjoLib::VecD GetAfter(unsigned iFrom, unsigned num) const;
         //STDFWD::vector<T> GetMiddle(unsigned i, unsigned num) const;
