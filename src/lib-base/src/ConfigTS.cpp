@@ -21,6 +21,11 @@ const char * ConfigTS::DEFAULT_SCRIPT_FILE_NAME_GEN = "data-generation.txt";
 ConfigTS::~ConfigTS(){}
 ConfigTS::ConfigTS()
 {
+    const ConfigDirs dirs;
+    m_scriptPathTxt =      dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME;
+    m_scriptPathTxtR =     dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME_R;
+    m_scriptPathTxtGen =   dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME_GEN;
+    m_scriptPathTxtPy =    dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME_PY;
 }
 
 EnjoLib::Str ConfigTS::GetFileNameProt() const
@@ -58,11 +63,10 @@ void ConfigTS::RegisterAndReadFloats(EnjoLib::Istream & f)
 }
 void ConfigTS::RegisterAndReadStrs(EnjoLib::Istream & f)
 {
-    const ConfigDirs dirs;
-    RegisterAndReadStr(f, m_scriptPathTxt,      dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME);
-    RegisterAndReadStr(f, m_scriptPathTxtR,     dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME_R);
-    RegisterAndReadStr(f, m_scriptPathTxtGen,   dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME_GEN);
-    RegisterAndReadStr(f, m_scriptPathTxtPy,    dirs.DIR_SCRIPTS2 + DEFAULT_SCRIPT_FILE_NAME_PY);
+    RegisterAndReadStr(f, m_scriptPathTxt,      m_scriptPathTxt);
+    RegisterAndReadStr(f, m_scriptPathTxtR,     m_scriptPathTxtR);
+    RegisterAndReadStr(f, m_scriptPathTxtGen,   m_scriptPathTxtGen);
+    RegisterAndReadStr(f, m_scriptPathTxtPy,    m_scriptPathTxtPy);
     //RegisterAndReadStr(f, m_outDir,   "");
 }
 

@@ -46,6 +46,7 @@ double PredictorUtil::SimpleMAProt  (int numSamples, const EnjoLib::VecD & data,
         vdy.Add(data.at(i));
     }
     const double mean = vdy.Mean();
+    //LOGL << "VX, y = " << Nl << vdx.Print() << Nl << vdy.Print() << Nl << "Mean = " << mean << Nl;
     //return vdy.back();
     return mean;
 }
@@ -69,7 +70,7 @@ double  PredictorUtil::RegressionProt(int lag, const EnjoLib::VecD & data, size_
     }
     if (vdx.empty())
     {
-        //return Erratic(data, idx, erratic0); /// TODO: Is OK.
+        return Erratic(data, idx, erratic0); /// TODO: Is OK.
     }
 
     const RegressionRes & res = reg.polynomialfitRMS(degree, vdx, vdy);

@@ -10,7 +10,7 @@ using namespace EnjoLib;
 
 PredictorSMAMA::PredictorSMAMA(const IDataProvider & dat)
 : PredictorBase(dat, "SMAMA_MA")
-, m_lagMine(dat, "LAG_SMAMA", true, 10, 1, 150, 1)
+, m_lagMine(dat, "LAG_SMAMA", true, 10, 2, 150, 1)
 {
     AddOptiVar(m_lagMine);
 }
@@ -36,13 +36,11 @@ double PredictorSMAMA::PredictNext(const BufferDouble & datExpanding) const
     const int numSamplesSma = m_lagMine.GetVal(); //
     const int numSamplesMA  = GetLag1().GetVal(); // ParQ
     const int lags = GetLags();
-    if (datExpanding.Len() < lags + numSamplesSma)
+    if (datExpanding.Len() < lags + 1)
     {
         return IPredictor::ERROR;
     }
     const PredictorUtil util;
-
-    
     VecD ret;
     for (int lag = 0; lag < lags; ++lag)
     {
@@ -51,7 +49,8 @@ double PredictorSMAMA::PredictNext(const BufferDouble & datExpanding) const
         //const EnjoLib::VecD & predVec = PredictorUtil().RegressionProt(lag, datExpanding.GetData(), datExpanding.Len(), false);
         //const double pred = predVec.Last();
         const double pred = PredictorUtil().RegressionProt(lag, errors, errors.size(), false);
-        ret.Add(pred);
+        //const double pred = PredictorUtil().RegressionProt(lag, predSma, predSma.size(), false);
+        ret.Add(pred + predSma.Last());
         //LOGL << "Pred lag " << lag << " = " << pred << ", ret = " << ret.Mean() << Nl;
     }
     return ret.Mean();
@@ -62,5 +61,6 @@ double PredictorSMAMA::PredictNext(const BufferDouble & datExpanding) const
 
 unsigned PredictorSMAMA::GetLags() const
 {
+    //return 40;
     return AlgoSTDThin().Max(m_lagMine.GetVal(), GetLag1().GetVal());
 }
