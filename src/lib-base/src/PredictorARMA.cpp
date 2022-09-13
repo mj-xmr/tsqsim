@@ -34,7 +34,7 @@ double PredictorARMA::PredictNext(const BufferDouble & datExpanding) const
     const int lags = GetLags();
     if (datExpanding.Len() < lags + 1)
     {
-        return 0;
+        return IPredictor::ERROR;
     }
     const PredictorUtil util;
     VecD ret;

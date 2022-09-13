@@ -4,6 +4,7 @@
 #include "ISimulatorTS.h"
 #include "StartEnd.h"
 #include <Util/VecFwd.hpp>
+#include <Util/Str.hpp>
 #include <Template/IIterable.hpp>
 #include <Template/CorradePointerFwd.h>
 

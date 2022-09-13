@@ -38,7 +38,7 @@ double PredictorSMAMA::PredictNext(const BufferDouble & datExpanding) const
     const int lags = GetLags();
     if (datExpanding.Len() < lags + numSamplesSma)
     {
-        return 0;
+        return IPredictor::ERROR;
     }
     const PredictorUtil util;
 

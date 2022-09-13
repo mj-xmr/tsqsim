@@ -25,7 +25,7 @@ double PredictorAR::PredictNext(const BufferDouble & datExpanding) const
     const int lags = GetLags();
     if (datExpanding.Len() < lags + 1)
     {
-        return 0;
+        return IPredictor::ERROR;
     }
     VecD ret;
     for (int lag = 0; lag < lags; ++lag)

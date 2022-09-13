@@ -1,4 +1,5 @@
 #include "StrUtil.h"
+#include <Util/Str.hpp>
 
 StrUtil::StrUtil()
 {
