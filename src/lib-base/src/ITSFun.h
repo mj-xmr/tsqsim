@@ -4,8 +4,8 @@
 #include "IHasCandles.h"
 #include "IOptimizable.h"
 
-#include <Util/VecD.hpp>
-#include <Statistical/Matrix.hpp>
+#include <Util/VecFwd.hpp>
+#include <Statistical/MatrixFwd.hpp>
 
 class TSRes;
 class ITSFun : public IHasCandles, public IOptimizable

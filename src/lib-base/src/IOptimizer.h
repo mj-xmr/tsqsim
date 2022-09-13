@@ -3,7 +3,7 @@
 
 #include "IHasLen.h"
 #include <Math/MultiDimIter/IMultiDimIterConsumerTpl.hpp>
-#include <Util/VecD.hpp>
+#include <Util/VecFwd.hpp>
 #include <Template/ArrayFwd.hpp>
 
 class OptiVarF;

@@ -1,7 +1,7 @@
 #ifndef APP_H
 #define APP_H
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 class ConfigTS;
 class ConfigSym;

@@ -1,11 +1,12 @@
 #include "SymAliases.h"
 #include "TradeUtil.h"
 
+#include <Util/Str.hpp>
+#include <Util/CoutBuf.hpp>
 #include <Util/CharManipulations.hpp>
 #include <Util/PimplDeleter.hpp>
 
 #include <STD/Map.hpp>
-#include <Util/CoutBuf.hpp>
 
 using namespace std;
 using namespace EnjoLib;

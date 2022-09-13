@@ -5,7 +5,7 @@
 #include <Template/ArrayFwd.hpp>
 #include <Util/Pair.hpp>
 #include <Util/Str.hpp>
-#include <Util/VecD.hpp>
+#include <Util/VecFwd.hpp>
 
 namespace gnuplotio
 {

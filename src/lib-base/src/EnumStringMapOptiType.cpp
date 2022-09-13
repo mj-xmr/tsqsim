@@ -2,6 +2,8 @@
 #include <OptiType.h>
 #include <OptiGoalType.h>
 
+#include <Util/Str.hpp>
+
 EnumStringMapOptiType::~EnumStringMapOptiType(){}
 EnumStringMapOptiType::EnumStringMapOptiType()
 {

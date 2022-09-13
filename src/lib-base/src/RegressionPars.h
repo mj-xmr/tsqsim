@@ -1,7 +1,7 @@
 #ifndef REGRESSIONPARS_H
 #define REGRESSIONPARS_H
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 struct RegressionPars
 {

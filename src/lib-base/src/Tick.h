@@ -1,7 +1,7 @@
 #ifndef TICK_H
 #define TICK_H
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 #include <3rdParty/stdfwd.hh>
 #include <cstdint>
 //#include <boost/serialization/access.hpp>

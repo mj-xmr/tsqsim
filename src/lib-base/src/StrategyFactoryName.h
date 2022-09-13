@@ -2,7 +2,7 @@
 #define STRATEGYFACTORYNAME_H
 
 class StrategyType;
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 #include <3rdParty/stdfwd.hh>
 
 class StrategyFactoryName

@@ -1,7 +1,7 @@
 #ifndef SYMBOLALTERNATIVES_H
 #define SYMBOLALTERNATIVES_H
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 #include <Util/BimapBase.hpp>
 
 class SymbolAlternatives

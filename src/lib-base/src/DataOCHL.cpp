@@ -3,6 +3,7 @@
 #include "Candle.h"
 #include "typesVec.h"
 
+#include <Util/Str.hpp>
 #include <Util/CoutBuf.hpp>
 #include <Ios/Osstream.hpp>
 #include <Template/VectorViewable.hpp>

@@ -1,5 +1,6 @@
 #include "TicksFormatGuesser.h"
 
+#include <Util/Str.hpp>
 #include <Util/CoutBuf.hpp>
 #include <Util/Tokenizer.hpp>
 

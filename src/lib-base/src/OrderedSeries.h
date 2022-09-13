@@ -2,7 +2,7 @@
 #define ORDEREDSERIES_H
 
 #include "PeriodClean.h"
-#include <Util/VecD.hpp>
+#include <Util/VecFwd.hpp>
 
 class OrderedSeries : public PeriodClean
 {

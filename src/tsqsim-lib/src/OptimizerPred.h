@@ -7,8 +7,8 @@
 #include "PredictorType.h"
 #include "OptimizerFactoryAbstract.h"
 
-#include <Util/Str.hpp>
-#include <Util/VecD.hpp>
+#include <Util/StrFwd.hpp>
+#include <Util/VecFwd.hpp>
 class ISymbol;
 class IOptimizable;
 class IPeriod;

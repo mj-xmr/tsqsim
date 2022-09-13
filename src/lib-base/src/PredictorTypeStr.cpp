@@ -1,6 +1,8 @@
 #include "PredictorTypeStr.h"
 #include "PredictorType.h"
 
+#include <Util/Str.hpp>
+
 PredictorTypeStr::PredictorTypeStr()
 {
     for (int i = 0; i <= int(PredictorType::PRED_TRUE); ++i)

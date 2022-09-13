@@ -1,7 +1,7 @@
 #ifndef ISERVER_RECEIVER_H
 #define ISERVER_RECEIVER_H
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 class IServerReceiver
 {

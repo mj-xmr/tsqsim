@@ -2,6 +2,7 @@
 #define SIMULATORFACTORYABSTRACT_H
 
 #include "ISimulator.h"
+#include <Util/Str.hpp>
 #include <Template/Factory.hpp>
 #include <Template/SafePtr.hpp>
 //class IStrategy;

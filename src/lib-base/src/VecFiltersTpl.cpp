@@ -1,5 +1,6 @@
 #include "VecFiltersTpl.h"
 
+#include <Util/VecD.hpp>
 
 VecFiltersTpl::VecFiltersTpl()
 {

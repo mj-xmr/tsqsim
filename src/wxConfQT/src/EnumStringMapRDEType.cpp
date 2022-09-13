@@ -1,4 +1,5 @@
 #include "EnumStringMapRDEType.hpp"
+#include <Util/Str.hpp>
 #include "RDEType.h"
 
 EnumStringMapRDEType::EnumStringMapRDEType()

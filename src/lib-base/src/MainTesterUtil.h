@@ -2,7 +2,7 @@
 #define MAINTESTERUTIL_H
 
 #include <3rdParty/stdfwd.hh>
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 #include <Template/UniquePtrVecFwd.hpp>
 
 class ConfigTF2;

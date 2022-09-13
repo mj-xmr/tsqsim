@@ -6,6 +6,7 @@
 #include <Ios/Osstream.hpp>
 #include <Ios/Ofstream.hpp>
 #include <Ios/Ifstream.hpp>
+#include <Util/VecD.hpp>
 #include <Util/CoutBuf.hpp>
 #include <Util/Tokenizer.hpp>
 #include <Util/AlgoSTDIVec.hpp>

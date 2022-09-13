@@ -2,7 +2,7 @@
 #define BUFFERBOOL_H
 
 #include "typesVec.h"
-#include <Util/Str.hpp>
+#include <Util/StrConst.hpp>
 
 class BufferBool// : public BufferTpl<bool>
 {
@@ -23,7 +23,7 @@ class BufferBool// : public BufferTpl<bool>
     protected:
     private:
         const VecB & m_data;
-        EnjoLib::Str m_name;
+        EnjoLib::StrConst m_name;
 };
 
 #endif // BUFFERBOOL_H

@@ -2,7 +2,7 @@
 #define TYPESSTR_H_INCLUDED
 
 #include <Template/VecT.hpp>
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 typedef EnjoLib::VecT<EnjoLib::Str> VecStr;
 

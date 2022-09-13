@@ -2,7 +2,7 @@
 #define UTIL_H
 
 #include "typesVec.h"
-#include <Util/VecF.hpp>
+#include <Util/VecFwd.hpp>
 #include <Template/ArrayFwd.hpp>
 #include <QVector>
 #include <QDate>

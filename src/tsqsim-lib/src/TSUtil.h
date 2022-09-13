@@ -3,8 +3,7 @@
 
 #include "ISimulatorTS.h"
 #include "StartEnd.h"
-#include <Util/Str.hpp>
-#include <Util/VecD.hpp>
+#include <Util/VecFwd.hpp>
 #include <Template/IIterable.hpp>
 #include <Template/CorradePointerFwd.h>
 

@@ -1,7 +1,7 @@
 #ifndef VECFILTERSTPL_H
 #define VECFILTERSTPL_H
 
-#include <Util/VecD.hpp>
+#include <Util/VecFwd.hpp>
 
 class VecFiltersTpl
 {

@@ -43,11 +43,11 @@ Supported Operating Systems and features:
 
 | OS \ Feature  | CI | gcc | clang | UT | wx | Qt | Py | R  |
 | ------------- | -- | --- | ----- | -- | -- | -- | -- | -- |
-| Debian stable |    | ✓   | ✓     |  ✓ | ✓  |    | ✓  | ✓  |
+| Debian stable |    | ✓   | ✓     |  ✓ | ✓  | ✓  | ✓  | ✓  |
 | Debian buster |    | ✓   | ✓     |  ✓ | ✓  | ✓  | ✓  | ✓  |
-| Ubuntu 21.04  |    | ✓   | ✓     |  ✓ | ✓  |    | ✓  | ✓  |
+| Ubuntu 21.04  |    | ✓   | ✓     |  ✓ | ✓  | ✓  | ✓  | ✓  |
 | Ubuntu 20.04  | ✓  | ✓   | ✓     |  ✓ | ✓  | ✓  | ✓  | ✓  |
-| Mac OSX 11    | ✓  |     | ✓     |  ✓ | ✓  |    | ✓  | ✓  |
+| Mac OSX 11    | ✓  |     | ✓     |  ✓ | ✓  | ✓  | ✓  | ✓  |
 | Mac OSX 10.15 | ✓  |     | ✓     |  ✓ | ✓  |    | ✓  |    |
 | Windows       | ✓  | ✓   |       |  ✓ |    |    | ✓  |    |
 
@@ -84,7 +84,7 @@ cd tsqsim		# Enter the cloned repo's dir
 ## Building & running
 ```bash
 ./ci-default --run-demo	# Build and optionally run the demo
-./ci-default --build-qt # Build the optional QT module (works under Debian Buster and Ubuntu 20.04)
+./ci-default --no-qt # Don't build the optional QT module
 ./ci-default -h 	# See all build options
 ```
 The executables will be available under `build/*/bin`, where `*` depends on the choices you've just made above.

@@ -10,6 +10,7 @@
 
 #include <Util/VecOp.hpp>
 #include <Util/CharManipulations.hpp>
+#include <Util/VecF.hpp>
 #include <Util/VecD.hpp>
 #include <Util/CoutBuf.hpp>
 #include <Statistical/Matrix.hpp>

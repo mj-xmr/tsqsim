@@ -3,7 +3,7 @@
 
 #include "StartEnd.h"
 #include "Direction.h"
-#include <Util/VecD.hpp>
+#include <Util/VecFwd.hpp>
 #include <Template/IIterable.hpp>
 #include <3rdParty/stdfwd.hh>
 

@@ -1,6 +1,7 @@
 #include "TSXformTypeString.h"
-
 #include "TSXformType.h"
+
+#include <Util/Str.hpp>
 
 TSXformTypeString::~TSXformTypeString(){}
 TSXformTypeString:: TSXformTypeString()

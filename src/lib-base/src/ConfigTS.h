@@ -2,7 +2,7 @@
 #define CONFIGTS_H
 
 #include "ConfigBase.h"
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 enum class PredictorType;
 enum class PriceType;

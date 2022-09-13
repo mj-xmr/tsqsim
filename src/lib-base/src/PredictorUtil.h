@@ -1,7 +1,8 @@
 #ifndef PREDICTORUTIL_H
 #define PREDICTORUTIL_H
 
-#include <Util/VecD.hpp>
+#include <Util/VecFwd.hpp>
+#include <cstdlib>
 
 class ITSFun;
 

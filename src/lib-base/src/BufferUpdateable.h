@@ -3,8 +3,9 @@
 
 #include "Buffer.h"
 #include "ITaAlgo.h"
-#include <Template/SafePtr.hpp>
 #include <Util/VecF.hpp>
+#include <Util/StrConst.hpp>
+#include <Template/SafePtr.hpp>
 #include <3rdParty/stdfwd.hh>
 
 
@@ -25,7 +26,7 @@ class BufferUpdateable
         EnjoLib::VecF m_data;
 
         EnjoLib::SafePtr<const ITaAlgo> m_algo;
-        EnjoLib::Str m_name;
+        EnjoLib::StrConst m_name;
 };
 
 #endif // BUFFERUPDATEABLE_H

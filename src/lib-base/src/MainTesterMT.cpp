@@ -16,7 +16,17 @@ MainTesterMT::~MainTesterMT(){}
 VecUPtr<ISymbol> MainTesterMT::GetSymbols(const std::vector<TupleIn> & inp, bool multiThreaded)
 {
     CtplWrap<CorPtr<ISymbol>> ctpl;
-    ctpl.GetCfgRW().SetMT(multiThreaded);
+    ctpl.GetCfgRW().SetMT(multiThreaded); /// TODO: This appears to fail
+    
+    if (not multiThreaded) /// Patch for the above
+    {
+        VecUPtr<ISymbol> ret;
+        for (const TupleIn & tin : inp)
+        {
+            ret.push_back(EnjoLib::UniquePtr<ISymbol>((MainTester::GetSymbolStatic(0, Get<0>(tin), Get<1>(tin), Get<2>(tin)).release())));
+        }
+        return ret;
+    }
 
     for (const TupleIn & tin : inp)
     {

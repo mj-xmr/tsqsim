@@ -4,6 +4,7 @@
 #include <Template/CorradePointer.h>
 #include <Math/SplineLin.hpp>
 #include <Util/VecD.hpp>
+#include <Util/VecF.hpp>
 #include <Util/Except.hpp>
 
 using namespace EnjoLib;

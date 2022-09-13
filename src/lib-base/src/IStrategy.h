@@ -5,8 +5,7 @@
 #include "types.h"
 #include "SignalBase.h"
 #include "IOptimizable.h"
-#include <Util/VecF.hpp>
-#include <Util/VecD.hpp>
+#include <Util/VecFwd.hpp>
 #include <Template/ArrayFwd.hpp>
 //#include <vector>
 

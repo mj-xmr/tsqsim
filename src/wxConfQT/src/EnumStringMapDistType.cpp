@@ -1,4 +1,5 @@
 #include "EnumStringMapDistType.hpp"
+#include <Util/Str.hpp>
 #include "DTWDistType.h"
 
 EnumStringMapDistType::EnumStringMapDistType()

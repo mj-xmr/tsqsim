@@ -4,6 +4,7 @@
 #include "RegOptiBase.h"
 #include "RegressionPars.h"
 #include <Template/Array.hpp>
+#include <3rdParty/stdfwd.hh>
 
 namespace boost { namespace serialization
 {

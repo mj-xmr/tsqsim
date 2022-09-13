@@ -4,7 +4,7 @@
 #include "LabelML.h"
 #include "types.h"
 
-#include <Util/VecD.hpp>
+#include <Util/VecFwd.hpp>
 #include <Math/MaxMinFindF.hpp>
 #include <Template/ArrayFwd.hpp>
 

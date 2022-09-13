@@ -1,4 +1,5 @@
 #include "EnumStringMapSimulType.h"
+#include <Util/Str.hpp>
 #include <SimulatorType.h>
 
 EnumStringMapSimulType::EnumStringMapSimulType()

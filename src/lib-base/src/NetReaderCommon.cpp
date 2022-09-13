@@ -1,6 +1,7 @@
 #include "NetReaderCommon.h"
 #include "ConfigGlob.h"
 
+#include <Util/Str.hpp>
 #include <Util/VecD.hpp>
 #include <Ios/Osstream.hpp>
 

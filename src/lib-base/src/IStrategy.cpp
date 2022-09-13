@@ -10,6 +10,7 @@
 #include "OrderPending.h"
 #include "ModelType.h"
 
+#include <Util/Str.hpp>
 #include <Template/Array.hpp>
 
 using namespace std;

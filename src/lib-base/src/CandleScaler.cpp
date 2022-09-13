@@ -3,6 +3,7 @@
 
 #include <Math/GeneralMath.hpp>
 #include <Systems/Point.hpp>
+#include <Util/VecF.hpp>
 #include <Util/StackTrace.hpp>
 #include <Template/VectorViewable.hpp>
 

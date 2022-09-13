@@ -1,4 +1,5 @@
 #include "SymbolAlternatives.h"
+#include <Util/Str.hpp>
 #include <Util/Bimap.hpp>
 
 SymbolAlternatives::~SymbolAlternatives(){}

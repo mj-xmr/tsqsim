@@ -6,7 +6,7 @@
 #include "OptiVar.h"
 #include "OptiVarVec.h"
 #include "IOptiSubject.h"
-#include "IOptiGoal.h"
+//#include "IOptiGoal.h"
 //#include "ProfitsCalc.h"
 //#include "GnuplotMan.h"
 #include "ConfigOpti.h"
@@ -26,6 +26,7 @@
 #include <Util/PimplDeleter.hpp>
 #include <Util/CoutBuf.hpp>
 #include <Util/Except.hpp>
+#include <Util/VecF.hpp>
 #include <Ios/IoManip.hpp>
 #include <Template/Array.hpp>
 

@@ -63,9 +63,9 @@ jobs:
     - name: build & install the unmanaged dependencies
       run: util/deps-build.sh
     - name: build
-      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} ${{ matrix.options }} --unity --build-qt --build-r
+      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} ${{ matrix.options }} --unity --build-r
     - name: run demo
-      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} ${{ matrix.options }} --unity --build-qt --build-r --run-demo
+      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} ${{ matrix.options }} --unity --build-r --run-demo
 # It doesn't make sense for now, since we're not linking Boost statically yet.
 #    - uses: actions/upload-artifact@v2
 #      if: ${{ matrix.compiler == 'gcc' && matrix.linkage == '--lto' }}
@@ -86,7 +86,7 @@ jobs:
 #      max-parallel: 1 # Single threaded for now, because the jobs overwrite each other's data/bin/* files?
       matrix:
         os: [ubuntu-latest] #, ubuntu-18.04] # TODO: Consider(!) supporting the previous version.
-        compiler: [gcc, clang]
+        compiler: [clang] # gcc, 
         options: ["", "--ffp"]
     steps:
     - uses: actions/checkout@v1
@@ -108,9 +108,9 @@ jobs:
     - name: build & install the unmanaged dependencies
       run: util/deps-build.sh
     - name: build
-      run: ./ci-default --compiler ${{ matrix.compiler }} --lto -j 1 ${{ matrix.options }} --native --unity --build-qt --build-r
+      run: ./ci-default --compiler ${{ matrix.compiler }} --lto -j 1 ${{ matrix.options }} --native --unity --build-r
     - name: run demo
-      run: ./ci-default --compiler ${{ matrix.compiler }} --lto -j 1 ${{ matrix.options }} --native --unity --build-qt --build-r --run-demo
+      run: ./ci-default --compiler ${{ matrix.compiler }} --lto -j 1 ${{ matrix.options }} --native --unity --build-r --run-demo
       
   build-macos:
     runs-on: ${{ matrix.os }}
@@ -148,9 +148,9 @@ jobs:
     - name: build & install the unmanaged dependencies
       run: util/deps-build.sh
     - name: build
-      run: ./ci-default --unity --lto --build-r
+      run: ./ci-default --unity --lto
     - name: run demo
-      run: ./ci-default --unity --lto --build-r --run-demo
+      run: ./ci-default --unity --lto --run-demo
     - uses: actions/upload-artifact@v2
       with:
         name: tsqsim-${{ matrix.os }}
@@ -198,9 +198,9 @@ jobs:
     - name: build & install the unmanaged dependencies
       run: util/deps-build.sh
     - name: build
-      run: ./ci-default --unity
+      run: ./ci-default --no-qt --unity
     - name: run demo
-      run: ./ci-default --unity --run-demo       
+      run: ./ci-default --no-qt --unity --run-demo       
 # TODO: Make a separate package from GNUPLOT variable
     - name: prep minimal
       run: |
@@ -220,6 +220,7 @@ jobs:
           !${{env.WIN_INSTALL_PATH}}/cfg/configTxt.txt
     - name: prep full
       run: |
+        exit 0
         GNUPLOT="gnuplot.exe libbrotlicommon.dll libbrotlidec.dll libbrotlienc.dll rav1e.dll libx265.dll libLerc.dll libjbig-0.dll libgmodule-2.0-0.dll libexpat-1.dll libdeflate.dll libde265-0.dll libdatrie-1.dll libdav1d.dll libbrotlidec.dll libaom.dll libffi-7.dll libpcre-1.dll libintl-8.dll libavif.dll libheif.dll libiconv-2.dll imagequant.dll libwebp-7.dll libthai-0.dll libgio-2.0-0.dll libtermcap-0.dll libjpeg-8.dll libpng16-16.dll libtiff-5.dll libfreetype-6.dll imagequant.dll libavif.dll libgd.dll libheif.dll libjpeg-8.dll libpangocairo-1.0-0.dll libpangoft2-1.0-0.dll libpangowin32-1.0-0.dll libreadline8.dll libtermcap-0.dll libtiff-5.dll libwebp-7.dll libXpm-noX4.dll libfontconfig-1.dll libreadline8.dll libgobject-2.0-0.dll libgd.dll libpango-1.0-0.dll libpangocairo-1.0-0.dll libpangoft2-1.0-0.dll libpangowin32-1.0-0.dll libharfbuzz-0.dll libharfbuzz-gobject-0.dll libharfbuzz-icu-0.dll libharfbuzz-subset-0.dll libgraphite2.dll libfribidi-0.dll libcairo-2.dll libcairo-gobject-2.dll libcairo-script-interpreter-2.dll libpixman-1-0.dll liblzo2-2.dll libglib-2.0-0.dll libcerf.dll libcaca-0.dll"
         WX="wxbase30u_gcc_custom.dll wxmsw30u_core_gcc_custom.dll"
         libs="$GNUPLOT $WX"

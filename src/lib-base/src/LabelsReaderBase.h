@@ -3,6 +3,7 @@
 
 //#include <vector>
 #include "typesStr.h"
+#include <Util/Str.hpp>
 #include <Template/SafePtr.hpp>
 #include <Template/ArrayFwd.hpp>
 #include <Util/Pair.hpp>

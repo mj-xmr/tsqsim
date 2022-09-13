@@ -1,7 +1,8 @@
 #ifndef SIMULATORTSREPORTS_HPP
 #define SIMULATORTSREPORTS_HPP
 
-#include <Util/VecD.hpp>
+#include <Util/StrFwd.hpp>
+#include <Util/VecFwd.hpp>
 #include <Template/ArrayFwd.hpp>
 
 class ConfigTS;

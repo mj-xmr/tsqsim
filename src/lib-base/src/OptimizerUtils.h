@@ -1,7 +1,7 @@
 #ifndef OPTIMIZERUTILS_H
 #define OPTIMIZERUTILS_H
 
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 class IDataProvider;
 
 class OptimizerUtils

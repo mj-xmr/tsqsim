@@ -2,7 +2,7 @@
 #define OPTIONSNUMERIC_H
 
 #include <Template/SafePtr.hpp>
-#include <Util/Str.hpp>
+#include <Util/StrFwd.hpp>
 
 struct OptionsNumericImpl;
 class OptionsNumeric
