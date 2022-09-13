@@ -16,6 +16,7 @@ PredictorSMAMA::PredictorSMAMA(const IDataProvider & dat)
 }
 PredictorSMAMA::~PredictorSMAMA(){}
 
+/*
 EnjoLib::VecD PredictorSMAMA::PredictVec(const EnjoLib::VecD & data) const
 {
     const int numSamplesSma = m_lagMine.GetVal(); //
@@ -28,11 +29,35 @@ EnjoLib::VecD PredictorSMAMA::PredictVec(const EnjoLib::VecD & data) const
 
     return SMAMA;
 }
+*/
 
 double PredictorSMAMA::PredictNext(const BufferDouble & datExpanding) const
 {
-    const VecD & vec = PredictVec(datExpanding.GetData());
-    return vec.Last();
+    const int numSamplesSma = m_lagMine.GetVal(); //
+    const int numSamplesMA  = GetLag1().GetVal(); // ParQ
+    const int lags = GetLags();
+    if (datExpanding.Len() < lags + numSamplesSma)
+    {
+        return 0;
+    }
+    const PredictorUtil util;
+
+    
+    VecD ret;
+    for (int lag = 0; lag < lags; ++lag)
+    {
+        const EnjoLib::VecD & predSma = util.SimpleMA(numSamplesSma, datExpanding.GetData());
+        const EnjoLib::VecD & errors = util.GetErrorsCorrected(predSma, datExpanding.GetData());
+        //const EnjoLib::VecD & predVec = PredictorUtil().RegressionProt(lag, datExpanding.GetData(), datExpanding.Len(), false);
+        //const double pred = predVec.Last();
+        const double pred = PredictorUtil().RegressionProt(lag, errors, errors.size(), false);
+        ret.Add(pred);
+        //LOGL << "Pred lag " << lag << " = " << pred << ", ret = " << ret.Mean() << Nl;
+    }
+    return ret.Mean();
+    
+    //const VecD & vec = PredictVec(datExpanding.GetData());
+    //return vec.Last();
 }
 
 unsigned PredictorSMAMA::GetLags() const
