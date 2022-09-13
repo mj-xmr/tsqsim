@@ -30,12 +30,33 @@
 #include <Ios/Cin.hpp>
 #include <Util/Trim.hpp>
 #include <Util/CoutBuf.hpp>
+#include <Util/Except.hpp>
 #include <Template/UniquePtrVecFwd.hpp>
 #include <Template/UniquePtr.hpp>
 
 using namespace EnjoLib;
 
 App::App(){}
+
+EnjoLib::Str Benchmark(const IPeriod & per, const ConfigSym & confSym, const ConfigTS & confTS, const PredictorType & type, const Str & script = "")
+{
+    
+    try {
+            CorPtr<ISimulatorTS> sim = TSUtil().GetSimBenchmark(per, type, script);
+            if (confTS.PLOT_PYTHON)
+            {
+                App::PlotPython(confSym, confTS, *sim);
+            }
+            return sim->GetLogs();
+    }
+    catch (std::exception & ex)
+    {
+        Osstream oss;
+	    oss << "Failed to benchmark " << script;
+	    LOGL << oss.str() << Nl;
+	    return oss.str();
+    }
+} 
 
 void App::Run(const CLIResult & cliResultCmdLine) const
 {
@@ -72,15 +93,28 @@ void App::Run(const CLIResult & cliResultCmdLine) const
         case OptiType::OPTI_TYPE_NONE:
         case OptiType::OPTI_TYPE_USE:
             {
-                CorPtr<ISimulatorTS> sim = TSUtil().GetSim(per);
-                if (confTS.PLOT_PYTHON)
+                if (confTS.BENCHMARK)
                 {
-                    PlotPython(confSym, confTS, *sim);
+                    Osstream oss;
+                    oss << Benchmark(per, confSym, confTS, PredictorType::PRED_PY_CUSTOM, "py_statsmodels.py") << Nl;
+                    oss << Benchmark(per, confSym, confTS, PredictorType::PRED_PY_CUSTOM, "py_darts.py") << Nl;
+                    oss << Benchmark(per, confSym, confTS, PredictorType::PRED_PY_CUSTOM, "py_cuml.py") << Nl;
+                    oss << Benchmark(per, confSym, confTS, PredictorType::PRED_AR) << Nl;
+                    LOGL << "Benchmark complete:\n" << oss.str() << Nl;
                 }
-                if (confTS.PLOT_PYTHON_ACF)
+                else
                 {
-                    PlotPythonACF(confSym, confTS, *sim);
+                    CorPtr<ISimulatorTS> sim = TSUtil().GetSim(per);
+                    if (confTS.PLOT_PYTHON)
+                    {
+                        PlotPython(confSym, confTS, *sim);
+                    }
+                    if (confTS.PLOT_PYTHON_ACF)
+                    {
+                        PlotPythonACF(confSym, confTS, *sim);
+                    }
                 }
+
             }
         break;
         case OptiType::OPTI_TYPE_XVALID:
@@ -147,7 +181,7 @@ void App::Optim(const ISymbol & sym, const IPeriod & per) const
     optiPred();
 }
 
-void App::PlotPython(const ConfigSym & confSym, const ConfigTS & confTS, const ISimulatorTS & sim) const
+void App::PlotPython(const ConfigSym & confSym, const ConfigTS & confTS, const ISimulatorTS & sim)
 {
     {LOGL << "Plot Python\n"; }
 
@@ -163,7 +197,7 @@ void App::PlotPython(const ConfigSym & confSym, const ConfigTS & confTS, const I
     plot.Plot(title);
 }
 
-void App::PlotPythonACF(const ConfigSym & confSym, const ConfigTS & confTS, const ISimulatorTS & sim) const
+void App::PlotPythonACF(const ConfigSym & confSym, const ConfigTS & confTS, const ISimulatorTS & sim)
 {
     {LOGL << "Plot Python ACF\n"; }
 
@@ -174,7 +208,7 @@ void App::PlotPythonACF(const ConfigSym & confSym, const ConfigTS & confTS, cons
     plot.Plot(sim.GetOutputSeries(PredictorOutputType::SERIES), lags, per, title);
 }
 
-Str App::GetTitle(const ConfigSym & confSym) const
+Str App::GetTitle(const ConfigSym & confSym)
 {
     return confSym.symbol + " " + confSym.period + " " + confSym.GetDateFromToStr(false);
 }

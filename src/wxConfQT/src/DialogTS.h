@@ -42,13 +42,16 @@ class DialogTS : public wxDialog
 		wxButton* m_butScriptTextGen;
 		wxButton* m_butScriptTextOpen;
 		wxButton* m_butScriptTextOpenGen;
+		wxButton* m_butScriptTextOpenPy;
 		wxButton* m_butScriptTextOpenR;
+		wxButton* m_butScriptTextPy;
 		wxButton* m_butScriptTextR;
 		wxCheckBox* m_chkTechs;
 		wxSpinCtrl* m_spinLagACF;
 		wxSpinCtrl* m_spinPeriodSeasonal;
 		wxTextCtrl* m_txtScriptPath;
 		wxTextCtrl* m_txtScriptPathGen;
+		wxTextCtrl* m_txtScriptPathPy;
 		wxTextCtrl* m_txtScriptPathR;
 		//*)
 
@@ -60,6 +63,9 @@ class DialogTS : public wxDialog
 		static const long ID_TEXTCTRL1;
 		static const long ID_BUTTON1;
 		static const long ID_BUTTON2;
+		static const long ID_TEXTCTRL4;
+		static const long ID_BUTTON7;
+		static const long ID_BUTTON8;
 		static const long ID_TEXTCTRL2;
 		static const long ID_BUTTON3;
 		static const long ID_BUTTON4;
@@ -87,6 +93,8 @@ class DialogTS : public wxDialog
 		void Onm_butScriptTextOpenGenClick(wxCommandEvent& event);
 		void Onm_butScriptTextGenClick(wxCommandEvent& event);
 		void Onm_spinChange(wxSpinEvent& event);
+		void Onm_butScriptTextPyClick(wxCommandEvent& event);
+		void Onm_butScriptTextOpenPyClick(wxCommandEvent& event);
 		//*)
         MapCheckbox     m_mapCheckbox;
         MapChoiceEnum   m_mapChoice;

@@ -110,7 +110,11 @@ jobs:
     - name: build
       run: ./ci-default --compiler ${{ matrix.compiler }} --lto -j 1 ${{ matrix.options }} --native --unity --build-r
     - name: run demo
-      run: ./ci-default --compiler ${{ matrix.compiler }} --lto -j 1 ${{ matrix.options }} --native --unity --build-r --run-demo
+      run: ./ci-default --compiler ${{ matrix.compiler }} --lto ${{ matrix.options }} --native --unity --build-r --run-demo
+    - name: benchmark across frameworks
+      run: |
+        pip3 install darts
+        ./ci-default --compiler ${{ matrix.compiler }} --lto ${{ matrix.options }} --native --unity --build-r --benchmark
       
   build-macos:
     runs-on: ${{ matrix.os }}

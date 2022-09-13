@@ -17,6 +17,7 @@ PredictorTypeStr::PredictorTypeStr()
             case PredictorType::PRED_ARMA:          Add(i, "ARMA"); break;
             case PredictorType::PRED_R_BASELINE:    Add(i, "R-Baseline"); break;
             case PredictorType::PRED_R_CUSTOM:      Add(i, "R-Custom"); break;
+            case PredictorType::PRED_PY_CUSTOM:     Add(i, "Py-Custom"); break;
             case PredictorType::PRED_TRUE:          Add(i, "True"); break;
             case PredictorType::PRED_TEST:          Add(i, "Test"); break;
             case PredictorType::PRED_DUMB:          Add(i, "Dumb"); break;

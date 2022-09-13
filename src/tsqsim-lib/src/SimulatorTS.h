@@ -4,6 +4,7 @@
 #include "ISimulatorTS.h"
 #include "TSXformDataMan.h"
 #include <Util/VecD.hpp>
+#include <Util/Str.hpp>
 #include <Util/Tuple.hpp>
 #include <Statistical/MatrixFwd.hpp>
 #include <Template/CorradePointer.h>
@@ -36,6 +37,8 @@ class SimulatorTS : public ISimulatorTS
         void PrintOpti() const override;
         //void ReinitOptiVars(const EnjoLib::IIterable<OptiVarF *> & opti) override;
         void ReinitOptiVars(const EnjoLib::VecD & optiVars) override;
+        EnjoLib::Str GetLogs() const override;
+        void AddLogs(const EnjoLib::Str & logs) const override;
 
         using Inp = EnjoLib::Tuple<const IDataProvider *, const ITSFun *, int>;
         static TSRes IterBet(const Inp & ele);
@@ -87,6 +90,7 @@ class SimulatorTS : public ISimulatorTS
         EnjoLib::VecD m_ma;
         EnjoLib::VecD m_ma2Diff;
         EnjoLib::VecD m_ma2DiffNoSeasonal;
+        mutable EnjoLib::Str m_logs;
 
         CorPtr<IPredictor> m_ppred;
 

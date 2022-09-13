@@ -46,6 +46,8 @@ class IPredictor : public IOptimizable, public IHasLen
 
         virtual EnjoLib::VecD AssertNoLookaheadBiasGetVec(const EnjoLib::VecD & data) const;
         virtual void AssertNoLookaheadBias(const EnjoLib::VecD & data, const EnjoLib::VecD & predVec) const;
+        
+        virtual bool IsCustomScript() const;
 
         /// The error returned when there's not enough data for the prediction yet.
         static const double ERROR;

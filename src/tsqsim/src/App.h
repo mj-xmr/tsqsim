@@ -19,10 +19,10 @@ class App
         void Run(const CLIResult & cliResult) const;
         void Optim(const ISymbol & sym, const IPeriod & per) const;
         void XValid(const ISymbol & sym, const IPeriod & per) const;
-        void PlotPython(const ConfigSym & confSym, const ConfigTS & confTS, const ISimulatorTS & sim) const;
-        void PlotPythonACF(const ConfigSym & confSym, const ConfigTS & confTS, const ISimulatorTS & sim) const;
+        static void PlotPython(const ConfigSym & confSym, const ConfigTS & confTS, const ISimulatorTS & sim);
+        static void PlotPythonACF(const ConfigSym & confSym, const ConfigTS & confTS, const ISimulatorTS & sim);
 
-        EnjoLib::Str GetTitle(const ConfigSym & confSym) const;
+        static EnjoLib::Str GetTitle(const ConfigSym & confSym);
 
     protected:
 

@@ -15,6 +15,12 @@ PredictorRCustom::~PredictorRCustom()
     //dtor
 }
 
+
+bool PredictorRCustom::IsCustomScript() const
+{
+    return true;
+}
+
 EnjoLib::VecD PredictorRCustom::PredictVec(const EnjoLib::VecD & data) const
 {
     // Invoke a function in R

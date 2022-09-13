@@ -22,6 +22,8 @@ class ISimulatorTS : public ISimulator
         virtual float GetScoreStationarity() const = 0; /// TODO: Make a separate simulator for stationarity?
         virtual void SetSilent() = 0;
         virtual void PrintOpti() const = 0;
+        virtual EnjoLib::Str GetLogs() const = 0;
+        virtual void AddLogs(const EnjoLib::Str & logs) const = 0;
 
     protected:
 

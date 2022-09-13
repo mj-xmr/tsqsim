@@ -66,6 +66,10 @@ TEST(Pred_all_zero_cond)
     bool verbose = false;
     verbose = true;
     PredictorTypeStr typeStr;
+    VecI ignored;
+    ignored.push_back(int(PredictorType::PRED_R_BASELINE));
+    ignored.push_back(int(PredictorType::PRED_R_CUSTOM));
+    ignored.push_back(int(PredictorType::PRED_PY_CUSTOM)); /// TODO: It would be good to check it on a smaller sample as well
     const VecD & vecTrue = PredGenTrue();
     for (int iType = 0; iType <= int(PredictorType::PRED_TRUE); ++iType)
     {
@@ -74,7 +78,7 @@ TEST(Pred_all_zero_cond)
             LOGL << "Pred type = " << typeStr.at(iType) << Nl;
         }
         const PredictorType type = PredictorType(iType);
-        if (type == PredictorType::PRED_R_BASELINE || type == PredictorType::PRED_R_CUSTOM)
+        if (ignored.Contains(iType))
         {
             LOGL << "Ignoring: " << typeStr.at(iType) << Nl;
             continue;

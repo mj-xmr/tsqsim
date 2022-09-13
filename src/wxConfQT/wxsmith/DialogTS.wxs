@@ -49,6 +49,45 @@
 						<border>5</border>
 					</object>
 					<object class="sizeritem">
+						<object class="wxStaticBoxSizer" variable="StaticBoxSizer7" member="no">
+							<label>Script Py Custom</label>
+							<orient>wxVERTICAL</orient>
+							<object class="sizeritem">
+								<object class="wxBoxSizer" variable="BoxSizer6" member="no">
+									<object class="sizeritem">
+										<object class="wxTextCtrl" name="ID_TEXTCTRL4" variable="m_txtScriptPathPy" member="yes" />
+										<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+										<border>5</border>
+										<option>1</option>
+									</object>
+									<object class="sizeritem">
+										<object class="wxButton" name="ID_BUTTON7" variable="m_butScriptTextPy" member="yes">
+											<label>Find</label>
+											<size>50,-1</size>
+											<handler function="Onm_butScriptTextPyClick" entry="EVT_BUTTON" />
+										</object>
+										<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+										<border>5</border>
+									</object>
+									<object class="sizeritem">
+										<object class="wxButton" name="ID_BUTTON8" variable="m_butScriptTextOpenPy" member="yes">
+											<label>Open</label>
+											<size>50,-1</size>
+											<handler function="Onm_butScriptTextOpenPyClick" entry="EVT_BUTTON" />
+										</object>
+										<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+										<border>5</border>
+									</object>
+								</object>
+								<flag>wxALL|wxEXPAND</flag>
+								<border>5</border>
+								<option>1</option>
+							</object>
+						</object>
+						<flag>wxALL|wxEXPAND</flag>
+						<border>5</border>
+					</object>
+					<object class="sizeritem">
 						<object class="wxStaticBoxSizer" variable="StaticBoxSizer4" member="no">
 							<label>Script R Custom</label>
 							<orient>wxVERTICAL</orient>
@@ -170,7 +209,7 @@
 					</object>
 					<object class="sizeritem">
 						<object class="wxStaticBoxSizer" variable="StaticBoxSizer6" member="no">
-							<label>Lags ACF/PACF + Seasonal Period</label>
+							<label>Lags ACF/PACF       Seasonal Period</label>
 							<object class="sizeritem">
 								<object class="wxSpinCtrl" name="ID_SPINCTRL1" variable="m_spinLagACF" member="yes">
 									<value>30</value>

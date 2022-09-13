@@ -197,6 +197,7 @@ EnjoLib::VecD SimulatorTS::PredCommon(const IPredictor & predAlgo, const EnjoLib
     if (m_cfgTS.USE_VECTOR_PRED)
     {
         const EnjoLib::VecD & predVec = predAlgo.AssertNoLookaheadBiasGetVec(data);
+        //const EnjoLib::VecD & predVec = predAlgo.PredictVec(data); // Dangerous
         return predVec;
     }
     else
@@ -330,8 +331,9 @@ void SimulatorTS::PrintExperimental() const
 
     const PredictorStats statsPred;
     const PredictorStatsRes & predPoints = statsPred.GenPoints(m_original, m_predsBaseline, m_preds);
-    LOG << statsPred.GenRepNext(predPoints) << Nl;
-
+    const Str & report = statsPred.GenRepNext(predPoints);
+    LOG << report;
+    AddLogs(report);
 }
 
 EnjoLib::VecD SimulatorTS::GetSeasonal(int period, int averages) const
@@ -459,4 +461,14 @@ void SimulatorTS::SetSilent()
 bool SimulatorTS::IsVerbose() const
 {
     return not m_silent;
+}
+
+EnjoLib::Str SimulatorTS::GetLogs() const 
+{
+    return m_logs;
+}
+
+void SimulatorTS::AddLogs(const EnjoLib::Str & logs) const
+{
+    m_logs += "\n" + logs;
 }

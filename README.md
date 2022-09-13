@@ -152,6 +152,20 @@ export LD_LIBRARY_PATH=$R_HOME/lib
 ./tsqsim
 ```
 
+## Python backends
+`tsqsim` is able to wrap the Python 3rd party TSA frameworks. You may either write your own wrapper or use the already available ones.
+
+### Available python backends
+The following Python backends are currently available:
+
+| Name  | installation | script |
+| ----- | ------------ | ------ |
+| [statsmodels](https://www.statsmodels.org/) | pip install darts | scripts/py_darts.py |
+| [darts](https://github.com/unit8co/darts) |  pip install statsmodels  | scripts/py_statsmodels.py |
+
+### Extending python backends
+TODO! Wrap predict and convert from dataframe and return a timeseries.
+
 # Development
 For the development use case, it's recommended to turn on certain optimizations, that reduce the recompilation and linking time while changing the source code often. The optimizations are: dynamic linking (*shared*), precompiled headers (*pch*) and (optionally) a networked parallel compiler's wrapper, [icecc](https://github.com/icecc/icecream).
 
