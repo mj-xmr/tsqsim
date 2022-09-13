@@ -11,6 +11,7 @@
 #include "ConfigTS.h"
 #include "ConfigSym.h"
 
+#include <Ios/Osstream.hpp>
 #include <Util/CoutBuf.hpp>
 #include <Util/TimerChrono.hpp>
 
@@ -50,10 +51,12 @@ CorPtr<ISimulatorTS> TSUtil::GetSimBenchmark(const IPeriod & per, const Predicto
     sim->RunRaw(startEndFrame);
     const double seconds = timer.ToNowMilliseconds() / 1000.0;
     
+    EnjoLib::Osstream oss;
     ELO
-    LOG << "Benchmarked '" << (scriptName.size() ? scriptName : "Native C++") << "'\t";
-    LOG << "Time taken = " << seconds << "s\n\n";
-    
+    oss << "Benchmarked '" << (scriptName.size() ? scriptName : "Native C++") << "'\t";
+    oss << "Time taken = " << seconds << "s\n\n";
+    LOG << oss.str();
+    sim->AddLogs(oss.str());
     return CorPtr<ISimulatorTS>(sim.release());
 }
 

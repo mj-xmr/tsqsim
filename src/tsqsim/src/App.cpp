@@ -38,19 +38,23 @@ using namespace EnjoLib;
 
 App::App(){}
 
-void Benchmark(const IPeriod & per, const ConfigSym & confSym, const ConfigTS & confTS, const PredictorType & type, const Str & script = "")
+EnjoLib::Str Benchmark(const IPeriod & per, const ConfigSym & confSym, const ConfigTS & confTS, const PredictorType & type, const Str & script = "")
 {
-			
+    
     try {
             CorPtr<ISimulatorTS> sim = TSUtil().GetSimBenchmark(per, type, script);
             if (confTS.PLOT_PYTHON)
             {
                 App::PlotPython(confSym, confTS, *sim);
             }
+            return sim->GetLogs();
     }
     catch (std::exception & ex)
     {
-	LOGL << "Failed to benchmark " << script << "\n";
+        Osstream oss;
+	    oss << "Failed to benchmark " << script;
+	    LOGL << oss.str() << Nl;
+	    return oss.str();
     }
 } 
 
@@ -91,11 +95,12 @@ void App::Run(const CLIResult & cliResultCmdLine) const
             {
                 if (confTS.BENCHMARK)
                 {
-                    Benchmark(per, confSym, confTS, PredictorType::PRED_PY_CUSTOM, "py_statsmodels.py");
-                    Benchmark(per, confSym, confTS, PredictorType::PRED_PY_CUSTOM, "py_darts.py");
-                    Benchmark(per, confSym, confTS, PredictorType::PRED_PY_CUSTOM, "py_cuml.py");
-                    Benchmark(per, confSym, confTS, PredictorType::PRED_AR);
-                    LOGL << "Benchmark complete\n";
+                    Osstream oss;
+                    oss << Benchmark(per, confSym, confTS, PredictorType::PRED_PY_CUSTOM, "py_statsmodels.py") << Nl;
+                    oss << Benchmark(per, confSym, confTS, PredictorType::PRED_PY_CUSTOM, "py_darts.py") << Nl;
+                    oss << Benchmark(per, confSym, confTS, PredictorType::PRED_PY_CUSTOM, "py_cuml.py") << Nl;
+                    oss << Benchmark(per, confSym, confTS, PredictorType::PRED_AR) << Nl;
+                    LOGL << "Benchmark complete:\n" << oss.str() << Nl;
                 }
                 else
                 {
