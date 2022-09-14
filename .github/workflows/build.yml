@@ -78,16 +78,7 @@ jobs:
 
 # Performance tests:
   perf-ubuntu:
-    runs-on: ${{ matrix.os }}
-    env:
-      CCACHE_TEMPDIR: /tmp/.ccache-temp
-    strategy:
-      fail-fast: false
-#      max-parallel: 1 # Single threaded for now, because the jobs overwrite each other's data/bin/* files?
-      matrix:
-        os: [ubuntu-latest] #, ubuntu-18.04] # TODO: Consider(!) supporting the previous version.
-        compiler: [clang] # gcc, 
-        options: ["", "--ffp"]
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
       with:
@@ -108,14 +99,24 @@ jobs:
     - name: build & install the unmanaged dependencies
       run: util/deps-build.sh
     - name: build
-      run: ./ci-default --compiler ${{ matrix.compiler }} --lto -j 1 ${{ matrix.options }} --native --unity --build-r
+      run: ./ci-default --lto --native --build-r --unity 
     - name: run demo
-      run: ./ci-default --compiler ${{ matrix.compiler }} --lto ${{ matrix.options }} --native --unity --build-r --run-demo
+      run: ./ci-default --lto --native --build-r --unity --run-demo
+    - name: install benchmark deps
+      run: pip3 install darts
     - name: benchmark across frameworks
-      run: |
-        pip3 install darts
-        ./ci-default --compiler ${{ matrix.compiler }} --lto ${{ matrix.options }} --native --unity --build-r --benchmark
-      
+      run: ./ci-default --lto --native --build-r --unity --benchmark
+    - name: benchmark across frameworks (retest)
+      run: ./ci-default --lto --native --build-r --unity --benchmark
+    - name: build ffp
+      run: ./ci-default --lto --native --build-r --unity --ffp
+    - name: run demo ffp
+      run: ./ci-default --lto --native --build-r --unity --run-demo --ffp
+    - name: benchmark across frameworks ffp
+      run: ./ci-default --lto --native --build-r --unity --benchmark --ffp
+    - name: benchmark across frameworks ffp (retest)
+      run: ./ci-default --lto --native --build-r --unity --benchmark --ffp
+     
   build-macos:
     runs-on: ${{ matrix.os }}
     env:
