@@ -99,21 +99,27 @@ jobs:
     - name: build & install the unmanaged dependencies
       run: util/deps-build.sh
     - name: build
-      run: ./ci-default --lto -j 1 --native --build-r
-    - name: build unity
-      run: ./ci-default --lto -j 1 --native --build-r --unity 
+      run: ./ci-default --lto --native --build-r --unity 
     - name: run demo
       run: ./ci-default --lto --native --build-r --unity --run-demo
-    - name: run demo ffp
-      run: ./ci-default --lto --native --build-r --unity --run-demo --ffp
     - name: install benchmark deps
       run: pip3 install darts
     - name: benchmark across frameworks
-      run: ./ci-default --lto --native --unity --build-r --benchmark
-    - name: benchmark across frameworks ffp
-      run: ./ci-default --lto --native --unity --build-r --benchmark --ffp
+      run: ./ci-default --lto --native --build-r --unity --benchmark
     - name: benchmark across frameworks (retest)
-      run: ./ci-default --lto --native --unity --build-r --benchmark 
+      run: ./ci-default --lto --native --build-r --unity --benchmark
+    - name: build ffp
+      run: ./ci-default --lto --native --build-r --unity --ffp
+    - name: run demo ffp
+      run: ./ci-default --lto --native --build-r --unity --run-demo --ffp
+    - name: benchmark across frameworks ffp
+      run: ./ci-default --lto --native --build-r --unity --benchmark --ffp
+    - name: benchmark across frameworks ffp (retest)
+      run: ./ci-default --lto --native --build-r --unity --benchmark --ffp
+    
+    
+    - name: benchmark across frameworks ffp
+      run: ./ci-default --lto --native --unity --build-r --benchmark --ffp 
      
   build-macos:
     runs-on: ${{ matrix.os }}
