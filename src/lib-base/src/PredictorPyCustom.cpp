@@ -87,6 +87,6 @@ EnjoLib::VecD PredictorPyCustom::ExePython(const EnjoLib::VecD & data, bool movi
 
 unsigned PredictorPyCustom::GetLags() const
 {
-    return 2;
+    //return 2;
     return GetLag1().GetVal();
 }
