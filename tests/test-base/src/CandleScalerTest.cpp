@@ -1,8 +1,8 @@
 #include "pch_test.h"
+#include <CandleScaler.h>
 
 #include <Util/VecF.hpp>
 #include <Template/VectorViewable.hpp>
-#include <CandleScaler.h>
 
 #include <UnitTest++/UnitTest++.h>
 
