@@ -44,7 +44,7 @@ void ConfigTS::RegisterAndReadBools(EnjoLib::Istream & f)
     RegisterAndReadBool(f, PLOT_BASELINE,            1, "Plot baseline",    "Plot baseline prediction in QT app");
     RegisterAndReadBool(f, PLOT_PYTHON,              0, "Plot with Python", DESCR_PLOT_PYTHON);
     RegisterAndReadBool(f, PLOT_PYTHON_ACF,          0, "Plot ACF with Python", "Plot the Auto Correlation Function in Python backend");
-    RegisterAndReadBool(f, MT_XFORM,                 1, "MT xform",         "Perform the transformations in a multithreaded way (still unstable)");
+    RegisterAndReadBool(f, MT_XFORM,                 0, "MT xform",         "Perform the transformations in a multithreaded way (still unstable)");
     RegisterAndReadBool(f, MT_REPORT,                0, "MT report",        "Generate report in multithreaded way (still unstable)");
     RegisterAndReadBool(f, USE_VECTOR_PRED,          1, "Opti vec pred",    "Use optimized vectored prediction");
     RegisterAndReadBool(f, BENCHMARK,                0, "Benchmark",    DESCR_BENCHMARK);
@@ -107,7 +107,7 @@ void ConfigTS::UpdateFromOther(const ConfigTS & cfgTSCmdLine)
     {
         PLOT_PERIOD_NUM = cfgTSCmdLine.PLOT_PERIOD_NUM;
     }
-    if (cfgTSCmdLine.PRED_TYPE >= 0)
+    if (cfgTSCmdLine.PRED_TYPE > 0)
     {
         PRED_TYPE = cfgTSCmdLine.PRED_TYPE;
     }

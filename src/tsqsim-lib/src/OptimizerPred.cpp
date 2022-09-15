@@ -101,7 +101,7 @@ void OptimizerPred::Consume(const EnjoLib::VecD & data)
             CorPtr<ISimulatorTS> psim = TSUtil().GetSimPred(m_period, data, m_startEndFrame);
 
             goal = psim->GetScorePred();
-            LOGL << Nl << "goal = " << goal << ". data = " << data.Print() << Nl;
+            //LOGL << Nl << "goal = " << goal << ". data = " << data.Print() << Nl;
 
             if (IsGoalReached(goal))
             {
