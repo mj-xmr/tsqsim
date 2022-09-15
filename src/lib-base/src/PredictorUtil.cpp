@@ -57,24 +57,17 @@ double  PredictorUtil::RegressionProt(int lag, const EnjoLib::VecD & data, size_
     const int degree = 2;
     EnjoLib::VecD vdx;
     EnjoLib::VecD vdy;
-    const int numSamples = 30;
-    
-    const int end = idx - lag;
-    
-    //for (int s = int(idx) - numSamples; s < int(idx); ++s)
-    {
-        /// TODO: early stop
-        for (int i = end - numSamples; i < end; ++i) /// TODO: This is definitely wrong
-        {
-            if (i < 0)
-            {
-                return Erratic(data, idx, erratic0);
-            }
-            vdx.Add(i);
-            vdy.Add(data.at(i));
-        }
-    }
 
+    //for (int i = int(idx) - numSamples; i < int(idx); ++i)
+    for (int i = 0; i < int(idx) - lag; ++i)
+    {
+        if (i < 0)
+        {
+            return Erratic(data, idx, erratic0);
+        }
+        vdx.Add(i);
+        vdy.Add(data.at(i));
+    }
     if (vdx.empty())
     {
         return Erratic(data, idx, erratic0); /// TODO: Is OK.
