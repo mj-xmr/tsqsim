@@ -38,5 +38,6 @@ double PredictorRCustom::PredictNext(const BufferDouble & datExpanding) const
 
 unsigned PredictorRCustom::GetLags() const
 {
-    return 1;
+    //return 1;
+    return GetLag1().GetVal();
 }

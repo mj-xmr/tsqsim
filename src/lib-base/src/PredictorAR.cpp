@@ -44,6 +44,6 @@ double PredictorAR::PredictNext(const BufferDouble & datExpanding) const
 
 unsigned PredictorAR::GetLags() const
 {
-    return 2;
+    //return 2;
     return GetLag1().GetVal();
 }

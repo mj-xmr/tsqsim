@@ -114,7 +114,6 @@ void App::Run(const CLIResult & cliResultCmdLine) const
                         PlotPythonACF(confSym, confTS, *sim);
                     }
                 }
-
             }
         break;
         case OptiType::OPTI_TYPE_XVALID:

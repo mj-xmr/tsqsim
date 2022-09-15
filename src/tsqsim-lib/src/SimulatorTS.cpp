@@ -60,7 +60,7 @@ void SimulatorTS::Run()
 
 void SimulatorTS::RunRaw(const StartEnd & startEndFrame)
 {
-    LOGL << "SimulatorTS::RunRaw()\n";
+    //LOGL << "SimulatorTS::RunRaw()\n";
     //const int idxStart  = m_per.Len() - m_fun.Len();
     int idxStart  = 0;
     int idxFinish = m_per.Len();
@@ -343,7 +343,7 @@ EnjoLib::VecD SimulatorTS::GetSeasonal(int period, int averages) const
     const EnjoLib::VecD & ret = seasonal.Run(m_original);
 
     const Str name = "seasonal";
-    LOGL << name << " = " << ret.Last() << Nl;
+    //LOGL << name << " = " << ret.Last() << Nl;
     OutputVariable(ret, name);
 
     return ret;
@@ -387,7 +387,7 @@ EnjoLib::VecD SimulatorTS::GetMA2Diff(const EnjoLib::VecD & maa, size_t period) 
         const double chgFin = -(ret.Last() / diff * 2);
         //LOGL << "Data 2 ma = " << diff << ", " << chgFin << Nl;
         const Str name = "hashrate_bonus_ma";
-        LOGL << name << " = " << chgFin << Nl;
+        //LOGL << name << " = " << chgFin << Nl;
         OutputVariable(ret, name);
         OutputVariable(chgFin, name + "_single");
     }

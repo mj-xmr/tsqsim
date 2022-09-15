@@ -34,7 +34,7 @@ Ticks::Ticks(const IIterableConst<Tick> & ticks)
 Ticks::Ticks(const ITicks & ticks)
 : Ticks(ticks.GetTicks3())
 {
-    
+
 }
 
 Ticks::Ticks(const EnjoLib::Str & symbolName, const VecStr & lines, bool skipHeader)
@@ -42,13 +42,13 @@ Ticks::Ticks(const EnjoLib::Str & symbolName, const VecStr & lines, bool skipHea
     //LoopThreadedTpl<string, Tick> loopThreadedTpl(lines.size(), &GetTick);
     //loopThreadedTpl.AddInputVector(lines); // Alternative without the filtering
     //m_ticks = loopThreadedTpl.AddInputVectorGetOutputVector(lines); // Alternative without the filtering
-    { LOGL << symbolName << ": Adding to vector\n"; }
+    //{ LOGL << symbolName << ": Adding to vector\n"; }
     const CharManipulations cmp;
     std::vector<Str> filtered;
     const int startIdx = skipHeader ? 1 : 0;
     //copy(lines.begin() + startIdx, lines.end(), std::back_inserter(filtered));
 
-    
+
     for( int i = 0; i < int(lines.size()); ++i )
     {
         if (skipHeader)
@@ -66,7 +66,7 @@ Ticks::Ticks(const EnjoLib::Str & symbolName, const VecStr & lines, bool skipHea
         //m_ticks.dat.push_back(GetTick(lines[i]));
         filtered.push_back(lines[i]);
     }
-    { LOGL << symbolName << ": Calculating\n"; }
+    //{ LOGL << symbolName << ": Calculating\n"; }
     std::function<decltype(GetTick)> f_conv = &GetTick;
     m_ticks = ConvertVectorThreaded(filtered, f_conv);
     //m_ticks = loopThreadedTpl.GetOutputVector();

@@ -3,6 +3,7 @@
 #include <StrategyFactoryName.h>
 #include "StrategyType.h"
 #include "StrategyTypeEnum.h"
+
 #include <Util/Str.hpp>
 
 #include <UnitTest++/UnitTest++.h>
