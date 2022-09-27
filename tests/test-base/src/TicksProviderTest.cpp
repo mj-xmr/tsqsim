@@ -30,9 +30,10 @@ TEST(TesterFake_XMR_perD)
 
     const IMainTester & tester = *ptester;
     CorPtr<ISymbol> sym = tester.GetSymbol("EURUSD");
+    const IPeriod & perH = sym->GetPeriod("h1");
     const IPeriod & perD = sym->GetPeriod("d");
     const IPeriod & perW = sym->GetPeriod("w");
-    LOGL << "Len day = " << perD.Len() << ", Len Week = " << perW.Len() << EnjoLib::Nl;
+    LOGL  << "Len hour = " << perD.Len() << ", Len day = " << perD.Len() << ", Len Week = " << perW.Len() << EnjoLib::Nl;
     CHECK(perD.Len() > 0);
     CHECK(perW.Len() > 0);
     //CHECK(perD.Len() > perW.Len());
