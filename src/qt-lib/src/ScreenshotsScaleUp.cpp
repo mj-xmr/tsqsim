@@ -174,7 +174,8 @@ void ScreenshotsScaleUp::SavePNG(QCustomPlot * p, const EnjoLib::Str & pathPar, 
 std::vector<EnjoLib::Str> ScreenshotsScaleUp::GetPeriods(const EnjoLib::Str & periodName) const
 {
     const CharManipulations cmp;
-    const EnjoLib::Str & perNameHuman = TradeUtil().MinutesToPeriodName(cmp.ToInt(periodName));
+    //const EnjoLib::Str & perNameHuman = TradeUtil().MinutesToPeriodName(cmp.ToInt(periodName));
+    const EnjoLib::Str & perNameHuman = periodName;
     const std::vector<EnjoLib::Str> periodsLo {"m15", "m30", "h1"};
     //const VecStr periodsLo {"m30", "h1", "h4"};
     //const VecStr periodsLo {"h1", "h4", "d"};

@@ -135,7 +135,7 @@ class wxConfQTFrame: public wxFrame
         wxCheckBox* m_ckeckPltQT;
         wxChoice* m_choiceMonthEnd;
         wxChoice* m_choiceMonthStart;
-        wxChoice* m_choicePeriod;
+        MyChoiceEnum* m_choicePeriod;
         wxChoice* m_choiceSym;
         wxChoice* m_choiceYearEnd;
         wxChoice* m_choiceYearStart;

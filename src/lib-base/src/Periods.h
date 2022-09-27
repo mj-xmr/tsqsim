@@ -4,23 +4,6 @@
 #include <Template/VecT.hpp>
 class ISymbol;
 
-
-enum class PeriodsEnum
-{
-    Minute1,
-    M5,
-    M15,
-    M30,
-    H1,
-    H2,
-    H4,
-    H8,
-    H12,
-    D,
-    W,
-    M
-};
-
 class PeriodsAll
 {
 public:
@@ -29,7 +12,7 @@ public:
     const EnjoLib::VecT<int> & GetPeriods() const {return periods;}
 
 private:
-    EnjoLib::VecT<int> periods; 
+    EnjoLib::VecT<int> periods;
 };
 
 #define TSQ_PERIOD_CLASS(className) \
@@ -40,7 +23,7 @@ class className : public PeriodClass \
         className(const ISymbol & sym); \
         virtual ~className() {} \
         float GetMaxLossPercent() const override; \
-}; 
+};
 
 TSQ_PERIOD_CLASS(Minute1)
 TSQ_PERIOD_CLASS(Minute5)

@@ -17,6 +17,7 @@
 #include "BufferVecType.h"
 #include "Buffer.h"
 #include "ITicks.h"
+#include "EnumStringMapPeriod.h"
 
 #include <Util/Except.hpp>
 #include <Util/PimplDeleter.hpp>
@@ -45,9 +46,10 @@ struct PeriodClean::Impl
 };
 PIMPL_DELETER(PeriodClean)
 
-PeriodClean::PeriodClean(int numTicks, const ISymbol & sym)
+PeriodClean::PeriodClean(const PeriodType & type, const ISymbol & sym)
 : IPeriod(sym)
-, m_numTicks(numTicks)
+, m_type(type)
+, m_numTicks(TradeUtil().PeriodToMinutes(type))
 , m_symbolName(sym.GetName())
 , m_mas(new EnjoLib::CacheRAMBare<int, EnjoLib::VecF>)
 , m_impl(new Impl)
@@ -356,7 +358,8 @@ bool PeriodClean::IsMetaTrader() const
 
 EnjoLib::Str PeriodClean::GetName() const
 {
-    return TradeUtil().MinutesToPeriodName(GetNumTicks());
+    EnumStringMapPeriod esmp;
+    return esmp.at(static_cast<unsigned int>(m_type));
 }
 
 const SRVisibleData & PeriodClean::GetSRVisible(Direction dir) const

@@ -6,7 +6,7 @@
 #include "DayOfWeekCandle.h"
 #include "ConfigSym.h"
 #include "ConfigMan.h"
-#include "Periods.h"
+#include "PeriodType.h"
 
 #include <Util/CharManipulations.hpp>
 #include <Util/CharManipulationsTpl.hpp>
@@ -497,33 +497,33 @@ EnjoLib::Tuple<EnjoLib::Str, EnjoLib::Str, float, float, float> TradeUtil::Parse
     return ret;
 }
 
-int TradeUtil::PeriodToMinutes(const PeriodsEnum & penum) const
+int TradeUtil::PeriodToMinutes(const PeriodType & penum) const
 {
     switch (penum)
     {
-    case PeriodsEnum::Minute1:
+    case PeriodType::M1:
         return 1;
-    case PeriodsEnum::M5:
+    case PeriodType::M5:
         return 5;
-    case PeriodsEnum::M15:
+    case PeriodType::M15:
         return 15;
-    case PeriodsEnum::M30:
+    case PeriodType::M30:
         return 30;
-    case PeriodsEnum::H1:
+    case PeriodType::H1:
         return 60;
-    case PeriodsEnum::H2:
+    case PeriodType::H2:
         return 120;
-    case PeriodsEnum::H4:
+    case PeriodType::H4:
         return 240;
-    case PeriodsEnum::H8:
+    case PeriodType::H8:
         return 480;
-    case PeriodsEnum::H12:
+    case PeriodType::H12:
         return 720;
-    case PeriodsEnum::D:
+    case PeriodType::D:
         return 1440;
-    case PeriodsEnum::W:
+    case PeriodType::W:
         return 1440 * 7;
-    case PeriodsEnum::M:
+    case PeriodType::M:
         return 1440 * 30.437;
     }
     throw EnjoLib::ExceptInvalidArg("Unsupported period = " + EnjoLib::CharManipulations().ToStr((int)penum));
