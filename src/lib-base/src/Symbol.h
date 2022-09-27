@@ -64,6 +64,9 @@ public:
     const IPeriod & h8()        const override { return ph8; }
     const IPeriod & h12()       const override { return ph12; }
     const IPeriod & d()         const override { return pd; }
+    const IPeriod & w()         const override { return pw; }
+    const IPeriod & m()         const override { return pm; }
+    
 
 private:
     void InitAllowedPeriods();
@@ -86,6 +89,8 @@ private:
     Hour8<PeriodType>   ph8;
     Hour12<PeriodType>  ph12;
     Day<PeriodType>     pd;
+    Week<PeriodType>    pw;
+    Month<PeriodType>   pm;
     EnjoLib::Array<const IPeriod*> m_perAllowed;
 
     Spreads m_spreads;

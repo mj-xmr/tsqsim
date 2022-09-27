@@ -52,6 +52,8 @@ class ISymbol
         virtual const IPeriod & h8() const = 0;
         virtual const IPeriod & h12() const = 0;
         virtual const IPeriod & d() const = 0;
+        virtual const IPeriod & w() const = 0;
+        virtual const IPeriod & m() const = 0;
 
     protected:
     private:

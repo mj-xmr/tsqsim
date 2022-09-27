@@ -6,6 +6,7 @@
 #include "DayOfWeekCandle.h"
 #include "ConfigSym.h"
 #include "ConfigMan.h"
+#include "Periods.h"
 
 #include <Util/CharManipulations.hpp>
 #include <Util/CharManipulationsTpl.hpp>
@@ -496,32 +497,36 @@ EnjoLib::Tuple<EnjoLib::Str, EnjoLib::Str, float, float, float> TradeUtil::Parse
     return ret;
 }
 
-EnjoLib::Str TradeUtil::MinutesToPeriodName(int minutes) const
+int TradeUtil::PeriodToMinutes(const PeriodsEnum & penum) const
 {
-    switch (minutes)
+    switch (penum)
     {
-    case 1:
-        return "m1";
-    case 5:
-        return "m5";
-    case 15:
-        return "m15";
-    case 30:
-        return "m30";
-    case 60:
-        return "h1";
-    case 120:
-        return "h2";
-    case 240:
-        return "h4";
-    case 480:
-        return "h8";
-    case 720:
-        return "h12";
-    case 1440:
-        return "d";
+    case PeriodsEnum::Minute1:
+        return 1;
+    case PeriodsEnum::M5:
+        return 5;
+    case PeriodsEnum::M15:
+        return 15;
+    case PeriodsEnum::M30:
+        return 30;
+    case PeriodsEnum::H1:
+        return 60;
+    case PeriodsEnum::H2:
+        return 120;
+    case PeriodsEnum::H4:
+        return 240;
+    case PeriodsEnum::H8:
+        return 480;
+    case PeriodsEnum::H12:
+        return 720;
+    case PeriodsEnum::D:
+        return 1440;
+    case PeriodsEnum::W:
+        return 1440 * 7;
+    case PeriodsEnum::M:
+        return 1440 * 30.437;
     }
-    throw EnjoLib::ExceptInvalidArg("Unsupported period = " + EnjoLib::CharManipulations().ToStr(minutes));
+    throw EnjoLib::ExceptInvalidArg("Unsupported period = " + EnjoLib::CharManipulations().ToStr((int)penum));
 }
 
 /// Don't allow opening trades on Friday after 7p.m.

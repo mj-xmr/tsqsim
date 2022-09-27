@@ -16,6 +16,8 @@ class IPeriod;
 class IDataProvider;
 class BufferType;
 class Candle;
+enum class PeriodsEnum;
+
 class TradeUtil
 {
     public:
@@ -36,7 +38,7 @@ class TradeUtil
         DateInt DateZeroNumSuffix(DateInt date, int numZeros) const;
         EnjoLib::Pair<int, int> GetYearMonthMax(const EnjoLib::Str & symbolName) const;
 
-        EnjoLib::Str MinutesToPeriodName(int minutes) const;
+        int PeriodToMinutes(const PeriodsEnum & penum) const;
 
         EnjoLib::Str CutSymbolTestingPrefix(const EnjoLib::Str & symbolName) const;
         EnjoLib::Str LabelLineToUnderscoresWXid(const EnjoLib::Str & labelLine) const;

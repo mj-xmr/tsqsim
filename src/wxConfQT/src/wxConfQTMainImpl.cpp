@@ -29,6 +29,8 @@ void wxConfQTFrame::Init()
     wxu.InitMonths(m_choiceMonthStart);
     wxu.InitMonths(m_choiceMonthEnd);
 
+    
+    //m_choicePeriod->Init()
     m_choiceStrat->Init(EnumStringMapStrat()); // Linking errors
     m_choiceDataSrc->Init(EnumStringMapDataSrc());
     m_choicePlot->Init(EnumStringMapPlotType());

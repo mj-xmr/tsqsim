@@ -43,6 +43,8 @@ Symbol<T>::Symbol(const EnjoLib::Str & name, const VecStr & periodNames, bool is
 , ph8 (*this)
 , ph12(*this)
 , pd  (*this)
+, pw  (*this)
+, pm  (*this)
 , m_isMetaTrader(isMetaTrader)
 , m_spread(spread)
 {
@@ -147,6 +149,9 @@ EnjoLib::Array<const IPeriod*> Symbol<T>::GetPeriodsAll() const
     periods.push_back(&ph8);
     periods.push_back(&ph12);
     periods.push_back(&pd);
+    periods.push_back(&pw);
+    periods.push_back(&pm);
+    
     return periods;
 }
 
@@ -164,7 +169,9 @@ std::vector<IPeriod*> Symbol<T>::GetPeriodsRWAll()
     periods.push_back(&ph8);
     periods.push_back(&ph12);
     periods.push_back(&pd);
-
+    periods.push_back(&pw);
+    periods.push_back(&pm);
+    
     return periods;
 }
 

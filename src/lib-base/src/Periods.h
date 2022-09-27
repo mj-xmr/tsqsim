@@ -1,98 +1,58 @@
 #ifndef PERIODS_H
 #define PERIODS_H
 
+#include <Template/VecT.hpp>
 class ISymbol;
 
-template <class PeriodClass>
-class Minute1 : public PeriodClass
+
+enum class PeriodsEnum
 {
-    public:
-        Minute1(const ISymbol & sym);
-        virtual ~Minute1() {}
-        float GetMaxLossPercent() const override;
+    Minute1,
+    M5,
+    M15,
+    M30,
+    H1,
+    H2,
+    H4,
+    H8,
+    H12,
+    D,
+    W,
+    M
 };
 
-template <class PeriodClass>
-class Minute5 : public PeriodClass
+class PeriodsAll
 {
-    public:
-        Minute5(const ISymbol & sym);
-        virtual ~Minute5() {}
-        float GetMaxLossPercent() const override;
+public:
+    PeriodsAll();
+    virtual ~PeriodsAll();
+    const EnjoLib::VecT<int> & GetPeriods() const {return periods;}
+
+private:
+    EnjoLib::VecT<int> periods; 
 };
 
-template <class PeriodClass>
-class Minute15 : public PeriodClass
-{
-    public:
-        Minute15(const ISymbol & sym);
-        virtual ~Minute15(){}
-        float GetTPRatio() const override;
-        float GetMaxLossPercent() const override;
-};
+#define TSQ_PERIOD_CLASS(className) \
+template <class PeriodClass> \
+class className : public PeriodClass \
+{ \
+    public: \
+        className(const ISymbol & sym); \
+        virtual ~className() {} \
+        float GetMaxLossPercent() const override; \
+}; 
 
-template <class PeriodClass>
-class Minute30 : public PeriodClass
-{
-    public:
-        Minute30(const ISymbol & sym);
-        virtual ~Minute30(){}
-        float GetMaxLossPercent() const override;
-};
-
-template <class PeriodClass>
-class Hour1 : public PeriodClass
-{
-    public:
-        Hour1(const ISymbol & sym);
-        virtual ~Hour1(){}
-        float GetTPRatio() const override;
-        float GetMaxLossPercent() const override;
-};
-
-template <class PeriodClass>
-class Hour2 : public PeriodClass
-{
-    public:
-        Hour2(const ISymbol & sym);
-        virtual ~Hour2(){}
-        float GetMaxLossPercent() const override;
-};
-
-template <class PeriodClass>
-class Hour4 : public PeriodClass
-{
-    public:
-        Hour4(const ISymbol & sym);
-        virtual ~Hour4(){}
-        float GetMaxLossPercent() const override;
-};
-
-template <class PeriodClass>
-class Hour8 : public PeriodClass
-{
-    public:
-        Hour8(const ISymbol & sym);
-        virtual ~Hour8(){}
-        float GetMaxLossPercent() const override;
-};
-
-template <class PeriodClass>
-class Hour12 : public PeriodClass
-{
-    public:
-        Hour12(const ISymbol & sym);
-        virtual ~Hour12(){}
-        float GetMaxLossPercent() const override;
-};
-
-template <class PeriodClass>
-class Day : public PeriodClass
-{
-    public:
-        Day(const ISymbol & sym);
-        virtual ~Day(){}
-        float GetMaxLossPercent() const override;
-};
+TSQ_PERIOD_CLASS(Minute1)
+TSQ_PERIOD_CLASS(Minute5)
+TSQ_PERIOD_CLASS(Minute15)
+TSQ_PERIOD_CLASS(Minute30)
+TSQ_PERIOD_CLASS(Hour1)
+TSQ_PERIOD_CLASS(Hour2)
+TSQ_PERIOD_CLASS(Hour4)
+TSQ_PERIOD_CLASS(Hour8)
+TSQ_PERIOD_CLASS(Hour12)
+TSQ_PERIOD_CLASS(Day)
+TSQ_PERIOD_CLASS(Week)
+TSQ_PERIOD_CLASS(Month)
 
 #endif // PERIODS_H
