@@ -10,9 +10,10 @@
 #include "Leverages.h"
 #include "Candle.h"
 #include "BufferCandles.h"
+#include "PeriodType.h"
+
 #include <Util/Pimpl.hpp>
 #include <Util/Str.hpp>
-
 #include <Template/CacheRAMBase.hpp>
 
 class BufferVecUpdateable;
@@ -21,7 +22,7 @@ class PriceFilterType;
 class PeriodClean : public IPeriod
 {
     public:
-        PeriodClean(int numTicks, const ISymbol & sym);
+        PeriodClean(const PeriodType & type, const ISymbol & sym);
         virtual ~PeriodClean(){}
 
         void Feed(const EnjoLib::IIterableConst<Tick> & tick, bool updateTech) override;
@@ -98,6 +99,7 @@ class PeriodClean : public IPeriod
         void FinalizeCandlePriv(bool updateTech = false);
 
         PriceFilterConfig m_priceFilterCfg;
+        PeriodType m_type;
         bool m_usingTicks = false;
         SRDummy m_srDummy;
         //SRVisibleData m_srVisDummy;
@@ -106,7 +108,7 @@ class PeriodClean : public IPeriod
         int m_minutePrev = -1;
         int m_hourPrev = -1;
         int m_dayPrev = -1;
-
+        
         EnjoLib::Str m_symbolName;
         Leverages m_leverages;
         Candle m_currCandle;

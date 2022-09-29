@@ -81,8 +81,10 @@ void Tick::ParseFromStream(const EnjoLib::Str & line)
 
 int Tick::GetDayMinute() const
 {
-    int hourMinutes = hour * 60;
-    int totalMinutes = hourMinutes + minute;
+    const int monthMinutes = 0; /// Probably needed?
+    const int dayMinutes = day * 24 * 60;
+    const int hourMinutes = hour * 60;
+    int totalMinutes = monthMinutes + dayMinutes + hourMinutes + minute;
     if (totalMinutes == 0)
         totalMinutes = 24 * 60; // A daily bar
     return totalMinutes;

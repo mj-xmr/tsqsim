@@ -10,6 +10,7 @@
 //#include "PeriodClean.h"
 //#include "PeriodBase.h"
 
+#include <Util/CoutBuf.hpp>
 #include <Util/CharManipulations.hpp>
 #include <Util/Except.hpp>
 #include <Template/Array.hpp>
@@ -43,6 +44,8 @@ Symbol<T>::Symbol(const EnjoLib::Str & name, const VecStr & periodNames, bool is
 , ph8 (*this)
 , ph12(*this)
 , pd  (*this)
+, pw  (*this)
+, pm  (*this)
 , m_isMetaTrader(isMetaTrader)
 , m_spread(spread)
 {
@@ -147,6 +150,9 @@ EnjoLib::Array<const IPeriod*> Symbol<T>::GetPeriodsAll() const
     periods.push_back(&ph8);
     periods.push_back(&ph12);
     periods.push_back(&pd);
+    periods.push_back(&pw);
+    periods.push_back(&pm);
+    
     return periods;
 }
 
@@ -164,7 +170,9 @@ std::vector<IPeriod*> Symbol<T>::GetPeriodsRWAll()
     periods.push_back(&ph8);
     periods.push_back(&ph12);
     periods.push_back(&pd);
-
+    periods.push_back(&pw);
+    periods.push_back(&pm);
+    
     return periods;
 }
 
@@ -183,7 +191,7 @@ void Symbol<T>::Feed(const Tick & tick, bool updateTech)
 {
     for(IPeriod * period : GetPeriodsRW())
     {
-        //cout << "Feeding " << period->GetName() << endl;
+        //LOGL << "Feeding " << period->GetName() << Nl;
         period->Feed(tick, updateTech);
     }
 }

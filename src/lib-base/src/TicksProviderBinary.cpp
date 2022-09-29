@@ -133,7 +133,7 @@ CorPtr<ITicks> TicksProviderBinary::RestoreZipped(const EnjoLib::Str & serialize
     //return t2.FromYear(2015).TillYear(2015).FromMonth(5, 2015);
     //return t2.FromYear(2015).TillYear(2015).TillMonth(5, 2015);
     //return t2.FromYear(2015).TillYear(2015).FromMonth(1, 2015).TillMonth(6, 2015);
-    return CorPtr<ITicks>(new Ticks(t2));;
+    return CorPtr<ITicks>(new Ticks(t2));
 
 }
 

@@ -169,7 +169,7 @@ wxConfQTFrame::wxConfQTFrame(wxWindow* parent,wxWindowID id)
     m_choiceSym->Append(_("SPYUSDASD"));
     m_choiceSym->SetToolTip(_("Name of time series"));
     BoxSizer3->Add(m_choiceSym, 0, wxALL|wxEXPAND, 5);
-    m_choicePeriod = new wxChoice(this, ID_CHOICE2, wxDefaultPosition, wxDefaultSize, 0, 0, 0, wxDefaultValidator, _T("ID_CHOICE2"));
+    m_choicePeriod = new MyChoiceEnum(this, ID_CHOICE2, wxDefaultPosition, wxDefaultSize, 0, 0, 0, wxDefaultValidator, _T("ID_CHOICE2"));
     m_choicePeriod->Append(_("m1"));
     m_choicePeriod->Append(_("m5"));
     m_choicePeriod->Append(_("m15"));

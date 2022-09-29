@@ -4,7 +4,7 @@
 #include <Util/CoutBuf.hpp>
 
 OrderedSeries::OrderedSeries(const ISymbol & sym)
-: PeriodClean(1, sym)
+: PeriodClean(PeriodType::M1, sym)
 {
     //ctor
 }
@@ -52,7 +52,7 @@ void OrderedSeries::FeedVal(double open, double close, double high, double low)
                     tick.day = 1;
                     tick.month++;
                     //LOGL << "New month = " << int(tick.month) << EnjoLib::Nl;
-                    
+
                     if (tick.month == 13)
                     {
                         tick.month = 1;

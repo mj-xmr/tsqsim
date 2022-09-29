@@ -12,6 +12,7 @@
 #include "EnumStringMapBufferType.h"
 #include "EnumStringMapBufferVecType.h"
 #include "EnumStringMapDataSrc.h"
+#include <EnumStringMapPeriod.h>
 #include <EnumStringMapStrat.h>
 #include <TradeUtil.h>
 
@@ -29,6 +30,8 @@ void wxConfQTFrame::Init()
     wxu.InitMonths(m_choiceMonthStart);
     wxu.InitMonths(m_choiceMonthEnd);
 
+
+    m_choicePeriod->Init(EnumStringMapPeriod());
     m_choiceStrat->Init(EnumStringMapStrat()); // Linking errors
     m_choiceDataSrc->Init(EnumStringMapDataSrc());
     m_choicePlot->Init(EnumStringMapPlotType());

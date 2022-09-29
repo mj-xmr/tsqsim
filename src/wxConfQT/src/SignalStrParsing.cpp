@@ -2,6 +2,9 @@
 #include "wxConfQTMain.h"
 #include "wxUtil.h"
 #include <TradeUtil.h>
+#include "MyChoiceEnum.h"
+
+
 #include <Util/Tokenizer.hpp>
 #include <Util/CharManipulations.hpp>
 
