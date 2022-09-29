@@ -13,6 +13,7 @@
 #include <SymbolFactoryClean.h>
 #include <SimulatorFactoryTSImpl.h>
 
+#include <Util/CoutBuf.hpp>
 #include <UnitTest++/UnitTest++.h>
 
 using namespace EnjoLib;
@@ -36,8 +37,12 @@ TEST(Monster_1)
     const int sz_h8 = mon.m_d->GetSz();
     CHECK(sz_h8 > 0);
     CHECK(sz_h8 > sz_h12);
+    mon.Reload("TXTS", "d", StrategyFactory::Type::STRA_LIVE, mode);
+    const int sz_d = mon.m_d->GetSz();
     mon.Reload("TXTS", "w", StrategyFactory::Type::STRA_LIVE, mode);
     const int sz_w = mon.m_d->GetSz();
+    LOGL << "Sizes of series: d = " << sz_d << ", w = " << sz_w << Nl;
     CHECK(sz_w > 0);
     CHECK(sz_w < sz_h12);
+    CHECK(sz_w < sz_d);
 }

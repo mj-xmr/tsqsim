@@ -10,6 +10,7 @@
 //#include "PeriodClean.h"
 //#include "PeriodBase.h"
 
+#include <Util/CoutBuf.hpp>
 #include <Util/CharManipulations.hpp>
 #include <Util/Except.hpp>
 #include <Template/Array.hpp>
@@ -190,7 +191,7 @@ void Symbol<T>::Feed(const Tick & tick, bool updateTech)
 {
     for(IPeriod * period : GetPeriodsRW())
     {
-        //cout << "Feeding " << period->GetName() << endl;
+        //LOGL << "Feeding " << period->GetName() << Nl;
         period->Feed(tick, updateTech);
     }
 }
