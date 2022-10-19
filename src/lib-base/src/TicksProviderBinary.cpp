@@ -194,14 +194,28 @@ Ticks TicksProviderBinary::ReadFile(const EnjoLib::Str & symbolName, EnjoLib::Is
 {
     Cout out;
     /// TODO: Memory hog. Read line by line. Use Tokenizer().WorkOnLines with filtering
-    out << symbolName << ": Reading file ... ";
+    out << symbolName << ": Reading file ... " << Endl;
     //size_t sz = FileUtils().GetNumLinesFile(is);
-    const VecStr & lines = Tokenizer().GetLines(is, true);
-    out << symbolName << ": " << lines.size() << " lines.\n";
-    out << symbolName << ": Tokenizing..." << Endl;
+    class Worker : public EnjoLib::IWorksOnLine
+    {
+    public: 
+        void Work(const EnjoLib::Str & line) override
+        {
+            Tick tick(line);
+            m_ticks.Add(tick);
+        }
+        Ticks m_ticks;
+    };
+    //const VecStr & lines = Tokenizer().GetLines(is, true);
+    Worker worker;
+    Tokenizer().WorkOnLines(is, worker, true);
+    
+    out << symbolName << ": " << worker.m_ticks.size() << " lines.\n";
+    //out << symbolName << ": Tokenizing..." << Endl;
     //Ticks t(is, sz);
-    const VecStr & linesConv = Convert(lines);
-    Ticks t(symbolName, linesConv);
+    //const VecStr & linesConv = Convert(lines);
+    //Ticks t(symbolName, linesConv);
+    Ticks t = worker.m_ticks;
     out << symbolName << ": Filtering" << Endl;
 
     //t = t.FromYear(2010);
