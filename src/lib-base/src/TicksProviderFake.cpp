@@ -38,7 +38,7 @@ VecStr TicksProviderFake::Generate() const
 CorPtr<ITicks> TicksProviderXMRFake::GetTicks(const Str & symbolName, const ConfigSym * confSym) const
 {
     const VecStr & lines = Generate();
-    const VecStr & linesConv = TicksProviderXMR::ConvertStat(lines);
+    const VecStr & linesConv = TicksProviderXMR().ConvertStat(lines);
     /// TODO: Analyze the linesConv, if the format is still OK, because they don't seem to scale up very well.
 
     CorPtr<ITicks> ret(new Ticks(symbolName, linesConv));

@@ -12,6 +12,8 @@
 #include <Util/CharManipulations.hpp>
 #include <Util/Except.hpp>
 #include <Util/CoutBuf.hpp>
+#include <Visual/AsciiAnimation.hpp>
+#include <Util/ProgressMonitHigh.hpp>
 #include <Ios/Osstream.hpp>
 #include <Ios/Sstream.hpp>
 #include <Ios/Ifstream.hpp>
@@ -195,19 +197,38 @@ Ticks TicksProviderBinary::ReadFile(const EnjoLib::Str & symbolName, EnjoLib::Is
     Cout out;
     /// TODO: Memory hog. Read line by line. Use Tokenizer().WorkOnLines with filtering
     out << symbolName << ": Reading file ... " << Endl;
-    //size_t sz = FileUtils().GetNumLinesFile(is);
+    //const size_t szz = FileUtils().GetNumLinesFile(is);
     class Worker : public EnjoLib::IWorksOnLine
     {
     public: 
+        Worker(const TicksProviderBinary & parent)
+        : m_parent(parent)
+        , m_anim(11111)
+        {
+            
+        }
         void Work(const EnjoLib::Str & line) override
         {
-            Tick tick(line);
+            const EnjoLib::Str & lineConv = m_parent.ConvertSingle(line);
+            static int idx = 0;
+            //m_anim.AnimationPropeller(&idx);
+            //m_pmon.PrintProgressBarTime(idx++, m_szz);
+            if (idx++ % 50000 == 0)
+            {
+                LOGL << lineConv << Nl;
+            }
+            Tick tick(lineConv);
             m_ticks.Add(tick);
         }
+        const TicksProviderBinary & m_parent;
+        
         Ticks m_ticks;
+        Str m_lastDate;
+        EnjoLib::AsciiAnimation m_anim;
+        EnjoLib::ProgressMonitHigh m_pmon;
     };
     //const VecStr & lines = Tokenizer().GetLines(is, true);
-    Worker worker;
+    Worker worker(*this);
     Tokenizer().WorkOnLines(is, worker, true);
     
     out << symbolName << ": " << worker.m_ticks.size() << " lines.\n";
@@ -215,13 +236,10 @@ Ticks TicksProviderBinary::ReadFile(const EnjoLib::Str & symbolName, EnjoLib::Is
     //Ticks t(is, sz);
     //const VecStr & linesConv = Convert(lines);
     //Ticks t(symbolName, linesConv);
-    Ticks t = worker.m_ticks;
     out << symbolName << ": Filtering" << Endl;
-
     //t = t.FromYear(2010);
     //t = t.FromMonth(8);
-
-    return t;
+    return worker.m_ticks;
 }
 
 VecStr TicksProviderBinary::Convert(const VecStr & lines) const

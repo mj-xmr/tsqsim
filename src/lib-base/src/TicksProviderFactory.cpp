@@ -28,7 +28,8 @@ CorPtr<ITicksProvider> TickProviderFactory::Create(TickProviderType type) const
     case TickProviderType::XMR_FAKE:
         return CorPtr<ITicksProvider>(new TicksProviderXMRFake());
     case TickProviderType::XMR:
-        return CorPtr<ITicksProvider>(new TicksProviderAdaptive());
+    //   return CorPtr<ITicksProvider>(new TicksProviderAdaptive());
+        return CorPtr<ITicksProvider>(new TicksProviderXMR());
     case TickProviderType::DATA_FILE:
         return CorPtr<ITicksProvider>(new TicksProviderTxtAdHoc());    
     case TickProviderType::ADAPTIVE:
