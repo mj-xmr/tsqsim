@@ -229,3 +229,8 @@ VecStr TicksProviderBinary::Convert(const VecStr & lines) const
     return lines;
 }
 
+EnjoLib::Str TicksProviderBinary::ConvertSingle(const EnjoLib::Str & line) const
+{
+    return line;
+}
+

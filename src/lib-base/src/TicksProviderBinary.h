@@ -16,6 +16,7 @@ class TicksProviderBinary : public ITicksProvider
         CorPtr<ITicks> GetTicks(const EnjoLib::Str & symbol, const ConfigSym * confSym = nullptr) const override;
         CorPtr<ITicks> GetPeriod(const EnjoLib::Str & symbolName, const EnjoLib::Str & periodName) const override;
 
+        virtual EnjoLib::Str ConvertSingle(const EnjoLib::Str & line) const;
         virtual VecStr Convert(const VecStr & lines) const;
 
     protected:

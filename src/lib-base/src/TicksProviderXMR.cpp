@@ -26,7 +26,7 @@ VecStr TicksProviderXMR::ConvertStat(const VecStr & raw)
     lines.DataRW().reserve(raw.size());
     for (const Str & line : raw)
     {
-        lines.push_back(ConvertStatSingle(line));
+        lines.push_back(ConvertSingle(line));
     }
     //std::function<decltype(ConvertStatSingle)> f_conv = &ConvertStatSingle;
     //const std::vector<Str> & lines = ConvertVectorThreaded(raw.Data(), f_conv); // Causes a dead loop later at storing.
@@ -34,7 +34,7 @@ VecStr TicksProviderXMR::ConvertStat(const VecStr & raw)
     return lines;
 }
 
-EnjoLib::Str TicksProviderXMR::ConvertStatSingle(const EnjoLib::Str & line) /// TODO: Unit test and optimize
+EnjoLib::Str TicksProviderXMR::ConvertSingle(const EnjoLib::Str & line) const /// TODO: Unit test and optimize
 {
     const Tokenizer tok;
     const TradeUtil tut;
@@ -46,6 +46,13 @@ EnjoLib::Str TicksProviderXMR::ConvertStatSingle(const EnjoLib::Str & line) /// 
 
     return tut.GetLineFXfromSeries(dateTime, txnumbStr);
 }
+
+/*
+EnjoLib::Str (const EnjoLib::Str & line) const
+{
+    
+}
+*/
 
 VecStr TicksProviderXMR::Convert(const VecStr & raw) const
 {

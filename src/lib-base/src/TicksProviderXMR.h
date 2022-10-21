@@ -10,9 +10,10 @@ class TicksProviderXMR : public TicksProviderBinary
         TicksProviderXMR();
         virtual ~TicksProviderXMR();
 
-        static VecStr ConvertStat(const VecStr & raw);
-        static EnjoLib::Str ConvertStatSingle(const EnjoLib::Str & line);
+        VecStr ConvertStat(const VecStr & raw) const;
+        //static EnjoLib::Str ConvertStatSingle(const EnjoLib::Str & line);
 
+        EnjoLib::Str ConvertSingle(const EnjoLib::Str & line) const override;
         VecStr Convert(const VecStr & raw) const override;
 
     protected:
