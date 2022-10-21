@@ -195,7 +195,6 @@ CorPtr<ITicks> TicksProviderBinary::UnzipTxt(const EnjoLib::Str & symbol, const 
 Ticks TicksProviderBinary::ReadFile(const EnjoLib::Str & symbolName, EnjoLib::Istream & is) const
 {
     Cout out;
-    /// TODO: Memory hog. Read line by line. Use Tokenizer().WorkOnLines with filtering
     out << symbolName << ": Reading file ... " << Endl;
     //const size_t szz = FileUtils().GetNumLinesFile(is);
     class Worker : public EnjoLib::IWorksOnLine
@@ -209,11 +208,16 @@ Ticks TicksProviderBinary::ReadFile(const EnjoLib::Str & symbolName, EnjoLib::Is
         }
         void Work(const EnjoLib::Str & line) override
         {
-            const EnjoLib::Str & lineConv = m_parent.ConvertSingle(line);
             static int idx = 0;
+            if (idx++ == 0)
+            {
+                return; // Skip the 1st line
+            }
+            const EnjoLib::Str & lineConv = m_parent.ConvertSingle(line);
+            
             //m_anim.AnimationPropeller(&idx);
             //m_pmon.PrintProgressBarTime(idx++, m_szz);
-            if (idx++ % 50000 == 0)
+            if (idx % 50000 == 0)
             {
                 LOGL << lineConv << Nl;
             }
