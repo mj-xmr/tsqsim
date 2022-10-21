@@ -4,6 +4,7 @@
 
 #include <Ios/Osstream.hpp>
 #include <Util/Str.hpp>
+#include <Util/CoutBuf.hpp>
 #include <Util/Tokenizer.hpp>
 //#include <Template/LoopThreadedTpl.hpp>
 
@@ -13,7 +14,7 @@ using namespace EnjoLib;
 TicksProviderXMR::TicksProviderXMR(){}
 TicksProviderXMR::~TicksProviderXMR(){}
 
-VecStr TicksProviderXMR::ConvertStat(const VecStr & raw)
+VecStr TicksProviderXMR::ConvertStat(const VecStr & raw) const
 {
     /// TODO: It is acceptable but suboptimal to convert to a special format first, although all the data are already available.
     /// TODO: Eventually use: #include <Template/LoopThreadedTpl.hpp>
@@ -26,7 +27,7 @@ VecStr TicksProviderXMR::ConvertStat(const VecStr & raw)
     lines.DataRW().reserve(raw.size());
     for (const Str & line : raw)
     {
-        lines.push_back(ConvertStatSingle(line));
+        lines.push_back(ConvertSingle(line));
     }
     //std::function<decltype(ConvertStatSingle)> f_conv = &ConvertStatSingle;
     //const std::vector<Str> & lines = ConvertVectorThreaded(raw.Data(), f_conv); // Causes a dead loop later at storing.
@@ -34,7 +35,7 @@ VecStr TicksProviderXMR::ConvertStat(const VecStr & raw)
     return lines;
 }
 
-EnjoLib::Str TicksProviderXMR::ConvertStatSingle(const EnjoLib::Str & line) /// TODO: Unit test and optimize
+EnjoLib::Str TicksProviderXMR::ConvertSingle(const EnjoLib::Str & line) const /// TODO: Unit test and optimize
 {
     const Tokenizer tok;
     const TradeUtil tut;
@@ -43,6 +44,7 @@ EnjoLib::Str TicksProviderXMR::ConvertStatSingle(const EnjoLib::Str & line) /// 
     const Str & txnumbStr = toks.at(1);
 
     const DateInt dateTime = tut.Timestamp2DateInt(tstampStr);
+    //LOGL << "TicksProviderXMR::ConvertSingle " << line << Nl;
 
     return tut.GetLineFXfromSeries(dateTime, txnumbStr);
 }

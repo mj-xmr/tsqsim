@@ -33,6 +33,7 @@ pushd $DATA_DIR
 	pushd xmr
 		dload "TXTS.csv"
 		dload "TSDIFF.csv"
+		dload "FEES.csv"
 	popd
 popd
 
