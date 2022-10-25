@@ -32,7 +32,7 @@ if ! cmake .. ; then
 	exit 1
 fi
 make -j$NPROC
-ls 
+ls -l 
 
 echo "Now synchronize the (full) blockchain and then use the 'xmr2csv' executable."
 
