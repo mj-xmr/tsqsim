@@ -3,14 +3,15 @@
 # Uses the Monero blockchain itself to extract the raw data.
 # Warning! It needs a lot of disk space to do this. Expect even ~100 GB.
 
+sudo apt update && sudo apt install build-essential cmake pkg-config libssl-dev libzmq3-dev libunbound-dev libsodium-dev libunwind8-dev liblzma-dev libreadline6-dev libexpat1-dev libpgm-dev libhidapi-dev libusb-1.0-0-dev libprotobuf-dev protobuf-compiler libudev-dev libboost-chrono-dev libboost-date-time-dev libboost-filesystem-dev libboost-locale-dev libboost-program-options-dev libboost-regex-dev libboost-serialization-dev libboost-system-dev libboost-thread-dev python3 ccache
 
 pushd $HOME
 	if [ ! -d monero ]; then
 		git clone --recursive https://github.com/monero-project/monero.git
 	fi
 	pushd monero
-		git submodule init && git submodule update --remote; git submodule sync && git submodule update
 		git checkout master
+		git submodule init && git submodule update --remote; git submodule sync && git submodule update
 		make -j2
 	popd
 popd
