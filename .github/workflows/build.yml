@@ -76,6 +76,23 @@ jobs:
 # TODO: All the unmaintained denendencies should have their own CMakeLists.txt file (URT. Others?) and the util/deps-build.sh should not be used, if possible.
 # TODO: All the testing should be done in a separate job, AFTER building and downloading resources, in order to use caches better (short and easy. Needs to have the build scripts restructured - separate building and testing)
 
+# Build optional utils:
+  utils-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        submodules: recursive
+    # Volatile cache
+    - name: ccache
+      uses: actions/cache@v2
+      with:
+        path: ~/.ccache
+        key:          ccache03-${{ runner.os }}-utils-${{ github.sha }}
+        restore-keys: ccache03-${{ runner.os }}-utils-
+    - name: prepare raw data
+      run: util/prep-raw.sh
+      
 # Performance tests:
   perf-ubuntu:
     runs-on: ubuntu-latest
