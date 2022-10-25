@@ -1,6 +1,8 @@
 #!/bin/bash -e
 
+# URL with preprocessed data.
 URL="http://cryptog.hopto.org/monero/data/"
+# As a more raw alternative, use: ./util/prep-raw.sh
 
 dload () {
 	DATA_FILE_BASE=$1

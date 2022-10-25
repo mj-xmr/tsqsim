@@ -241,6 +241,7 @@ Ticks TicksProviderBinary::ReadFile(const EnjoLib::Str & symbolName, EnjoLib::Is
     //const VecStr & linesConv = Convert(lines);
     //Ticks t(symbolName, linesConv);
     out << symbolName << ": Filtering" << Endl;
+
     //t = t.FromYear(2010);
     //t = t.FromMonth(8);
     return worker.m_ticks;

@@ -1,8 +1,15 @@
 [submodule "externals/EnjoLib"]
 	path = externals/EnjoLib
 	url = https://github.com/EnjoMitch/EnjoLib.git
+	branch = master
 	ignore = untracked
 [submodule "externals/URT"]
 	path = externals/URT
 	url = https://github.com/mj-xmr/URT.git
+	branch = master
+	ignore = untracked
+[submodule "externals/transactions-export-mj"]
+	path = externals/transactions-export-mj
+	url = https://github.com/mj-xmr/transactions-export-mj.git
+	branch = master
 	ignore = untracked

@@ -152,7 +152,7 @@ EnjoLib::Array<const IPeriod*> Symbol<T>::GetPeriodsAll() const
     periods.push_back(&pd);
     periods.push_back(&pw);
     periods.push_back(&pm);
-    
+
     return periods;
 }
 
@@ -160,19 +160,10 @@ template <class T>
 std::vector<IPeriod*> Symbol<T>::GetPeriodsRWAll()
 {
     std::vector<IPeriod*> periods;
-    periods.push_back(&pm1);
-    periods.push_back(&pm5);
-    periods.push_back(&pm15);
-    periods.push_back(&pm30);
-    periods.push_back(&ph1);
-    periods.push_back(&ph2);
-    periods.push_back(&ph4);
-    periods.push_back(&ph8);
-    periods.push_back(&ph12);
-    periods.push_back(&pd);
-    periods.push_back(&pw);
-    periods.push_back(&pm);
-    
+    for (const IPeriod * p : GetPeriodsAll())
+    {
+        periods.push_back(const_cast<IPeriod *>(p));
+    }
     return periods;
 }
 
