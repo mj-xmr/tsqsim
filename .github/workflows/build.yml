@@ -18,9 +18,18 @@ env:
   WIN_INSTALL_PATH: D:/a/tsqsim/tsqsim/build/default-static-release/bin
 
 jobs:
-  # Build optional utils:
-  utils-ubuntu:
-    runs-on: ubuntu-latest
+  build-ubuntu:
+    runs-on: ${{ matrix.os }}
+    env:
+      CCACHE_TEMPDIR: /tmp/.ccache-temp
+    strategy:
+      fail-fast: false
+#      max-parallel: 1 # Single threaded for now, because the jobs overwrite each other's data/bin/* files?
+      matrix:
+        os: [ubuntu-latest] #, ubuntu-18.04] # TODO: Consider(!) supporting the previous version.
+        compiler: [gcc]
+        options: [""]
+        linkage: [""]
     steps:
     - uses: actions/checkout@v1
       with:
@@ -30,7 +39,43 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.ccache
-        key:          ccache03-${{ runner.os }}-utils-${{ github.sha }}
-        restore-keys: ccache03-${{ runner.os }}-utils-
-    - name: prepare raw data
+        key:          ccache03-${{ runner.os }}-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.linkage }}-${{ matrix.options }}-build-${{ github.sha }}
+        restore-keys: ccache03-${{ runner.os }}-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.linkage }}-${{ matrix.options }}-build-
+    # Less volatile cache
+    - name: data cache
+      uses: actions/cache@v2
+      with:
+        path: build/data/data/txt
+        key:          data-${{ hashFiles('build/data/data/txt/**/*') }}
+        restore-keys: data-${{ hashFiles('build/data/data/txt/**/*') }}
+#    - name: deps cache
+#      uses: actions/cache@v2
+#      with:
+#        path: build/deps/dload
+#        key:          deps-${{ hashFiles('build/deps/dload/*') }}
+#        restore-keys: deps-${{ hashFiles('build/deps/dload/*') }}
+    - name: prepare environment RAW
       run: util/prep-raw.sh
+    - name: prepare environment
+      run: util/prep-env.sh
+    - name: set apt conf
+      run: ${{env.APT_SET_CONF}}
+    - name: install dependencies
+      run: util/deps-pull.sh
+    - name: build & install the unmanaged dependencies
+      run: util/deps-build.sh
+    - name: build
+      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} ${{ matrix.options }} --unity --build-r
+    - name: run demo
+      run: ./ci-default --compiler ${{ matrix.compiler }} ${{ matrix.linkage }} ${{ matrix.options }} --unity --build-r --run-demo
+# It doesn't make sense for now, since we're not linking Boost statically yet.
+#    - uses: actions/upload-artifact@v2
+#      if: ${{ matrix.compiler == 'gcc' && matrix.linkage == '--lto' }}
+#      with:
+#        name: tsqsim-${{ matrix.os }}
+#        path: /home/runner/work/tsqsim/tsqsim/build/${{ matrix.compiler }}-static-release/bin/*
+# TODO: todos sorted by priority*realism:
+# TODO: All the unmaintained denendencies should have their own CMakeLists.txt file (URT. Others?) and the util/deps-build.sh should not be used, if possible.
+# TODO: All the testing should be done in a separate job, AFTER building and downloading resources, in order to use caches better (short and easy. Needs to have the build scripts restructured - separate building and testing)
+
+
