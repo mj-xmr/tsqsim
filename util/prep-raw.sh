@@ -36,5 +36,5 @@ fi
 make -j$NPROC
 ls 
 
-echo "Now synchronize the (full) blockchain and use the 'xmr2csv' executable."
+echo "Now synchronize the (full) blockchain and then use the 'xmr2csv' executable."
 
