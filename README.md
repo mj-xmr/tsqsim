@@ -193,8 +193,6 @@ tsqdev-dbg
 # Acknowledgments
 The project uses a lot of code written by me in the previous 10+ years. 
 I’m now decoupling it and making it reusable for generic purposes.
-The development of this project is currently being financed by the generous Monero Community (MC). 
-Thus the priorities of the development are skewed towards delivering results to the MC.
 
 # Example outputs
 ## QT data viewer
